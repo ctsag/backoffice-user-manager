@@ -1,0 +1,881 @@
+{
+	"info": {
+		"_postman_id": "a77c9522-5c9b-45ac-a2ed-54791c88ddea",
+		"name": "Backoffice User Manager",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Health check",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8b0cec40-c943-490b-8c5b-23e35ecac06d",
+						"exec": [
+							"pm.test(\"Has a 200 OK status\", () => {\r",
+							"    const response = pm.response;\r",
+							"    pm.expect(response.code).to.eql(200);\r",
+							"    pm.expect(response.status).to.eql(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Service status is UP\", () => {\r",
+							"    const jsonData = pm.response.json();    \r",
+							"    pm.expect(jsonData.status).to.eql(\"UP\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:50001/actuator/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "50001",
+					"path": [
+						"actuator",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Entry point check",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b8ca8550-1163-4b52-aeae-e8d8b9bbc685",
+						"exec": [
+							"pm.test(\"Has a 200 OK status\", () => {\r",
+							"    const response = pm.response;\r",
+							"    pm.expect(response.code).to.eql(200);\r",
+							"    pm.expect(response.status).to.eql(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has a link to the users endpoint\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const expectedLink = pm.request.url.toString() + \"users\";\r",
+							"    pm.expect(jsonData._links.users.href).to.include(expectedLink);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:50001",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "50001"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1512d17e-c739-4e93-ad0d-74020a44be7f",
+						"exec": [
+							"pm.test(\"Has a 201 Created status\", () => {\r",
+							"    const response = pm.response;\r",
+							"    pm.expect(response.code).to.eql(201);\r",
+							"    pm.expect(response.status).to.eql(\"Created\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has a link to the created user\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const expectedUser = {\r",
+							"        \"firstName\": \"Kostas\",\r",
+							"        \"lastName\": \"Stefanis\",\r",
+							"        \"_links\": {\r",
+							"          \"self\": {\r",
+							"            \"href\": pm.request.url.toString() + \"/1\"\r",
+							"          },\r",
+							"          \"backofficeUser\": {\r",
+							"            \"href\": pm.request.url.toString() + \"/1\"\r",
+							"          }\r",
+							"        }\r",
+							"    };\r",
+							"    pm.expect(jsonData).to.deep.include(expectedUser);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"firstName\" : \"Kostas\",\n\t\"lastName\" : \"Stefanis\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:50001/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "50001",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List all users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ebeb99de-b935-4f0c-997e-102f1bffe346",
+						"exec": [
+							"pm.test(\"Has a 200 OK status\", () => {\r",
+							"    const response = pm.response;\r",
+							"    pm.expect(response.code).to.eql(200);\r",
+							"    pm.expect(response.status).to.eql(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has a link to the specified user\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const expectedUser = {\r",
+							"        \"firstName\": \"Kostas\",\r",
+							"        \"lastName\": \"Stefanis\",\r",
+							"        \"_links\": {\r",
+							"            \"self\": {\r",
+							"                \"href\": pm.request.url.toString() + \"/1\"\r",
+							"            },\r",
+							"            \"backofficeUser\": {\r",
+							"                \"href\": pm.request.url.toString() + \"/1\"\r",
+							"            }\r",
+							"        }\r",
+							"    };\r",
+							"    pm.expect(jsonData._embedded.users).to.deep.include(expectedUser);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:50001/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "50001",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve created user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e92bdf81-4ce9-4334-b5cb-e2c9143e5144",
+						"exec": [
+							"pm.test(\"Has a 200 OK status\", () => {\r",
+							"    const response = pm.response;\r",
+							"    pm.expect(response.code).to.eql(200);\r",
+							"    pm.expect(response.status).to.eql(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Retuns the created user\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const expectedUser = {\r",
+							"        \"firstName\": \"Kostas\",\r",
+							"        \"lastName\": \"Stefanis\",\r",
+							"        \"_links\": {\r",
+							"            \"self\": {\r",
+							"                \"href\": pm.request.url.toString()\r",
+							"            },\r",
+							"            \"backofficeUser\": {\r",
+							"                \"href\": pm.request.url.toString()\r",
+							"            }\r",
+							"        }\r",
+							"    };\r",
+							"    pm.expect(jsonData).to.deep.include(expectedUser);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:50001/users/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "50001",
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve non existent user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "92c4e91a-48c1-4a1b-bda2-4876bd19472f",
+						"exec": [
+							"pm.test(\"Has a 404 Not Found status\", () => {\r",
+							"    const response = pm.response;\r",
+							"    pm.expect(response.code).to.eql(404);\r",
+							"    pm.expect(response.status).to.eql(\"Not Found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:50001/users/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "50001",
+					"path": [
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user via PATCH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f6dbf516-87f2-4e66-a031-17d1cc71ab21",
+						"exec": [
+							"pm.test(\"Has a 200 OK status\", () => {\r",
+							"    const response = pm.response;\r",
+							"    pm.expect(response.code).to.eql(200);\r",
+							"    pm.expect(response.status).to.eql(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns the updated user\", () => {    \r",
+							"    const jsonData = pm.response.json();\r",
+							"    const expectedUser = {\r",
+							"        \"firstName\": \"Kostas\",\r",
+							"        \"lastName\": \"Tsagkournis\",\r",
+							"        \"_links\": {\r",
+							"            \"self\": {\r",
+							"                \"href\": pm.request.url.toString()\r",
+							"            },\r",
+							"            \"backofficeUser\": {\r",
+							"                \"href\": pm.request.url.toString()\r",
+							"            }\r",
+							"        }\r",
+							"    };\r",
+							"    pm.expect(jsonData).to.deep.include(expectedUser);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"lastName\": \"Tsagkournis\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:50001/users/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "50001",
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update non existent user via PATCH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ce0dec89-06e3-4c6d-8474-577c7035f57a",
+						"exec": [
+							"pm.test(\"Has a 404 Not Found status\", () => {\r",
+							"    const response = pm.response;\r",
+							"    pm.expect(response.code).to.eql(404);\r",
+							"    pm.expect(response.status).to.eql(\"Not Found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"lastName\": \"Tsagkournis\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:50001/users/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "50001",
+					"path": [
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user via PUT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9f5b07c0-f1c8-4cb2-89f3-033e3279a60d",
+						"exec": [
+							"pm.test(\"Has a 200 OK status\", () => {\r",
+							"    const response = pm.response;\r",
+							"    pm.expect(response.code).to.eql(200);\r",
+							"    pm.expect(response.status).to.eql(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns the updated user\", () => {    \r",
+							"    const jsonData = pm.response.json();\r",
+							"    const expectedUser = {\r",
+							"        \"firstName\": \"Kostis\",\r",
+							"        \"lastName\": \"Tsagkournis\",\r",
+							"        \"_links\": {\r",
+							"            \"self\": {\r",
+							"                \"href\": pm.request.url.toString()\r",
+							"            },\r",
+							"            \"backofficeUser\": {\r",
+							"                \"href\": pm.request.url.toString()\r",
+							"            }\r",
+							"        }\r",
+							"    };\r",
+							"    pm.expect(jsonData).to.deep.include(expectedUser);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n    \"firstName\": \"Kostis\",\n\t\"lastName\": \"Tsagkournis\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:50001/users/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "50001",
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user via PUT with partial data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "de7731e7-2c29-4bca-9c7f-b643b9154d78",
+						"exec": [
+							"pm.test(\"Has a 200 OK status\", () => {\r",
+							"    const response = pm.response;\r",
+							"    pm.expect(response.code).to.eql(200);\r",
+							"    pm.expect(response.status).to.eql(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns the updated user with nulls in non provided attributes\", () => {    \r",
+							"    const jsonData = pm.response.json();\r",
+							"    const expectedUser = {\r",
+							"        \"firstName\": null,\r",
+							"        \"lastName\": \"Tsagkournis\",\r",
+							"        \"_links\": {\r",
+							"            \"self\": {\r",
+							"                \"href\": pm.request.url.toString()\r",
+							"            },\r",
+							"            \"backofficeUser\": {\r",
+							"                \"href\": pm.request.url.toString()\r",
+							"            }\r",
+							"        }\r",
+							"    };\r",
+							"    pm.expect(jsonData).to.deep.include(expectedUser);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"lastName\": \"Tsagkournis\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:50001/users/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "50001",
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update non existent user via PUT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "83220e83-11eb-4ea2-b58b-0ee21860f86e",
+						"exec": [
+							"pm.test(\"Has a 201 Created status\", () => {\r",
+							"    const response = pm.response;\r",
+							"    pm.expect(response.code).to.eql(201);\r",
+							"    pm.expect(response.status).to.eql(\"Created\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has a link to the created user\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const expectedUser = {\r",
+							"        \"firstName\": \"Kostis\",\r",
+							"        \"lastName\": \"Tsagkournis\",\r",
+							"        \"_links\": {\r",
+							"          \"self\": {\r",
+							"            \"href\": pm.request.url.toString()\r",
+							"          },\r",
+							"          \"backofficeUser\": {\r",
+							"            \"href\": pm.request.url.toString()\r",
+							"          }\r",
+							"        }\r",
+							"    };\r",
+							"    pm.expect(jsonData).to.deep.include(expectedUser);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n    \"firstName\": \"Kostis\",\n\t\"lastName\": \"Tsagkournis\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:50001/users/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "50001",
+					"path": [
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve users by last name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "01ad14a4-0b43-424a-82ca-1d8d6756efc6",
+						"exec": [
+							"pm.test(\"Has a 200 OK status\", () => {\r",
+							"    const response = pm.response;\r",
+							"    pm.expect(response.code).to.eql(200);\r",
+							"    pm.expect(response.status).to.eql(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Retuns both created users\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData._embedded.users).to.have.length(2);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:50001/users/search/findByLastName?name=Tsagkournis",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "50001",
+					"path": [
+						"users",
+						"search",
+						"findByLastName"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Tsagkournis"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete first created user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "14fb3813-9e03-41a6-9d2e-0cc1c3c531d0",
+						"exec": [
+							"pm.test(\"Has a 204 No Content status\", () => {\r",
+							"    const response = pm.response;\r",
+							"    pm.expect(response.code).to.eql(204);\r",
+							"    pm.expect(response.status).to.eql(\"No Content\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:50001/users/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "50001",
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete second created user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5540dcc-8e00-47fe-a578-8f21acb72595",
+						"exec": [
+							"pm.test(\"Has a 204 No Content status\", () => {\r",
+							"    const response = pm.response;\r",
+							"    pm.expect(response.code).to.eql(204);\r",
+							"    pm.expect(response.status).to.eql(\"No Content\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:50001/users/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "50001",
+					"path": [
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete non existent user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "70f42910-b649-42b7-91de-98ab6af5c1d5",
+						"exec": [
+							"pm.test(\"Has a 404 Not Found status\", () => {\r",
+							"    const response = pm.response;\r",
+							"    pm.expect(response.code).to.eql(404);\r",
+							"    pm.expect(response.status).to.eql(\"Not Found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:50001/users/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "50001",
+					"path": [
+						"users",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve a deleted user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d4bb1391-1808-468e-93de-fa7acf705378",
+						"exec": [
+							"pm.test(\"Has a 404 Not Found status\", () => {\r",
+							"    const response = pm.response;\r",
+							"    pm.expect(response.code).to.eql(404);\r",
+							"    pm.expect(response.status).to.eql(\"Not Found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:50001/users/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "50001",
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List all users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "09fa14f3-45b2-4aca-98e2-900ef467e52b",
+						"exec": [
+							"pm.test(\"Has a 200 OK status\", () => {\r",
+							"    const response = pm.response;\r",
+							"    pm.expect(response.code).to.eql(200);\r",
+							"    pm.expect(response.status).to.eql(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns an empty user list\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(jsonData._embedded.users).to.be.empty;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:50001/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "50001",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "37d9599a-cbd1-47f4-a1b2-0186682fd918",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "c3760cbc-086a-46ad-a154-9dfda9482035",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
