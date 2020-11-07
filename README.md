@@ -20,7 +20,7 @@ The areas all implementations must cover are :
     - JUnit 5
     - PITest
 
-* Acceptance testing
+* Build acceptance testing
     - Newman
 
 * Functional testing
@@ -53,7 +53,7 @@ All implementations will comply to the following ruless :
 <artifactId>data-jpa</artifactId>
 <version>0.0.1-SNAPSHOT</version>
 <name>Data JPA</name>
-<description>Spring skeleton for a RESTful service</description>
+<description>Data JPA implementation</description>
 ```
 
 * Lombok will always be a dependency and will be used for the following :
