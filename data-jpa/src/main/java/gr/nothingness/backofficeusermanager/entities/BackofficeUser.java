@@ -14,12 +14,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-//TODO: password should not be returned back to the requestor
-//TODO: perhaps the username can be added as a REST path?
-//TODO: OPTIONS verb for actuator paths?
-//TODO: eTags and caching?
-//TODO: Display id in response body
-
 @Entity(name = "tadminuser")
 @NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -50,4 +44,3 @@ public class BackofficeUser {
   @Getter @Setter private List<Permission> permissions;
 
 }
-
