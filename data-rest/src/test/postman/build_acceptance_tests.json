@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "63eb26ee-4dd4-4171-b164-3fb229174073",
-		"name": "Backoffice User Manager (JPA)",
+		"_postman_id": "a77c9522-5c9b-45ac-a2ed-54791c88ddea",
+		"name": "Backoffice User Manager (REST)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -11,7 +11,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d03e398c-d032-4634-a83b-111b88c5bad7",
+						"id": "8b0cec40-c943-490b-8c5b-23e35ecac06d",
 						"exec": [
 							"pm.test(\"Has a 200 OK status\", () => {\r",
 							"    const response = pm.response;\r",
@@ -50,7 +50,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "6bbc6353-9524-4a3a-ab0b-12114ae2b178",
+						"id": "d2fa599a-83f3-4656-bc96-2332e07e76ce",
 						"exec": [
 							"pm.test(\"Has a 200 OK status\", () => {\r",
 							"    const response = pm.response;\r",
@@ -58,10 +58,9 @@
 							"    pm.expect(response.status).to.eql(\"OK\");\r",
 							"});\r",
 							"\r",
-							"pm.test(\"Has a link to the users endpoint\", () => {\r",
-							"    const jsonData = pm.response.json();\r",
-							"    const expectedLink = pm.request.url.toString() + \"users\";\r",
-							"    pm.expect(jsonData._links.users.href).to.include(expectedLink);\r",
+							"pm.test(\"Service status is UP\", () => {\r",
+							"    const jsonData = pm.response.json();    \r",
+							"    pm.expect(jsonData.status).to.eql(\"UP\");\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -72,12 +71,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:50001",
-					"protocol": "http",
+					"raw": "{{Home endpoint}}",
 					"host": [
-						"localhost"
-					],
-					"port": "50001"
+						"{{Home endpoint}}"
+					]
 				}
 			},
 			"response": []
@@ -88,7 +85,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "a666e73f-4966-46ca-bf07-882cfb28894b",
+						"id": "1512d17e-c739-4e93-ad0d-74020a44be7f",
 						"exec": [
 							"pm.test(\"Has a 201 Created status\", () => {\r",
 							"    const response = pm.response;\r",
@@ -129,7 +126,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \n    \"username\": \"ktsagkou\",\n    \"password\": \"123abc!\",\n\t\"firstName\" : \"Kostas\",\n\t\"lastName\" : \"Stefanis\"\n}",
+					"raw": "{ \n\t\"username\" : \"ktsagkou\",\n    \"password\" : \"t3nt3k\",\n\t\"firstName\" : \"Kostas\",\n    \"lastName\" : \"Stefanis\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -151,7 +148,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d5fd0dde-3783-4fdf-8d83-0fb77ad39c99",
+						"id": "292d34b2-5ca2-4411-b630-9426276add82",
 						"exec": [
 							"pm.test(\"Has a 201 Created status\", () => {\r",
 							"    const response = pm.response;\r",
@@ -214,7 +211,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "bb27a3e7-075b-4fe3-9d1d-3106b3019d0a",
+						"id": "ebeb99de-b935-4f0c-997e-102f1bffe346",
 						"exec": [
 							"pm.test(\"Has a 200 OK status\", () => {\r",
 							"    const response = pm.response;\r",
@@ -247,14 +244,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:50001/users",
-					"protocol": "http",
+					"raw": "{{Users endpoint}}",
 					"host": [
-						"localhost"
-					],
-					"port": "50001",
-					"path": [
-						"users"
+						"{{Users endpoint}}"
 					]
 				}
 			},
@@ -266,7 +258,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "201b0fd0-e240-4e66-bc2b-61a850872d68",
+						"id": "a7d184d4-bab9-452d-be8d-491fbc4474a5",
 						"exec": [
 							"pm.test(\"Has a 200 OK status\", () => {\r",
 							"    const response = pm.response;\r",
@@ -299,14 +291,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:50001/users",
-					"protocol": "http",
+					"raw": "{{Permissions endpoint}}",
 					"host": [
-						"localhost"
-					],
-					"port": "50001",
-					"path": [
-						"users"
+						"{{Permissions endpoint}}"
 					]
 				}
 			},
@@ -318,7 +305,90 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "590582ec-8c94-463d-9dc7-c93cc3ff0e86",
+						"id": "016aaf88-8a28-45e2-9069-c50780bfea62",
+						"exec": [
+							"pm.test(\"Has a 200 OK status\", () => {\r",
+							"    const response = pm.response;\r",
+							"    pm.expect(response.code).to.eql(200);\r",
+							"    pm.expect(response.status).to.eql(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has a link to the specified user\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const expectedUser = {\r",
+							"        \"firstName\": \"Kostas\",\r",
+							"        \"lastName\": \"Stefanis\",\r",
+							"        \"_links\": {\r",
+							"            \"self\": {\r",
+							"                \"href\": pm.request.url.toString() + \"/1\"\r",
+							"            },\r",
+							"            \"backofficeUser\": {\r",
+							"                \"href\": pm.request.url.toString() + \"/1\"\r",
+							"            }\r",
+							"        }\r",
+							"    };\r",
+							"    pm.expect(jsonData._embedded.users).to.deep.include(expectedUser);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Users endpoint}}/1",
+					"host": [
+						"{{Users endpoint}}"
+					],
+					"path": [
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve non existent user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "92c4e91a-48c1-4a1b-bda2-4876bd19472f",
+						"exec": [
+							"pm.test(\"Has a 404 Not Found status\", () => {\r",
+							"    const response = pm.response;\r",
+							"    pm.expect(response.code).to.eql(404);\r",
+							"    pm.expect(response.status).to.eql(\"Not Found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Users endpoint}}/99",
+					"host": [
+						"{{Users endpoint}}"
+					],
+					"path": [
+						"99"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve created permission",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e92bdf81-4ce9-4334-b5cb-e2c9143e5144",
 						"exec": [
 							"pm.test(\"Has a 200 OK status\", () => {\r",
 							"    const response = pm.response;\r",
@@ -351,87 +421,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:50001/users/1",
-					"protocol": "http",
+					"raw": "{{Permissions endpoint}}/CanViewSensitiveData",
 					"host": [
-						"localhost"
+						"{{Permissions endpoint}}"
 					],
-					"port": "50001",
 					"path": [
-						"users",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Retrieve non existent user",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "06769e12-bd8a-49e4-8146-baeb7306a81a",
-						"exec": [
-							"pm.test(\"Has a 404 Not Found status\", () => {\r",
-							"    const response = pm.response;\r",
-							"    pm.expect(response.code).to.eql(404);\r",
-							"    pm.expect(response.status).to.eql(\"Not Found\");\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:50001/users/2",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "50001",
-					"path": [
-						"users",
-						"2"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Retrieve created permission",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "469a98e5-3ba6-4fff-a9c7-89699ef8a580",
-						"exec": [
-							"pm.test(\"Has a 404 Not Found status\", () => {\r",
-							"    const response = pm.response;\r",
-							"    pm.expect(response.code).to.eql(404);\r",
-							"    pm.expect(response.status).to.eql(\"Not Found\");\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:50001/users/2",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "50001",
-					"path": [
-						"users",
-						"2"
+						"CanViewSensitiveData"
 					]
 				}
 			},
@@ -443,7 +438,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "df62d8ce-6a5c-401a-b4f4-e5bc43da2e64",
+						"id": "703c2373-1a91-4c4a-905f-71ec1e36e2f5",
 						"exec": [
 							"pm.test(\"Has a 404 Not Found status\", () => {\r",
 							"    const response = pm.response;\r",
@@ -458,248 +453,6 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:50001/users/2",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "50001",
-					"path": [
-						"users",
-						"2"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update user via PATCH",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "ac269c44-fcb3-4c11-aa45-e445fdbcec5b",
-						"exec": [
-							"pm.test(\"Has a 200 OK status\", () => {\r",
-							"    const response = pm.response;\r",
-							"    pm.expect(response.code).to.eql(200);\r",
-							"    pm.expect(response.status).to.eql(\"OK\");\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Returns the updated user\", () => {    \r",
-							"    const jsonData = pm.response.json();\r",
-							"    const expectedUser = {\r",
-							"        \"firstName\": \"Kostas\",\r",
-							"        \"lastName\": \"Tsagkournis\",\r",
-							"        \"_links\": {\r",
-							"            \"self\": {\r",
-							"                \"href\": pm.request.url.toString()\r",
-							"            },\r",
-							"            \"backofficeUser\": {\r",
-							"                \"href\": pm.request.url.toString()\r",
-							"            }\r",
-							"        }\r",
-							"    };\r",
-							"    pm.expect(jsonData).to.deep.include(expectedUser);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PATCH",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \n\t\"lastName\": \"Tsagkournis\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:50001/users/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "50001",
-					"path": [
-						"users",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update non existent user via PATCH",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "55c128e8-ce5f-4ca7-a264-1fec7f93812d",
-						"exec": [
-							"pm.test(\"Has a 404 Not Found status\", () => {\r",
-							"    const response = pm.response;\r",
-							"    pm.expect(response.code).to.eql(404);\r",
-							"    pm.expect(response.status).to.eql(\"Not Found\");\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PATCH",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \n\t\"lastName\": \"Tsagkournis\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:50001/users/2",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "50001",
-					"path": [
-						"users",
-						"2"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update permission via PATCH",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "26f0e9f8-891c-4b4e-84ac-16411c1ce63d",
-						"exec": [
-							"pm.test(\"Has a 200 OK status\", () => {\r",
-							"    const response = pm.response;\r",
-							"    pm.expect(response.code).to.eql(200);\r",
-							"    pm.expect(response.status).to.eql(\"OK\");\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Returns the updated user\", () => {    \r",
-							"    const jsonData = pm.response.json();\r",
-							"    const expectedUser = {\r",
-							"        \"firstName\": \"Kostas\",\r",
-							"        \"lastName\": \"Tsagkournis\",\r",
-							"        \"_links\": {\r",
-							"            \"self\": {\r",
-							"                \"href\": pm.request.url.toString()\r",
-							"            },\r",
-							"            \"backofficeUser\": {\r",
-							"                \"href\": pm.request.url.toString()\r",
-							"            }\r",
-							"        }\r",
-							"    };\r",
-							"    pm.expect(jsonData).to.deep.include(expectedUser);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PATCH",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \n\t\"lastName\": \"Tsagkournis\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:50001/users/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "50001",
-					"path": [
-						"users",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update non existent permission via PATCH",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "8e0f4c09-9310-42c8-9c77-268211528ac2",
-						"exec": [
-							"pm.test(\"Has a 404 Not Found status\", () => {\r",
-							"    const response = pm.response;\r",
-							"    pm.expect(response.code).to.eql(404);\r",
-							"    pm.expect(response.status).to.eql(\"Not Found\");\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PATCH",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \n\t\"description\": \"Can view GDPR data\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
 					"raw": "{{Permissions endpoint}}/CanDeleteSensitiveData",
 					"host": [
@@ -718,7 +471,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "755ce2ba-3960-4a7d-bf82-09dc6ab45e83",
+						"id": "9f5b07c0-f1c8-4cb2-89f3-033e3279a60d",
 						"exec": [
 							"pm.test(\"Has a 200 OK status\", () => {\r",
 							"    const response = pm.response;\r",
@@ -759,7 +512,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \n    \"username\": \"ktsagkou\",\n    \"password\": \"123abc!\",\n\t\"firstName\" : \"Kostas\",\n\t\"lastName\" : \"Stefanis\"\n}",
+					"raw": "{ \n\t\"username\" : \"ktsagkou\",\n    \"password\" : \"t3nt3k\",\n\t\"firstName\" : \"Kostas\",\n    \"lastName\" : \"Tsagkournis\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -784,7 +537,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "769a5ca5-8944-4ff8-b506-b7853b48bc29",
+						"id": "de7731e7-2c29-4bca-9c7f-b643b9154d78",
 						"exec": [
 							"pm.test(\"Has a 200 OK status\", () => {\r",
 							"    const response = pm.response;\r",
@@ -825,7 +578,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \n\t\"lastName\": \"Tsagkournis\"\n}",
+					"raw": "{ \n\t\"lastName\": \"Stefanis\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -850,7 +603,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "a8ed07be-16c6-47c0-acb2-a6d8226d6fb0",
+						"id": "83220e83-11eb-4ea2-b58b-0ee21860f86e",
 						"exec": [
 							"pm.test(\"Has a 201 Created status\", () => {\r",
 							"    const response = pm.response;\r",
@@ -891,7 +644,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \n    \"firstName\": \"Kostis\",\n\t\"lastName\": \"Tsagkournis\"\n}",
+					"raw": "{ \n\t\"username\" : \"ctsagkou\",\n    \"password\" : \"123abc!\",\n\t\"firstName\" : \"Kostas\",\n    \"lastName\" : \"Tsagkournis\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -899,12 +652,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{Users endpoint}}/99",
+					"raw": "{{Users endpoint}}/2",
 					"host": [
 						"{{Users endpoint}}"
 					],
 					"path": [
-						"99"
+						"2"
 					]
 				}
 			},
@@ -916,7 +669,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "34955525-ceb7-4cf1-b32a-fc9cd832aa2e",
+						"id": "48c3e596-099d-4406-99d2-08fcc8deaf8a",
 						"exec": [
 							"pm.test(\"Has a 200 OK status\", () => {\r",
 							"    const response = pm.response;\r",
@@ -957,7 +710,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \n\t\"name\" : \"CanViewSensitiveData\",\n    \"description\" : \"Can view GDPR data\",\n\t\"type\" : \"BETFAIR\",\n    \"displayOrder\" : 1\n}",
+					"raw": "{ \n\t\"name\" : \"CanViewSensitiveData\",\n    \"description\" : \"Can view GDPR data!\",\n\t\"type\" : \"BETFAIR\",\n    \"displayOrder\" : 1\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -965,12 +718,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{Permissions endpoint}}/1",
+					"raw": "{{Permissions endpoint}}/CanViewSensitiveData",
 					"host": [
 						"{{Permissions endpoint}}"
 					],
 					"path": [
-						"1"
+						"CanViewSensitiveData"
 					]
 				}
 			},
@@ -982,7 +735,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "ae695f33-a76d-4baf-9f54-466a4e6c68fa",
+						"id": "00f4e3ff-4e06-4111-a3fb-0a47ae944893",
 						"exec": [
 							"pm.test(\"Has a 200 OK status\", () => {\r",
 							"    const response = pm.response;\r",
@@ -1023,7 +776,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \n    \"description\" : \"Can view sensitive data\"\n}",
+					"raw": "{ \n\t\"type\" : \"PPB\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1048,7 +801,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "723f0cd0-9e66-401f-821a-150aaf776779",
+						"id": "9047d71d-383f-45b0-b1ae-b44266bbb7da",
 						"exec": [
 							"pm.test(\"Has a 201 Created status\", () => {\r",
 							"    const response = pm.response;\r",
@@ -1089,7 +842,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \n\t\"name\" : \"CanDeleteSensitiveData\",\n    \"description\" : \"Can delete GDPR data\",\n\t\"type\" : \"BETFAIR\",\n    \"displayOrder\" : 1\n}",
+					"raw": "{ \n\t\"name\" : \"CanSaveSensitiveData\",\n    \"description\" : \"Can save GDPR data!\",\n\t\"type\" : \"BETFAIR\",\n    \"displayOrder\" : 1\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1109,12 +862,276 @@
 			"response": []
 		},
 		{
+			"name": "Update user via PATCH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4c766a0c-a930-41e3-961e-ce253a556c94",
+						"exec": [
+							"pm.test(\"Has a 200 OK status\", () => {\r",
+							"    const response = pm.response;\r",
+							"    pm.expect(response.code).to.eql(200);\r",
+							"    pm.expect(response.status).to.eql(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns the updated user with nulls in non provided attributes\", () => {    \r",
+							"    const jsonData = pm.response.json();\r",
+							"    const expectedUser = {\r",
+							"        \"firstName\": null,\r",
+							"        \"lastName\": \"Tsagkournis\",\r",
+							"        \"_links\": {\r",
+							"            \"self\": {\r",
+							"                \"href\": pm.request.url.toString()\r",
+							"            },\r",
+							"            \"backofficeUser\": {\r",
+							"                \"href\": pm.request.url.toString()\r",
+							"            }\r",
+							"        }\r",
+							"    };\r",
+							"    pm.expect(jsonData).to.deep.include(expectedUser);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"username\" : \"ktsagkou\",\n    \"password\" : \"t3nt3k\",\n\t\"firstName\" : \"Kostas\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Users endpoint}}/1",
+					"host": [
+						"{{Users endpoint}}"
+					],
+					"path": [
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update non existent user via PATCH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cb8d7ba4-0c6b-4bb5-b0ed-0716f09b9487",
+						"exec": [
+							"pm.test(\"Has a 200 OK status\", () => {\r",
+							"    const response = pm.response;\r",
+							"    pm.expect(response.code).to.eql(200);\r",
+							"    pm.expect(response.status).to.eql(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns the updated user with nulls in non provided attributes\", () => {    \r",
+							"    const jsonData = pm.response.json();\r",
+							"    const expectedUser = {\r",
+							"        \"firstName\": null,\r",
+							"        \"lastName\": \"Tsagkournis\",\r",
+							"        \"_links\": {\r",
+							"            \"self\": {\r",
+							"                \"href\": pm.request.url.toString()\r",
+							"            },\r",
+							"            \"backofficeUser\": {\r",
+							"                \"href\": pm.request.url.toString()\r",
+							"            }\r",
+							"        }\r",
+							"    };\r",
+							"    pm.expect(jsonData).to.deep.include(expectedUser);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"lastName\": \"Stefanis\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Users endpoint}}/99",
+					"host": [
+						"{{Users endpoint}}"
+					],
+					"path": [
+						"99"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update permission via PATCH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5ecd570c-897a-401a-b6af-c143a5eec9eb",
+						"exec": [
+							"pm.test(\"Has a 200 OK status\", () => {\r",
+							"    const response = pm.response;\r",
+							"    pm.expect(response.code).to.eql(200);\r",
+							"    pm.expect(response.status).to.eql(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns the updated user with nulls in non provided attributes\", () => {    \r",
+							"    const jsonData = pm.response.json();\r",
+							"    const expectedUser = {\r",
+							"        \"firstName\": null,\r",
+							"        \"lastName\": \"Tsagkournis\",\r",
+							"        \"_links\": {\r",
+							"            \"self\": {\r",
+							"                \"href\": pm.request.url.toString()\r",
+							"            },\r",
+							"            \"backofficeUser\": {\r",
+							"                \"href\": pm.request.url.toString()\r",
+							"            }\r",
+							"        }\r",
+							"    };\r",
+							"    pm.expect(jsonData).to.deep.include(expectedUser);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"name\" : \"CanViewSensitiveData\",\n    \"description\" : \"Can view GDPR data!\",\n    \"displayOrder\" : 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Permissions endpoint}}/CanViewSensitiveData",
+					"host": [
+						"{{Permissions endpoint}}"
+					],
+					"path": [
+						"CanViewSensitiveData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update non existent permission via PATCH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1eb0f936-d4dd-4aa6-be25-25eb36aae60f",
+						"exec": [
+							"pm.test(\"Has a 200 OK status\", () => {\r",
+							"    const response = pm.response;\r",
+							"    pm.expect(response.code).to.eql(200);\r",
+							"    pm.expect(response.status).to.eql(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns the updated user with nulls in non provided attributes\", () => {    \r",
+							"    const jsonData = pm.response.json();\r",
+							"    const expectedUser = {\r",
+							"        \"firstName\": null,\r",
+							"        \"lastName\": \"Tsagkournis\",\r",
+							"        \"_links\": {\r",
+							"            \"self\": {\r",
+							"                \"href\": pm.request.url.toString()\r",
+							"            },\r",
+							"            \"backofficeUser\": {\r",
+							"                \"href\": pm.request.url.toString()\r",
+							"            }\r",
+							"        }\r",
+							"    };\r",
+							"    pm.expect(jsonData).to.deep.include(expectedUser);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"type\" : \"BETFAIR\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Permissions endpoint}}/CanUpdateSensitiveData",
+					"host": [
+						"{{Permissions endpoint}}"
+					],
+					"path": [
+						"CanUpdateSensitiveData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Retrieve users by last name",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "c9ddd89b-9be4-4b83-b69a-c40734e00924",
+						"id": "044c2274-9633-49ac-9adb-7b0116240f35",
 						"exec": [
 							"pm.test(\"Has a 200 OK status\", () => {\r",
 							"    const response = pm.response;\r",
@@ -1159,7 +1176,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "0f65e3d0-703c-47eb-9730-65065de70aa8",
+						"id": "6cdc9369-fff4-416f-ace5-f8937e602bdc",
 						"exec": [
 							"pm.test(\"Has a 200 OK status\", () => {\r",
 							"    const response = pm.response;\r",
@@ -1204,40 +1221,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "a6dab1ce-f7a6-41f8-b0ee-eb5077ee1af5",
-						"exec": [
-							"pm.test(\"Has a 204 No Content status\", () => {\r",
-							"    const response = pm.response;\r",
-							"    pm.expect(response.code).to.eql(204);\r",
-							"    pm.expect(response.status).to.eql(\"No Content\");\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "{{Users endpoint}}/1",
-					"host": [
-						"{{Users endpoint}}"
-					],
-					"path": [
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete first created permission",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "dae59333-a504-41a6-a228-2357d64d9a53",
+						"id": "14fb3813-9e03-41a6-9d2e-0cc1c3c531d0",
 						"exec": [
 							"pm.test(\"Has a 204 No Content status\", () => {\r",
 							"    const response = pm.response;\r",
@@ -1270,40 +1254,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "19c4744e-c468-444c-bea2-390f12265125",
-						"exec": [
-							"pm.test(\"Has a 204 No Content status\", () => {\r",
-							"    const response = pm.response;\r",
-							"    pm.expect(response.code).to.eql(204);\r",
-							"    pm.expect(response.status).to.eql(\"No Content\");\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "{{Users endpoint}}/2",
-					"host": [
-						"{{Users endpoint}}"
-					],
-					"path": [
-						"2"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete second created permission",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "0ad04ed8-4e23-4c5a-bc73-49f44179aef9",
+						"id": "47ca89a8-8094-4762-bb66-e4837d0077c1",
 						"exec": [
 							"pm.test(\"Has a 204 No Content status\", () => {\r",
 							"    const response = pm.response;\r",
@@ -1336,12 +1287,12 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "ed764ac0-cef3-45ac-9310-c96ee004fa54",
+						"id": "c5540dcc-8e00-47fe-a578-8f21acb72595",
 						"exec": [
-							"pm.test(\"Has a 404 Not Found status\", () => {\r",
+							"pm.test(\"Has a 204 No Content status\", () => {\r",
 							"    const response = pm.response;\r",
-							"    pm.expect(response.code).to.eql(404);\r",
-							"    pm.expect(response.status).to.eql(\"Not Found\");\r",
+							"    pm.expect(response.code).to.eql(204);\r",
+							"    pm.expect(response.status).to.eql(\"No Content\");\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -1358,6 +1309,72 @@
 					],
 					"path": [
 						"99"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete first created permission",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "29181814-0dc9-4a5c-8083-dcd50b0ac5f6",
+						"exec": [
+							"pm.test(\"Has a 204 No Content status\", () => {\r",
+							"    const response = pm.response;\r",
+							"    pm.expect(response.code).to.eql(204);\r",
+							"    pm.expect(response.status).to.eql(\"No Content\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{Permissions endpoint}}/CanViewSensitiveData",
+					"host": [
+						"{{Permissions endpoint}}"
+					],
+					"path": [
+						"CanViewSensitiveData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete second created permission",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "67cdb4b4-192d-45fe-888a-891fbf3914d3",
+						"exec": [
+							"pm.test(\"Has a 204 No Content status\", () => {\r",
+							"    const response = pm.response;\r",
+							"    pm.expect(response.code).to.eql(204);\r",
+							"    pm.expect(response.status).to.eql(\"No Content\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{Permissions endpoint}}/CanDeleteSensitiveData",
+					"host": [
+						"{{Permissions endpoint}}"
+					],
+					"path": [
+						"CanDeleteSensitiveData"
 					]
 				}
 			},
@@ -1369,12 +1386,12 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "7acd084b-66b0-4352-940b-9dc0b2590fdb",
+						"id": "3cbf8d6c-1b41-4a05-ba38-fdaba800a2f8",
 						"exec": [
-							"pm.test(\"Has a 404 Not Found status\", () => {\r",
+							"pm.test(\"Has a 204 No Content status\", () => {\r",
 							"    const response = pm.response;\r",
-							"    pm.expect(response.code).to.eql(404);\r",
-							"    pm.expect(response.status).to.eql(\"Not Found\");\r",
+							"    pm.expect(response.code).to.eql(204);\r",
+							"    pm.expect(response.status).to.eql(\"No Content\");\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -1385,24 +1402,57 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{Users endpoint}}/99",
+					"raw": "{{Permissions endpoint}}/CanUpdateSensitiveData",
+					"host": [
+						"{{Permissions endpoint}}"
+					],
+					"path": [
+						"CanUpdateSensitiveData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve deleted user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d4bb1391-1808-468e-93de-fa7acf705378",
+						"exec": [
+							"pm.test(\"Has a 404 Not Found status\", () => {\r",
+							"    const response = pm.response;\r",
+							"    pm.expect(response.code).to.eql(404);\r",
+							"    pm.expect(response.status).to.eql(\"Not Found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Users endpoint}}/1",
 					"host": [
 						"{{Users endpoint}}"
 					],
 					"path": [
-						"99"
+						"1"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Retrieve a deleted user",
+			"name": "Retrieve deleted permission",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "cb7b9d60-b982-4773-ba12-5bfff8f8ca3c",
+						"id": "4e141c97-76b6-4e0c-90ff-2a4e85a03f80",
 						"exec": [
 							"pm.test(\"Has a 404 Not Found status\", () => {\r",
 							"    const response = pm.response;\r",
@@ -1418,51 +1468,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:50001/users/1",
-					"protocol": "http",
+					"raw": "{{Permissions endpoint}}/CanViewSensitiveData",
 					"host": [
-						"localhost"
+						"{{Permissions endpoint}}"
 					],
-					"port": "50001",
 					"path": [
-						"users",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Retrieve a deleted permission",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "4fd72f43-6f91-4ffa-9f02-be4cc50754ea",
-						"exec": [
-							"pm.test(\"Has a 404 Not Found status\", () => {\r",
-							"    const response = pm.response;\r",
-							"    pm.expect(response.code).to.eql(404);\r",
-							"    pm.expect(response.status).to.eql(\"Not Found\");\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:50001/users/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "50001",
-					"path": [
-						"users",
-						"1"
+						"CanViewSensitiveData"
 					]
 				}
 			},
@@ -1474,7 +1485,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "e0790afb-92c9-4eee-8508-ac16bb8a93ca",
+						"id": "09fa14f3-45b2-4aca-98e2-900ef467e52b",
 						"exec": [
 							"pm.test(\"Has a 200 OK status\", () => {\r",
 							"    const response = pm.response;\r",
@@ -1510,7 +1521,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "61f20e30-91b3-4644-ab79-3179f212e559",
+						"id": "04cc06fb-714b-437b-a765-09718aa8a792",
 						"exec": [
 							"pm.test(\"Has a 200 OK status\", () => {\r",
 							"    const response = pm.response;\r",
@@ -1545,7 +1556,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "91a9a7cf-7b7b-4baf-8175-9559e8c14006",
+				"id": "37d9599a-cbd1-47f4-a1b2-0186682fd918",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -1555,7 +1566,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "18555344-9109-4a1c-99b8-7269dcf64666",
+				"id": "c3760cbc-086a-46ad-a154-9dfda9482035",
 				"type": "text/javascript",
 				"exec": [
 					""

@@ -10,6 +10,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+//TODO: display action on response body
+
 @Entity(name = "tadminop")
 @NoArgsConstructor
 public class Permission {

@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+//TODO: search endpoint, support find by type
+
 @RestController
 @RequestMapping("/api/v1/permissions")
 public class PermissionController {
@@ -29,7 +31,7 @@ public class PermissionController {
     return repository.findAll();
   }
 
-  //TODO: handle non existent permission
+  //TODO: handle non existent permission (404, no body)
   @GetMapping("{name}")
   public Optional<Permission> get(@PathVariable String name) {
     return repository.findById(name);
@@ -41,15 +43,16 @@ public class PermissionController {
     return repository.saveAndFlush(permission);
   }
 
-  //TODO: Handle non existent permission
+  //TODO: Handle non existent permission (404, no body)
+  //TODO: Return 204 No Content
   @DeleteMapping("{name}")
   public void delete(@PathVariable String name) {
     repository.deleteById(name);
   }
 
   //TODO: Should you be able to associate permission with user?
-  //TODO: Handle non existent permission
-  @PutMapping("{id}")
+  //TODO: Handle non existent permission (create new permission)
+  @PutMapping("{name}")
   public Permission update(@PathVariable String name, @RequestBody Permission permission) {
     Permission existingPermission = repository.getOne(name);
 
