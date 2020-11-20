@@ -4,37 +4,89 @@ problem : managing users, user groups and their respective privileges.
 
 The areas all implementations must cover are :
 
-* Network API
-    - REST serving Hypermedia
-    - REST serving JSON
-    - REST serving XML
+* Database
+    - H2
+        - data-jpa
+    - MySQL
+    - Informix
+        - data-rest
 
 * Data access
-    - JPA
+    - Data REST
+        - data-rest
+    - Data JPA
+        - data-jpa
     - Hibernate
     - MyBatis
     - JDBC Template
     - Raw JDBC
 
-* Unit testing
-    - JUnit 5
-    - PITest
+* Network API
+    - REST serving Hypermedia (automatic)
+        - data-rest
+    - REST serving Hypermedia (manual)
+        - data-jpa
+    - REST serving JSON
+    - REST serving XML
 
-* Build acceptance testing
-    - Newman
+* Developer side testing
+    - Unit test framework
+        - JUnit 5
+            - data-rest
+            - data-jpa
+    - Mutation testing
+        - PIT
+            - data-rest
+            - data-jpa
+    - Assertions library
+        - JUnit 5 + Hamcrest
+            - data-jpa
+        - AssertJ
+            - data-rest
+    - Coverage reports
+        - JaCoCo
+            - data-jpa
+            - data-rest
+    - Static code analysis
+        - ?
+    - Build acceptance testing
+        - Newman
+            - data-jpa
+            - data-rest
+    - Integration testing
+        - Spring Boot
+            - data-jpa
+        - REST Assured
+            - data-rest
 
-* Functional testing
-    - Cucumber
+* QA side testing
+    - BDD automation
+        - Cucumber
+            - data-jpa
+            - data-rest
+        - FitNesse
+            - data-jpa
+            - data-rest
+    - Build acceptance testing
+        - Postman
+            - data-jpa
+            - data-rest
+
+* Database migrations
+    - Liquibase
+        - data-jpa
+    - Flyway
+        - data-rest
 
 * Monitoring
     - Actuator
+        - data-jpa
+        - data-rest
 
-* Database
-    - H2
-    - Informix
-
-* Build chain
+* Build tool
     - Maven
+        - data-jpa
+        - data-rest
 
 # Common practices
 
