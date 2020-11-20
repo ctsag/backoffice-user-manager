@@ -3,7 +3,7 @@
 This implementation uses the following :
 
 * Database
-    - H2
+    - MySQL
 
 * Data access
     - Data JPA
