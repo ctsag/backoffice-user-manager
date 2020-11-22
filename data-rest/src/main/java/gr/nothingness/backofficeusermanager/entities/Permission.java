@@ -10,8 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-//TODO: display action on response body
-
 @Entity(name = "tadminop")
 @NoArgsConstructor
 public class Permission {
@@ -22,12 +20,6 @@ public class Permission {
 
   @Column(name = "desc")
   @Getter @Setter private String description;
-
-  @Column(name = "type")
-  @Getter @Setter private String type;
-
-  @Column(name = "disporder")
-  @Getter @Setter private Integer displayOrder;
 
   @JsonIgnore
   @ManyToMany(mappedBy = "permissions")

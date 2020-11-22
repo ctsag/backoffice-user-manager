@@ -10,15 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-//TODO: password should not be returned back to the requestor
-//TODO: perhaps the username can be added as a REST path?
-//TODO: OPTIONS verb for actuator paths?
-//TODO: eTags and caching?
-//TODO: Display id in response body
 
 @Entity(name = "tadminuser")
 @NoArgsConstructor
@@ -30,9 +25,11 @@ public class BackofficeUser {
   @Getter private Long id;
 
   @Column(name = "username")
+  @NotNull
   @Getter @Setter private String username;
 
   @Column(name = "password")
+  @NotNull
   @Getter @Setter private String password;
 
   @Column(name = "fname")

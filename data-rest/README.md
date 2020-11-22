@@ -27,6 +27,9 @@ This implementation uses the following :
     - Integration testing
         - REST Assured
 
+* API documentation
+    - Spring REST Docs
+
 * QA side testing
     - BDD automation
         - Cucumber
@@ -35,7 +38,7 @@ This implementation uses the following :
         - Postman
 
 * Database migrations
-    - Flyway
+    - Liquibase
 
 * Monitoring
     - Actuator

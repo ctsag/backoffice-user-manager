@@ -1,0 +1,129 @@
+{
+	"id": "3711ef96-a4e7-4f8a-ace8-d189f30070ab",
+	"name": "Backoffice User Manager",
+	"values": [
+		{
+			"key": "URL",
+			"value": "http://localhost:50001",
+			"enabled": true
+		},
+		{
+			"key": "Health endpoint",
+			"value": "{{URL}}/actuator/health",
+			"enabled": true
+		},
+		{
+			"key": "Home endpoint",
+			"value": "{{URL}}/api/v1",
+			"enabled": true
+		},
+		{
+			"key": "Incorrect user id",
+			"value": "9999999",
+			"enabled": true
+		},
+		{
+			"key": "Username",
+			"value": "ktsagkou",
+			"enabled": true
+		},
+		{
+			"key": "Modified username",
+			"value": "ktsagkournis",
+			"enabled": true
+		},
+		{
+			"key": "Password",
+			"value": "t3nt3k",
+			"enabled": true
+		},
+		{
+			"key": "Modified password",
+			"value": "m1ndy",
+			"enabled": true
+		},
+		{
+			"key": "First name",
+			"value": "Kostas",
+			"enabled": true
+		},
+		{
+			"key": "Last name",
+			"value": "Tsagkournis",
+			"enabled": true
+		},
+		{
+			"key": "Permission name",
+			"value": "CanViewSensitiveData",
+			"enabled": true
+		},
+		{
+			"key": "Incorrect permission name",
+			"value": "CanAccessSensitiveData",
+			"enabled": true
+		},
+		{
+			"key": "Description",
+			"value": "Can view sensitive data",
+			"enabled": true
+		},
+		{
+			"key": "Modified description",
+			"value": "Can access sensitive data",
+			"enabled": true
+		},
+		{
+			"key": "Users endpoint",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "Permissions endpoint",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "Created user",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "Created permission",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "Profile endpoint",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "Created user's id",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "Created user's permissions",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "Created permission's users",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "Second created user",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "Second created permission",
+			"value": "",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2020-11-22T14:32:32.590Z",
+	"_postman_exported_using": "Postman/7.36.0"
+}

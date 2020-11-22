@@ -1,0 +1,21 @@
+<?xml version="1.1" encoding="UTF-8"?>
+
+<databaseChangeLog 
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"  
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="add-tadminop" author="ctsag">
+        <sqlFile path="sql/add-tadminop.sql"/>
+    </changeSet>
+
+    <changeSet id="add-tadminuser" author="ctsag">
+        <sqlFile path="sql/add-tadminuser.sql"/>
+    </changeSet>
+
+    <changeSet id="add-tadminuserop" author="ctsag">
+        <sqlFile path="sql/add-tadminuserop.sql"/>
+    </changeSet>
+
+</databaseChangeLog>

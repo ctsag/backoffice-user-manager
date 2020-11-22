@@ -1,4 +1,4 @@
-# Purpose
+#Purpose
 This repository contains a series of alternate implementations of the same 
 problem : managing users, user groups and their respective privileges.
 
@@ -28,6 +28,12 @@ The areas all implementations must cover are :
         - data-jpa
     - REST serving JSON
     - REST serving XML
+
+* API documentation
+    - Spring REST Docs
+        - data-rest
+    - Springfox/Swagger
+        - data-jpa
 
 * Developer side testing
     - Unit test framework
@@ -74,9 +80,9 @@ The areas all implementations must cover are :
 
 * Database migrations
     - Liquibase
-        - data-jpa
-    - Flyway
         - data-rest
+    - Flyway
+        - data-jpa
 
 * Monitoring
     - Actuator

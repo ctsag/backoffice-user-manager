@@ -1,0 +1,1781 @@
+{
+	"info": {
+		"_postman_id": "a77c9522-5c9b-45ac-a2ed-54791c88ddea",
+		"name": "Backoffice User Manager",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Health check",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8b0cec40-c943-490b-8c5b-23e35ecac06d",
+						"exec": [
+							"pm.test(\"Returns a 200 OK status\", () => {\r",
+							"    const response = pm.response;\r",
+							"\r",
+							"    pm.expect(response.code).to.equal(200);\r",
+							"    pm.expect(response.status).to.equal(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Service status is UP\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(jsonData.status).to.equal(\"UP\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Health endpoint}}",
+					"host": [
+						"{{Health endpoint}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Entry point check",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2fa599a-83f3-4656-bc96-2332e07e76ce",
+						"exec": [
+							"pm.test(\"Returns a 200 OK status\", () => {\r",
+							"    const response = pm.response; \r",
+							"\r",
+							"    pm.expect(response.code).to.equal(200);\r",
+							"    pm.expect(response.status).to.equal(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns a link to the users resource\", () => {\r",
+							"    const jsonData = pm.response.json();    \r",
+							"    const usersEndpoint = jsonData._links.users;\r",
+							"\r",
+							"    pm.expect(usersEndpoint).to.have.property(\"href\");\r",
+							"\r",
+							"    pm.environment.set(\"Users endpoint\", usersEndpoint.href);    \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns a link to the permissions resource\", () => {\r",
+							"    const jsonData = pm.response.json();    \r",
+							"    const permissionsEndpoint = jsonData._links.permissions;\r",
+							"\r",
+							"    pm.expect(permissionsEndpoint).to.have.property(\"href\");\r",
+							"\r",
+							"    pm.environment.set(\"Permissions endpoint\", permissionsEndpoint.href);    \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns a link to the profile resource\", () => {\r",
+							"    const jsonData = pm.response.json();    \r",
+							"    const profileEndpoint = jsonData._links.profile;\r",
+							"\r",
+							"    pm.expect(profileEndpoint).to.have.property(\"href\");\r",
+							"\r",
+							"    pm.environment.set(\"Profile endpoint\", profileEndpoint.href);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Home endpoint}}",
+					"host": [
+						"{{Home endpoint}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1512d17e-c739-4e93-ad0d-74020a44be7f",
+						"exec": [
+							"pm.test(\"Returns a 201 Created status\", () => {\r",
+							"    const response = pm.response;\r",
+							"\r",
+							"    pm.expect(response.code).to.equal(201);\r",
+							"    pm.expect(response.status).to.equal(\"Created\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns a link to the created user\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const createdUser = jsonData._links;\r",
+							"\r",
+							"    pm.expect(createdUser).to.have.property(\"self\");\r",
+							"    pm.expect(createdUser).to.have.property(\"user\");\r",
+							"    pm.expect(createdUser.self.href).to.equal(createdUser.user.href);\r",
+							"\r",
+							"    pm.environment.set(\"Created user\", createdUser.self.href);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns a link to the created user's permissions\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const createdUser = jsonData._links;\r",
+							"\r",
+							"    pm.expect(createdUser).to.have.property(\"permissions\");\r",
+							"\r",
+							"    pm.environment.set(\"Created user's permissions\", createdUser.permissions.href);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns expected user attributes\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(jsonData.username).to.equal(pm.environment.get(\"Username\"));\r",
+							"    pm.expect(jsonData.password).to.equal(pm.environment.get(\"Password\"));\r",
+							"    pm.expect(jsonData.firstName).to.equal(pm.environment.get(\"First name\"));\r",
+							"    pm.expect(jsonData.lastName).to.equal(pm.environment.get(\"Last name\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns the user's assigned id\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(jsonData).to.have.property(\"id\");\r",
+							"\r",
+							"    pm.environment.set(\"Created user's id\", jsonData.id);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns expected user attribute count\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(Object.keys(jsonData).length).to.equal(6);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"username\" : \"{{Username}}\",\n    \"password\" : \"{{Password}}\",\n\t\"firstName\" : \"{{First name}}\",\n    \"lastName\" : \"{{Last name}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Users endpoint}}",
+					"host": [
+						"{{Users endpoint}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a permission",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "292d34b2-5ca2-4411-b630-9426276add82",
+						"exec": [
+							"pm.test(\"Returns a 201 Created status\", () => {\r",
+							"    const response = pm.response;\r",
+							"\r",
+							"    pm.expect(response.code).to.equal(201);\r",
+							"    pm.expect(response.status).to.equal(\"Created\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns a link to the created permission\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const createdPermission = jsonData._links;\r",
+							"\r",
+							"    pm.expect(createdPermission).to.have.property(\"self\");\r",
+							"    pm.expect(createdPermission).to.have.property(\"permission\");\r",
+							"    pm.expect(createdPermission.self.href).to.equal(createdPermission.permission.href);\r",
+							"\r",
+							"    pm.environment.set(\"Created permission\", createdPermission.self.href);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns a link to the created permission's users\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const createdPermission = jsonData._links;\r",
+							"\r",
+							"    pm.expect(createdPermission).to.have.property(\"users\");\r",
+							"\r",
+							"    pm.environment.set(\"Created permission's users\", createdPermission.users.href);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns expected permission attributes\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(jsonData.name).to.equal(pm.environment.get(\"Permission name\"));\r",
+							"    pm.expect(jsonData.description).to.equal(pm.environment.get(\"Description\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns expected user attribute count\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(Object.keys(jsonData).length).to.equal(3);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"name\" : \"{{Permission name}}\",\n    \"description\" : \"{{Description}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Permissions endpoint}}",
+					"host": [
+						"{{Permissions endpoint}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List all users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ebeb99de-b935-4f0c-997e-102f1bffe346",
+						"exec": [
+							"pm.test(\"Returns a 200 OK status\", () => {\r",
+							"    const response = pm.response;\r",
+							"\r",
+							"    pm.expect(response.code).to.equal(200);\r",
+							"    pm.expect(response.status).to.equal(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Contains the created user\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const users = jsonData._embedded.users;\r",
+							"    var found = false;\r",
+							"\r",
+							"    for (var i = 0; i < users.length; i++) {\r",
+							"        if (users[i]._links.self.href == pm.environment.get(\"Created user\")) {\r",
+							"            pm.expect(users[i].id).to.equal(pm.environment.get(\"Created user's id\"));\r",
+							"            pm.expect(users[i].username).to.equal(pm.environment.get(\"Username\"));\r",
+							"            pm.expect(users[i].password).to.equal(pm.environment.get(\"Password\"));\r",
+							"            pm.expect(users[i].firstName).to.equal(pm.environment.get(\"First name\"));\r",
+							"            pm.expect(users[i].lastName).to.equal(pm.environment.get(\"Last name\"));\r",
+							"            pm.expect(users[i]._links).to.have.property(\"user\");\r",
+							"            pm.expect(users[i]._links).to.have.property(\"permissions\");\r",
+							"            pm.expect(users[i]._links.self.href).to.equal(users[i]._links.user.href);\r",
+							"            pm.expect(users[i]._links.permissions.href).to.equal(pm.environment.get(\"Created user's permissions\"));\r",
+							"            pm.expect(Object.keys(users[i]).length).to.equal(6);\r",
+							"            found = true;\r",
+							"            break;\r",
+							"        }\r",
+							"    }\r",
+							"\r",
+							"    pm.expect(found).to.be.true;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Users endpoint}}",
+					"host": [
+						"{{Users endpoint}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List all permissions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a7d184d4-bab9-452d-be8d-491fbc4474a5",
+						"exec": [
+							"pm.test(\"Returns a 200 OK status\", () => {\r",
+							"    const response = pm.response;\r",
+							"\r",
+							"    pm.expect(response.code).to.equal(200);\r",
+							"    pm.expect(response.status).to.equal(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Contains the created permission\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const permissions = jsonData._embedded.permissions;\r",
+							"    var found = false;\r",
+							"\r",
+							"    for (var i = 0; i < permissions.length; i++) {\r",
+							"        if (permissions[i]._links.self.href == pm.environment.get(\"Created permission\")) {\r",
+							"            pm.expect(permissions[i].name).to.equal(pm.environment.get(\"Permission name\"));\r",
+							"            pm.expect(permissions[i].description).to.equal(pm.environment.get(\"Description\"));\r",
+							"            pm.expect(permissions[i]._links).to.have.property(\"permission\");\r",
+							"            pm.expect(permissions[i]._links).to.have.property(\"users\");\r",
+							"            pm.expect(permissions[i]._links.self.href).to.equal(permissions[i]._links.permission.href);\r",
+							"            pm.expect(permissions[i]._links.users.href).to.equal(pm.environment.get(\"Created permission's users\"));\r",
+							"            pm.expect(Object.keys(permissions[i]).length).to.equal(3);\r",
+							"            found = true;\r",
+							"            break;\r",
+							"        }\r",
+							"    }\r",
+							"\r",
+							"    pm.expect(found).to.be.true;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Permissions endpoint}}",
+					"host": [
+						"{{Permissions endpoint}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve created user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "016aaf88-8a28-45e2-9069-c50780bfea62",
+						"exec": [
+							"pm.test(\"Returns a 200 OK status\", () => {\r",
+							"    const response = pm.response;\r",
+							"\r",
+							"    pm.expect(response.code).to.equal(200);\r",
+							"    pm.expect(response.status).to.equal(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns a link to the created user\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const createdUser = jsonData._links;\r",
+							"\r",
+							"    pm.expect(createdUser).to.have.property(\"self\");\r",
+							"    pm.expect(createdUser).to.have.property(\"user\");\r",
+							"    pm.expect(createdUser.self.href).to.equal(createdUser.user.href);\r",
+							"    pm.expect(createdUser.self.href).to.equal(pm.environment.get(\"Created user\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns a link to the created user's permissions\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const createdUser = jsonData._links;\r",
+							"\r",
+							"    pm.expect(createdUser).to.have.property(\"permissions\");\r",
+							"    pm.expect(createdUser.permissions.href).to.equal(pm.environment.get(\"Created user's permissions\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns expected user attributes\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(jsonData.id).to.equal(pm.environment.get(\"Created user's id\"));\r",
+							"    pm.expect(jsonData.username).to.equal(pm.environment.get(\"Username\"));\r",
+							"    pm.expect(jsonData.password).to.equal(pm.environment.get(\"Password\"));\r",
+							"    pm.expect(jsonData.firstName).to.equal(pm.environment.get(\"First name\"));\r",
+							"    pm.expect(jsonData.lastName).to.equal(pm.environment.get(\"Last name\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns expected user attribute count\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(Object.keys(jsonData).length).to.equal(6);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Created user}}",
+					"host": [
+						"{{Created user}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve non existent user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "92c4e91a-48c1-4a1b-bda2-4876bd19472f",
+						"exec": [
+							"pm.test(\"Returns a 404 Not Found status\", () => {\r",
+							"    const response = pm.response;\r",
+							"\r",
+							"    pm.expect(response.code).to.equal(404);\r",
+							"    pm.expect(response.status).to.equal(\"Not Found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Users endpoint}}/99",
+					"host": [
+						"{{Users endpoint}}"
+					],
+					"path": [
+						"99"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve created permission",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e92bdf81-4ce9-4334-b5cb-e2c9143e5144",
+						"exec": [
+							"pm.test(\"Returns a 200 OK status\", () => {\r",
+							"    const response = pm.response;\r",
+							"\r",
+							"    pm.expect(response.code).to.equal(200);\r",
+							"    pm.expect(response.status).to.equal(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns a link to the created permission\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const createdPermission = jsonData._links;\r",
+							"\r",
+							"    pm.expect(createdPermission).to.have.property(\"self\");\r",
+							"    pm.expect(createdPermission).to.have.property(\"permission\");\r",
+							"    pm.expect(createdPermission.self.href).to.equal(createdPermission.permission.href);\r",
+							"    pm.expect(createdPermission.self.href).to.equal(pm.environment.get(\"Created permission\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns a link to the created permission's users\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const createdPermission = jsonData._links;\r",
+							"\r",
+							"    pm.expect(createdPermission).to.have.property(\"users\");\r",
+							"    pm.expect(createdPermission.users.href).to.equal(pm.environment.get(\"Created permission's users\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns expected permission attributes\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(jsonData.name).to.equal(pm.environment.get(\"Permission name\"));\r",
+							"    pm.expect(jsonData.description).to.equal(pm.environment.get(\"Description\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns expected permission attribute count\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(Object.keys(jsonData).length).to.equal(3);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Permissions endpoint}}/CanViewSensitiveData",
+					"host": [
+						"{{Permissions endpoint}}"
+					],
+					"path": [
+						"CanViewSensitiveData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve non existent permission",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "703c2373-1a91-4c4a-905f-71ec1e36e2f5",
+						"exec": [
+							"pm.test(\"Returns a 404 Not Found status\", () => {\r",
+							"    const response = pm.response;\r",
+							"\r",
+							"    pm.expect(response.code).to.equal(404);\r",
+							"    pm.expect(response.status).to.equal(\"Not Found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Permissions endpoint}}/CanDeleteSensitiveData",
+					"host": [
+						"{{Permissions endpoint}}"
+					],
+					"path": [
+						"CanDeleteSensitiveData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user via PUT with partial data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "de7731e7-2c29-4bca-9c7f-b643b9154d78",
+						"exec": [
+							"pm.test(\"Returns a 200 OK status\", () => {\r",
+							"    const response = pm.response;\r",
+							"\r",
+							"    pm.expect(response.code).to.equal(200);\r",
+							"    pm.expect(response.status).to.equal(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns a link to the created user\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const createdUser = jsonData._links;\r",
+							"\r",
+							"    pm.expect(createdUser).to.have.property(\"self\");\r",
+							"    pm.expect(createdUser).to.have.property(\"user\");\r",
+							"    pm.expect(createdUser.self.href).to.equal(createdUser.user.href);\r",
+							"    pm.expect(createdUser.self.href).to.equal(pm.environment.get(\"Created user\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns a link to the created user's permissions\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const createdUser = jsonData._links;\r",
+							"\r",
+							"    pm.expect(createdUser).to.have.property(\"permissions\");\r",
+							"    pm.expect(createdUser.permissions.href).to.equal(pm.environment.get(\"Created user's permissions\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns expected user attributes\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(jsonData.id).to.equal(pm.environment.get(\"Created user's id\"));\r",
+							"    pm.expect(jsonData.username).to.equal(pm.environment.get(\"Modified username\"));\r",
+							"    pm.expect(jsonData.password).to.equal(pm.environment.get(\"Modified password\"));\r",
+							"    pm.expect(jsonData.firstName).to.be.null;\r",
+							"    pm.expect(jsonData.lastName).to.be.null;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns expected user attribute count\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(Object.keys(jsonData).length).to.equal(6);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"username\": \"{{Modified username}}\",\n    \"password\": \"{{Modified password}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Created user}}",
+					"host": [
+						"{{Created user}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user via PUT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9f5b07c0-f1c8-4cb2-89f3-033e3279a60d",
+						"exec": [
+							"pm.test(\"Returns a 200 OK status\", () => {\r",
+							"    const response = pm.response;\r",
+							"\r",
+							"    pm.expect(response.code).to.equal(200);\r",
+							"    pm.expect(response.status).to.equal(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns a link to the created user\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const createdUser = jsonData._links;\r",
+							"\r",
+							"    pm.expect(createdUser).to.have.property(\"self\");\r",
+							"    pm.expect(createdUser).to.have.property(\"user\");\r",
+							"    pm.expect(createdUser.self.href).to.equal(createdUser.user.href);\r",
+							"    pm.expect(createdUser.self.href).to.equal(pm.environment.get(\"Created user\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns a link to the created user's permissions\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const createdUser = jsonData._links;\r",
+							"\r",
+							"    pm.expect(createdUser).to.have.property(\"permissions\");\r",
+							"    pm.expect(createdUser.permissions.href).to.equal(pm.environment.get(\"Created user's permissions\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns expected user attributes\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(jsonData.id).to.equal(pm.environment.get(\"Created user's id\"));\r",
+							"    pm.expect(jsonData.username).to.equal(pm.environment.get(\"Modified username\"));\r",
+							"    pm.expect(jsonData.password).to.equal(pm.environment.get(\"Modified password\"));\r",
+							"    pm.expect(jsonData.firstName).to.equal(pm.environment.get(\"First name\"));\r",
+							"    pm.expect(jsonData.lastName).to.equal(pm.environment.get(\"Last name\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns expected user attribute count\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(Object.keys(jsonData).length).to.equal(6);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"username\" : \"{{Modified username}}\",\n    \"password\" : \"{{Modified password}}\",\n\t\"firstName\" : \"{{First name}}\",\n    \"lastName\" : \"{{Last name}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Created user}}",
+					"host": [
+						"{{Created user}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update non existent user via PUT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "83220e83-11eb-4ea2-b58b-0ee21860f86e",
+						"exec": [
+							"pm.test(\"Returns a 201 Created status\", () => {\r",
+							"    const response = pm.response;\r",
+							"\r",
+							"    pm.expect(response.code).to.equal(201);\r",
+							"    pm.expect(response.status).to.equal(\"Created\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns a link to the created user\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const createdUser = jsonData._links;\r",
+							"\r",
+							"    pm.expect(createdUser).to.have.property(\"self\");\r",
+							"    pm.expect(createdUser).to.have.property(\"user\");\r",
+							"    pm.expect(createdUser.self.href).to.equal(createdUser.user.href);\r",
+							"\r",
+							"    pm.environment.set(\"Second created user\", createdUser.self.href);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns a link to the created user's permissions\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const createdUser = jsonData._links;\r",
+							"\r",
+							"    pm.expect(createdUser).to.have.property(\"permissions\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns expected user attributes\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(jsonData.username).to.equal(pm.environment.get(\"Username\"));\r",
+							"    pm.expect(jsonData.password).to.equal(pm.environment.get(\"Password\"));\r",
+							"    pm.expect(jsonData.firstName).to.equal(pm.environment.get(\"First name\"));\r",
+							"    pm.expect(jsonData.lastName).to.equal(pm.environment.get(\"Last name\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns the user's assigned id\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(jsonData).to.have.property(\"id\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns expected user attribute count\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(Object.keys(jsonData).length).to.equal(6);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"username\" : \"{{Username}}\",\n    \"password\" : \"{{Password}}\",\n\t\"firstName\" : \"{{First name}}\",\n    \"lastName\" : \"{{Last name}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Users endpoint}}/{{Incorrect user id}}",
+					"host": [
+						"{{Users endpoint}}"
+					],
+					"path": [
+						"{{Incorrect user id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete second created user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "47ca89a8-8094-4762-bb66-e4837d0077c1",
+						"exec": [
+							"pm.test(\"Returns a 204 No Content status\", () => {\r",
+							"    const response = pm.response;\r",
+							"\r",
+							"    pm.expect(response.code).to.equal(204);\r",
+							"    pm.expect(response.status).to.equal(\"No Content\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{Second created user}}",
+					"host": [
+						"{{Second created user}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update permission via PUT with partial data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00f4e3ff-4e06-4111-a3fb-0a47ae944893",
+						"exec": [
+							"pm.test(\"Returns a 200 OK status\", () => {\r",
+							"    const response = pm.response;\r",
+							"\r",
+							"    pm.expect(response.code).to.equal(200);\r",
+							"    pm.expect(response.status).to.equal(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns a link to the created permission\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const createdPermission = jsonData._links;\r",
+							"\r",
+							"    pm.expect(createdPermission).to.have.property(\"self\");\r",
+							"    pm.expect(createdPermission).to.have.property(\"permission\");\r",
+							"    pm.expect(createdPermission.self.href).to.equal(createdPermission.permission.href);\r",
+							"    pm.expect(createdPermission.self.href).to.equal(pm.environment.get(\"Created permission\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns a link to the created permission's users\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const createdPermission = jsonData._links;\r",
+							"\r",
+							"    pm.expect(createdPermission).to.have.property(\"users\");\r",
+							"    pm.expect(createdPermission.users.href).to.equal(pm.environment.get(\"Created permission's users\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns expected permission attributes\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(jsonData.name).to.equal(pm.environment.get(\"Permission name\"));\r",
+							"    pm.expect(jsonData.description).to.equal(pm.environment.get(\"Modified description\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns expected permission attribute count\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(Object.keys(jsonData).length).to.equal(3);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n    \"description\" : \"{{Modified description}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Created permission}}",
+					"host": [
+						"{{Created permission}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update permission via PUT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "48c3e596-099d-4406-99d2-08fcc8deaf8a",
+						"exec": [
+							"pm.test(\"Returns a 200 OK status\", () => {\r",
+							"    const response = pm.response;\r",
+							"\r",
+							"    pm.expect(response.code).to.equal(200);\r",
+							"    pm.expect(response.status).to.equal(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns a link to the created permission\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const createdPermission = jsonData._links;\r",
+							"\r",
+							"    pm.expect(createdPermission).to.have.property(\"self\");\r",
+							"    pm.expect(createdPermission).to.have.property(\"permission\");\r",
+							"    pm.expect(createdPermission.self.href).to.equal(createdPermission.permission.href);\r",
+							"    pm.expect(createdPermission.self.href).to.equal(pm.environment.get(\"Created permission\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns a link to the created permission's users\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const createdPermission = jsonData._links;\r",
+							"\r",
+							"    pm.expect(createdPermission).to.have.property(\"users\");\r",
+							"    pm.expect(createdPermission.users.href).to.equal(pm.environment.get(\"Created permission's users\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns expected permission attributes\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(jsonData.name).to.equal(pm.environment.get(\"Permission name\"));\r",
+							"    pm.expect(jsonData.description).to.equal(pm.environment.get(\"Description\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns expected permission attribute count\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(Object.keys(jsonData).length).to.equal(3);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"name\" : \"{{Permission name}}\",\n    \"description\" : \"{{Description}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Created permission}}",
+					"host": [
+						"{{Created permission}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update non existent permission via PUT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9047d71d-383f-45b0-b1ae-b44266bbb7da",
+						"exec": [
+							"pm.test(\"Returns a 201 Created status\", () => {\r",
+							"    const response = pm.response;\r",
+							"\r",
+							"    pm.expect(response.code).to.equal(201);\r",
+							"    pm.expect(response.status).to.equal(\"Created\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns a link to the created permission\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const createdPermission = jsonData._links;\r",
+							"\r",
+							"    pm.expect(createdPermission).to.have.property(\"self\");\r",
+							"    pm.expect(createdPermission).to.have.property(\"permission\");\r",
+							"    pm.expect(createdPermission.self.href).to.equal(createdPermission.permission.href);\r",
+							"\r",
+							"    pm.environment.set(\"Second created permission\", createdPermission.self.href);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns a link to the created permission's users\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const createdPermission = jsonData._links;\r",
+							"\r",
+							"    pm.expect(createdPermission).to.have.property(\"users\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns expected permission attributes\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(jsonData.name).to.equal(pm.environment.get(\"Incorrect permission name\"));\r",
+							"    pm.expect(jsonData.description).to.equal(pm.environment.get(\"Description\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns expected permission attribute count\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(Object.keys(jsonData).length).to.equal(3);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"name\" : \"{{Permission name}}\",\n    \"description\" : \"{{Description}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Permissions endpoint}}/{{Incorrect permission name}}",
+					"host": [
+						"{{Permissions endpoint}}"
+					],
+					"path": [
+						"{{Incorrect permission name}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete second created permission",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "01985971-99d5-4433-bbc3-424774cafdd7",
+						"exec": [
+							"pm.test(\"Returns a 204 No Content status\", () => {\r",
+							"    const response = pm.response;\r",
+							"\r",
+							"    pm.expect(response.code).to.equal(204);\r",
+							"    pm.expect(response.status).to.equal(\"No Content\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{Second created permission}}",
+					"host": [
+						"{{Second created permission}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user via PATCH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4c766a0c-a930-41e3-961e-ce253a556c94",
+						"exec": [
+							"pm.test(\"Returns a 200 OK status\", () => {\r",
+							"    const response = pm.response;\r",
+							"\r",
+							"    pm.expect(response.code).to.equal(200);\r",
+							"    pm.expect(response.status).to.equal(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns a link to the created user\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const createdUser = jsonData._links;\r",
+							"\r",
+							"    pm.expect(createdUser).to.have.property(\"self\");\r",
+							"    pm.expect(createdUser).to.have.property(\"user\");\r",
+							"    pm.expect(createdUser.self.href).to.equal(createdUser.user.href);\r",
+							"    pm.expect(createdUser.self.href).to.equal(pm.environment.get(\"Created user\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns a link to the created user's permissions\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const createdUser = jsonData._links;\r",
+							"\r",
+							"    pm.expect(createdUser).to.have.property(\"permissions\");\r",
+							"    pm.expect(createdUser.permissions.href).to.equal(pm.environment.get(\"Created user's permissions\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns expected user attributes\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(jsonData.id).to.equal(pm.environment.get(\"Created user's id\"));\r",
+							"    pm.expect(jsonData.username).to.equal(pm.environment.get(\"Username\"));\r",
+							"    pm.expect(jsonData.password).to.equal(pm.environment.get(\"Password\"));\r",
+							"    pm.expect(jsonData.firstName).to.equal(pm.environment.get(\"First name\"));\r",
+							"    pm.expect(jsonData.lastName).to.equal(pm.environment.get(\"Last name\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns expected user attribute count\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(Object.keys(jsonData).length).to.equal(6);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"username\" : \"{{Username}}\",\n    \"password\" : \"{{Password}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Created user}}",
+					"host": [
+						"{{Created user}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update non existent user via PATCH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cb8d7ba4-0c6b-4bb5-b0ed-0716f09b9487",
+						"exec": [
+							"pm.test(\"Returns a 404 Not Found status\", () => {\r",
+							"    const response = pm.response;\r",
+							"\r",
+							"    pm.expect(response.code).to.equal(404);\r",
+							"    pm.expect(response.status).to.equal(\"Not Found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"lastName\": \"{{Modified username}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Users endpoint}}/{{Incorrect user id}}",
+					"host": [
+						"{{Users endpoint}}"
+					],
+					"path": [
+						"{{Incorrect user id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update permission via PATCH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5ecd570c-897a-401a-b6af-c143a5eec9eb",
+						"exec": [
+							"pm.test(\"Returns a 200 OK status\", () => {\r",
+							"    const response = pm.response;\r",
+							"\r",
+							"    pm.expect(response.code).to.equal(200);\r",
+							"    pm.expect(response.status).to.equal(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns a link to the created permission\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const createdPermission = jsonData._links;\r",
+							"\r",
+							"    pm.expect(createdPermission).to.have.property(\"self\");\r",
+							"    pm.expect(createdPermission).to.have.property(\"permission\");\r",
+							"    pm.expect(createdPermission.self.href).to.equal(createdPermission.permission.href);\r",
+							"    pm.expect(createdPermission.self.href).to.equal(pm.environment.get(\"Created permission\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns a link to the created permission's users\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const createdPermission = jsonData._links;\r",
+							"\r",
+							"    pm.expect(createdPermission).to.have.property(\"users\");\r",
+							"    pm.expect(createdPermission.users.href).to.equal(pm.environment.get(\"Created permission's users\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns expected permission attributes\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(jsonData.name).to.equal(pm.environment.get(\"Permission name\"));\r",
+							"    pm.expect(jsonData.description).to.equal(pm.environment.get(\"Description\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Returns expected permission attribute count\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(Object.keys(jsonData).length).to.equal(3);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n    \"description\" : \"{{Description}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Created permission}}",
+					"host": [
+						"{{Created permission}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update non existent permission via PATCH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1eb0f936-d4dd-4aa6-be25-25eb36aae60f",
+						"exec": [
+							"pm.test(\"Returns a 404 Not Found status\", () => {\r",
+							"    const response = pm.response;\r",
+							"\r",
+							"    pm.expect(response.code).to.equal(404);\r",
+							"    pm.expect(response.status).to.equal(\"Not Found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n    \"description\" : \"{{Description}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Permissions endpoint}}/{{Incorrect permission name}}",
+					"host": [
+						"{{Permissions endpoint}}"
+					],
+					"path": [
+						"{{Incorrect permission name}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve users by full name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "044c2274-9633-49ac-9adb-7b0116240f35",
+						"exec": [
+							"pm.test(\"Has a 200 OK status\", () => {\r",
+							"    const response = pm.response;\r",
+							"    pm.expect(response.code).to.eql(200);\r",
+							"    pm.expect(response.status).to.eql(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Retuns both created users\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData._embedded.users).to.have.length(2);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Users endpoint}}/search/findByFullName?name=\"{{First name}} {{Last name}}\"",
+					"host": [
+						"{{Users endpoint}}"
+					],
+					"path": [
+						"search",
+						"findByFullName"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "\"{{First name}} {{Last name}}\""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve permissions by type",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6cdc9369-fff4-416f-ace5-f8937e602bdc",
+						"exec": [
+							"pm.test(\"Has a 200 OK status\", () => {\r",
+							"    const response = pm.response;\r",
+							"    pm.expect(response.code).to.eql(200);\r",
+							"    pm.expect(response.status).to.eql(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Retuns both created users\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData._embedded.users).to.have.length(2);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Permissions endpoint}}/search/findByType?type=BETFAIR",
+					"host": [
+						"{{Permissions endpoint}}"
+					],
+					"path": [
+						"search",
+						"findByType"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "BETFAIR"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete created user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "14fb3813-9e03-41a6-9d2e-0cc1c3c531d0",
+						"exec": [
+							"pm.test(\"Returns a 204 No Content status\", () => {\r",
+							"    const response = pm.response;\r",
+							"\r",
+							"    pm.expect(response.code).to.equal(204);\r",
+							"    pm.expect(response.status).to.equal(\"No Content\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{Created user}}",
+					"host": [
+						"{{Created user}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete non existent user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5540dcc-8e00-47fe-a578-8f21acb72595",
+						"exec": [
+							"pm.test(\"Returns a 404 Not Found status\", () => {\r",
+							"    const response = pm.response;\r",
+							"\r",
+							"    pm.expect(response.code).to.equal(404);\r",
+							"    pm.expect(response.status).to.equal(\"Not Found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{Second created user}}",
+					"host": [
+						"{{Second created user}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete created permission",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "29181814-0dc9-4a5c-8083-dcd50b0ac5f6",
+						"exec": [
+							"pm.test(\"Returns a 204 No Content status\", () => {\r",
+							"    const response = pm.response;\r",
+							"\r",
+							"    pm.expect(response.code).to.equal(204);\r",
+							"    pm.expect(response.status).to.equal(\"No Content\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{Created permission}}",
+					"host": [
+						"{{Created permission}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete non existent permission",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3cbf8d6c-1b41-4a05-ba38-fdaba800a2f8",
+						"exec": [
+							"pm.test(\"Returns a 404 Not Found status\", () => {\r",
+							"    const response = pm.response;\r",
+							"\r",
+							"    pm.expect(response.code).to.equal(404);\r",
+							"    pm.expect(response.status).to.equal(\"Not Found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{Second created permission}}",
+					"host": [
+						"{{Second created permission}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve deleted user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d4bb1391-1808-468e-93de-fa7acf705378",
+						"exec": [
+							"pm.test(\"Returns a 404 Not Found status\", () => {\r",
+							"    const response = pm.response;\r",
+							"\r",
+							"    pm.expect(response.code).to.equal(404);\r",
+							"    pm.expect(response.status).to.equal(\"Not Found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Created user}}",
+					"host": [
+						"{{Created user}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve deleted permission",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4e141c97-76b6-4e0c-90ff-2a4e85a03f80",
+						"exec": [
+							"pm.test(\"Returns a 404 Not Found status\", () => {\r",
+							"    const response = pm.response;\r",
+							"\r",
+							"    pm.expect(response.code).to.equal(404);\r",
+							"    pm.expect(response.status).to.equal(\"Not Found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Created permission}}",
+					"host": [
+						"{{Created permission}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List all users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "09fa14f3-45b2-4aca-98e2-900ef467e52b",
+						"exec": [
+							"pm.test(\"Returns a 200 OK status\", () => {\r",
+							"    const response = pm.response;\r",
+							"\r",
+							"    pm.expect(response.code).to.equal(200);\r",
+							"    pm.expect(response.status).to.equal(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Contains the created user\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const users = jsonData._embedded.users;\r",
+							"    var found = false;\r",
+							"\r",
+							"    for (var i = 0; i < users.length; i++) {\r",
+							"        if (users[i]._links.self.href == pm.environment.get(\"Created user\")) {\r",
+							"            found = true;\r",
+							"            break;\r",
+							"        }\r",
+							"    }\r",
+							"\r",
+							"    pm.expect(found).to.be.false;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Users endpoint}}",
+					"host": [
+						"{{Users endpoint}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List all permissions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "04cc06fb-714b-437b-a765-09718aa8a792",
+						"exec": [
+							"pm.test(\"Returns a 200 OK status\", () => {\r",
+							"    const response = pm.response;\r",
+							"\r",
+							"    pm.expect(response.code).to.equal(200);\r",
+							"    pm.expect(response.status).to.equal(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Contains the created permission\", () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const permissions = jsonData._embedded.permissions;\r",
+							"    var found = false;\r",
+							"\r",
+							"    for (var i = 0; i < permissions.length; i++) {\r",
+							"        if (permissions[i]._links.self.href == pm.environment.get(\"Created permission\")) {\r",
+							"            found = true;\r",
+							"            break;\r",
+							"        }\r",
+							"    }\r",
+							"\r",
+							"    pm.expect(found).to.be.false;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Permissions endpoint}}",
+					"host": [
+						"{{Permissions endpoint}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "37d9599a-cbd1-47f4-a1b2-0186682fd918",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "c3760cbc-086a-46ad-a154-9dfda9482035",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
