@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,9 +25,11 @@ public class BackofficeUser {
   @Getter private Long id;
 
   @Column(name = "username")
+  @NotNull
   @Getter @Setter private String username;
 
   @Column(name = "password")
+  @NotNull
   @Getter @Setter private String password;
 
   @Column(name = "fname")

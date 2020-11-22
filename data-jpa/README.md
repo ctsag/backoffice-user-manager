@@ -27,6 +27,9 @@ This implementation uses the following :
     - Integration testing
         - Spring Boot
 
+* API documentation
+    - Springfox/Swagger
+
 * QA side testing
     - BDD automation
         - Cucumber
@@ -35,7 +38,7 @@ This implementation uses the following :
         - Postman
 
 * Database migrations
-    - Liquibase
+    - Flyway
 
 * Monitoring
     - Actuator
