@@ -10,7 +10,8 @@
     - Perhaps the username should be added as a REST path
     - Figure out if there's anything from spring-skeletons we need to bring over
     - create production vs dev app properties
-    - documentation
+    - Documentation
+        - https://www.codingame.com/playgrounds/6740/testing-a-hateoas-service
     - Unit tests
 
 # QA side testing
@@ -19,7 +20,8 @@
         v Move the tests from the implementation directories to the root directory
         v Turn the findByLastName request to findByFullName
         v Which port? How do you tell between different implementations?
-        - Fix findByFullName and findByType when they're available
+        - Fix findByFullName, findByUsername and findByType when they're available
+            - What about the users,permissions/search resource?
         - Test API for proper validation of bad input
             - Null on username, password, perm name
     - Add cucumber tests
