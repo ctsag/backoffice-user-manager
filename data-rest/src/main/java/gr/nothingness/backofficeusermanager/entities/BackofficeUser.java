@@ -1,11 +1,7 @@
 package gr.nothingness.backofficeusermanager.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -48,6 +44,10 @@ public class BackofficeUser {
   @Size(max = 80)
   @Getter @Setter private String lastName;
 
+  @Column(name = "login_uid")
+  @NotNull
+  @Getter @Setter private Integer loginUid = 0;
+
   @Column(name = "status")
   @NotNull
   @Getter @Setter private Character status = 'A';
@@ -58,52 +58,56 @@ public class BackofficeUser {
 
   @Column(name = "agent_id")
   @Size(max = 32)
-  @Getter @Setter private String agent = null;
+  @Getter @Setter private String agent;
 
   @Column(name = "phone_switch")
-  @Getter @Setter private Integer phoneSwitch = null;
+  @Getter @Setter private Integer phoneSwitch;
+
+  @Column(name = "logged_in")
+  @NotNull
+  @Getter @Setter private Character loggedIn = 'N';
+
+  @Column(name = "position_id")
+  @Getter @Setter private Integer positionId;
+
+  @Column(name = "login_time")
+  @Temporal(TemporalType.TIMESTAMP)
+  @Getter @Setter private Date loginTime;
+
+  @Column(name = "login_loc")
+  @Size(max = 32)
+  @Getter @Setter private String loginLocation;
+
+  @Column(name = "last_pwd_change")
+  @Temporal(TemporalType.TIMESTAMP)
+  @Getter @Setter private Date lastPasswordChange = new Date();
 
   @Column(name = "override_code")
+  @Size(max = 2)
   @Getter @Setter private String overrideCode;
+
+  @Column(name = "bad_pwd_count")
+  @NotNull
+  @Getter @Setter private Integer badPasswordCount = 0;
+
+  @Column(name = "last_pwd_fail")
+  @Temporal(TemporalType.TIMESTAMP)
+  @Getter @Setter private Date lastPasswordFail;
+
+  @Column(name = "password_salt")
+  @Size(max = 40)
+  @Getter @Setter private String passwordSalt;
 
   @Column(name = "acc_pwd_expires")
   @NotNull
   @Getter @Setter private Character passwordExpires = 'Y';
 
-  @Column(name = "login_uid")
-  @Getter private Integer loginUid = 0;
-
-  @Column(name = "logged_in")
-  @Getter private Character loggedIn = 'N';
-
-  @Column(name = "position_id")
-  @Getter private Integer positionId;
-
-  @Column(name = "login_time")
-  @Getter private Timestamp loginTime;
-
-  @Column(name = "login_loc")
-  @Getter private String loginLocation;
-
-  @Column(name = "last_pwd_change")
-  @Temporal(TemporalType.TIMESTAMP)
-  @Getter private java.util.Date lastPasswordChange = new java.util.Date(ZonedDateTime.now(
-      ZoneId));
-
-  @Column(name = "bad_pwd_count")
-  @Getter private Integer badPasswordCount = 0;
-
-  @Column(name = "last_pwd_fail")
-  @Getter private Timestamp lastPasswordFail;
-
-  @Column(name = "password_salt")
-  @Getter private String passwordSalt;
-
   @Column(name = "lost_login_status")
-  @Getter private Character lostLoginStatus = 'A';
+  @NotNull
+  @Getter @Setter private Character lostLoginStatus = 'A';
 
   @Column(name = "timezone_id")
-  @Getter private Integer timezoneId;
+  @Getter @Setter private Integer timezoneId;
 
   @ManyToMany
   @JoinTable(
