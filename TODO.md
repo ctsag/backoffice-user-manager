@@ -13,6 +13,10 @@
     - Documentation
         - https://www.codingame.com/playgrounds/6740/testing-a-hateoas-service
     - Unit tests
+    - Can we actually merge the mysql/postgre/informix implementations and use profiles?
+    - User clone functionality?
+    - How do the password and password salt fields get populated?
+    - How does the timezoneid field get populated?
 
 # QA side testing
     - Postman
@@ -52,3 +56,11 @@
             - https://www.toptal.com/java/spring-boot-rest-api-error-handling
             - https://www.baeldung.com/exception-handling-for-rest-with-spring
             - https://stackoverflow.com/questions/39714193/spring-data-jpa-and-put-requests-to-create
+    - what's the equivalent for CURRENT for Timestamp date fields?
+        - lastPasswordChange needs a default value of CURRENT
+        - what is @Temporal?
+        - https://vladmihalcea.com/how-to-store-date-time-and-timestamps-in-utc-time-zone-with-jdbc-and-hibernate/
+        - https://vladmihalcea.com/date-timestamp-jpa-hibernate/
+
+# data-redis
+    - https://redislabs.com/blog/goodbye-cache-redis-as-a-primary-database/
