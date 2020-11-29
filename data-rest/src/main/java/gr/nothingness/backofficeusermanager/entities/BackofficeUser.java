@@ -1,10 +1,15 @@
 package gr.nothingness.backofficeusermanager.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import gr.nothingness.backofficeusermanager.facilities.Password;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +18,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Getter;
@@ -24,17 +31,29 @@ import lombok.Setter;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class BackofficeUser {
 
+  private enum Status {
+    A, S, P, L, X
+  }
+
+  private enum LostLoginStatus {
+    A, S, X
+  }
+
+  private enum YesNo {
+    Y, N
+  }
+
   @Column(name = "user_id")
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Getter private Long id;
 
-  @Column(name = "username")
-  @NotNull @Size(max = 32)
+  @Column(name = "username", unique = true, updatable = false)
+  @NotNull @NotBlank @Size(max = 32)
   @Getter @Setter private String username;
 
   @Column(name = "password")
-  @NotNull @Size(max = 40)
-  @Getter @Setter private String password;
+  @NotNull @NotBlank @Size(max = 40)
+  @Getter private String password;
 
   @Column(name = "fname")
   @Size(max = 60)
@@ -44,17 +63,17 @@ public class BackofficeUser {
   @Size(max = 80)
   @Getter @Setter private String lastName;
 
-  @Column(name = "login_uid")
-  @NotNull
-  @Getter @Setter private Integer loginUid = 0;
-
-  @Column(name = "status")
-  @NotNull
-  @Getter @Setter private Character status = 'A';
-
   @Column(name = "email")
   @Size(max = 60)
   @Getter @Setter private String email;
+
+  @Column(name = "status")
+  @NotNull @Enumerated(EnumType.STRING)
+  @Getter @Setter private Status status = Status.A;
+
+  @Column(name = "acc_pwd_expires")
+  @NotNull @Enumerated(EnumType.STRING)
+  @Getter @Setter private YesNo passwordExpires = YesNo.Y;
 
   @Column(name = "agent_id")
   @Size(max = 32)
@@ -63,51 +82,52 @@ public class BackofficeUser {
   @Column(name = "phone_switch")
   @Getter @Setter private Integer phoneSwitch;
 
-  @Column(name = "logged_in")
-  @NotNull
-  @Getter @Setter private Character loggedIn = 'N';
-
-  @Column(name = "position_id")
-  @Getter @Setter private Integer positionId;
-
-  @Column(name = "login_time")
-  @Temporal(TemporalType.TIMESTAMP)
-  @Getter @Setter private Date loginTime;
-
-  @Column(name = "login_loc")
-  @Size(max = 32)
-  @Getter @Setter private String loginLocation;
-
-  @Column(name = "last_pwd_change")
-  @Temporal(TemporalType.TIMESTAMP)
-  @Getter @Setter private Date lastPasswordChange = new Date();
-
   @Column(name = "override_code")
   @Size(max = 2)
   @Getter @Setter private String overrideCode;
 
+  @Column(name = "timezone_id")
+  @Getter @Setter private Integer timezoneId;
+
+  @Column(name = "login_uid")
+  @JsonIgnore @NotNull
+  @Getter @Setter private Integer loginUid = 0;
+
+  @Column(name = "logged_in")
+  @JsonIgnore @NotNull
+  @Getter @Setter private Character loggedIn = 'N';
+
+  @Column(name = "position_id")
+  @JsonIgnore
+  @Getter @Setter private Integer positionId;
+
+  @Column(name = "login_time")
+  @JsonIgnore @Temporal(TemporalType.TIMESTAMP)
+  @Getter @Setter private Date loginTime;
+
+  @Column(name = "login_loc")
+  @JsonIgnore @Size(max = 32)
+  @Getter @Setter private String loginLocation;
+
+  @Column(name = "last_pwd_change")
+  @JsonIgnore @Temporal(TemporalType.TIMESTAMP)
+  @Getter @Setter private Date lastPasswordChange = new Date();
+
   @Column(name = "bad_pwd_count")
-  @NotNull
+  @JsonIgnore @NotNull @Min(0)
   @Getter @Setter private Integer badPasswordCount = 0;
 
   @Column(name = "last_pwd_fail")
-  @Temporal(TemporalType.TIMESTAMP)
+  @JsonIgnore @Temporal(TemporalType.TIMESTAMP)
   @Getter @Setter private Date lastPasswordFail;
 
   @Column(name = "password_salt")
-  @Size(max = 40)
-  @Getter @Setter private String passwordSalt;
-
-  @Column(name = "acc_pwd_expires")
-  @NotNull
-  @Getter @Setter private Character passwordExpires = 'Y';
+  @JsonIgnore @Size(max = 40)
+  @Getter private String passwordSalt;
 
   @Column(name = "lost_login_status")
-  @NotNull
-  @Getter @Setter private Character lostLoginStatus = 'A';
-
-  @Column(name = "timezone_id")
-  @Getter @Setter private Integer timezoneId;
+  @JsonIgnore @NotNull @Enumerated(EnumType.STRING)
+  @Getter @Setter private LostLoginStatus lostLoginStatus = LostLoginStatus.A;
 
   @ManyToMany
   @JoinTable(
@@ -116,5 +136,10 @@ public class BackofficeUser {
       inverseJoinColumns = @JoinColumn(name = "action")
   )
   @Getter @Setter private List<Permission> permissions;
+
+  public void setPassword(String password) throws NoSuchAlgorithmException {
+    passwordSalt = Password.generateSalt();
+    this.password = Password.encryptPassword(password, passwordSalt);
+  }
 
 }

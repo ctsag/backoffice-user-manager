@@ -1,4 +1,3 @@
---liquibase formatted sql
 alter table tadminuser
     add login_uid integer default 0 not null,
     add status char(1) default 'A' not null,

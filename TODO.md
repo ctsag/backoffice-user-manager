@@ -56,11 +56,20 @@
             - https://www.toptal.com/java/spring-boot-rest-api-error-handling
             - https://www.baeldung.com/exception-handling-for-rest-with-spring
             - https://stackoverflow.com/questions/39714193/spring-data-jpa-and-put-requests-to-create
-    - what's the equivalent for CURRENT for Timestamp date fields?
-        - lastPasswordChange needs a default value of CURRENT
-        - what is @Temporal?
-        - https://vladmihalcea.com/how-to-store-date-time-and-timestamps-in-utc-time-zone-with-jdbc-and-hibernate/
-        - https://vladmihalcea.com/date-timestamp-jpa-hibernate/
+    v what's the equivalent for CURRENT for Timestamp date fields?
+        v lastPasswordChange needs a default value of CURRENT
+        v what is @Temporal?
+        v https://vladmihalcea.com/how-to-store-date-time-and-timestamps-in-utc-time-zone-with-jdbc-and-hibernate/
+        v https://vladmihalcea.com/date-timestamp-jpa-hibernate/
+    v decide which fields should be insertable, updatable and viewable from the REST API
+    - what field is "Third party" on the admin create new user screen?
+    - what field is "Automated" on the admin create new user screen?
+    - what field is "Prefered Timezone" on the admin create new user screen?
+    - clone functionality?
+    - what does the "Map account to Betfair Account" section do in the view user screen?
+    - handle unique constraints and the exception generated (potentially add Postman scenario as well?)
+    - figure out how to validate enum constraints (tadminuser.status|acc_pwd_expires|last_login_status)
+    - password_salt should not have a public setter, it should only be set from the password setter
 
 # data-redis
     - https://redislabs.com/blog/goodbye-cache-redis-as-a-primary-database/
