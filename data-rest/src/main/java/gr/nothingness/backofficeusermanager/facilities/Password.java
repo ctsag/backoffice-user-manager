@@ -22,7 +22,7 @@ public class Password {
 
   public static String encryptPassword(String password, String salt) throws NoSuchAlgorithmException {
     String saltInBinary = new BigInteger(salt, 16).toString(2);
-    String saltedPassword = password + convertBinaryToAscii(saltInBinary);
+    String saltedPassword = password + binaryToAscii(addLeadingZeroes(saltInBinary));
 
     return getDigest(saltedPassword.getBytes(StandardCharsets.ISO_8859_1), PASSWORD_ALGORITHM);
   }
@@ -31,10 +31,10 @@ public class Password {
     MessageDigest messageDigest = MessageDigest.getInstance(algorithm);
     byte[] digestedValue = messageDigest.digest(value);
 
-    return convertToHex(digestedValue);
+    return bytesToHex(digestedValue);
   }
 
-  private static String convertToHex(byte[] value) {
+  private static String bytesToHex(byte[] value) {
     StringBuilder stringBuilder = new StringBuilder(value.length * 2);
 
     for (byte b: value) {
@@ -44,17 +44,24 @@ public class Password {
     return stringBuilder.toString();
   }
 
-  private static String convertBinaryToAscii(String binaryString) {
+  private static String binaryToAscii(String binary) {
     StringBuilder stringBuilder = new StringBuilder();
 
-    for (int i = 0; i < binaryString.length(); i += 8) {
-      int endIndex = i + 8;
-      if (binaryString.length() < i + 8) {
-        endIndex = binaryString.length();
-      }
-      int characterCode = Integer.parseInt(binaryString.substring(i, endIndex), 2);
-      String returnCharacter = Character.toString((char) characterCode);
-      stringBuilder.append(returnCharacter);
+    for (int i = 0; i < binary.length(); i += 8) {
+      int characterCode = Integer.parseInt(binary.substring(i, i + 8), 2);
+      String asciiCharacter = Character.toString((char)characterCode);
+      stringBuilder.append(asciiCharacter);
+    }
+
+    return stringBuilder.toString();
+  }
+
+  private static String addLeadingZeroes(String binary) {
+    StringBuilder stringBuilder = new StringBuilder(binary);
+    int missingZeroes = 8 - (stringBuilder.length() % 8);
+
+    for (int i = 0; i < missingZeroes; i++) {
+      stringBuilder.insert(0, "0");
     }
 
     return stringBuilder.toString();

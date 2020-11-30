@@ -2,6 +2,8 @@ package gr.nothingness.backofficeusermanager.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import gr.nothingness.backofficeusermanager.facilities.Password;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
@@ -10,12 +12,16 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Min;
@@ -25,9 +31,15 @@ import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.extern.log4j.Log4j2;
 
-@Entity(name = "tadminuser")
+@Entity
+@Table(
+    name = "tadminuser",
+    indexes = @Index(name = "iadminuser_x1", columnList = "timezone_id")
+)
 @NoArgsConstructor
+@Log4j2
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class BackofficeUser {
 
@@ -52,6 +64,7 @@ public class BackofficeUser {
   @Getter @Setter private String username;
 
   @Column(name = "password")
+  @JsonProperty(access = Access.WRITE_ONLY)
   @NotNull @NotBlank @Size(max = 40)
   @Getter private String password;
 
@@ -85,9 +98,6 @@ public class BackofficeUser {
   @Column(name = "override_code")
   @Size(max = 2)
   @Getter @Setter private String overrideCode;
-
-  @Column(name = "timezone_id")
-  @Getter @Setter private Integer timezoneId;
 
   @Column(name = "login_uid")
   @JsonIgnore @NotNull
@@ -129,6 +139,10 @@ public class BackofficeUser {
   @JsonIgnore @NotNull @Enumerated(EnumType.STRING)
   @Getter @Setter private LostLoginStatus lostLoginStatus = LostLoginStatus.A;
 
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "timezone_id")
+  @Getter @Setter private Timezone timezone;
+
   @ManyToMany
   @JoinTable(
       name = "tadminuserop",
@@ -140,6 +154,9 @@ public class BackofficeUser {
   public void setPassword(String password) throws NoSuchAlgorithmException {
     passwordSalt = Password.generateSalt();
     this.password = Password.encryptPassword(password, passwordSalt);
+
+    log.debug("Password salt generated : {}", passwordSalt);
+    log.debug("Password generated : {}", this.password);
   }
 
 }
