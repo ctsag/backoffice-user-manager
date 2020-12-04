@@ -3,7 +3,7 @@
 This implementation uses the following :
 
 * Database
-    - MySQL
+    - PostgreSQL
 
 * Data access
     - Data JPA
@@ -11,13 +11,19 @@ This implementation uses the following :
 * Network API
     - REST serving Hypermedia (manual)
 
+* API documentation
+    - Spring REST Docs/Asciidoctor
+
+* Security
+    - Spring Security
+
 * Developer side testing
     - Unit test framework
         - JUnit 5
     - Mutation testing
         - PIT
     - Assertions library
-        - JUnit 5 + Hamcrest
+        - AssertJ
     - Coverage reports
         - JaCoCo
     - Static code analysis
@@ -26,9 +32,6 @@ This implementation uses the following :
         - Newman
     - Integration testing
         - Spring Boot
-
-* API documentation
-    - Springfox/Swagger
 
 * QA side testing
     - BDD automation

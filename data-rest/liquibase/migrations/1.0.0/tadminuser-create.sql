@@ -1,4 +1,3 @@
---liquibase formatted sql
 create table tadminuser (
     user_id serial not null,
     username varchar(32) not null,

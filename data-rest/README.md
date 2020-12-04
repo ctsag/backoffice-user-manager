@@ -11,13 +11,19 @@ This implementation uses the following :
 * Network API
     - REST serving Hypermedia (automatic)
 
+* API documentation
+    - Springdoc
+
+* Security
+    - Spring Security
+
 * Developer side testing
     - Unit test framework
         - JUnit 5
     - Mutation testing
         - PIT
     - Assertions library
-        - AssertJ
+        - JUnit 5 + Hamcrest
     - Coverage reports
         - JaCoCo
     - Static code analysis
@@ -26,9 +32,6 @@ This implementation uses the following :
         - Newman
     - Integration testing
         - REST Assured
-
-* API documentation
-    - Spring REST Docs
 
 * QA side testing
     - BDD automation

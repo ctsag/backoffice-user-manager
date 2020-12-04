@@ -10,8 +10,13 @@
     - Perhaps the username should be added as a REST path
     - Figure out if there's anything from spring-skeletons we need to bring over
     - create production vs dev app properties
-    - documentation
+    - Documentation
+        - https://www.codingame.com/playgrounds/6740/testing-a-hateoas-service
     - Unit tests
+    - Can we actually merge the mysql/postgre/informix implementations and use profiles?
+    - User clone functionality?
+    - How do the password and password salt fields get populated?
+    - How does the timezoneid field get populated?
 
 # QA side testing
     - Postman
@@ -19,7 +24,8 @@
         v Move the tests from the implementation directories to the root directory
         v Turn the findByLastName request to findByFullName
         v Which port? How do you tell between different implementations?
-        - Fix findByFullName and findByType when they're available
+        - Fix findByFullName, findByUsername and findByType when they're available
+            - What about the users,permissions/search resource?
         - Test API for proper validation of bad input
             - Null on username, password, perm name
     - Add cucumber tests
@@ -50,3 +56,22 @@
             - https://www.toptal.com/java/spring-boot-rest-api-error-handling
             - https://www.baeldung.com/exception-handling-for-rest-with-spring
             - https://stackoverflow.com/questions/39714193/spring-data-jpa-and-put-requests-to-create
+    v what's the equivalent for CURRENT for Timestamp date fields?
+        v lastPasswordChange needs a default value of CURRENT
+        v what is @Temporal?
+        v https://vladmihalcea.com/how-to-store-date-time-and-timestamps-in-utc-time-zone-with-jdbc-and-hibernate/
+        v https://vladmihalcea.com/date-timestamp-jpa-hibernate/
+    v decide which fields should be insertable, updatable and viewable from the REST API
+    - what field is "Third party" on the admin create new user screen?
+    - what field is "Automated" on the admin create new user screen?
+    - what field is "Prefered Timezone" on the admin create new user screen?
+    - clone functionality?
+    - what does the "Map account to Betfair Account" section do in the view user screen?
+    - handle unique constraints and the exception generated (potentially add Postman scenario as well?)
+    v figure out how to validate enum constraints (tadminuser.status|acc_pwd_expires|last_login_status)
+    v password_salt should not have a public setter, it should only be set from the password setter
+    - password needs to be validated according to PCI rules (grep 'password complies with pci rules' in admin source
+    - cascade operations
+
+# data-redis
+    - https://redislabs.com/blog/goodbye-cache-redis-as-a-primary-database/

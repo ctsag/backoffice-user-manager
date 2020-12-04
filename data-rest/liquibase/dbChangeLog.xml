@@ -6,6 +6,12 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
 
-    <include file="tables-1.0.0.xml"/>
+    <include file="migrations/1.0.0/changes.xml"/>
+    <include file="migrations/1.0.1/changes.xml"/>
+    <include file="migrations/1.0.2/changes.xml"/>
+    <include file="migrations/1.0.3/changes.xml"/>
+    <include file="migrations/1.0.4/changes.xml"/>
+    <include file="migrations/1.0.5/changes.xml"/>
+    <include file="migrations/1.0.6/changes.xml"/>
 
 </databaseChangeLog>

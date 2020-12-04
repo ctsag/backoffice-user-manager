@@ -5,21 +5,37 @@ problem : managing users, user groups and their respective privileges.
 The areas all implementations must cover are :
 
 * Database
-    - H2
+    - PostgreSQL
         - data-jpa
+        - hibernate
+    - MongoDB
+        - data-mongo
     - MySQL
+        - jdbc-templtae
+        - jdbc-raw
     - Informix
         - data-rest
+        - mybatis
+    - Redis
+        - data-redis
 
 * Data access
     - Data REST
         - data-rest
     - Data JPA
         - data-jpa
+    - Data Mongo
+        - data-mongo
     - Hibernate
+        - hibernate
     - MyBatis
+        - mybatis
     - JDBC Template
+        - jdbc-template
     - Raw JDBC
+        - jdbc-raw
+    - Redis
+        - data-redis
 
 * Network API
     - REST serving Hypermedia (automatic)
@@ -27,72 +43,101 @@ The areas all implementations must cover are :
     - REST serving Hypermedia (manual)
         - data-jpa
     - REST serving JSON
+        - data-redis
+        - hibernate
+        - mybatis
+        - jdbc-template
+        - jdbc-raw
     - REST serving XML
+        - data-mongo
 
 * API documentation
-    - Spring REST Docs
-        - data-rest
-    - Springfox/Swagger
+    - Spring REST Docs/Asciidoctor
         - data-jpa
+    - Springdoc
+        - data-redis
+        - data-rest
+        - hibernate
+        - mybatis
+        - jdbc-template
+        - jdbc-raw
+    - Springfox/Swagger
+        - data-mongo
+* Security
+    - Spring Security
+        - *
 
 * Developer side testing
     - Unit test framework
         - JUnit 5
-            - data-rest
-            - data-jpa
+            - *
     - Mutation testing
         - PIT
-            - data-rest
-            - data-jpa
+            - *
     - Assertions library
         - JUnit 5 + Hamcrest
-            - data-jpa
-        - AssertJ
+            - data-redis
             - data-rest
+            - hibernate
+            - mybatis
+            - jdbc-template
+            - jdbc-raw
+        - AssertJ
+            - data-jpa
     - Coverage reports
         - JaCoCo
-            - data-jpa
-            - data-rest
+            - *
     - Static code analysis
         - ?
     - Build acceptance testing
         - Newman
-            - data-jpa
-            - data-rest
+            - *
     - Integration testing
         - Spring Boot
             - data-jpa
         - REST Assured
+            - data-redis
             - data-rest
+            - hibernate
+            - mybatis
+            - jdbc-template
+            - jdbc-raw
 
 * QA side testing
     - BDD automation
         - Cucumber
-            - data-jpa
-            - data-rest
+            - *
         - FitNesse
-            - data-jpa
-            - data-rest
+            - *
     - Build acceptance testing
         - Postman
-            - data-jpa
-            - data-rest
+            - *
 
 * Database migrations
     - Liquibase
         - data-rest
+        - hibernate
+        - mybatis
     - Flyway
+        - data-redis
         - data-jpa
+        - jdbc-template
+        - jdbc-raw
 
 * Monitoring
     - Actuator
-        - data-jpa
+        - data-redis
         - data-rest
+        - data-jpa
+        - mybatis
+        - jdbc-template
+        - jdbc-raw
+    - Micrometer
+        - hibernate
 
 * Build tool
     - Maven
-        - data-jpa
-        - data-rest
+        - *
 
 # Common practices
 
