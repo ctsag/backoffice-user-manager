@@ -71,6 +71,7 @@
     v figure out how to validate enum constraints (tadminuser.status|acc_pwd_expires|last_login_status)
     v password_salt should not have a public setter, it should only be set from the password setter
     - password needs to be validated according to PCI rules (grep 'password complies with pci rules' in admin source
+    - cascade operations
 
 # data-redis
     - https://redislabs.com/blog/goodbye-cache-redis-as-a-primary-database/

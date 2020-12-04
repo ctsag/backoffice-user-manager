@@ -1,0 +1,76 @@
+<?xml version="1.1" encoding="UTF-8"?>
+
+<databaseChangeLog 
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"  
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="tadminuser_aud-create" author="ctsag">
+        <sqlFile path="migrations/1.0.6/tadminuser_aud-create.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.6/rollback_tadminuser_aud-create.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminuser_aud-index-aud_order" author="ctsag">
+        <sqlFile path="migrations/1.0.6/tadminuser_aud-index-aud_order.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.6/rollback_tadminuser_aud-index-aud_order.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminuser_aud-user_id-index-aud_order" author="ctsag">
+        <sqlFile path="migrations/1.0.6/tadminuser_aud-index-user_id-aud_order.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.6/rollback_tadminuser_aud-index-user_id-aud_order.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminuser_aud-primary-key" author="ctsag">
+        <sqlFile path="migrations/1.0.6/tadminuser_aud-primary-key.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.6/rollback_tadminuser_aud-primary-key.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="psetgadminuser-create" author="ctsag">
+        <sqlFile path="migrations/1.0.6/psetgadminuser-create.sql" endDelimiter="--END"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.6/rollback_psetgadminuser-create.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="paudadminuser-create" author="ctsag">
+        <sqlFile path="migrations/1.0.6/paudadminuser-create.sql" endDelimiter="--END"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.6/rollback_paudadminuser-create.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminuser_aud-trigger-insert" author="ctsag">
+        <sqlFile path="migrations/1.0.6/tadminuser_aud-trigger-insert.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.6/rollback_tadminuser_aud-trigger-insert.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminuser_aud-trigger-update" author="ctsag">
+        <sqlFile path="migrations/1.0.6/tadminuser_aud-trigger-update.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.6/rollback_tadminuser_aud-trigger-update.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminuser_aud-trigger-delete" author="ctsag">
+        <sqlFile path="migrations/1.0.6/tadminuser_aud-trigger-delete.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.6/rollback_tadminuser_aud-trigger-delete.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tag-1.0.6" author="ctsag">
+        <tagDatabase tag="1.0.6"/>
+    </changeSet>
+
+</databaseChangeLog>

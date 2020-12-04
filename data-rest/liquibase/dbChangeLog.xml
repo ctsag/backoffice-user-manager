@@ -11,5 +11,7 @@
     <include file="migrations/1.0.2/changes.xml"/>
     <include file="migrations/1.0.3/changes.xml"/>
     <include file="migrations/1.0.4/changes.xml"/>
+    <include file="migrations/1.0.5/changes.xml"/>
+    <include file="migrations/1.0.6/changes.xml"/>
 
 </databaseChangeLog>

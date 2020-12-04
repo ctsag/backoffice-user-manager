@@ -1,0 +1,34 @@
+<?xml version="1.1" encoding="UTF-8"?>
+
+<databaseChangeLog 
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"  
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="tadminposition-create" author="ctsag">
+        <sqlFile path="migrations/1.0.5/tadminposition-create.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.5/rollback_tadminposition-create.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminposition-foreign-key" author="ctsag">
+        <sqlFile path="migrations/1.0.5/tadminposition-foreign-key.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.5/rollback_tadminposition-foreign-key.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminuser-foreign-keys" author="ctsag">
+        <sqlFile path="migrations/1.0.5/tadminuser-foreign-keys.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.5/rollback_tadminuser-foreign-keys.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tag-1.0.5" author="ctsag">
+        <tagDatabase tag="1.0.5"/>
+    </changeSet>
+
+</databaseChangeLog>

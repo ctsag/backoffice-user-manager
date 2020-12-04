@@ -39,7 +39,6 @@ import lombok.extern.log4j.Log4j2;
     indexes = @Index(name = "iadminuser_x1", columnList = "timezone_id")
 )
 @NoArgsConstructor
-@Log4j2
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class BackofficeUser {
 
@@ -107,10 +106,6 @@ public class BackofficeUser {
   @JsonIgnore @NotNull
   @Getter @Setter private Character loggedIn = 'N';
 
-  @Column(name = "position_id")
-  @JsonIgnore
-  @Getter @Setter private Integer positionId;
-
   @Column(name = "login_time")
   @JsonIgnore @Temporal(TemporalType.TIMESTAMP)
   @Getter @Setter private Date loginTime;
@@ -143,6 +138,10 @@ public class BackofficeUser {
   @JoinColumn(name = "timezone_id")
   @Getter @Setter private Timezone timezone;
 
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "position_id")
+  @Getter @Setter private Position position;
+
   @ManyToMany
   @JoinTable(
       name = "tadminuserop",
@@ -154,9 +153,6 @@ public class BackofficeUser {
   public void setPassword(String password) throws NoSuchAlgorithmException {
     passwordSalt = Password.generateSalt();
     this.password = Password.encryptPassword(password, passwordSalt);
-
-    log.debug("Password salt generated : {}", passwordSalt);
-    log.debug("Password generated : {}", this.password);
   }
 
 }
