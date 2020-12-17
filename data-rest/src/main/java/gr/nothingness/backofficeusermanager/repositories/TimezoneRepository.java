@@ -9,6 +9,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
     itemResourceRel = "timezone",
     path = "timezones"
 )
-public interface TimezoneRepository extends CrudRepository<Timezone, String> {
+public interface TimezoneRepository extends CrudRepository<Timezone, Long> {
 
 }

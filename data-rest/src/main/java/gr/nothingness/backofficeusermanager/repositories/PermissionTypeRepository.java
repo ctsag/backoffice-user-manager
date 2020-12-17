@@ -7,7 +7,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource(
     collectionResourceRel = "permissionTypes",
     itemResourceRel = "permissionType",
-    path = "permissionsTypes"
+    path = "permissionTypes"
 )
 public interface PermissionTypeRepository extends CrudRepository<PermissionType, String> {
 
