@@ -29,7 +29,7 @@ public class Position {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Getter @Setter private String id;
 
-  @Column(name = "name")
+  @Column(name = "position_name")
   @NotNull @Size(max = 64)
   @Getter @Setter private String name;
 
@@ -38,7 +38,7 @@ public class Position {
   @Getter @Setter private Position parentPosition;
 
   @OneToMany(mappedBy = "parentPosition")
-  @Getter @Setter private List<Position> positions;
+  @Getter @Setter private List<Position> childPositions;
 
   @OneToMany(mappedBy = "position")
   @JsonIgnore
