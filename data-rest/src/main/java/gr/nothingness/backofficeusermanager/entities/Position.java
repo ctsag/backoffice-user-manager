@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -43,5 +45,13 @@ public class Position {
   @OneToMany(mappedBy = "position")
   @JsonIgnore
   @Getter @Setter private List<BackofficeUser> users;
+
+  @ManyToMany
+  @JoinTable(
+      name = "tadminposngroup",
+      joinColumns = @JoinColumn(name = "position_id"),
+      inverseJoinColumns = @JoinColumn(name = "group_id")
+  )
+  @Getter @Setter private List<BackofficeGroup> groups;
 
 }

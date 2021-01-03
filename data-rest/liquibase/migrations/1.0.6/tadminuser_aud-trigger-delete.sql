@@ -6,7 +6,7 @@ referencing
     old as pre
 for each row (
     execute procedure paudadminuser(
-       p_aud_op = 'D',
+        p_aud_op = 'D',
         p_user_id_post = pre.user_id,
         p_username_post = pre.username,
         p_password_post = pre.password,

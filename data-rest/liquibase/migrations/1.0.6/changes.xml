@@ -20,7 +20,7 @@
         </rollback>
     </changeSet>
 
-    <changeSet id="tadminuser_aud-user_id-index-aud_order" author="ctsag">
+    <changeSet id="tadminuser_aud-index-user_id-aud_order" author="ctsag">
         <sqlFile path="migrations/1.0.6/tadminuser_aud-index-user_id-aud_order.sql"/>
         <rollback>
             <sqlFile path="migrations/1.0.6/rollback_tadminuser_aud-index-user_id-aud_order.sql"/>

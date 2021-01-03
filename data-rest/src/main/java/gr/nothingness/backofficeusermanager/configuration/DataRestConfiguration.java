@@ -1,5 +1,6 @@
 package gr.nothingness.backofficeusermanager.configuration;
 
+import gr.nothingness.backofficeusermanager.entities.BackofficeGroup;
 import gr.nothingness.backofficeusermanager.entities.BackofficeUser;
 import gr.nothingness.backofficeusermanager.entities.Permission;
 import gr.nothingness.backofficeusermanager.entities.PermissionType;
@@ -12,7 +13,12 @@ public class DataRestConfiguration implements RepositoryRestConfigurer {
 
   @Override
   public void configureRepositoryRestConfiguration(RepositoryRestConfiguration configuration) {
-    configuration.exposeIdsFor(BackofficeUser.class, Permission.class, PermissionType.class);
+    configuration.exposeIdsFor(
+        BackofficeUser.class,
+        BackofficeGroup.class,
+        Permission.class,
+        PermissionType.class
+    );
   }
 
 }

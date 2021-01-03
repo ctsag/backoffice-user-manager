@@ -43,6 +43,10 @@ public class Permission {
   @JsonIgnore
   @Getter @Setter private List<BackofficeUser> users;
 
+  @ManyToMany(mappedBy = "permissions")
+  @JsonIgnore
+  @Getter @Setter private List<BackofficeGroup> groups;
+
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "type")
   @Getter @Setter private PermissionType type;
