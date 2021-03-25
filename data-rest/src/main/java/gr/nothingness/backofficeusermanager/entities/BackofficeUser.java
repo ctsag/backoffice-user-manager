@@ -21,6 +21,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -141,6 +142,10 @@ public class BackofficeUser {
   @JoinColumn(name = "position_id")
   @Getter @Setter private Position position;
 
+  @OneToMany(mappedBy = "owner")
+  @JsonIgnore
+  @Getter @Setter private List<BackofficeGroup> ownedGroups;
+
   @ManyToMany
   @JoinTable(
       name = "tadminuserop",
@@ -148,6 +153,14 @@ public class BackofficeUser {
       inverseJoinColumns = @JoinColumn(name = "action")
   )
   @Getter @Setter private List<Permission> permissions;
+
+  @ManyToMany
+  @JoinTable(
+      name = "tadminusergroup",
+      joinColumns = @JoinColumn(name = "user_id"),
+      inverseJoinColumns = @JoinColumn(name = "group_id")
+  )
+  @Getter @Setter private List<BackofficeGroup> groups;
 
   public void setPassword(String password) throws NoSuchAlgorithmException {
     passwordSalt = Password.generateSalt();

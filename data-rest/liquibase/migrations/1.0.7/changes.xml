@@ -1,0 +1,356 @@
+<?xml version="1.1" encoding="UTF-8"?>
+
+<databaseChangeLog 
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"  
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="toximsg-create" author="ctsag">
+        <sqlFile path="migrations/1.0.7/toximsg-create.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_toximsg-create.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="toximsg-index-msg_id" author="ctsag">
+        <sqlFile path="migrations/1.0.7/toximsg-index-msg_id.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_toximsg-index-msg_id.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="toximsg-index-base_id" author="ctsag">
+        <sqlFile path="migrations/1.0.7/toximsg-index-base_id.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_toximsg-index-base_id.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="toximsg-primary-key" author="ctsag">
+        <sqlFile path="migrations/1.0.7/toximsg-primary-key.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_toximsg-primary-key.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminuser-default-record" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tadminuser-default-record.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tadminuser-default-record.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadmingroup-create" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tadmingroup-create.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tadmingroup-create.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadmingroup-foreign-key" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tadmingroup-foreign-key.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tadmingroup-foreign-key.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadmingroup_aud-create" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tadmingroup_aud-create.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tadmingroup_aud-create.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadmingroup_aud-index-aud_order" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tadmingroup_aud-index-aud_order.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tadmingroup_aud-index-aud_order.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadmingroup_aud-index-group_id-aud_order" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tadmingroup_aud-index-group_id-aud_order.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tadmingroup_aud-index-group_id-aud_order.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadmingroup_aud-primary-key" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tadmingroup_aud-primary-key.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tadmingroup_aud-primary-key.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="paudadmingroup-create" author="ctsag">
+        <sqlFile path="migrations/1.0.7/paudadmingroup-create.sql" endDelimiter="--END"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_paudadmingroup-create.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadmingroup_aud-trigger-insert" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tadmingroup_aud-trigger-insert.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tadmingroup_aud-trigger-insert.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadmingroup_aud-trigger-update" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tadmingroup_aud-trigger-update.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tadmingroup_aud-trigger-update.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadmingroup_aud-trigger-delete" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tadmingroup_aud-trigger-delete.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tadmingroup_aud-trigger-delete.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminusergroup-create" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tadminusergroup-create.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tadminusergroup-create.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminusergroup-foreign-keys" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tadminusergroup-foreign-keys.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tadminusergroup-foreign-keys.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminusergroup_aud-create" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tadminusergroup_aud-create.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tadminusergroup_aud-create.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminusergroup_aud-index-aud_order" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tadminusergroup_aud-index-aud_order.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tadminusergroup_aud-index-aud_order.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminusergroup_aud-index-user_id-aud_order" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tadminusergroup_aud-index-user_id-aud_order.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tadminusergroup_aud-index-user_id-aud_order.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminusergroup_aud-primary-key" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tadminusergroup_aud-primary-key.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tadminusergroup_aud-primary-key.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="paudadminusergroup-create" author="ctsag">
+        <sqlFile path="migrations/1.0.7/paudadminusergroup-create.sql" endDelimiter="--END"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_paudadminusergroup-create.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminusergroup_aud-trigger-insert" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tadminusergroup_aud-trigger-insert.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tadminusergroup_aud-trigger-insert.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminusergroup_aud-trigger-update" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tadminusergroup_aud-trigger-update.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tadminusergroup_aud-trigger-update.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminusergroup_aud-trigger-delete" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tadminusergroup_aud-trigger-delete.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tadminusergroup_aud-trigger-delete.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminposngroup-create" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tadminposngroup-create.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tadminposngroup-create.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminposngroup-foreign-keys" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tadminposngroup-foreign-keys.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tadminposngroup-foreign-keys.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadmingroupop-create" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tadmingroupop-create.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tadmingroupop-create.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadmingroupop-foreign-keys" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tadmingroupop-foreign-keys.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tadmingroupop-foreign-keys.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadmingroupop_aud-create" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tadmingroupop_aud-create.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tadmingroupop_aud-create.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadmingroupop_aud-index-aud_order" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tadmingroupop_aud-index-aud_order.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tadmingroupop_aud-index-aud_order.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadmingroupop_aud-index-group_id-aud_order" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tadmingroupop_aud-index-group_id-aud_order.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tadmingroupop_aud-index-group_id-aud_order.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadmingroupop_aud-primary-key" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tadmingroupop_aud-primary-key.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tadmingroupop_aud-primary-key.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="paudadmingroupop-create" author="ctsag">
+        <sqlFile path="migrations/1.0.7/paudadmingroupop-create.sql" endDelimiter="--END"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_paudadmingroupop-create.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadmingroupop_aud-trigger-insert" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tadmingroupop_aud-trigger-insert.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tadmingroupop_aud-trigger-insert.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadmingroupop_aud-trigger-update" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tadmingroupop_aud-trigger-update.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tadmingroupop_aud-trigger-update.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadmingroupop_aud-trigger-delete" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tadmingroupop_aud-trigger-delete.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tadmingroupop_aud-trigger-delete.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tjurisdiction-create" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tjurisdiction-create.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tjurisdiction-create.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tjurisdiction-index-jur_id" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tjurisdiction-index-jur_id.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tjurisdiction-index-jur_id.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tjurisdiction-index-jurisdiction" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tjurisdiction-index-jurisdiction.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tjurisdiction-index-jurisdiction.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tjurisdiction-primary-key" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tjurisdiction-primary-key.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tjurisdiction-primary-key.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tjurisdiction_aud-create" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tjurisdiction_aud-create.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tjurisdiction_aud-create.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tjurisdiction_aud-index-aud_order" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tjurisdiction_aud-index-aud_order.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tjurisdiction_aud-index-aud_order.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tjurisdiction_aud-index-jur_id-aud_order" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tjurisdiction_aud-index-jur_id-aud_order.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tjurisdiction_aud-index-jur_id-aud_order.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tjurisdiction_aud-primary-key" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tjurisdiction_aud-primary-key.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tjurisdiction_aud-primary-key.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="paudjurisdiction-create" author="ctsag">
+        <sqlFile path="migrations/1.0.7/paudjurisdiction-create.sql" endDelimiter="--END"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_paudjurisdiction-create.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tjurisdiction_aud-trigger-insert" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tjurisdiction_aud-trigger-insert.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tjurisdiction_aud-trigger-insert.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tjurisdiction_aud-trigger-update" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tjurisdiction_aud-trigger-update.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tjurisdiction_aud-trigger-update.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tjurisdiction_aud-trigger-delete" author="ctsag">
+        <sqlFile path="migrations/1.0.7/tjurisdiction_aud-trigger-delete.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.7/rollback_tjurisdiction_aud-trigger-delete.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tag-1.0.7" author="ctsag">
+        <tagDatabase tag="1.0.7"/>
+    </changeSet>
+
+</databaseChangeLog>

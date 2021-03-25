@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -43,11 +44,15 @@ public class Permission {
   @JsonIgnore
   @Getter @Setter private List<BackofficeUser> users;
 
+  @ManyToMany(mappedBy = "permissions")
+  @JsonIgnore
+  @Getter @Setter private List<BackofficeGroup> groups;
+
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "type")
   @Getter @Setter private PermissionType type;
 
-  @PrePersist
+  @PrePersist @PreUpdate
   public void prePersist() {
     if (type == null) {
       type = createDefaultPermissionType();

@@ -7,7 +7,7 @@ referencing
     new as post
 for each row (
     execute procedure paudadminuser(
-        p_aud_op= 'U',
+        p_aud_op = 'U',
         p_user_id_post = post.user_id,
         p_username_post = post.username,
         p_password_post = post.password,
