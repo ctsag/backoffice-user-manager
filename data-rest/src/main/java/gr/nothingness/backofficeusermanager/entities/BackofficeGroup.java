@@ -17,7 +17,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Getter;
@@ -35,7 +34,7 @@ public class BackofficeGroup {
   @Getter private Long id;
 
   @Column(name = "group_name", unique = true)
-  @NotNull @NotBlank @Size(max = 64)
+  @NotNull @Size(min = 1, max = 64)
   @Getter @Setter private String name;
 
   @Column(name = "cr_date")

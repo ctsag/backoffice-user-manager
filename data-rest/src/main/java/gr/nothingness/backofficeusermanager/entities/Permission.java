@@ -13,7 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Getter;
@@ -30,11 +29,11 @@ public class Permission {
   private static final String DEFAULT_TYPE_DESCRIPTION = "Default permission type";
 
   @Column(name = "action")
-  @Id @NotBlank @Size(max = 64)
+  @Id @Size(min = 1, max = 64)
   @Getter @Setter private String name;
 
   @Column(name = "desc")
-  @NotNull @NotBlank @Size(max = 80)
+  @NotNull @Size(min = 1, max = 80)
   @Getter @Setter private String description;
 
   @Column(name = "disporder")
