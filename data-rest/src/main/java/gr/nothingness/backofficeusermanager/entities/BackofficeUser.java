@@ -25,6 +25,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -59,12 +60,12 @@ public class BackofficeUser {
   @Getter private Long id;
 
   @Column(name = "username", unique = true, updatable = false)
-  @NotNull @NotBlank @Size(max = 32)
+  @NotNull @Size(min = 1, max = 32)
   @Getter @Setter private String username;
 
   @Column(name = "password")
   @JsonProperty(access = Access.WRITE_ONLY)
-  @NotNull @NotBlank @Size(max = 40)
+  @NotNull @Size(min = 1, max = 40)
   @Getter private String password;
 
   @Column(name = "fname")
@@ -76,7 +77,7 @@ public class BackofficeUser {
   @Getter @Setter private String lastName;
 
   @Column(name = "email")
-  @Size(max = 60)
+  @Size(max = 60) @Email
   @Getter @Setter private String email;
 
   @Column(name = "status")
