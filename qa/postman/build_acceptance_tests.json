@@ -10012,6 +10012,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -10049,6 +10055,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -10335,6 +10347,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -10372,6 +10390,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -10646,6 +10670,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -10683,6 +10713,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -10794,7 +10830,7 @@
 					"name": "Many users can have many permissions",
 					"item": [
 						{
-							"name": "Assign first permission to first user",
+							"name": "Assign both permissions to first user",
 							"event": [
 								{
 									"listen": "test",
@@ -10805,6 +10841,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -10812,7 +10854,7 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -10823,7 +10865,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{{Created permission}}",
+									"raw": "{{Created permission}}\r\n{{Second created permission}}",
 									"options": {
 										"raw": {
 											"language": "text"
@@ -10840,7 +10882,7 @@
 							"response": []
 						},
 						{
-							"name": "Assign first permission to second user",
+							"name": "Assign both permissions to second user",
 							"event": [
 								{
 									"listen": "test",
@@ -10851,98 +10893,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "PATCH",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "text/uri-list"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{{Created permission}}",
-									"options": {
-										"raw": {
-											"language": "text"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{Second created user's permissions}}",
-									"host": [
-										"{{Second created user's permissions}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Assign second permission to first user",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content\", () => {\r",
-											"    const response = pm.response;\r",
+											"});\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "PATCH",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "text/uri-list"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{{Second created permission}}",
-									"options": {
-										"raw": {
-											"language": "text"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{Created user's permissions}}",
-									"host": [
-										"{{Created user's permissions}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Assign second permission to second user",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content\", () => {\r",
-											"    const response = pm.response;\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -10950,7 +10906,7 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -10961,7 +10917,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{{Second created permission}}",
+									"raw": "{{Created permission}}\r\n{{Second created permission}}",
 									"options": {
 										"raw": {
 											"language": "text"
@@ -11098,6 +11054,118 @@
 							"response": []
 						},
 						{
+							"name": "Assign first permissions to first group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{Created permission}}",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created user's permissions}}",
+									"host": [
+										"{{Created user's permissions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve first user's permissions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains created permission\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const permissions = jsonData._embedded.permissions;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < permissions.length; i++) {\r",
+											"        if (permissions[i]._links.permission.href == pm.collectionVariables.get(\"Created permission\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contains second created permission\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const permissions = jsonData._embedded.permissions;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < permissions.length; i++) {\r",
+											"        if (permissions[i]._links.permission.href == pm.collectionVariables.get(\"Second created permission\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created user's permissions}}",
+									"host": [
+										"{{Created user's permissions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Deassign first permission from first user",
 							"event": [
 								{
@@ -11109,6 +11177,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -11149,6 +11223,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -11178,46 +11258,6 @@
 							"response": []
 						},
 						{
-							"name": "Deassign second permission from first user",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content\", () => {\r",
-											"    const response = pm.response;\r",
-											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "text/uri-list"
-									}
-								],
-								"url": {
-									"raw": "{{Created user's permissions}}/{{Incorrect permission id}}",
-									"host": [
-										"{{Created user's permissions}}"
-									],
-									"path": [
-										"{{Incorrect permission id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": "Deassign second permission from second user",
 							"event": [
 								{
@@ -11229,6 +11269,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -11403,7 +11449,7 @@
 					"name": "Many users can belong to many groups",
 					"item": [
 						{
-							"name": "Assign first user to first group",
+							"name": "Assign both groups to first user",
 							"event": [
 								{
 									"listen": "test",
@@ -11414,6 +11460,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -11421,7 +11473,7 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -11432,7 +11484,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{{Created group}}",
+									"raw": "{{Created group}}\r\n{{Second created group}}",
 									"options": {
 										"raw": {
 											"language": "text"
@@ -11449,7 +11501,7 @@
 							"response": []
 						},
 						{
-							"name": "Assign first user to second group",
+							"name": "Assign both groups to second user",
 							"event": [
 								{
 									"listen": "test",
@@ -11460,98 +11512,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "PATCH",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "text/uri-list"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{{Second created group}}",
-									"options": {
-										"raw": {
-											"language": "text"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{Created user's groups}}",
-									"host": [
-										"{{Created user's groups}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Assign second user to first group",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content\", () => {\r",
-											"    const response = pm.response;\r",
+											"});\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "PATCH",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "text/uri-list"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{{Created group}}",
-									"options": {
-										"raw": {
-											"language": "text"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{Second created user's groups}}",
-									"host": [
-										"{{Second created user's groups}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Assign second user to second group",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content\", () => {\r",
-											"    const response = pm.response;\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -11559,7 +11525,7 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -11570,7 +11536,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{{Second created group}}",
+									"raw": "{{Created group}}\r\n{{Second created group}}",
 									"options": {
 										"raw": {
 											"language": "text"
@@ -11707,6 +11673,118 @@
 							"response": []
 						},
 						{
+							"name": "Assign first group to first user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{Created group}}",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created user's groups}}",
+									"host": [
+										"{{Created user's groups}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve first user's groups",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains created group\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const groups = jsonData._embedded.groups;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < groups.length; i++) {\r",
+											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Created group\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain second created group\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const groups = jsonData._embedded.groups;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < groups.length; i++) {\r",
+											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Second created group\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created user's groups}}",
+									"host": [
+										"{{Created user's groups}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Deassign first group from first user",
 							"event": [
 								{
@@ -11718,6 +11796,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -11758,46 +11842,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "text/uri-list"
-									}
-								],
-								"url": {
-									"raw": "{{Created user's groups}}/{{Second created group's id}}",
-									"host": [
-										"{{Created user's groups}}"
-									],
-									"path": [
-										"{{Second created group's id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Deassign second group first user",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content\", () => {\r",
-											"    const response = pm.response;\r",
+											"});\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -11838,6 +11888,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -12187,6 +12243,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -12224,6 +12286,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -12335,7 +12403,7 @@
 					"name": "Many groups can consist of many positions",
 					"item": [
 						{
-							"name": "Assign first position to first group",
+							"name": "Assign both groups to first position",
 							"event": [
 								{
 									"listen": "test",
@@ -12346,6 +12414,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -12353,7 +12427,7 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -12364,7 +12438,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{{Created group}}",
+									"raw": "{{Created group}}\r\n{{Second created group}}",
 									"options": {
 										"raw": {
 											"language": "text"
@@ -12381,7 +12455,7 @@
 							"response": []
 						},
 						{
-							"name": "Assign first position to second group",
+							"name": "Assign both groups to second position",
 							"event": [
 								{
 									"listen": "test",
@@ -12392,98 +12466,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "PATCH",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "text/uri-list"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{{Second created group}}",
-									"options": {
-										"raw": {
-											"language": "text"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{Created position's groups}}",
-									"host": [
-										"{{Created position's groups}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Assign second position to first group",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content\", () => {\r",
-											"    const response = pm.response;\r",
+											"});\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "PATCH",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "text/uri-list"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{{Created group}}",
-									"options": {
-										"raw": {
-											"language": "text"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{Second created position's groups}}",
-									"host": [
-										"{{Second created position's groups}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Assign second position to second group",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content\", () => {\r",
-											"    const response = pm.response;\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -12491,7 +12479,7 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -12502,7 +12490,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{{Second created group}}",
+									"raw": "{{Created group}}\r\n{{Second created group}}",
 									"options": {
 										"raw": {
 											"language": "text"
@@ -12639,7 +12627,7 @@
 							"response": []
 						},
 						{
-							"name": "Deassign first position from first group",
+							"name": "Deassign first group from first position",
 							"event": [
 								{
 									"listen": "test",
@@ -12650,6 +12638,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -12679,7 +12673,7 @@
 							"response": []
 						},
 						{
-							"name": "Deassign first position from second group",
+							"name": "Deassign first group from second position",
 							"event": [
 								{
 									"listen": "test",
@@ -12690,46 +12684,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "text/uri-list"
-									}
-								],
-								"url": {
-									"raw": "{{Created position's groups}}/{{Second created group's id}}",
-									"host": [
-										"{{Created position's groups}}"
-									],
-									"path": [
-										"{{Second created group's id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Deassign second position from first group",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content\", () => {\r",
-											"    const response = pm.response;\r",
+											"});\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -12759,7 +12719,7 @@
 							"response": []
 						},
 						{
-							"name": "Deassign second position from second group",
+							"name": "Deassign second group from first position",
 							"event": [
 								{
 									"listen": "test",
@@ -12770,6 +12730,58 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"url": {
+									"raw": "{{Created position's groups}}/{{Second created group's id}}",
+									"host": [
+										"{{Created position's groups}}"
+									],
+									"path": [
+										"{{Second created group's id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deassign second group from second position",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -12799,7 +12811,7 @@
 							"response": []
 						},
 						{
-							"name": "Retrieve first group's positions",
+							"name": "Retrieve first position's groups",
 							"event": [
 								{
 									"listen": "test",
@@ -12812,13 +12824,13 @@
 											"    pm.expect(response.status).to.equal(\"OK\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Does not contain created position\", () => {\r",
+											"pm.test(\"Does not contain created group\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const positions = jsonData._embedded.positions;\r",
+											"    const groups = jsonData._embedded.groups;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < positions.length; i++) {\r",
-											"        if (positions[i]._links.position.href == pm.collectionVariables.get(\"Created position\")) {\r",
+											"    for (var i = 0; i < groups.length; i++) {\r",
+											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Created group\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -12827,13 +12839,13 @@
 											"    pm.expect(found).to.be.false;\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Does not contain second created position\", () => {\r",
+											"pm.test(\"Does not contain second created group\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const positions = jsonData._embedded.positions;\r",
+											"    const groups = jsonData._embedded.groups;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < positions.length; i++) {\r",
-											"        if (positions[i]._links.position.href == pm.collectionVariables.get(\"Second created position\")) {\r",
+											"    for (var i = 0; i < groups.length; i++) {\r",
+											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Second created group\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -12850,16 +12862,16 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{Created group's positions}}",
+									"raw": "{{Created position's groups}}",
 									"host": [
-										"{{Created group's positions}}"
+										"{{Created position's groups}}"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Retrieve second group's positions",
+							"name": "Retrieve second position's groups",
 							"event": [
 								{
 									"listen": "test",
@@ -12872,13 +12884,13 @@
 											"    pm.expect(response.status).to.equal(\"OK\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Does not contain created position\", () => {\r",
+											"pm.test(\"Does not contain created group\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const positions = jsonData._embedded.positions;\r",
+											"    const groups = jsonData._embedded.groups;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < positions.length; i++) {\r",
-											"        if (positions[i]._links.position.href == pm.collectionVariables.get(\"Created position\")) {\r",
+											"    for (var i = 0; i < groups.length; i++) {\r",
+											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Created group\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -12887,13 +12899,13 @@
 											"    pm.expect(found).to.be.false;\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Does not contain second created position\", () => {\r",
+											"pm.test(\"Does not contain second created group\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const positions = jsonData._embedded.positions;\r",
+											"    const groups = jsonData._embedded.groups;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < positions.length; i++) {\r",
-											"        if (positions[i]._links.position.href == pm.collectionVariables.get(\"Second created position\")) {\r",
+											"    for (var i = 0; i < groups.length; i++) {\r",
+											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Second created group\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -12910,9 +12922,9 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{Second created group's positions}}",
+									"raw": "{{Second created position's groups}}",
 									"host": [
-										"{{Second created group's positions}}"
+										"{{Second created position's groups}}"
 									]
 								}
 							},
@@ -12944,7 +12956,7 @@
 					"name": "Many groups can consist of many users",
 					"item": [
 						{
-							"name": "Assign first user to first group",
+							"name": "Assign both groups to first user",
 							"event": [
 								{
 									"listen": "test",
@@ -12955,6 +12967,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -12962,7 +12980,7 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -12973,7 +12991,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{{Created group}}",
+									"raw": "{{Created group}}\r\n{{Second created group}}",
 									"options": {
 										"raw": {
 											"language": "text"
@@ -12990,7 +13008,7 @@
 							"response": []
 						},
 						{
-							"name": "Assign first user to second group",
+							"name": "Assign both groups to second user",
 							"event": [
 								{
 									"listen": "test",
@@ -13001,98 +13019,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "PATCH",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "text/uri-list"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{{Second created group}}",
-									"options": {
-										"raw": {
-											"language": "text"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{Created user's groups}}",
-									"host": [
-										"{{Created user's groups}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Assign second user to first group",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content\", () => {\r",
-											"    const response = pm.response;\r",
+											"});\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "PATCH",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "text/uri-list"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{{Created group}}",
-									"options": {
-										"raw": {
-											"language": "text"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{Second created user's groups}}",
-									"host": [
-										"{{Second created user's groups}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Assign second user to second group",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content\", () => {\r",
-											"    const response = pm.response;\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -13100,7 +13032,7 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -13111,7 +13043,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{{Second created group}}",
+									"raw": "{{Created group}}\r\n{{Second created group}}",
 									"options": {
 										"raw": {
 											"language": "text"
@@ -13248,7 +13180,7 @@
 							"response": []
 						},
 						{
-							"name": "Deassign first user from first group",
+							"name": "Assign first group to first user",
 							"event": [
 								{
 									"listen": "test",
@@ -13259,6 +13191,124 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{Created group}}",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created user's groups}}",
+									"host": [
+										"{{Created user's groups}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve first user's groups",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains created group\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const groups = jsonData._embedded.groups;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < groups.length; i++) {\r",
+											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Created group\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain second created group\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const groups = jsonData._embedded.groups;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < groups.length; i++) {\r",
+											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Second created group\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created user's groups}}",
+									"host": [
+										"{{Created user's groups}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deassign first group from first user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -13288,7 +13338,7 @@
 							"response": []
 						},
 						{
-							"name": "Deassign first user from second group",
+							"name": "Deassign first group from second user",
 							"event": [
 								{
 									"listen": "test",
@@ -13299,46 +13349,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "text/uri-list"
-									}
-								],
-								"url": {
-									"raw": "{{Created user's groups}}/{{Second created group's id}}",
-									"host": [
-										"{{Created user's groups}}"
-									],
-									"path": [
-										"{{Second created group's id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Deassign second user from first group",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content\", () => {\r",
-											"    const response = pm.response;\r",
+											"});\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -13379,6 +13395,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -13553,7 +13575,7 @@
 					"name": "Many groups can have many permissions",
 					"item": [
 						{
-							"name": "Assign first permission to first group",
+							"name": "Assign both permissions to first group",
 							"event": [
 								{
 									"listen": "test",
@@ -13564,6 +13586,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -13571,7 +13599,7 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -13582,7 +13610,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{{Created permission}}",
+									"raw": "{{Created permission}}\r\n{{Second created permission}}",
 									"options": {
 										"raw": {
 											"language": "text"
@@ -13599,7 +13627,7 @@
 							"response": []
 						},
 						{
-							"name": "Assign first permission to second group",
+							"name": "Assign both permissions to second group",
 							"event": [
 								{
 									"listen": "test",
@@ -13610,98 +13638,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "PATCH",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "text/uri-list"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{{Created permission}}",
-									"options": {
-										"raw": {
-											"language": "text"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{Second created group's permissions}}",
-									"host": [
-										"{{Second created group's permissions}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Assign second permission to first group",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content\", () => {\r",
-											"    const response = pm.response;\r",
+											"});\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "PATCH",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "text/uri-list"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{{Second created permission}}",
-									"options": {
-										"raw": {
-											"language": "text"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{Created group's permissions}}",
-									"host": [
-										"{{Created group's permissions}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Assign second permission to second group",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content\", () => {\r",
-											"    const response = pm.response;\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -13709,7 +13651,7 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -13720,7 +13662,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{{Second created permission}}",
+									"raw": "{{Created permission}}\r\n{{Second created permission}}",
 									"options": {
 										"raw": {
 											"language": "text"
@@ -13857,6 +13799,118 @@
 							"response": []
 						},
 						{
+							"name": "Assign first permission to first group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{Created permission}}",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created group's permissions}}",
+									"host": [
+										"{{Created group's permissions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve first group's permissions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains created permission\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const permissions = jsonData._embedded.permissions;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < permissions.length; i++) {\r",
+											"        if (permissions[i]._links.permission.href == pm.collectionVariables.get(\"Created permission\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain second created permission\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const permissions = jsonData._embedded.permissions;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < permissions.length; i++) {\r",
+											"        if (permissions[i]._links.permission.href == pm.collectionVariables.get(\"Second created permission\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created group's permissions}}",
+									"host": [
+										"{{Created group's permissions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Deassign first permission from first group",
 							"event": [
 								{
@@ -13868,6 +13922,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -13908,46 +13968,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "text/uri-list"
-									}
-								],
-								"url": {
-									"raw": "{{Created group's permissions}}/{{Second created permission's id}}",
-									"host": [
-										"{{Created group's permissions}}"
-									],
-									"path": [
-										"{{Second created permission's id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Deassign second permission from first group",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content\", () => {\r",
-											"    const response = pm.response;\r",
+											"});\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -13988,6 +14014,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -14162,7 +14194,7 @@
 					"name": "Many permissions can be assigned to many users",
 					"item": [
 						{
-							"name": "Assign first permission to first user",
+							"name": "Assign both permissions to first user",
 							"event": [
 								{
 									"listen": "test",
@@ -14173,6 +14205,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -14180,7 +14218,7 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -14191,7 +14229,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{{Created permission}}",
+									"raw": "{{Created permission}}\r\n{{Second created permission}}",
 									"options": {
 										"raw": {
 											"language": "text"
@@ -14208,7 +14246,7 @@
 							"response": []
 						},
 						{
-							"name": "Assign first permission to second user",
+							"name": "Assign both permissions to second user",
 							"event": [
 								{
 									"listen": "test",
@@ -14219,98 +14257,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "PATCH",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "text/uri-list"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{{Created permission}}",
-									"options": {
-										"raw": {
-											"language": "text"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{Second created user's permissions}}",
-									"host": [
-										"{{Second created user's permissions}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Assign second permission to first user",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content\", () => {\r",
-											"    const response = pm.response;\r",
+											"});\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "PATCH",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "text/uri-list"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{{Second created permission}}",
-									"options": {
-										"raw": {
-											"language": "text"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{Created user's permissions}}",
-									"host": [
-										"{{Created user's permissions}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Assign second permission to second user",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content\", () => {\r",
-											"    const response = pm.response;\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -14318,7 +14270,7 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -14329,7 +14281,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{{Second created permission}}",
+									"raw": "{{Created permission}}\r\n{{Second created permission}}",
 									"options": {
 										"raw": {
 											"language": "text"
@@ -14466,6 +14418,118 @@
 							"response": []
 						},
 						{
+							"name": "Assign first permission to first user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{Created permission}}",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created user's permissions}}",
+									"host": [
+										"{{Created user's permissions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve first user's permissions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains created permission\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const permissions = jsonData._embedded.permissions;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < permissions.length; i++) {\r",
+											"        if (permissions[i]._links.permission.href == pm.collectionVariables.get(\"Created permission\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain second created permission\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const permissions = jsonData._embedded.permissions;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < permissions.length; i++) {\r",
+											"        if (permissions[i]._links.permission.href == pm.collectionVariables.get(\"Second created permission\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created user's permissions}}",
+									"host": [
+										"{{Created user's permissions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Deassign first permission from first user",
 							"event": [
 								{
@@ -14477,6 +14541,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -14517,6 +14587,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -14546,46 +14622,6 @@
 							"response": []
 						},
 						{
-							"name": "Deassign second permission from first user",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content\", () => {\r",
-											"    const response = pm.response;\r",
-											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "text/uri-list"
-									}
-								],
-								"url": {
-									"raw": "{{Created user's permissions}}/{{Second created permission's id}}",
-									"host": [
-										"{{Created user's permissions}}"
-									],
-									"path": [
-										"{{Second created permission's id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": "Deassign second permission from second user",
 							"event": [
 								{
@@ -14597,6 +14633,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -14771,7 +14813,7 @@
 					"name": "Many permissions can be assigned to many groups",
 					"item": [
 						{
-							"name": "Assign first permission to first group",
+							"name": "Assign both permissions to first group",
 							"event": [
 								{
 									"listen": "test",
@@ -14782,6 +14824,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -14789,7 +14837,7 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -14800,7 +14848,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{{Created permission}}",
+									"raw": "{{Created permission}}\r\n{{Second created permission}}",
 									"options": {
 										"raw": {
 											"language": "text"
@@ -14817,7 +14865,7 @@
 							"response": []
 						},
 						{
-							"name": "Assign first permission to second group",
+							"name": "Assign both permissions to second group",
 							"event": [
 								{
 									"listen": "test",
@@ -14828,98 +14876,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "PATCH",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "text/uri-list"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{{Created permission}}",
-									"options": {
-										"raw": {
-											"language": "text"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{Second created group's permissions}}",
-									"host": [
-										"{{Second created group's permissions}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Assign second permission to first group",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content\", () => {\r",
-											"    const response = pm.response;\r",
+											"});\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "PATCH",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "text/uri-list"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{{Second created permission}}",
-									"options": {
-										"raw": {
-											"language": "text"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{Created group's permissions}}",
-									"host": [
-										"{{Created group's permissions}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Assign second permission to second group",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content\", () => {\r",
-											"    const response = pm.response;\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -14927,7 +14889,7 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -14938,7 +14900,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{{Second created permission}}",
+									"raw": "{{Created permission}}\r\n{{Second created permission}}",
 									"options": {
 										"raw": {
 											"language": "text"
@@ -15086,6 +15048,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -15126,6 +15094,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -15166,6 +15140,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -15206,6 +15186,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -15592,6 +15578,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -15629,6 +15621,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -15915,6 +15913,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -15952,6 +15956,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -16238,6 +16248,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -16275,6 +16291,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -16549,6 +16571,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -16586,6 +16614,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -16860,6 +16894,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -16897,6 +16937,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -17008,7 +17054,7 @@
 					"name": "Many positions can be part of many groups",
 					"item": [
 						{
-							"name": "Assign first position to first group",
+							"name": "Assign both groups to first position",
 							"event": [
 								{
 									"listen": "test",
@@ -17019,6 +17065,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -17026,7 +17078,7 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -17037,7 +17089,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{{Created group}}",
+									"raw": "{{Created group}}\r\n{{Second created group}}",
 									"options": {
 										"raw": {
 											"language": "text"
@@ -17054,7 +17106,7 @@
 							"response": []
 						},
 						{
-							"name": "Assign first position to second group",
+							"name": "Assign both groups to second position",
 							"event": [
 								{
 									"listen": "test",
@@ -17065,98 +17117,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "PATCH",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "text/uri-list"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{{Second created group}}",
-									"options": {
-										"raw": {
-											"language": "text"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{Created position's groups}}",
-									"host": [
-										"{{Created position's groups}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Assign second position to first group",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content\", () => {\r",
-											"    const response = pm.response;\r",
+											"});\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "PATCH",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "text/uri-list"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{{Created group}}",
-									"options": {
-										"raw": {
-											"language": "text"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{Second created position's groups}}",
-									"host": [
-										"{{Second created position's groups}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Assign second position to second group",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content\", () => {\r",
-											"    const response = pm.response;\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -17164,7 +17130,7 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -17175,7 +17141,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{{Second created group}}",
+									"raw": "{{Created group}}\r\n{{Second created group}}",
 									"options": {
 										"raw": {
 											"language": "text"
@@ -17312,7 +17278,7 @@
 							"response": []
 						},
 						{
-							"name": "Deassign first position from first group",
+							"name": "Assign first group to first position",
 							"event": [
 								{
 									"listen": "test",
@@ -17323,6 +17289,124 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{Created group}}",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created position's groups}}",
+									"host": [
+										"{{Created position's groups}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve first position's groups Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains created group\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const groups = jsonData._embedded.groups;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < groups.length; i++) {\r",
+											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Created group\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain second created group\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const groups = jsonData._embedded.groups;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < groups.length; i++) {\r",
+											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Second created group\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created position's groups}}",
+									"host": [
+										"{{Created position's groups}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deassign first group from first position",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -17352,7 +17436,7 @@
 							"response": []
 						},
 						{
-							"name": "Deassign first position from second group",
+							"name": "Deassign first group from second position",
 							"event": [
 								{
 									"listen": "test",
@@ -17363,46 +17447,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "text/uri-list"
-									}
-								],
-								"url": {
-									"raw": "{{Created position's groups}}/{{Second created group's id}}",
-									"host": [
-										"{{Created position's groups}}"
-									],
-									"path": [
-										"{{Second created group's id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Deassign second position from first group",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content\", () => {\r",
-											"    const response = pm.response;\r",
+											"});\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -17432,7 +17482,7 @@
 							"response": []
 						},
 						{
-							"name": "Deassign second position from second group",
+							"name": "Deassign second group from first position",
 							"event": [
 								{
 									"listen": "test",
@@ -17443,6 +17493,58 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"url": {
+									"raw": "{{Created position's groups}}/{{Second created group's id}}",
+									"host": [
+										"{{Created position's groups}}"
+									],
+									"path": [
+										"{{Second created group's id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deassign second group from second position",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -17780,6 +17882,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -17817,6 +17925,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -17939,6 +18053,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -17969,6 +18089,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -17999,6 +18125,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -18029,6 +18161,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -18059,6 +18197,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -18089,6 +18233,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -18119,6 +18269,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -18149,6 +18305,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -18179,6 +18341,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -18209,6 +18377,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -18239,6 +18413,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
