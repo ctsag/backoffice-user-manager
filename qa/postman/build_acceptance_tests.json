@@ -504,7 +504,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \n    \"password\": \"{{Password}}\",\n    \"lastName\": \"{{Modified last name}}\"\n}",
+									"raw": "{ \n    \"username\": \"{{Username}}\",\n    \"password\": \"{{Password}}\",\n    \"lastName\": \"{{Modified last name}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -6371,11 +6371,11 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 500 Internal Server Error\", () => {\r",
+											"pm.test(\"Returns a 409 Conflict\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(500);\r",
-											"    pm.expect(response.status).to.equal(\"Internal Server Error\");\r",
+											"    pm.expect(response.code).to.equal(409);\r",
+											"    pm.expect(response.status).to.equal(\"Conflict\");\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Content type is Problem JSON\", () => {\r",
@@ -6393,8 +6393,8 @@
 											"pm.test(\"Problem JSON contains expected values\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
 											"\r",
-											"    pm.expect(jsonData.status).to.equal(500);\r",
-											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: db violation\"));\r",
+											"    pm.expect(jsonData.status).to.equal(409);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: immutable id change\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -6414,6 +6414,71 @@
 								"body": {
 									"mode": "raw",
 									"raw": "{ \n    \"username\": \"{{Modified username}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created user}}",
+									"host": [
+										"{{Created user}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Username cannot be changed",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 409 Conflict\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(409);\r",
+											"    pm.expect(response.status).to.equal(\"Conflict\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Problem JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/problem+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(409);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: immutable id change\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"password\": \"{{Password}}\",\n    \"lastName\": \"{{Modified last name}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -7746,11 +7811,11 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 400 Bad Request\", () => {\r",
+											"pm.test(\"Returns a 409 Conflict\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(400);\r",
-											"    pm.expect(response.status).to.equal(\"Bad Request\");\r",
+											"    pm.expect(response.code).to.equal(409);\r",
+											"    pm.expect(response.status).to.equal(\"Conflict\");\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Content type is Problem JSON\", () => {\r",
@@ -7768,7 +7833,7 @@
 											"pm.test(\"Problem JSON contains expected values\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
 											"\r",
-											"    pm.expect(jsonData.status).to.equal(400);\r",
+											"    pm.expect(jsonData.status).to.equal(409);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: primary id change\"));\r",
 											"});"
 										],
@@ -8209,8 +8274,8 @@
 											"pm.test(\"Returns a 400 Bad Request\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(400);\r",
-											"    pm.expect(response.status).to.equal(\"Bad Request\");\r",
+											"    pm.expect(response.code).to.equal(409);\r",
+											"    pm.expect(response.status).to.equal(\"Conflict\");\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Content type is Problem JSON\", () => {\r",
@@ -8228,7 +8293,7 @@
 											"pm.test(\"Problem JSON contains expected values\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
 											"\r",
-											"    pm.expect(jsonData.status).to.equal(400);\r",
+											"    pm.expect(jsonData.status).to.equal(409);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: primary id change\"));\r",
 											"});"
 										],
@@ -19190,6 +19255,10 @@
 		{
 			"key": "Problem: malformed input",
 			"value": "Malformed input"
+		},
+		{
+			"key": "Problem: immutable id change",
+			"value": "Immutable identifier change attempt"
 		}
 	]
 }
