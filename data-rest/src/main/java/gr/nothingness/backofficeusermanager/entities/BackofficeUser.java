@@ -27,7 +27,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Getter;
@@ -61,7 +60,7 @@ public class BackofficeUser {
   @Getter private Long id;
 
   @Column(name = "username", unique = true)
-  @NaturalId(mutable = false)
+  @NaturalId
   @NotNull @Size(min = 1, max = 32)
   @Getter @Setter private String username;
 

@@ -1,7 +1,6 @@
 package gr.nothingness.backofficeusermanager.repositories;
 
 import gr.nothingness.backofficeusermanager.entities.BackofficeGroup;
-import gr.nothingness.backofficeusermanager.entities.BackofficeUser;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

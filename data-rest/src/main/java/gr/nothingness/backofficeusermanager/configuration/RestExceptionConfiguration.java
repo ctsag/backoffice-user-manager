@@ -151,13 +151,15 @@ public class RestExceptionConfiguration {
         "The request URL or body contains values that are of an invalid data type"
     );
 
-    Problem problem = new GenericProblem(
-        exception.getMessage()
-            .replaceFirst("^(.+?): ", "")
-            .replaceFirst("For ", "")
-            .replaceAll("\"", "'")
-    );
-    apiError.addProblem(problem);
+    if (exception.getMessage() != null) {
+      Problem problem = new GenericProblem(
+          exception.getMessage()
+              .replaceFirst("^(.+?): ", "")
+              .replaceFirst("For ", "")
+              .replaceAll("\"", "'")
+      );
+      apiError.addProblem(problem);
+    }
 
     return buildResponseEntity(apiError);
   }
