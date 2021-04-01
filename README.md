@@ -1,153 +1,44 @@
-#Purpose
-This repository contains a series of alternate implementations of the same 
+# Purpose
+This repository contains a series of alternate implementations of the same
 problem : managing users, user groups and their respective privileges.
 
 The areas all implementations must cover are :
 
-* Database
-    - PostgreSQL
-        - data-jpa
-        - hibernate
-    - MongoDB
-        - data-mongo
-    - MySQL
-        - jdbc-templtae
-        - jdbc-raw
-    - Informix
-        - data-rest
-        - mybatis
-    - Redis
-        - data-redis
+|                              | data-rest                   | data-jpa                 | jdbc-template    | jdbc-raw          | mybatis           | hibernate      | data-mongo     | data-redis     |
+|------------------------------|-----------------------------|--------------------------|----------------- |-------------------|-------------------|----------------|----------------|----------------|
+| **Database**                 | Informix                    | PostgreSQL               | MySQL            | H2                | Informix          | PostgreSQL     | MongoDB        | Redis          |
+| **Data access**              | Data REST                   | Data JPA                 | JDBC Template    | Raw JDBC          | MyBatis           | Hibernate      | Data Mongo     | Data Redis     |
+| **API**                      | REST/Hypermedia (automatic) | REST/Hypermedia (manual) | REST/JSON        | REST/XML          | GraphQL           | ???            | ???            | ???            |
+| **API documentation**        | Springfox/Swagger           | Springdoc                | Spring REST Docs | ???               | ???               | ???            | ???            | ???            |
+| **Authentication**           | Spring Security             | Spring Security          | Apache Shiro     | ???               | ???               | ???            | ???            | ???            |
+| **Unit testing**             | JUnit 5                     | JUnit 5                  | TestNG           | ???               | ???               | ???            | ???            | ???            |
+| **Mutation testing**         | PIT                         | PIT                      | PIT              | PIT               | PIT               | PIT            | PIT            | PIT            |
+| **Assertions library**       | JUnit/Hamcrest              | AssertJ                  | ???              | ???               | ???               | ???            | ???            | ???            |
+| **Coverage reports**         | JaCoCo                      | Cobertura                | OpenClover       | ???               | ???               | ???            | ???            | ???            |
+| **Static code analysis**     | SonarQube                   | Checkstyle               | PMD              | FindBugs          | ???               | ???            | ???            | ???            |
+| **Vulnerability checks**     | OWASP                       | OWASP                    | OWASP            | OWASP             | OWASP             | OWASP          | OWASP          | OWASP          |
+| **Build acceptance testing** | Postman/Newman              | Postman/Newman           | Postman/Newman   | Postman/Newman    | Postman/Newman    | Postman/Newman | Postman/Newman | Postman/Newman |
+| **Integration testing**      | REST Assured                | Spring Test              | ???              | ???               | ???               | ???            | ???            | ???            |
+| **BDD automation**           | Cucmber                     | FitNesse                 | ???              | ???               | ???               | ???            | ???            | ???            |
+| **Database migrations**      | Liquibase (manual)          | Liquibase (automatic)    | Flyway           | Liquibase (Maven) | ???               | ???            | ???            | ???            |
+| **Monitoring**               | Actuator                    | Micrometer               | ???              | ???               | ???               | ???            | ???            | ???            |
+| **Build tool**               | Maven                       | Maven                    | Gradle           | ???               | ???               | ???            | ???            | ???            |
+| **Build automation**         | GitHub Actions              | GitHub Actions           | Jenkins          | Travis CI         | Circle CI         | GoCD           | ???            | ???            |
+| **Packaging**                | JAR executable              | JAR executable           | Docker           | Heroku            | Spring Native     | Heroku         | Tomcat WAR     | ???            |
+| **IDE**                      | IntelliJ IDEA               | IntelliJ IDEA            | STS              | Eclipse           | NetBeans          | ???            | ???            | ???            |
 
-* Data access
-    - Data REST
-        - data-rest
-    - Data JPA
-        - data-jpa
-    - Data Mongo
-        - data-mongo
-    - Hibernate
-        - hibernate
-    - MyBatis
-        - mybatis
-    - JDBC Template
-        - jdbc-template
-    - Raw JDBC
-        - jdbc-raw
-    - Redis
-        - data-redis
+# Candidates
 
-* Network API
-    - REST serving Hypermedia (automatic)
-        - data-rest
-    - REST serving Hypermedia (manual)
-        - data-jpa
-    - REST serving JSON
-        - data-redis
-        - hibernate
-        - mybatis
-        - jdbc-template
-        - jdbc-raw
-    - REST serving XML
-        - data-mongo
+Other technologies we want to incorporate :
 
-* API documentation
-    - Spring REST Docs/Asciidoctor
-        - data-jpa
-    - Springdoc
-        - data-redis
-        - data-rest
-        - hibernate
-        - mybatis
-        - jdbc-template
-        - jdbc-raw
-    - Springfox/Swagger
-        - data-mongo
-* Security
-    - Spring Security
-        - *
-
-* Developer side testing
-    - Unit test framework
-        - JUnit 5
-            - *
-    - Mutation testing
-        - PIT
-            - *
-    - Assertions library
-        - JUnit 5 + Hamcrest
-            - data-redis
-            - data-rest
-            - hibernate
-            - mybatis
-            - jdbc-template
-            - jdbc-raw
-        - AssertJ
-            - data-jpa
-    - Coverage reports
-        - JaCoCo
-            - *
-    - Static code analysis
-        - ?
-    - Build acceptance testing
-        - Newman
-            - *
-    - Integration testing
-        - Spring Boot
-            - data-jpa
-        - REST Assured
-            - data-redis
-            - data-rest
-            - hibernate
-            - mybatis
-            - jdbc-template
-            - jdbc-raw
-
-* QA side testing
-    - BDD automation
-        - Cucumber
-            - *
-        - FitNesse
-            - *
-    - Build acceptance testing
-        - Postman
-            - *
-
-* Database migrations
-    - Liquibase
-        - data-rest
-        - hibernate
-        - mybatis
-    - Flyway
-        - data-redis
-        - data-jpa
-        - jdbc-template
-        - jdbc-raw
-
-* Monitoring
-    - Actuator
-        - data-redis
-        - data-rest
-        - data-jpa
-        - mybatis
-        - jdbc-template
-        - jdbc-raw
-    - Micrometer
-        - hibernate
-
-* Build tool
-    - Maven
-        - *
+* JMeter
+* JMX
+* ActiveMQ
+* RabbitMQ
+* Micronaut
+* Java 14
 
 # Common practices
-
-All implementations will comply to the following ruless :
-
-* The following frameworks will be used
-    - Spring Boot
-    - Java 8
-    - Maven
-    - IntelliJ IDEA
 
 * The project properties present in the pom.xml file will follow this pattern :
 
@@ -176,8 +67,3 @@ All implementations will comply to the following ruless :
 * All IntelliJ IDEA warnings must be resolved or justifiably suppressed
 
 * Prefer simple lamdas instead of loops, and prefer method references instead of lamda expressions
-
-# List of implementations
-
-This is the list of those implementations and a brief description of how
-each implementation differs from all others :
