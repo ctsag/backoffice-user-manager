@@ -1,6 +1,7 @@
 package gr.nothingness.backofficeusermanager.configuration;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.CONFLICT;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 import gr.nothingness.backofficeusermanager.errors.RFC7807Error;
@@ -93,7 +94,7 @@ public class RestExceptionConfiguration {
 
     if (exception.getMessage().matches("^identifier of an instance of .*$")) {
       apiError = new RFC7807Error(
-          BAD_REQUEST,
+          CONFLICT,
           "Primary identifier change attempt",
           "An attempt to change the primary identifier for an entity has been made. "
               + "This is not allowed"
@@ -112,6 +113,18 @@ public class RestExceptionConfiguration {
 
       problem = new GenericProblem(
           "no primary identifier provided"
+      );
+    } else if (exception.getMessage().matches("^An immutable natural identifier of entity.*$")) {
+      apiError = new RFC7807Error(
+          CONFLICT,
+          "Immutable identifier change attempt",
+          "An attempt to change an immutable identifier for an entity has been made. "
+              + "This is not allowed"
+      );
+
+      problem = new ValidationProblem(
+          "immutable identifier",
+          exception.getMessage().replaceFirst("^(.+?)was ", "")
       );
     } else {
       apiError = new RFC7807Error(

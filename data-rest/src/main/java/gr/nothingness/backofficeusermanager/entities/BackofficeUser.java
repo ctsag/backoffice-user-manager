@@ -33,6 +33,7 @@ import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.NaturalId;
 
 @Entity
 @Table(
@@ -59,7 +60,8 @@ public class BackofficeUser {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Getter private Long id;
 
-  @Column(name = "username", unique = true, updatable = false)
+  @Column(name = "username", unique = true)
+  @NaturalId(mutable = false)
   @NotNull @Size(min = 1, max = 32)
   @Getter @Setter private String username;
 
