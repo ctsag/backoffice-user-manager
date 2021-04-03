@@ -3,4 +3,4 @@ delete from
 where
     user_id in (select user_id from tadminuser where username = "Administrator")
 and
-    action in ("ReadAccess", "WriteAccess");
+    action in ("UseAdmin", "AssignRights");

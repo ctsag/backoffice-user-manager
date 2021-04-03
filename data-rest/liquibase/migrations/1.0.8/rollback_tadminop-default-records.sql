@@ -1,4 +1,4 @@
 delete from
     tadminop
 where
-    action in ("ReadAccess", "WriteAccess");
+    action in ("UseAdmin", "AssignRights");

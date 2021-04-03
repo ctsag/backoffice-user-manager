@@ -1,2 +1,2 @@
-insert into tadminop (action, desc, type) values ("ReadAccess", "Default permission type", "GEN");
-insert into tadminop (action, desc, type) values ("WriteAccess", "Default permission type", "GEN");
+insert into tadminop (action, desc, type) values ("UseAdmin", "Default permission type", "TI");
+insert into tadminop (action, desc, type) values ("AssignRights", "Assign admin rights", "SYS");
