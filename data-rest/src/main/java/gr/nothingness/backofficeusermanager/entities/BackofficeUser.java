@@ -33,7 +33,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.NaturalId;
-import org.springframework.beans.BeanUtils;
 
 @Entity
 @Table(
@@ -67,7 +66,7 @@ public class BackofficeUser {
 
   @Column(name = "password")
   @JsonProperty(access = Access.WRITE_ONLY)
-  @NotNull @Size(min = 1, max = 40)
+  @NotNull @Size(min = 8, max = 40)
   @Getter private String password;
 
   @Column(name = "fname")

@@ -15,9 +15,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity httpSecurity) throws Exception {
     httpSecurity
         .authorizeRequests(a -> a
-            .mvcMatchers(HttpMethod.GET, "/**").hasAuthority("ReadAccess")
+            .mvcMatchers(HttpMethod.GET, "/**").hasAuthority("UseAdmin")
             //.mvcMatchers(HttpMethod.GET, "/**").authenticated()
-            .anyRequest().hasAuthority("WriteAccess")
+            .anyRequest().hasAuthority("AssignRights")
             //.anyRequest().authenticated()
         ).httpBasic();
 
