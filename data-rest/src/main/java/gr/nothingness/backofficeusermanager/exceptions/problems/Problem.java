@@ -1,4 +1,4 @@
-package gr.nothingness.backofficeusermanager.errors.problems;
+package gr.nothingness.backofficeusermanager.exceptions.problems;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;

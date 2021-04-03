@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
-import gr.nothingness.backofficeusermanager.facilities.Password;
+import gr.nothingness.backofficeusermanager.security.facilities.Password;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
@@ -33,6 +33,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.NaturalId;
+import org.springframework.beans.BeanUtils;
 
 @Entity
 @Table(
@@ -43,7 +44,7 @@ import org.hibernate.annotations.NaturalId;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class BackofficeUser {
 
-  private enum Status {
+  protected enum Status {
     A, S, P, L, X
   }
 
@@ -148,7 +149,7 @@ public class BackofficeUser {
   @JsonIgnore
   @Getter @Setter private List<BackofficeGroup> ownedGroups;
 
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(
       name = "tadminuserop",
       joinColumns = @JoinColumn(name = "user_id"),
@@ -163,6 +164,14 @@ public class BackofficeUser {
       inverseJoinColumns = @JoinColumn(name = "group_id")
   )
   @Getter @Setter private List<BackofficeGroup> groups;
+
+  protected BackofficeUser(BackofficeUser user) {
+    this.id = user.getId();
+    this.username = user.getUsername();
+    this.password = user.getPassword();
+    this.status = user.getStatus();
+    this.permissions = user.getPermissions();
+  }
 
   public void setPassword(String password) throws NoSuchAlgorithmException {
     passwordSalt = Password.generateSalt();
