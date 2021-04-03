@@ -1,4 +1,4 @@
-package gr.nothingness.backofficeusermanager.facilities;
+package gr.nothingness.backofficeusermanager.security.facilities;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;

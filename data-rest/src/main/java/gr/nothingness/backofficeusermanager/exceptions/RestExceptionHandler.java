@@ -1,13 +1,14 @@
-package gr.nothingness.backofficeusermanager.configuration;
+package gr.nothingness.backofficeusermanager.exceptions;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.CONFLICT;
+import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
-import gr.nothingness.backofficeusermanager.errors.RFC7807Error;
-import gr.nothingness.backofficeusermanager.errors.problems.Problem;
-import gr.nothingness.backofficeusermanager.errors.problems.GenericProblem;
-import gr.nothingness.backofficeusermanager.errors.problems.ValidationProblem;
+import gr.nothingness.backofficeusermanager.exceptions.problems.Problem;
+import gr.nothingness.backofficeusermanager.exceptions.problems.GenericProblem;
+import gr.nothingness.backofficeusermanager.exceptions.problems.ValidationProblem;
 import javax.validation.ConstraintViolation;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class RestExceptionConfiguration {
+public class RestExceptionHandler {
 
   @ExceptionHandler(org.hibernate.exception.ConstraintViolationException.class)
   protected ResponseEntity<Object> handleDatabaseConstraintViolation(
@@ -151,13 +152,15 @@ public class RestExceptionConfiguration {
         "The request URL or body contains values that are of an invalid data type"
     );
 
-    Problem problem = new GenericProblem(
-        exception.getMessage()
-            .replaceFirst("^(.+?): ", "")
-            .replaceFirst("For ", "")
-            .replaceAll("\"", "'")
-    );
-    apiError.addProblem(problem);
+    if (exception.getMessage() != null) {
+      Problem problem = new GenericProblem(
+          exception.getMessage()
+              .replaceFirst("^(.+?): ", "")
+              .replaceFirst("For ", "")
+              .replaceAll("\"", "'")
+      );
+      apiError.addProblem(problem);
+    }
 
     return buildResponseEntity(apiError);
   }
@@ -191,6 +194,38 @@ public class RestExceptionConfiguration {
     );
 
     Problem problem = new GenericProblem("malformed JSON input");
+    apiError.addProblem(problem);
+
+    return buildResponseEntity(apiError);
+  }
+
+  @ExceptionHandler(org.springframework.security.access.AccessDeniedException.class)
+  protected ResponseEntity<Object> handleMalformedInputFailure(
+      org.springframework.security.access.AccessDeniedException exception
+  ) {
+    RFC7807Error apiError = new RFC7807Error(
+        FORBIDDEN,
+        "Access denied",
+        "The current user is not authorized to perform the requested action"
+    );
+
+    Problem problem = new GenericProblem("access denied");
+    apiError.addProblem(problem);
+
+    return buildResponseEntity(apiError);
+  }
+
+  @ExceptionHandler(org.springframework.security.authentication.BadCredentialsException.class)
+  protected ResponseEntity<Object> handleMalformedInputFailure(
+      org.springframework.security.authentication.BadCredentialsException exception
+  ) {
+    RFC7807Error apiError = new RFC7807Error(
+        UNAUTHORIZED,
+        "Bad credentials",
+        "The user has failed to authenticate, or the user's account has expred"
+    );
+
+    Problem problem = new GenericProblem("bad credentials");
     apiError.addProblem(problem);
 
     return buildResponseEntity(apiError);

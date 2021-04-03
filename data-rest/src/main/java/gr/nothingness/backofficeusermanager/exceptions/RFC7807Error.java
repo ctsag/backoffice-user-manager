@@ -1,9 +1,9 @@
-package gr.nothingness.backofficeusermanager.errors;
+package gr.nothingness.backofficeusermanager.exceptions;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import gr.nothingness.backofficeusermanager.errors.problems.Problem;
+import gr.nothingness.backofficeusermanager.exceptions.problems.Problem;
 import java.util.HashSet;
 import java.util.Set;
 import javax.validation.constraints.NotNull;

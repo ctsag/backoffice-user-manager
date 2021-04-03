@@ -2,6 +2,7 @@ package gr.nothingness.backofficeusermanager.repositories;
 
 import gr.nothingness.backofficeusermanager.entities.BackofficeUser;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
@@ -16,6 +17,6 @@ public interface BackofficeUserRepository extends CrudRepository<BackofficeUser,
   );
 
   @RestResource(path = "byUsername", rel = "byUsername")
-  public List<BackofficeUser> findByUsername(String username);
+  public Optional<BackofficeUser> findByUsername(String username);
 
 }
