@@ -19700,7 +19700,8 @@
 					"    },",
 					"    \"required\": [",
 					"        \"status\",",
-					"        \"title\"",
+					"        \"title\",",
+					"        \"instance\"",
 					"    ],",
 					"    \"additionalProperties\": false",
 					"});"

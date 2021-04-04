@@ -31,7 +31,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                   HttpStatus.UNAUTHORIZED,
                   "Unauthorized",
                   exception.getMessage(),
-                  request.getPathInfo()
+                  request.getRequestURI()
               );
 
               response.setContentType(MediaType.APPLICATION_JSON_VALUE);

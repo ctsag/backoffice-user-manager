@@ -36,14 +36,16 @@ public class RestExceptionHandler {
 
   @ExceptionHandler(org.hibernate.exception.ConstraintViolationException.class)
   protected ResponseEntity<Object> handleDatabaseConstraintViolation(
-      org.hibernate.exception.ConstraintViolationException exception
+      org.hibernate.exception.ConstraintViolationException exception,
+      HttpServletRequest request
   ) {
     RFC7807Error apiError = new RFC7807Error(
         INTERNAL_SERVER_ERROR,
         "Database level constraint violation",
         "One or more of the provided values violates a database level contraint. "
             + "These contraints usually concern uniqueness, referential integrity "
-            + "or limiting acceptable values"
+            + "or limiting acceptable values",
+        request.getRequestURI()
     );
 
     Throwable sqlException = exception.getSQLException().getCause();
@@ -58,7 +60,8 @@ public class RestExceptionHandler {
 
   @ExceptionHandler(javax.validation.ConstraintViolationException.class)
   protected ResponseEntity<Object> handleValidationConstraintFailure(
-      javax.validation.ConstraintViolationException exception
+      javax.validation.ConstraintViolationException exception,
+      HttpServletRequest request
   ) {
     RFC7807Error apiError = new RFC7807Error(
         BAD_REQUEST,
@@ -66,7 +69,8 @@ public class RestExceptionHandler {
         "One or more of the provided values violates validation rules. "
             + "These rules usually concern text length, minimum and maximum "
             + "numeric values, or the prevention of empty input for required "
-            + "fields"
+            + "fields",
+        request.getRequestURI()
     );
 
     for (ConstraintViolation<?> violation: exception.getConstraintViolations()) {
@@ -82,13 +86,15 @@ public class RestExceptionHandler {
 
   @ExceptionHandler(com.fasterxml.jackson.databind.exc.InvalidFormatException.class)
   protected ResponseEntity<Object> handleEnumeratedConstraintFailure(
-      com.fasterxml.jackson.databind.exc.InvalidFormatException exception
+      com.fasterxml.jackson.databind.exc.InvalidFormatException exception,
+      HttpServletRequest request
   ) {
     RFC7807Error apiError = new RFC7807Error(
         BAD_REQUEST,
         "Enumeration constraint violation",
         "One or more of the provided values is not within the list of acceptable ones "
-            + "for the field they're being assigned to"
+            + "for the field they're being assigned to",
+        request.getRequestURI()
     );
 
     Problem problem = new ValidationProblem(
@@ -104,7 +110,8 @@ public class RestExceptionHandler {
 
   @ExceptionHandler(org.hibernate.HibernateException.class)
   protected ResponseEntity<Object> handlePrimaryKeyChangeFailure(
-      org.hibernate.HibernateException exception
+      org.hibernate.HibernateException exception,
+      HttpServletRequest request
   ) {
     RFC7807Error apiError;
     Problem problem;
@@ -114,7 +121,8 @@ public class RestExceptionHandler {
           CONFLICT,
           "Primary identifier change attempt",
           "An attempt to change the primary identifier for an entity has been made. "
-              + "This is not allowed"
+              + "This is not allowed",
+          request.getRequestURI()
       );
 
       problem = new ValidationProblem(
@@ -125,7 +133,8 @@ public class RestExceptionHandler {
       apiError = new RFC7807Error(
           BAD_REQUEST,
           "Primary identifier required",
-          "Data entities require a primary identifier to be provided before it can be created"
+          "Data entities require a primary identifier to be provided before it can be created",
+          request.getRequestURI()
       );
 
       problem = new GenericProblem(
@@ -136,7 +145,8 @@ public class RestExceptionHandler {
           CONFLICT,
           "Immutable identifier change attempt",
           "An attempt to change an immutable identifier for an entity has been made. "
-              + "This is not allowed"
+              + "This is not allowed",
+          request.getRequestURI()
       );
 
       problem = new ValidationProblem(
@@ -147,7 +157,8 @@ public class RestExceptionHandler {
       apiError = new RFC7807Error(
           INTERNAL_SERVER_ERROR,
           "Unknown database level violation",
-          "Something went wrong when trying to apply the requested change to the database"
+          "Something went wrong when trying to apply the requested change to the database",
+          request.getRequestURI()
       );
 
       problem = new GenericProblem(exception.getMessage());
@@ -160,12 +171,14 @@ public class RestExceptionHandler {
 
   @ExceptionHandler(org.springframework.core.convert.ConversionFailedException.class)
   protected ResponseEntity<Object> handleDataConversionFailure(
-      org.springframework.core.convert.ConversionFailedException exception
+      org.springframework.core.convert.ConversionFailedException exception,
+      HttpServletRequest request
   ) {
     RFC7807Error apiError = new RFC7807Error(
         BAD_REQUEST,
         "Data type conversion failure",
-        "The request URL or body contains values that are of an invalid data type"
+        "The request URL or body contains values that are of an invalid data type",
+        request.getRequestURI()
     );
 
     if (exception.getMessage() != null) {
@@ -183,13 +196,15 @@ public class RestExceptionHandler {
 
   @ExceptionHandler(com.fasterxml.jackson.databind.exc.MismatchedInputException.class)
   protected ResponseEntity<Object> handleMissingInputFailure(
-      com.fasterxml.jackson.databind.exc.MismatchedInputException exception
+      com.fasterxml.jackson.databind.exc.MismatchedInputException exception,
+      HttpServletRequest request
   ) {
     RFC7807Error apiError = new RFC7807Error(
         BAD_REQUEST,
         "Missing input",
         "The message received is missing some of the required input. This usually indicates "
-            + "a missing message body"
+            + "a missing message body",
+        request.getRequestURI()
     );
 
     Problem problem = new GenericProblem("missing input");
@@ -200,13 +215,15 @@ public class RestExceptionHandler {
 
   @ExceptionHandler(com.fasterxml.jackson.core.JsonParseException.class)
   protected ResponseEntity<Object> handleMalformedInputFailure(
-      com.fasterxml.jackson.core.JsonParseException exception
+      com.fasterxml.jackson.core.JsonParseException exception,
+      HttpServletRequest request
   ) {
     RFC7807Error apiError = new RFC7807Error(
         BAD_REQUEST,
         "Malformed input",
         "The message received contains input that is unable to be parsed. This usually "
-            + "indicates a malformed message body, e.g. JSON or XML syntax errors"
+            + "indicates a malformed message body, e.g. JSON or XML syntax errors",
+        request.getRequestURI()
     );
 
     Problem problem = new GenericProblem("malformed JSON input");
