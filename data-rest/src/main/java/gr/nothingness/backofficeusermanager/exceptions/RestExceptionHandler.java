@@ -2,21 +2,37 @@ package gr.nothingness.backofficeusermanager.exceptions;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.CONFLICT;
-import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
-import static org.springframework.http.HttpStatus.UNAUTHORIZED;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 import gr.nothingness.backofficeusermanager.exceptions.problems.Problem;
 import gr.nothingness.backofficeusermanager.exceptions.problems.GenericProblem;
 import gr.nothingness.backofficeusermanager.exceptions.problems.ValidationProblem;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class RestExceptionHandler {
+
+  @ExceptionHandler(org.springframework.data.rest.webmvc.ResourceNotFoundException.class)
+  protected ResponseEntity<Object> handeNotFound(
+      org.springframework.data.rest.webmvc.ResourceNotFoundException exception,
+      HttpServletRequest request
+  ) {
+    RFC7807Error apiError = new RFC7807Error(
+        NOT_FOUND,
+        "Not Found",
+        "",
+        request.getRequestURI(),
+        MediaType.APPLICATION_JSON
+    );
+
+    return buildResponseEntity(apiError);
+  }
 
   @ExceptionHandler(org.hibernate.exception.ConstraintViolationException.class)
   protected ResponseEntity<Object> handleDatabaseConstraintViolation(
@@ -199,42 +215,10 @@ public class RestExceptionHandler {
     return buildResponseEntity(apiError);
   }
 
-  @ExceptionHandler(org.springframework.security.access.AccessDeniedException.class)
-  protected ResponseEntity<Object> handleMalformedInputFailure(
-      org.springframework.security.access.AccessDeniedException exception
-  ) {
-    RFC7807Error apiError = new RFC7807Error(
-        FORBIDDEN,
-        "Access denied",
-        "The current user is not authorized to perform the requested action"
-    );
-
-    Problem problem = new GenericProblem("access denied");
-    apiError.addProblem(problem);
-
-    return buildResponseEntity(apiError);
-  }
-
-  @ExceptionHandler(org.springframework.security.authentication.BadCredentialsException.class)
-  protected ResponseEntity<Object> handleMalformedInputFailure(
-      org.springframework.security.authentication.BadCredentialsException exception
-  ) {
-    RFC7807Error apiError = new RFC7807Error(
-        UNAUTHORIZED,
-        "Bad credentials",
-        "The user has failed to authenticate, or the user's account has expred"
-    );
-
-    Problem problem = new GenericProblem("bad credentials");
-    apiError.addProblem(problem);
-
-    return buildResponseEntity(apiError);
-  }
-
   private ResponseEntity<Object> buildResponseEntity(RFC7807Error apiError) {
     return ResponseEntity
         .status(apiError.getStatusEnum())
-        .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+        .contentType(apiError.getContentType())
         .body(apiError);
   }
 
