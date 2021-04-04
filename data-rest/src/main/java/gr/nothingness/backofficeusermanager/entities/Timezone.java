@@ -18,6 +18,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -33,12 +34,25 @@ import lombok.Setter;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Timezone {
 
+  @RequiredArgsConstructor
   private enum Status {
-    A, S, D
+
+    A ("Active"),
+    S ("Suspended"),
+    D ("Deleted");
+
+    @Getter private final String description;
+
   }
 
+  @RequiredArgsConstructor
   private enum YesNo {
-    Y, N
+
+    Y ("Yes"),
+    N ("No");
+
+    @Getter private final String description;
+
   }
 
   @Column(name = "timezone_id")

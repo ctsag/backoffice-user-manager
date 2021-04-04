@@ -31,6 +31,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.NaturalId;
 
@@ -43,16 +44,38 @@ import org.hibernate.annotations.NaturalId;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class BackofficeUser {
 
+  @RequiredArgsConstructor
   protected enum Status {
-    A, S, P, L, X
+
+    A ("Active"),
+    S ("Suspended"),
+    P ("Password Expired"),
+    L ("Locked"),
+    X ("Deleted");
+
+    @Getter private final String description;
+
   }
 
+  @RequiredArgsConstructor
   private enum LostLoginStatus {
-    A, S, X
+
+    A ("Active"),
+    S ("Suspended"),
+    X ("Deleted");
+
+    @Getter private final String description;
+
   }
 
+  @RequiredArgsConstructor
   private enum YesNo {
-    Y, N
+
+    Y ("Yes"),
+    N ("No");
+
+    @Getter private final String description;
+
   }
 
   @Column(name = "user_id")
@@ -83,7 +106,7 @@ public class BackofficeUser {
 
   @Column(name = "status")
   @NotNull @Enumerated(EnumType.STRING)
-  @Getter @Setter private Status status = Status.A;
+  @Getter @Setter private BackofficeUser.Status status = Status.A;
 
   @Column(name = "acc_pwd_expires")
   @NotNull @Enumerated(EnumType.STRING)
