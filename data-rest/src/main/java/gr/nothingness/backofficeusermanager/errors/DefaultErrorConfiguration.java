@@ -1,4 +1,4 @@
-package gr.nothingness.backofficeusermanager.exceptions;
+package gr.nothingness.backofficeusermanager.errors;
 
 import java.util.Map;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
@@ -14,12 +14,13 @@ public class DefaultErrorConfiguration extends DefaultErrorAttributes {
   public Map<String, Object> getErrorAttributes(WebRequest request, ErrorAttributeOptions options) {
     Map<String, Object> originalAttributes = super.getErrorAttributes(request, options);
 
-    RFC7807Error apiError = new RFC7807Error(
-        HttpStatus.valueOf((Integer)originalAttributes.get("status")),
-        originalAttributes.get("error").toString(),
-        originalAttributes.get("message").toString(),
-        originalAttributes.get("path").toString()
-    );
+    RFC7807Error apiError = RFC7807Error
+        .withStatus(HttpStatus.valueOf((Integer)originalAttributes.get("status")))
+        .andType("https://httpstatuses.com/" + originalAttributes.get("status"))
+        .andTitle(originalAttributes.get("error").toString())
+        .andDetail(originalAttributes.get("message").toString())
+        .andInstance(originalAttributes.get("path").toString())
+        .build();
 
     return apiError.toMap();
   }
