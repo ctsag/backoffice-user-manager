@@ -33,17 +33,17 @@ public class AuthUserDetails extends BackofficeUser implements UserDetails {
 
   @Override
   public boolean isAccountNonExpired() {
-    return true;
+    return getStatus() != Status.P;
   }
 
   @Override
   public boolean isAccountNonLocked() {
-    return true;
+    return getStatus() != Status.L;
   }
 
   @Override
   public boolean isCredentialsNonExpired() {
-    return true;
+    return getStatus() != Status.P;
   }
 
   @Override
