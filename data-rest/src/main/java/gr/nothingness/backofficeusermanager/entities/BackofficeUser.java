@@ -4,8 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
-import gr.nothingness.backofficeusermanager.security.facilities.Password;
-import java.security.NoSuchAlgorithmException;
+import gr.nothingness.backofficeusermanager.security.facilities.MixedDigestPasswordEncoder;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -49,7 +48,7 @@ public class BackofficeUser {
 
     A ("Active"),
     S ("Suspended"),
-    P ("Password Expired"),
+    P ("Password expired"),
     L ("Locked"),
     X ("Deleted");
 
@@ -191,13 +190,35 @@ public class BackofficeUser {
     this.id = user.getId();
     this.username = user.getUsername();
     this.password = user.getPassword();
+    this.firstName = user.getFirstName();
+    this.lastName = user.getLastName();
+    this.email = user.getEmail();
     this.status = user.getStatus();
+    this.passwordExpires = user.getPasswordExpires();
+    this.agent = user.getAgent();
+    this.phoneSwitch = user.getPhoneSwitch();
+    this.overrideCode = user.getOverrideCode();
+    this.loginUid = user.getLoginUid();
+    this.loggedIn = user.getLoggedIn();
+    this.loginTime = user.getLoginTime();
+    this.loginLocation = user.getLoginLocation();
+    this.lastPasswordChange = user.getLastPasswordChange();
+    this.badPasswordCount = user.getBadPasswordCount();
+    this.lastPasswordFail = user.getLastPasswordFail();
+    this.passwordSalt = user.getPasswordSalt();
+    this.lostLoginStatus = user.getLostLoginStatus();
+    this.timezone = user.getTimezone();
+    this.position = user.getPosition();
+    this.ownedGroups = user.getOwnedGroups();
     this.permissions = user.getPermissions();
+    this.groups = user.getGroups();
   }
 
-  public void setPassword(String password) throws NoSuchAlgorithmException {
-    passwordSalt = Password.generateSalt();
-    this.password = Password.encryptPassword(password, passwordSalt);
+  public void setPassword(String password) {
+    MixedDigestPasswordEncoder passwordEncoder = new MixedDigestPasswordEncoder();
+
+    this.password = passwordEncoder.encode(password);
+    this.passwordSalt = passwordEncoder.getSalt();
   }
 
 }
