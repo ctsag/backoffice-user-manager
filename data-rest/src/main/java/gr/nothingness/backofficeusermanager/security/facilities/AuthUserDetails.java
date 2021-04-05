@@ -32,6 +32,11 @@ public class AuthUserDetails extends BackofficeUser implements UserDetails {
   }
 
   @Override
+  public String getPasswordSalt() {
+    return super.getPasswordSalt();
+  }
+
+  @Override
   public boolean isAccountNonExpired() {
     return getStatus() != Status.P;
   }

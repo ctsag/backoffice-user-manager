@@ -13,8 +13,6 @@ public class FailureDetail {
 
   @Getter private final String message;
   @Getter private String constraint;
-  @Getter private String advice;
-  @Getter private String example;
 
   public static FailureDetailBuilder withMessage(String message) {
     return new FailureDetail(message).new FailureDetailBuilder();
@@ -30,16 +28,6 @@ public class FailureDetail {
 
     public FailureDetailBuilder andConstraint(String constraint) {
       failureDetails.constraint = constraint;
-      return this;
-    }
-
-    public FailureDetailBuilder andAdvice(String advice) {
-      failureDetails.advice = advice;
-      return this;
-    }
-
-    public FailureDetailBuilder andExample(String example) {
-      failureDetails.example = example;
       return this;
     }
 

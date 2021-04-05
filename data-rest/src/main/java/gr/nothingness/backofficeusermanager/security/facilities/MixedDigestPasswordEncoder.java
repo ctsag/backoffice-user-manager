@@ -5,36 +5,60 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-public class Password {
+@NoArgsConstructor
+public class MixedDigestPasswordEncoder implements PasswordEncoder {
 
   private static final String SALT_ALGORITHM = "MD5";
   private static final String PASSWORD_ALGORITHM = "SHA1";
+  @Getter @Setter private String salt;
 
-  public static String generateSalt() throws NoSuchAlgorithmException {
+  @Override
+  public String encode(CharSequence password) {
+    if (salt == null) {
+      generateSalt();
+    }
+
+    String saltInBinary = new BigInteger(salt, 16).toString(2);
+    String saltedPassword = password.toString() + binaryToAscii(addLeadingZeroes(saltInBinary));
+
+    try {
+      return getDigest(saltedPassword.getBytes(StandardCharsets.ISO_8859_1), PASSWORD_ALGORITHM);
+    } catch (NoSuchAlgorithmException exception) {
+      throw new IllegalArgumentException(exception.getMessage());
+    }
+  }
+
+  @Override
+  public boolean matches(CharSequence password, String encodedPassword) {
+    return encodedPassword.equals(encode(password));
+  }
+
+  private void generateSalt() {
     SecureRandom random = new SecureRandom();
     byte[] salt = new byte[32];
 
     random.nextBytes(salt);
 
-    return getDigest(salt, SALT_ALGORITHM).substring(16, 32);
+    try {
+      this.salt = getDigest(salt, SALT_ALGORITHM).substring(16, 32);
+    } catch (NoSuchAlgorithmException exception) {
+      throw new IllegalArgumentException(exception.getMessage());
+    }
   }
 
-  public static String encryptPassword(String password, String salt) throws NoSuchAlgorithmException {
-    String saltInBinary = new BigInteger(salt, 16).toString(2);
-    String saltedPassword = password + binaryToAscii(addLeadingZeroes(saltInBinary));
-
-    return getDigest(saltedPassword.getBytes(StandardCharsets.ISO_8859_1), PASSWORD_ALGORITHM);
-  }
-
-  private static String getDigest(byte[] value, String algorithm) throws NoSuchAlgorithmException {
+  private String getDigest(byte[] value, String algorithm) throws NoSuchAlgorithmException {
     MessageDigest messageDigest = MessageDigest.getInstance(algorithm);
     byte[] digestedValue = messageDigest.digest(value);
 
     return bytesToHex(digestedValue);
   }
 
-  private static String bytesToHex(byte[] value) {
+  private String bytesToHex(byte[] value) {
     StringBuilder stringBuilder = new StringBuilder(value.length * 2);
 
     for (byte b: value) {
@@ -44,7 +68,7 @@ public class Password {
     return stringBuilder.toString();
   }
 
-  private static String binaryToAscii(String binary) {
+  private String binaryToAscii(String binary) {
     StringBuilder stringBuilder = new StringBuilder();
 
     for (int i = 0; i < binary.length(); i += 8) {
@@ -56,7 +80,7 @@ public class Password {
     return stringBuilder.toString();
   }
 
-  private static String addLeadingZeroes(String binary) {
+  private String addLeadingZeroes(String binary) {
     StringBuilder stringBuilder = new StringBuilder(binary);
     int missingZeroes = 8 - (stringBuilder.length() % 8);
 
