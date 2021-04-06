@@ -6,15 +6,16 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class MixedDigestPasswordEncoder implements PasswordEncoder {
 
   private static final String SALT_ALGORITHM = "MD5";
   private static final String PASSWORD_ALGORITHM = "SHA1";
+
   @Getter @Setter private String salt;
 
   @Override
@@ -45,7 +46,7 @@ public class MixedDigestPasswordEncoder implements PasswordEncoder {
     random.nextBytes(salt);
 
     try {
-      this.salt = getDigest(salt, SALT_ALGORITHM).substring(16, 32);
+      this.salt = getDigest(salt, SALT_ALGORITHM);
     } catch (NoSuchAlgorithmException exception) {
       throw new IllegalArgumentException(exception.getMessage());
     }
