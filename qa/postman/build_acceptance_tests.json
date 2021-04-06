@@ -19112,571 +19112,706 @@
 			"name": "Misc",
 			"item": [
 				{
-					"name": "Endpoint not found",
-					"event": [
+					"name": "Authorized via group",
+					"item": [
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Returns a 404 Not Found\", () => {\r",
-									"    const response = pm.response;\r",
-									"\r",
-									"    pm.expect(response.code).to.equal(404);\r",
-									"    pm.expect(response.status).to.equal(\"Not Found\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Content type is JSON\", () => {\r",
-									"    const response = pm.response;\r",
-									"\r",
-									"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/json\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Returns expected JSON schema\", () => {\r",
-									"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
-									"\r",
-									"    pm.response.to.have.jsonSchema(schema);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Problem JSON contains expected values\", () => {\r",
-									"    const jsonData = pm.response.json();\r",
-									"\r",
-									"    pm.expect(jsonData.status).to.equal(404);\r",
-									"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{Users endpoint}}xxx",
-							"host": [
-								"{{Users endpoint}}xxx"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Resource not found",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Returns a 404 Not Found\", () => {\r",
-									"    const response = pm.response;\r",
-									"\r",
-									"    pm.expect(response.code).to.equal(404);\r",
-									"    pm.expect(response.status).to.equal(\"Not Found\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Content type is JSON\", () => {\r",
-									"    const response = pm.response;\r",
-									"\r",
-									"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/json\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Returns expected JSON schema\", () => {\r",
-									"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
-									"\r",
-									"    pm.response.to.have.jsonSchema(schema);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Problem JSON contains expected values\", () => {\r",
-									"    const jsonData = pm.response.json();\r",
-									"\r",
-									"    pm.expect(jsonData.status).to.equal(404);\r",
-									"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{Users endpoint}}/{{Incorrect user id}}",
-							"host": [
-								"{{Users endpoint}}"
+							"name": "Create a user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created user\", jsonData._links.user.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
 							],
-							"path": [
-								"{{Incorrect user id}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "No credentials sent",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Returns a 401 Unauthorizeddd\", () => {\r",
-									"    const response = pm.response;\r",
-									"\r",
-									"    pm.expect(response.code).to.equal(401);\r",
-									"    pm.expect(response.status).to.equal(\"Unauthorized\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Content type is JSON\", () => {\r",
-									"    const response = pm.response;\r",
-									"\r",
-									"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/json\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Returns expected JSON schema\", () => {\r",
-									"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
-									"\r",
-									"    pm.response.to.have.jsonSchema(schema);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Problem JSON contains expected values\", () => {\r",
-									"    const jsonData = pm.response.json();\r",
-									"\r",
-									"    pm.expect(jsonData.status).to.equal(401);\r",
-									"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: unauthorized\"));\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{Users endpoint}}",
-							"host": [
-								"{{Users endpoint}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Wrong username",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Returns a 401 Unauthorized\", () => {\r",
-									"    const response = pm.response;\r",
-									"\r",
-									"    pm.expect(response.code).to.equal(401);\r",
-									"    pm.expect(response.status).to.equal(\"Unauthorized\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Content type is JSON\", () => {\r",
-									"    const response = pm.response;\r",
-									"\r",
-									"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/json\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Returns expected JSON schema\", () => {\r",
-									"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
-									"\r",
-									"    pm.response.to.have.jsonSchema(schema);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Problem JSON contains expected values\", () => {\r",
-									"    const jsonData = pm.response.json();\r",
-									"\r",
-									"    pm.expect(jsonData.status).to.equal(401);\r",
-									"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: unauthorized\"));\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "invalid_password",
-									"type": "string"
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "PrivilegedUser",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "1ncharge",
+											"type": "string"
+										}
+									]
 								},
-								{
-									"key": "username",
-									"value": "invalid_user",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{Users endpoint}}",
-							"host": [
-								"{{Users endpoint}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Wrong password",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Returns a 401 Unauthorized\", () => {\r",
-									"    const response = pm.response;\r",
-									"\r",
-									"    pm.expect(response.code).to.equal(401);\r",
-									"    pm.expect(response.status).to.equal(\"Unauthorized\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Content type is JSON\", () => {\r",
-									"    const response = pm.response;\r",
-									"\r",
-									"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/json\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Returns expected JSON schema\", () => {\r",
-									"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
-									"\r",
-									"    pm.response.to.have.jsonSchema(schema);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Problem JSON contains expected values\", () => {\r",
-									"    const jsonData = pm.response.json();\r",
-									"\r",
-									"    pm.expect(jsonData.status).to.equal(401);\r",
-									"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: unauthorized\"));\r",
-									"});"
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
 								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "Administrator",
-									"type": "string"
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"username\": \"{{Username}}\",\n    \"password\": \"{{Password}}\",\n    \"firstName\": \"{{First name}}\",\n    \"lastName\": \"{{Last name}}\",\n    \"email\": \"{{Email}}\",\n    \"status\": \"{{User status}}\",\n    \"passwordExpires\": \"{{Password expires}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
 								},
-								{
-									"key": "password",
-									"value": "invalid_password",
-									"type": "string"
+								"url": {
+									"raw": "{{Users endpoint}}",
+									"host": [
+										"{{Users endpoint}}"
+									]
 								}
-							]
+							},
+							"response": []
 						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{Users endpoint}}",
-							"host": [
-								"{{Users endpoint}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Access forbidden",
-					"event": [
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Returns a 403 Forbidden\", () => {\r",
-									"    const response = pm.response;\r",
-									"\r",
-									"    pm.expect(response.code).to.equal(403);\r",
-									"    pm.expect(response.status).to.equal(\"Forbidden\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Content type is JSON\", () => {\r",
-									"    const response = pm.response;\r",
-									"\r",
-									"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/json\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Returns expected JSON schema\", () => {\r",
-									"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
-									"\r",
-									"    pm.response.to.have.jsonSchema(schema);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Problem JSON contains expected values\", () => {\r",
-									"    const jsonData = pm.response.json();\r",
-									"\r",
-									"    pm.expect(jsonData.status).to.equal(403);\r",
-									"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: forbidden\"));\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": [
+							"name": "Delete user",
+							"event": [
 								{
-									"key": "password",
-									"value": "1ncharge",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "Agent",
-									"type": "string"
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
 								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{Users endpoint}}",
-							"host": [
-								"{{Users endpoint}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "URL incorrect data type",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Returns a 400 Bad Request\", () => {\r",
-									"    const response = pm.response;\r",
-									"\r",
-									"    pm.expect(response.code).to.equal(400);\r",
-									"    pm.expect(response.status).to.equal(\"Bad Request\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Content type is Problem JSON\", () => {\r",
-									"    const response = pm.response;\r",
-									"\r",
-									"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/problem+json\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Returns expected JSON schema\", () => {\r",
-									"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
-									"\r",
-									"    pm.response.to.have.jsonSchema(schema);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Problem JSON contains expected values\", () => {\r",
-									"    const jsonData = pm.response.json();\r",
-									"\r",
-									"    pm.expect(jsonData.status).to.equal(400);\r",
-									"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: data type conversion\"));\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{Users endpoint}}/a",
-							"host": [
-								"{{Users endpoint}}"
 							],
-							"path": [
-								"a"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Missing body",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Returns a 400 Bad Request\", () => {\r",
-									"    const response = pm.response;\r",
-									"\r",
-									"    pm.expect(response.code).to.equal(400);\r",
-									"    pm.expect(response.status).to.equal(\"Bad Request\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Content type is Problem JSON\", () => {\r",
-									"    const response = pm.response;\r",
-									"\r",
-									"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/problem+json\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Returns expected JSON schema\", () => {\r",
-									"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
-									"\r",
-									"    pm.response.to.have.jsonSchema(schema);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Problem JSON contains expected values\", () => {\r",
-									"    const jsonData = pm.response.json();\r",
-									"\r",
-									"    pm.expect(jsonData.status).to.equal(400);\r",
-									"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: missing input\"));\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{Users endpoint}}",
-							"host": [
-								"{{Users endpoint}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Malformed body",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Returns a 400 Bad Request\", () => {\r",
-									"    const response = pm.response;\r",
-									"\r",
-									"    pm.expect(response.code).to.equal(400);\r",
-									"    pm.expect(response.status).to.equal(\"Bad Request\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Content type is Problem JSON\", () => {\r",
-									"    const response = pm.response;\r",
-									"\r",
-									"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/problem+json\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Returns expected JSON schema\", () => {\r",
-									"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
-									"\r",
-									"    pm.response.to.have.jsonSchema(schema);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Problem JSON contains expected values\", () => {\r",
-									"    const jsonData = pm.response.json();\r",
-									"\r",
-									"    pm.expect(jsonData.status).to.equal(400);\r",
-									"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: malformed input\"));\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{ \n    \"username\": \"{{Username}}\",\n    \"password\": \"{{Password}}\",\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "PrivilegedUser",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "1ncharge",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created user}}",
+									"host": [
+										"{{Created user}}"
+									]
 								}
-							}
-						},
-						"url": {
-							"raw": "{{Users endpoint}}",
-							"host": [
-								"{{Users endpoint}}"
-							]
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
+				},
+				{
+					"name": "Other",
+					"item": [
+						{
+							"name": "Endpoint not found",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 404 Not Found\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(404);\r",
+											"    pm.expect(response.status).to.equal(\"Not Found\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(404);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{Users endpoint}}xxx",
+									"host": [
+										"{{Users endpoint}}xxx"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Resource not found",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 404 Not Found\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(404);\r",
+											"    pm.expect(response.status).to.equal(\"Not Found\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(404);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{Users endpoint}}/{{Incorrect user id}}",
+									"host": [
+										"{{Users endpoint}}"
+									],
+									"path": [
+										"{{Incorrect user id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "No credentials sent",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 401 Unauthorizeddd\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(401);\r",
+											"    pm.expect(response.status).to.equal(\"Unauthorized\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(401);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: unauthorized\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const jar = pm.cookies.jar();\r",
+											"const url = pm.collectionVariables.get(\"Users endpoint\");\r",
+											"\r",
+											"jar.clear(pm.collectionVariables.get(\"Users endpoint\"), (error) => {\r",
+											"    if (error) {\r",
+											"        console.error(error);\r",
+											"    }\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{Users endpoint}}",
+									"host": [
+										"{{Users endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Wrong username",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 401 Unauthorized\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(401);\r",
+											"    pm.expect(response.status).to.equal(\"Unauthorized\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(401);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: unauthorized\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "invalid_password",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "invalid_user",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{Users endpoint}}",
+									"host": [
+										"{{Users endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Wrong password",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 401 Unauthorized\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(401);\r",
+											"    pm.expect(response.status).to.equal(\"Unauthorized\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(401);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: unauthorized\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "Administrator",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "invalid_password",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{Users endpoint}}",
+									"host": [
+										"{{Users endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Access forbidden",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 403 Forbidden\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(403);\r",
+											"    pm.expect(response.status).to.equal(\"Forbidden\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(403);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: forbidden\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "1ncharge",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "NonPrivilegedUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{Users endpoint}}",
+									"host": [
+										"{{Users endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "URL incorrect data type",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 400 Bad Request\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(400);\r",
+											"    pm.expect(response.status).to.equal(\"Bad Request\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Problem JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/problem+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(400);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: data type conversion\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{Users endpoint}}/a",
+									"host": [
+										"{{Users endpoint}}"
+									],
+									"path": [
+										"a"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Missing body",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 400 Bad Request\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(400);\r",
+											"    pm.expect(response.status).to.equal(\"Bad Request\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Problem JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/problem+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(400);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: missing input\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{Users endpoint}}",
+									"host": [
+										"{{Users endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Malformed body",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 400 Bad Request\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(400);\r",
+											"    pm.expect(response.status).to.equal(\"Bad Request\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Problem JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/problem+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(400);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: malformed input\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"username\": \"{{Username}}\",\n    \"password\": \"{{Password}}\",\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Users endpoint}}",
+									"host": [
+										"{{Users endpoint}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}

@@ -2,7 +2,7 @@ package gr.nothingness.backofficeusermanager.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -33,6 +33,6 @@ public class PermissionType {
 
   @OneToMany(mappedBy = "type")
   @JsonIgnore
-  @Getter @Setter private List<Permission> permissions;
+  @Getter @Setter private Set<Permission> permissions;
 
 }

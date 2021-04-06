@@ -1,4 +1,1 @@
-delete from
-    tadmingroup
-where
-    group_name = "Assign permissions";
+delete from tadmingroup where group_name = "Privileged users";

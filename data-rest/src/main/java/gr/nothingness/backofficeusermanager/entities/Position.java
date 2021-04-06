@@ -2,7 +2,7 @@ package gr.nothingness.backofficeusermanager.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -40,11 +40,11 @@ public class Position {
   @Getter @Setter private Position parentPosition;
 
   @OneToMany(mappedBy = "parentPosition")
-  @Getter @Setter private List<Position> childPositions;
+  @Getter @Setter private Set<Position> childPositions;
 
   @OneToMany(mappedBy = "position")
   @JsonIgnore
-  @Getter @Setter private List<BackofficeUser> users;
+  @Getter @Setter private Set<BackofficeUser> users;
 
   @ManyToMany
   @JoinTable(
@@ -52,6 +52,6 @@ public class Position {
       joinColumns = @JoinColumn(name = "position_id"),
       inverseJoinColumns = @JoinColumn(name = "group_id")
   )
-  @Getter @Setter private List<BackofficeGroup> groups;
+  @Getter @Setter private Set<BackofficeGroup> groups;
 
 }

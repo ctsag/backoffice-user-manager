@@ -3,7 +3,7 @@ package gr.nothingness.backofficeusermanager.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -47,18 +47,18 @@ public class BackofficeGroup {
 
   @ManyToMany(mappedBy = "groups")
   @JsonIgnore
-  @Getter @Setter private List<Position> positions;
+  @Getter @Setter private Set<Position> positions;
 
   @ManyToMany(mappedBy = "groups")
   @JsonIgnore
-  @Getter @Setter private List<BackofficeUser> users;
+  @Getter @Setter private Set<BackofficeUser> users;
 
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(
       name = "tadmingroupop",
       joinColumns = @JoinColumn(name = "group_id"),
       inverseJoinColumns = @JoinColumn(name = "action")
   )
-  @Getter @Setter private List<Permission> permissions;
+  @Getter @Setter private Set<Permission> permissions;
 
 }

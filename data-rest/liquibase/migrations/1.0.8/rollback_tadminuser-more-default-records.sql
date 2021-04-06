@@ -1,4 +1,4 @@
 delete from
     tadminuser
 where
-    username = "Agent";
+    username in ("PrivilegedUser", "NonPrivilegedUser");
