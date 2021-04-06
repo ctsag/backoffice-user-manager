@@ -2,7 +2,7 @@ package gr.nothingness.backofficeusermanager.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -73,6 +73,6 @@ public class Timezone {
 
   @OneToMany(mappedBy = "timezone")
   @JsonIgnore
-  @Getter @Setter private List<BackofficeUser> users;
+  @Getter @Setter private Set<BackofficeUser> users;
 
 }

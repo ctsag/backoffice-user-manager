@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import gr.nothingness.backofficeusermanager.security.facilities.MixedDigestPasswordEncoder;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -168,7 +168,7 @@ public class BackofficeUser {
 
   @OneToMany(mappedBy = "owner")
   @JsonIgnore
-  @Getter @Setter private List<BackofficeGroup> ownedGroups;
+  @Getter @Setter private Set<BackofficeGroup> ownedGroups;
 
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(
@@ -176,15 +176,15 @@ public class BackofficeUser {
       joinColumns = @JoinColumn(name = "user_id"),
       inverseJoinColumns = @JoinColumn(name = "action")
   )
-  @Getter @Setter private List<Permission> permissions;
+  @Getter @Setter private Set<Permission> permissions;
 
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(
       name = "tadminusergroup",
       joinColumns = @JoinColumn(name = "user_id"),
       inverseJoinColumns = @JoinColumn(name = "group_id")
   )
-  @Getter @Setter private List<BackofficeGroup> groups;
+  @Getter @Setter private Set<BackofficeGroup> groups;
 
   protected BackofficeUser(BackofficeUser user) {
     this.id = user.getId();

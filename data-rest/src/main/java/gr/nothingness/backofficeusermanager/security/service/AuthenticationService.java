@@ -1,5 +1,6 @@
 package gr.nothingness.backofficeusermanager.security.service;
 
+import gr.nothingness.backofficeusermanager.entities.BackofficeGroup;
 import gr.nothingness.backofficeusermanager.entities.Permission;
 import gr.nothingness.backofficeusermanager.repositories.BackofficeUserRepository;
 import gr.nothingness.backofficeusermanager.security.facilities.AuthenticatedUserDetails;
@@ -7,6 +8,7 @@ import gr.nothingness.backofficeusermanager.security.facilities.MixedDigestPassw
 import java.util.ArrayList;
 import java.util.Collection;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -84,6 +86,12 @@ public class AuthenticationService implements AuthenticationProvider {
 
     for (Permission permission: user.getPermissions()) {
       grantedAuthorities.add(new SimpleGrantedAuthority(permission.getName()));
+    }
+
+    for (BackofficeGroup group: user.getGroups()) {
+      for (Permission permission: group.getPermissions()) {
+        grantedAuthorities.add(new SimpleGrantedAuthority(permission.getName()));
+      }
     }
 
     return grantedAuthorities;
