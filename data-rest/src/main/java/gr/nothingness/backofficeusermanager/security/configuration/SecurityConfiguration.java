@@ -45,6 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                   .build();
 
               response.setContentType(APPLICATION_JSON_VALUE);
+              response.setStatus(UNAUTHORIZED.value());
 
               ObjectMapper mapper = new ObjectMapper();
               mapper.writeValue(response.getOutputStream(), apiError.toMap());

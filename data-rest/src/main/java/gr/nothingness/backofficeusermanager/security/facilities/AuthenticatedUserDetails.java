@@ -7,9 +7,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class AuthUserDetails extends BackofficeUser implements UserDetails {
+public class AuthenticatedUserDetails extends BackofficeUser implements UserDetails {
 
-  public AuthUserDetails(BackofficeUser user) {
+  public AuthenticatedUserDetails(BackofficeUser user) {
     super(user);
   }
 

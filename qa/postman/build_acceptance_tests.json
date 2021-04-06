@@ -19227,7 +19227,66 @@
 					"response": []
 				},
 				{
-					"name": "Not authenticated",
+					"name": "No credentials sent",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Returns a 401 Unauthorizeddd\", () => {\r",
+									"    const response = pm.response;\r",
+									"\r",
+									"    pm.expect(response.code).to.equal(401);\r",
+									"    pm.expect(response.status).to.equal(\"Unauthorized\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content type is JSON\", () => {\r",
+									"    const response = pm.response;\r",
+									"\r",
+									"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Returns expected JSON schema\", () => {\r",
+									"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+									"\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Problem JSON contains expected values\", () => {\r",
+									"    const jsonData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(jsonData.status).to.equal(401);\r",
+									"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: unauthorized\"));\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{Users endpoint}}",
+							"host": [
+								"{{Users endpoint}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Wrong username",
 					"event": [
 						{
 							"listen": "test",
@@ -19275,6 +19334,77 @@
 								{
 									"key": "username",
 									"value": "invalid_user",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{Users endpoint}}",
+							"host": [
+								"{{Users endpoint}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Wrong password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Returns a 401 Unauthorized\", () => {\r",
+									"    const response = pm.response;\r",
+									"\r",
+									"    pm.expect(response.code).to.equal(401);\r",
+									"    pm.expect(response.status).to.equal(\"Unauthorized\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content type is JSON\", () => {\r",
+									"    const response = pm.response;\r",
+									"\r",
+									"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Returns expected JSON schema\", () => {\r",
+									"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+									"\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Problem JSON contains expected values\", () => {\r",
+									"    const jsonData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(jsonData.status).to.equal(401);\r",
+									"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: unauthorized\"));\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "Administrator",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "invalid_password",
 									"type": "string"
 								}
 							]
