@@ -8,7 +8,6 @@ import gr.nothingness.backofficeusermanager.security.facilities.MixedDigestPassw
 import java.util.ArrayList;
 import java.util.Collection;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Hibernate;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;

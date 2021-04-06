@@ -2,8 +2,10 @@ package gr.nothingness.backofficeusermanager.security.configuration;
 
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import gr.nothingness.backofficeusermanager.configuration.ApplicationConfiguration;
 import gr.nothingness.backofficeusermanager.errors.RFC7807Error;
 import gr.nothingness.backofficeusermanager.security.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   @Autowired
   private AuthenticationService authenticationService;
 
+  @Autowired
+  private ApplicationConfiguration configuration;
+
   @Override
   protected void configure(AuthenticationManagerBuilder auth) {
     auth.authenticationProvider(authenticationService);
@@ -26,31 +31,48 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity httpSecurity) throws Exception {
-    httpSecurity
-        .httpBasic()
-        .and()
-        .csrf().disable()
-        .authorizeRequests()
-            .mvcMatchers(HttpMethod.GET, "/**").hasAuthority("UseAdmin")
-            .anyRequest().hasAuthority("AssignRights")
-        .and()
-        .exceptionHandling()
-        .authenticationEntryPoint((request, response, exception) -> {
-              RFC7807Error apiError = RFC7807Error
-                  .withStatus(UNAUTHORIZED)
-                  .andType("https://httpstatuses.com/401")
-                  .andTitle("Unauthorized")
-                  .andDetail(exception.getMessage())
-                  .andInstance(request.getRequestURI())
-                  .build();
 
-              response.setContentType(APPLICATION_JSON_VALUE);
-              response.setStatus(UNAUTHORIZED.value());
+    if (configuration.isAuthDisabled()) {
+      httpSecurity
+          .anonymous();
+    } else {
+      httpSecurity
+          .httpBasic()
+          .and()
+          .authorizeRequests()
+          .mvcMatchers(HttpMethod.GET, "/**").hasAuthority(configuration.getReadPermission())
+          .anyRequest().hasAuthority(configuration.getWritePermission())
+          .and()
+          .exceptionHandling()
+          .authenticationEntryPoint((request, response, exception) -> {
+                RFC7807Error apiError = RFC7807Error
+                    .withStatus(UNAUTHORIZED)
+                    .andType(configuration.getHttpStatusRefUrl() + "/" + UNAUTHORIZED.value())
+                    .andTitle("Unauthorized")
+                    .andDetail(exception.getMessage())
+                    .andInstance(request.getRequestURI())
+                    .build();
 
-              ObjectMapper mapper = new ObjectMapper();
-              mapper.writeValue(response.getOutputStream(), apiError.toMap());
-            }
-        );
+                response.setContentType(APPLICATION_JSON_VALUE);
+                response.setStatus(UNAUTHORIZED.value());
+
+                ObjectMapper mapper = new ObjectMapper();
+                mapper.writeValue(response.getOutputStream(), apiError.toMap());
+              }
+          );
+    }
+
+    if (configuration.isCsrfDisabled()) {
+      httpSecurity
+          .csrf()
+          .disable();
+    }
+
+    if (configuration.isSessionStateless()) {
+      httpSecurity
+          .sessionManagement()
+          .sessionCreationPolicy(STATELESS);
+    }
   }
 
 }
