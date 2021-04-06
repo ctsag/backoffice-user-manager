@@ -2,13 +2,17 @@ package gr.nothingness.backofficeusermanager.security.service;
 
 import gr.nothingness.backofficeusermanager.entities.Permission;
 import gr.nothingness.backofficeusermanager.repositories.BackofficeUserRepository;
-import gr.nothingness.backofficeusermanager.security.facilities.AuthUserDetails;
+import gr.nothingness.backofficeusermanager.security.facilities.AuthenticatedUserDetails;
 import gr.nothingness.backofficeusermanager.security.facilities.MixedDigestPasswordEncoder;
 import java.util.ArrayList;
 import java.util.Collection;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.CredentialsExpiredException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -31,35 +35,51 @@ public class AuthenticationService implements AuthenticationProvider {
 
   @Override
   public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-    UsernamePasswordAuthenticationToken authenticationToken;
-
     String username = authentication.getName();
     String password = authentication.getCredentials().toString();
 
-    AuthUserDetails user = userRepository
+    AuthenticatedUserDetails user = userRepository
         .findByUsername(username)
-        .map(AuthUserDetails::new)
-        .orElseThrow(() -> new UsernameNotFoundException(username));
+        .map(AuthenticatedUserDetails::new)
+        .orElseThrow(() -> new UsernameNotFoundException("Wrong username"));
 
+    performAuthenticationChecks(user, password);
+
+    Collection<GrantedAuthority> grantedAuthorities = getGrantedAuthorities(user);
+
+    return new UsernamePasswordAuthenticationToken(
+        new User(username, password, grantedAuthorities),
+        password,
+        getGrantedAuthorities(user)
+    );
+  }
+
+  private void performAuthenticationChecks(AuthenticatedUserDetails user, String password) {
     MixedDigestPasswordEncoder passwordEncoder = new MixedDigestPasswordEncoder();
     passwordEncoder.setSalt(user.getPasswordSalt());
 
-    if (passwordEncoder.matches(password, user.getPassword())) {
-      Collection<GrantedAuthority> grantedAuthorities = getGrantedAuthorities(user);
-
-      authenticationToken = new UsernamePasswordAuthenticationToken(
-        new User(username, password, grantedAuthorities),
-        password,
-        grantedAuthorities
-      );
-    } else {
-      throw new BadCredentialsException("wrong password");
+    if (!passwordEncoder.matches(password, user.getPassword())) {
+      throw new BadCredentialsException("Wrong password");
     }
 
-    return authenticationToken;
+    if (!user.isAccountNonExpired()) {
+      throw new AccountExpiredException("The account is expired");
+    }
+
+    if (!user.isAccountNonLocked()) {
+      throw new LockedException("The account is locked");
+    }
+
+    if (!user.isCredentialsNonExpired()) {
+      throw new CredentialsExpiredException("The password has expired and needs to be changed");
+    }
+
+    if (!user.isEnabled()) {
+      throw new DisabledException("The account is disabled");
+    }
   }
 
-  private Collection<GrantedAuthority> getGrantedAuthorities(AuthUserDetails user) {
+  private Collection<GrantedAuthority> getGrantedAuthorities(AuthenticatedUserDetails user) {
     Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 
     for (Permission permission: user.getPermissions()) {
