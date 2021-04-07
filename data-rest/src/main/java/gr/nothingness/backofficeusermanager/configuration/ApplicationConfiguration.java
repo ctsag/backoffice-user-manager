@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "app")
 public class ApplicationConfiguration {
 
+  @Getter @Setter private String basePath = "/";
   @Getter @Setter private boolean authDisabled = false;
   @Getter @Setter private boolean csrfDisabled = true;
   @Getter @Setter private String readPermission = "ReadAccess";

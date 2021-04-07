@@ -1,5 +1,6 @@
 package gr.nothingness.backofficeusermanager.security.configuration;
 
+import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
@@ -39,27 +40,29 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
           .httpBasic()
           .and()
           .authorizeRequests()
-          .mvcMatchers(HttpMethod.GET, "/**").hasAuthority(configuration.getReadPermission())
-          .anyRequest().hasAuthority(configuration.getWritePermission())
+              .mvcMatchers(GET, "/actuator/health").permitAll()
+              .mvcMatchers(GET, configuration.getBasePath()).permitAll()
+              .mvcMatchers(GET, "/**").hasAuthority(configuration.getReadPermission())
+              .anyRequest().hasAuthority(configuration.getWritePermission())
           .and()
           .sessionManagement()
-          .sessionCreationPolicy(STATELESS)
+              .sessionCreationPolicy(STATELESS)
           .and()
           .exceptionHandling()
-          .authenticationEntryPoint((request, response, exception) -> {
-                RFC7807Error apiError = RFC7807Error
-                    .withStatus(UNAUTHORIZED)
-                    .andType(configuration.getHttpStatusRefUrl() + "/" + UNAUTHORIZED.value())
-                    .andTitle("Unauthorized")
-                    .andDetail(exception.getMessage())
-                    .andInstance(request.getRequestURI())
-                    .build();
+              .authenticationEntryPoint((request, response, exception) -> {
+                    RFC7807Error apiError = RFC7807Error
+                        .withStatus(UNAUTHORIZED)
+                        .andType(configuration.getHttpStatusRefUrl() + "/" + UNAUTHORIZED.value())
+                        .andTitle("Unauthorized")
+                        .andDetail(exception.getMessage())
+                        .andInstance(request.getRequestURI())
+                        .build();
 
-                response.setContentType(APPLICATION_JSON_VALUE);
-                response.setStatus(UNAUTHORIZED.value());
+                    response.setContentType(APPLICATION_JSON_VALUE);
+                    response.setStatus(UNAUTHORIZED.value());
 
-                ObjectMapper mapper = new ObjectMapper();
-                mapper.writeValue(response.getOutputStream(), apiError.toMap());
+                    ObjectMapper mapper = new ObjectMapper();
+                    mapper.writeValue(response.getOutputStream(), apiError.toMap());
               }
           );
     }
