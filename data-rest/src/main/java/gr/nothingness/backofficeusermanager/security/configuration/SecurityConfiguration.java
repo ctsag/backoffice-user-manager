@@ -31,7 +31,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity httpSecurity) throws Exception {
-
     if (configuration.isAuthDisabled()) {
       httpSecurity
           .anonymous();
@@ -42,6 +41,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
           .authorizeRequests()
           .mvcMatchers(HttpMethod.GET, "/**").hasAuthority(configuration.getReadPermission())
           .anyRequest().hasAuthority(configuration.getWritePermission())
+          .and()
+          .sessionManagement()
+          .sessionCreationPolicy(STATELESS)
           .and()
           .exceptionHandling()
           .authenticationEntryPoint((request, response, exception) -> {
@@ -66,12 +68,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
       httpSecurity
           .csrf()
           .disable();
-    }
-
-    if (configuration.isSessionStateless()) {
-      httpSecurity
-          .sessionManagement()
-          .sessionCreationPolicy(STATELESS);
     }
   }
 
