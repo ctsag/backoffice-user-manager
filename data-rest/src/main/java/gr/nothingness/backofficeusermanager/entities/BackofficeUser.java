@@ -151,7 +151,8 @@ public class BackofficeUser {
   @Getter @Setter private Date lastPasswordFail;
 
   @Column(name = "password_salt")
-  @JsonIgnore @Size(max = 40)
+  @JsonProperty(access = Access.WRITE_ONLY)
+  @Size(max = 40)
   @Getter private String passwordSalt;
 
   @Column(name = "lost_login_status")
