@@ -603,7 +603,7 @@
 											"pm.test(\"Returns expected attribute values\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
 											"\r",
-											"    pm.expect(jsonData.username).to.equal(pm.collectionVariables.get(\"Modified username\"));\r",
+											"    pm.expect(jsonData.username).to.equal(pm.collectionVariables.get(\"Incorrect user id\"));\r",
 											"    pm.expect(jsonData.firstName).to.equal(pm.collectionVariables.get(\"First name\"));\r",
 											"    pm.expect(jsonData.lastName).to.equal(pm.collectionVariables.get(\"Modified last name\"));\r",
 											"    pm.expect(jsonData.email).to.equal(pm.collectionVariables.get(\"Email\"));\r",
@@ -20629,9 +20629,9 @@
 									}
 								],
 								"url": {
-									"raw": "{{Users endpoint}}/a",
+									"raw": "{{Groups endpoint}}/a",
 									"host": [
-										"{{Users endpoint}}"
+										"{{Groups endpoint}}"
 									],
 									"path": [
 										"a"
