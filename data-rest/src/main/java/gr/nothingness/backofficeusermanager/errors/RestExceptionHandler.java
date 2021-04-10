@@ -81,7 +81,7 @@ public class RestExceptionHandler {
     for (ConstraintViolation<?> violation: exception.getConstraintViolations()) {
       FailureDetail failureDetail = FailureDetail
           .withMessage(violation.getMessage())
-          .andConstraint(violation.getPropertyPath().toString())
+          .andConstraint(violation.getPropertyPath().toString().replaceFirst("^(.+?)\\.", ""))
           .build();
 
       apiError.addFailure(failureDetail);

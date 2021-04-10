@@ -1,9 +1,11 @@
 package gr.nothingness.backofficeusermanager.entities;
 
+import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import gr.nothingness.backofficeusermanager.facilities.ValidPassword;
 import gr.nothingness.backofficeusermanager.security.facilities.MixedDigestPasswordEncoder;
 import java.util.Date;
 import java.util.Set;
@@ -21,9 +23,13 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PostLoad;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -87,9 +93,16 @@ public class BackofficeUser {
   @Getter @Setter private String username;
 
   @Column(name = "password")
-  @JsonProperty(access = Access.WRITE_ONLY)
-  @NotNull @Size(min = 8, max = 40)
-  @Getter private String password;
+  @JsonProperty(access = WRITE_ONLY)
+  @NotNull
+  @Getter @Setter private String password;
+
+  @Transient
+  private String currentPassword;
+
+  @Transient
+  @ValidPassword
+  private transient String plainTextPassword;
 
   @Column(name = "fname")
   @Size(max = 60)
@@ -151,7 +164,7 @@ public class BackofficeUser {
   @Getter @Setter private Date lastPasswordFail;
 
   @Column(name = "password_salt")
-  @JsonProperty(access = Access.WRITE_ONLY)
+  @JsonProperty(access = WRITE_ONLY)
   @Size(max = 40)
   @Getter private String passwordSalt;
 
@@ -191,6 +204,8 @@ public class BackofficeUser {
     this.id = user.getId();
     this.username = user.getUsername();
     this.password = user.getPassword();
+    this.currentPassword = user.currentPassword;
+    this.plainTextPassword = user.plainTextPassword;
     this.firstName = user.getFirstName();
     this.lastName = user.getLastName();
     this.email = user.getEmail();
@@ -215,11 +230,20 @@ public class BackofficeUser {
     this.groups = user.getGroups();
   }
 
-  public void setPassword(String password) {
-    MixedDigestPasswordEncoder passwordEncoder = new MixedDigestPasswordEncoder();
+  @PostLoad
+  private void storeCurrentPassword() {
+    currentPassword = password;
+  }
 
-    this.password = passwordEncoder.encode(password);
-    this.passwordSalt = passwordEncoder.getSalt();
+  @PrePersist @PreUpdate
+  private void encodePassword() {
+    if (password != null && !password.isEmpty() && !password.equals(currentPassword)) {
+      MixedDigestPasswordEncoder passwordEncoder = new MixedDigestPasswordEncoder();
+
+      plainTextPassword = password;
+      password = passwordEncoder.encode(password);
+      passwordSalt = passwordEncoder.getSalt();
+    }
   }
 
 }
