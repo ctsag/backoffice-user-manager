@@ -5,7 +5,7 @@ import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import gr.nothingness.backofficeusermanager.facilities.ValidPassword;
+import gr.nothingness.backofficeusermanager.validation.ValidPassword;
 import gr.nothingness.backofficeusermanager.security.facilities.MixedDigestPasswordEncoder;
 import java.util.Date;
 import java.util.Set;

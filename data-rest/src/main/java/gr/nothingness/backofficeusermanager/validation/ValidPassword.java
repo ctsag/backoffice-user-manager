@@ -1,4 +1,4 @@
-package gr.nothingness.backofficeusermanager.facilities;
+package gr.nothingness.backofficeusermanager.validation;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
