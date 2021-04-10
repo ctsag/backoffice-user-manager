@@ -5,7 +5,7 @@ import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import gr.nothingness.backofficeusermanager.facilities.ValidPassword;
+import gr.nothingness.backofficeusermanager.validation.ValidPassword;
 import gr.nothingness.backofficeusermanager.security.facilities.MixedDigestPasswordEncoder;
 import java.util.Date;
 import java.util.Set;
@@ -47,6 +47,7 @@ import org.hibernate.annotations.NaturalId;
 )
 @NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@ValidPassword
 public class BackofficeUser {
 
   @RequiredArgsConstructor
@@ -94,15 +95,14 @@ public class BackofficeUser {
 
   @Column(name = "password")
   @JsonProperty(access = WRITE_ONLY)
-  @NotNull
   @Getter @Setter private String password;
 
   @Transient
   private String currentPassword;
 
   @Transient
-  @ValidPassword
-  private transient String plainTextPassword;
+  @JsonProperty(access = WRITE_ONLY)
+  @Getter private String plainTextPassword;
 
   @Column(name = "fname")
   @Size(max = 60)
