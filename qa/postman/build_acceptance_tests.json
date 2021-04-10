@@ -7136,7 +7136,7 @@
 							"response": []
 						},
 						{
-							"name": "Password length cannot be <1",
+							"name": "Password length cannot be <8",
 							"event": [
 								{
 									"listen": "test",
@@ -7173,7 +7173,7 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "POST",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -7184,7 +7184,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \n    \"password\": \"\"\n}",
+									"raw": "{ \n    \"username\": \"xxxxxxxxx\",\n    \"password\": \"xxxxxxx\",\n    \"firstName\": \"{{First name}}\",\n    \"lastName\": \"{{Last name}}\",\n    \"email\": \"{{Email}}\",\n    \"status\": \"{{User status}}\",\n    \"passwordExpires\": \"{{Password expires}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -7192,9 +7192,9 @@
 									}
 								},
 								"url": {
-									"raw": "{{Created user}}",
+									"raw": "{{Users endpoint}}",
 									"host": [
-										"{{Created user}}"
+										"{{Users endpoint}}"
 									]
 								}
 							},
@@ -20009,7 +20009,7 @@
 		},
 		{
 			"key": "Password",
-			"value": "t3nt3k"
+			"value": "t3t3nt3k"
 		},
 		{
 			"key": "First name",
