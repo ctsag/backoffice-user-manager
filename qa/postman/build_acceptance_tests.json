@@ -970,81 +970,6 @@
 							"response": []
 						},
 						{
-							"name": "Retrieve user by username",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 200 OK status\", () => {\r",
-											"    const response = pm.response;\r",
-											"\r",
-											"    pm.expect(response.code).to.equal(200);\r",
-											"    pm.expect(response.status).to.equal(\"OK\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Content type is Hypermedia\", () => {\r",
-											"    const response = pm.response;\r",
-											"\r",
-											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns expected JSON schema\", () => {\r",
-											"    const schema = pm.collectionVariables.get(\"User item schema\");\r",
-											"\r",
-											"    pm.response.to.have.jsonSchema(schema);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns expected attribute values\", () => {\r",
-											"    const jsonData = pm.response.json();\r",
-											"\r",
-											"    pm.expect(jsonData.id).to.equal(pm.collectionVariables.get(\"Created user's id\"));\r",
-											"    pm.expect(jsonData.username).to.equal(pm.collectionVariables.get(\"Username\"));\r",
-											"    pm.expect(jsonData.firstName).to.equal(pm.collectionVariables.get(\"First name\"));\r",
-											"    pm.expect(jsonData.lastName).to.equal(pm.collectionVariables.get(\"Modified last name\"));\r",
-											"    pm.expect(jsonData.email).to.equal(pm.collectionVariables.get(\"Email\"));\r",
-											"    pm.expect(jsonData.status).to.equal(pm.collectionVariables.get(\"User status\"));\r",
-											"    pm.expect(jsonData.passwordExpires).to.equal(pm.collectionVariables.get(\"Password expires\"));\r",
-											"    pm.expect(jsonData.agent).to.be.null;\r",
-											"    pm.expect(jsonData.phoneSwitch).to.be.null;\r",
-											"    pm.expect(jsonData.overrideCode).to.be.null;\r",
-											"\r",
-											"    pm.expect(jsonData._links.self.href).to.equal(pm.collectionVariables.get(\"Created user\"));\r",
-											"    pm.expect(jsonData._links.user.href).to.equal(pm.collectionVariables.get(\"Created user\"));\r",
-											"    pm.expect(jsonData._links.permissions.href).to.equal(pm.collectionVariables.get(\"Created user's permissions\"));\r",
-											"    pm.expect(jsonData._links.timezone.href).to.equal(pm.collectionVariables.get(\"Created user's timezone\"));\r",
-											"    pm.expect(jsonData._links.position.href).to.equal(pm.collectionVariables.get(\"Created user's position\"));\r",
-											"    pm.expect(jsonData._links.ownedGroups.href).to.equal(pm.collectionVariables.get(\"Created user's owned groups\"));\r",
-											"    pm.expect(jsonData._links.groups.href).to.equal(pm.collectionVariables.get(\"Created user's groups\"));\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{Users endpoint}}/search/byUsername?username={{Username}}",
-									"host": [
-										"{{Users endpoint}}"
-									],
-									"path": [
-										"search",
-										"byUsername"
-									],
-									"query": [
-										{
-											"key": "username",
-											"value": "{{Username}}"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": "Delete created user",
 							"event": [
 								{
@@ -1417,15 +1342,6 @@
 									"                    \"required\": [ \"href\" ],",
 									"                    \"additionalProperties\": false",
 									"                },",
-									"                \"byUsername\": {",
-									"                    \"type\": \"object\",",
-									"                    \"properties\": {",
-									"                        \"href\": { \"type\": \"string\" },",
-									"                        \"templated\": { \"type\": \"boolean\" }",
-									"                    },",
-									"                    \"required\": [ \"href\" ],",
-									"                    \"additionalProperties\": false",
-									"                },",
 									"                \"self\": {",
 									"                    \"type\": \"object\",",
 									"                    \"properties\": {",
@@ -1436,7 +1352,7 @@
 									"                    \"additionalProperties\": false",
 									"                }",
 									"            },",
-									"            \"required\": [ \"byFullName\", \"byUsername\", \"self\" ],",
+									"            \"required\": [ \"byFullName\", \"self\" ],",
 									"            \"additionalProperties\": false",
 									"        },",
 									"    },",

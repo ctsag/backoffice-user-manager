@@ -20,7 +20,7 @@ public interface BackofficeUserRepository extends CrudRepository<BackofficeUser,
       String lastName
   );
 
-  @RestResource(path = "byUsername", rel = "byUsername")
+  @RestResource(exported = false)
   public Optional<BackofficeUser> findByUsername(String username);
 
 }
