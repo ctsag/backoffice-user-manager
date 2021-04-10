@@ -47,6 +47,7 @@ import org.hibernate.annotations.NaturalId;
 )
 @NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@ValidPassword
 public class BackofficeUser {
 
   @RequiredArgsConstructor
@@ -94,15 +95,14 @@ public class BackofficeUser {
 
   @Column(name = "password")
   @JsonProperty(access = WRITE_ONLY)
-  @NotNull
   @Getter @Setter private String password;
 
   @Transient
   private String currentPassword;
 
   @Transient
-  @ValidPassword
-  private transient String plainTextPassword;
+  @JsonProperty(access = WRITE_ONLY)
+  @Getter private String plainTextPassword;
 
   @Column(name = "fname")
   @Size(max = 60)
