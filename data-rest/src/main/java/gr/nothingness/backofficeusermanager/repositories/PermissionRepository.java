@@ -1,8 +1,10 @@
 package gr.nothingness.backofficeusermanager.repositories;
 
 import gr.nothingness.backofficeusermanager.entities.Permission;
+import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 @RepositoryRestResource(
     collectionResourceRel = "permissions",
@@ -10,5 +12,8 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
     path = "permissions"
 )
 public interface PermissionRepository extends CrudRepository<Permission, String> {
+
+  @RestResource(path = "byNameLike", rel = "byNameLike")
+  public List<Permission> findByNameContainingIgnoreCase(String name);
 
 }

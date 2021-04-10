@@ -603,7 +603,7 @@
 											"pm.test(\"Returns expected attribute values\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
 											"\r",
-											"    pm.expect(jsonData.username).to.equal(pm.collectionVariables.get(\"Modified username\"));\r",
+											"    pm.expect(jsonData.username).to.equal(pm.collectionVariables.get(\"Incorrect user id\"));\r",
 											"    pm.expect(jsonData.firstName).to.equal(pm.collectionVariables.get(\"First name\"));\r",
 											"    pm.expect(jsonData.lastName).to.equal(pm.collectionVariables.get(\"Modified last name\"));\r",
 											"    pm.expect(jsonData.email).to.equal(pm.collectionVariables.get(\"Email\"));\r",
@@ -3947,6 +3947,126 @@
 							"response": []
 						},
 						{
+							"name": "List all permission search options",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.eql(200);\r",
+											"    pm.expect(response.status).to.eql(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Permission search root schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Permissions endpoint}}/search",
+									"host": [
+										"{{Permissions endpoint}}"
+									],
+									"path": [
+										"search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve permissions by name containing",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Permission search term schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains the created permission\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const permissions = jsonData._embedded.permissions;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < permissions.length; i++) {\r",
+											"        if (permissions[i]._links.permission.href == pm.collectionVariables.get(\"Created permission\")) {\r",
+											"            pm.expect(permissions[i].name).to.equal(pm.collectionVariables.get(\"Permission name\"));\r",
+											"            pm.expect(permissions[i].description).to.equal(pm.collectionVariables.get(\"Modified permission description\"));\r",
+											"            pm.expect(permissions[i].displayOrder).to.equal(parseInt(pm.collectionVariables.get(\"Display order\")));\r",
+											"            pm.expect(permissions[i]._links.self.href).to.equal(pm.collectionVariables.get(\"Created permission\"));\r",
+											"            pm.expect(permissions[i]._links.permission.href).to.equal(pm.collectionVariables.get(\"Created permission\"));\r",
+											"            pm.expect(permissions[i]._links.type.href).to.equal(pm.collectionVariables.get(\"Created permission's type\"));\r",
+											"            pm.expect(permissions[i]._links.users.href).to.equal(pm.collectionVariables.get(\"Created permission's users\"));\r",
+											"            pm.expect(permissions[i]._links.groups.href).to.equal(pm.collectionVariables.get(\"Created permission's groups\"));\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Permissions endpoint}}/search/byNameLike?name=sensitive",
+									"host": [
+										"{{Permissions endpoint}}"
+									],
+									"path": [
+										"search",
+										"byNameLike"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "sensitive"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Delete created permission",
 							"event": [
 								{
@@ -4255,9 +4375,86 @@
 									"                    },",
 									"                    \"required\": [ \"href\" ],",
 									"                    \"additionalProperties\": false",
+									"                },",
+									"                \"search\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
 									"                }",
 									"            },",
-									"            \"required\": [ \"self\", \"profile\" ],",
+									"            \"required\": [ \"self\", \"profile\", \"search\" ],",
+									"            \"additionalProperties\": false",
+									"        },",
+									"    },",
+									"    \"required\": [ \"_embedded\", \"_links\" ],",
+									"    \"additionalProperties\": false",
+									"});",
+									"",
+									"",
+									"pm.collectionVariables.set(\"Permission search root schema\", {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"        \"_links\": {",
+									"            \"type\": \"object\",",
+									"            \"properties\": {",
+									"                \"byNameLike\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" },",
+									"                        \"templated\": { \"type\": \"boolean\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
+									"                },",
+									"                \"self\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" },",
+									"                        \"templated\": { \"type\": \"boolean\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
+									"                }",
+									"            },",
+									"            \"required\": [ \"byNameLike\", \"self\" ],",
+									"            \"additionalProperties\": false",
+									"        },",
+									"    },",
+									"    \"required\": [ \"_links\" ],",
+									"    \"additionalProperties\": false",
+									"});",
+									"",
+									"pm.collectionVariables.set(\"Permission search term schema\", {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"        \"_embedded\": {",
+									"            \"type\": \"object\",",
+									"            \"properties\": {",
+									"                \"permissions\": {",
+									"                    \"type\": \"array\",",
+									"                    \"items\": pm.collectionVariables.get(\"Permission item schema\"),",
+									"                    \"uniqueItems\": true",
+									"                }",
+									"            },",
+									"            \"required\": [ \"permissions\" ],",
+									"            \"additionalProperties\": false",
+									"        },",
+									"        \"_links\": {",
+									"            \"type\": \"object\",",
+									"            \"properties\": {",
+									"                \"self\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
+									"                }",
+									"            },",
+									"            \"required\": [ \"self\" ],",
 									"            \"additionalProperties\": false",
 									"        },",
 									"    },",
@@ -20629,9 +20826,9 @@
 									}
 								],
 								"url": {
-									"raw": "{{Users endpoint}}/a",
+									"raw": "{{Groups endpoint}}/a",
 									"host": [
-										"{{Users endpoint}}"
+										"{{Groups endpoint}}"
 									],
 									"path": [
 										"a"
@@ -21488,6 +21685,14 @@
 		{
 			"key": "Problem: forbidden",
 			"value": "Forbidden"
+		},
+		{
+			"key": "Permission search root schema",
+			"value": ""
+		},
+		{
+			"key": "Permission search term schema",
+			"value": ""
 		}
 	]
 }
