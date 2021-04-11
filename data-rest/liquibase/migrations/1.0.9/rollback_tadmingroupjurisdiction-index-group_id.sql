@@ -1,0 +1,1 @@
+drop index iadmingroupjurisdiction_x2;
