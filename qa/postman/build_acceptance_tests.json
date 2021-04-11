@@ -91,6 +91,7 @@
 									"    pm.collectionVariables.set(\"Positions endpoint\", jsonData._links.positions.href);\r",
 									"    pm.collectionVariables.set(\"Permission types endpoint\", jsonData._links.permissionTypes.href);    \r",
 									"    pm.collectionVariables.set(\"Timezones endpoint\", jsonData._links.timezones.href);\r",
+									"    pm.collectionVariables.set(\"Jurisdictions endpoint\", jsonData._links.jurisdictions.href);\r",
 									"    pm.collectionVariables.set(\"Profile endpoint\", jsonData._links.profile.href);\r",
 									"});"
 								],
@@ -1438,6 +1439,7 @@
 											"    pm.collectionVariables.set(\"Created group's positions\", jsonData._links.positions.href);\r",
 											"    pm.collectionVariables.set(\"Created group's permissions\", jsonData._links.permissions.href);\r",
 											"    pm.collectionVariables.set(\"Created group's users\", jsonData._links.users.href);\r",
+											"    pm.collectionVariables.set(\"Created group's jurisdictions\", jsonData._links.jurisdictions.href);\r",
 											"    pm.collectionVariables.set(\"Created group's id\", jsonData.id);\r",
 											"});"
 										],
@@ -1514,6 +1516,7 @@
 											"            pm.expect(groups[i]._links.positions.href).to.equal(pm.collectionVariables.get(\"Created group's positions\"));\r",
 											"            pm.expect(groups[i]._links.permissions.href).to.equal(pm.collectionVariables.get(\"Created group's permissions\"));\r",
 											"            pm.expect(groups[i]._links.users.href).to.equal(pm.collectionVariables.get(\"Created group's users\"));\r",
+											"            pm.expect(groups[i]._links.jurisdictions.href).to.equal(pm.collectionVariables.get(\"Created group's jurisdictions\"));\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -1576,6 +1579,7 @@
 											"    pm.expect(jsonData._links.positions.href).to.equal(pm.collectionVariables.get(\"Created group's positions\"));\r",
 											"    pm.expect(jsonData._links.permissions.href).to.equal(pm.collectionVariables.get(\"Created group's permissions\"));\r",
 											"    pm.expect(jsonData._links.users.href).to.equal(pm.collectionVariables.get(\"Created group's users\"));\r",
+											"    pm.expect(jsonData._links.jurisdictions.href).to.equal(pm.collectionVariables.get(\"Created group's jurisdictions\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1683,7 +1687,8 @@
 											"    pm.expect(jsonData._links.owner.href).to.equal(pm.collectionVariables.get(\"Created group's owner\"));\r",
 											"    pm.expect(jsonData._links.positions.href).to.equal(pm.collectionVariables.get(\"Created group's positions\"));\r",
 											"    pm.expect(jsonData._links.permissions.href).to.equal(pm.collectionVariables.get(\"Created group's permissions\"));\r",
-											"    pm.expect(jsonData._links.users.href).to.equal(pm.collectionVariables.get(\"Created group's users\"));    \r",
+											"    pm.expect(jsonData._links.users.href).to.equal(pm.collectionVariables.get(\"Created group's users\"));\r",
+											"    pm.expect(jsonData._links.jurisdictions.href).to.equal(pm.collectionVariables.get(\"Created group's jurisdictions\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1861,6 +1866,7 @@
 											"    pm.expect(jsonData._links.positions.href).to.equal(pm.collectionVariables.get(\"Created group's positions\"));\r",
 											"    pm.expect(jsonData._links.permissions.href).to.equal(pm.collectionVariables.get(\"Created group's permissions\"));\r",
 											"    pm.expect(jsonData._links.users.href).to.equal(pm.collectionVariables.get(\"Created group's users\"));\r",
+											"    pm.expect(jsonData._links.jurisdictions.href).to.equal(pm.collectionVariables.get(\"Created group's jurisdictions\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -2225,6 +2231,14 @@
 									"                    },",
 									"                    \"required\": [ \"href\" ],",
 									"                    \"additionalProperties\": false",
+									"                },",
+									"                \"jurisdictions\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
 									"                }",
 									"            },",
 									"            \"required\": [",
@@ -2233,7 +2247,8 @@
 									"                \"owner\",",
 									"                \"users\",",
 									"                \"permissions\",",
-									"                \"positions\"",
+									"                \"positions\",",
+									"                \"jurisdictions\"",
 									"            ],",
 									"            \"additionalProperties\": false",
 									"        }",
@@ -6270,6 +6285,855 @@
 							}
 						}
 					]
+				},
+				{
+					"name": "Jurisdiction",
+					"item": [
+						{
+							"name": "Create a jurisdiction",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Jurisdiction item schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected attribute values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.name).to.equal(pm.collectionVariables.get(\"Jurisdiction name\"));\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created jurisdiction\", jsonData._links.jurisdiction.href);\r",
+											"    pm.collectionVariables.set(\"Created jurisdiction's groups\", jsonData._links.groups.href);\r",
+											"    pm.collectionVariables.set(\"Created jurisdiction's id\", jsonData.id);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Jurisdiction name}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Jurisdictions endpoint}}",
+									"host": [
+										"{{Jurisdictions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List all jurisdictions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Jurisdiction collection schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains the created jurisdiction\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const jurisdictions = jsonData._embedded.jurisdictions;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < jurisdictions.length; i++) {\r",
+											"        if (jurisdictions[i]._links.jurisdiction.href == pm.collectionVariables.get(\"Created jurisdiction\")) {\r",
+											"            pm.expect(jurisdictions[i].id).to.equal(pm.collectionVariables.get(\"Created jurisdiction's id\"));\r",
+											"            pm.expect(jurisdictions[i].name).to.equal(pm.collectionVariables.get(\"Jurisdiction name\"));\r",
+											"            pm.expect(jurisdictions[i]._links.groups.href).to.equal(pm.collectionVariables.get(\"Created jurisdiction's groups\"));\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Jurisdictions endpoint}}",
+									"host": [
+										"{{Jurisdictions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve created jurisdiction",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Jurisdiction item schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected attribute values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.id).to.equal(pm.collectionVariables.get(\"Created jurisdiction's id\"));\r",
+											"    pm.expect(jsonData.name).to.equal(pm.collectionVariables.get(\"Jurisdiction name\"));\r",
+											"\r",
+											"    pm.expect(jsonData._links.self.href).to.equal(pm.collectionVariables.get(\"Created jurisdiction\"));\r",
+											"    pm.expect(jsonData._links.jurisdiction.href).to.equal(pm.collectionVariables.get(\"Created jurisdiction\"));\r",
+											"    pm.expect(jsonData._links.groups.href).to.equal(pm.collectionVariables.get(\"Created jurisdiction's groups\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created jurisdiction}}",
+									"host": [
+										"{{Created jurisdiction}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve non existent jurisdiction",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 404 Not Found status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(404);\r",
+											"    pm.expect(response.status).to.equal(\"Not Found\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(404);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Jurisdictions endpoint}}/{{Incorrect jurisdiction id}}",
+									"host": [
+										"{{Jurisdictions endpoint}}"
+									],
+									"path": [
+										"{{Incorrect jurisdiction id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update jurisdiction via PUT",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Jurisdiction item schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected attribute values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.id).to.equal(pm.collectionVariables.get(\"Created jurisdiction's id\"));\r",
+											"    pm.expect(jsonData.name).to.equal(pm.collectionVariables.get(\"Modified jurisdiction name\"));\r",
+											"\r",
+											"    pm.expect(jsonData._links.self.href).to.equal(pm.collectionVariables.get(\"Created jurisdiction\"));\r",
+											"    pm.expect(jsonData._links.jurisdiction.href).to.equal(pm.collectionVariables.get(\"Created jurisdiction\"));\r",
+											"    pm.expect(jsonData._links.groups.href).to.equal(pm.collectionVariables.get(\"Created jurisdiction's groups\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Modified jurisdiction name}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created jurisdiction}}",
+									"host": [
+										"{{Created jurisdiction}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update non existent jurisdiction via PUT",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Jurisdiction item schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected attribute values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.name).to.equal(pm.collectionVariables.get(\"Jurisdiction name\"));\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Second created jurisdiction\", jsonData._links.jurisdiction.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Jurisdiction name}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Jurisdictions endpoint}}/{{Incorrect jurisdiction id}}",
+									"host": [
+										"{{Jurisdictions endpoint}}"
+									],
+									"path": [
+										"{{Incorrect jurisdiction id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete second created jurisdiction",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Second created jurisdiction}}",
+									"host": [
+										"{{Second created jurisdiction}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update jurisdiction via PATCH",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Jurisdiction item schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected attribute values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.id).to.equal(pm.collectionVariables.get(\"Created jurisdiction's id\"));\r",
+											"    pm.expect(jsonData.name).to.equal(pm.collectionVariables.get(\"Jurisdiction name\"));\r",
+											"\r",
+											"    pm.expect(jsonData._links.self.href).to.equal(pm.collectionVariables.get(\"Created jurisdiction\"));\r",
+											"    pm.expect(jsonData._links.jurisdiction.href).to.equal(pm.collectionVariables.get(\"Created jurisdiction\"));\r",
+											"    pm.expect(jsonData._links.groups.href).to.equal(pm.collectionVariables.get(\"Created jurisdiction's groups\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Jurisdiction name}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created jurisdiction}}",
+									"host": [
+										"{{Created jurisdiction}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update non existent jurisdiction via PATCH",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 404 Not Found status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(404);\r",
+											"    pm.expect(response.status).to.equal(\"Not Found\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(404);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n\t\"name\": \"{{Modified jurisdiction name}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Jurisdictions endpoint}}/{{Incorrect jurisdiction id}}",
+									"host": [
+										"{{Jurisdictions endpoint}}"
+									],
+									"path": [
+										"{{Incorrect jurisdiction id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete created jurisdiction",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created jurisdiction}}",
+									"host": [
+										"{{Created jurisdiction}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete non existent jurisdiction",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 404 Not Found status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(404);\r",
+											"    pm.expect(response.status).to.equal(\"Not Found\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(404);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Second created jurisdiction}}",
+									"host": [
+										"{{Second created jurisdiction}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve deleted jurisdiction",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 404 Not Found status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(404);\r",
+											"    pm.expect(response.status).to.equal(\"Not Found\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(404);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created jurisdiction}}",
+									"host": [
+										"{{Created jurisdiction}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List all jurisdictions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Jurisdiction collection schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain the created jurisdiction\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const jurisdictions = jsonData._embedded.jurisdictions;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < jurisdictions.length; i++) {\r",
+											"        if (jurisdictions[i]._links.self.href == pm.collectionVariables.get(\"Created jurisdiction\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Jurisdictions endpoint}}",
+									"host": [
+										"{{Jurisdictions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.collectionVariables.set(\"Jurisdiction item schema\", {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"        \"id\": { \"type\": \"integer\" },",
+									"        \"name\": { \"type\": \"string\" },",
+									"        \"_links\": {",
+									"            \"type\": \"object\",",
+									"            \"properties\": {",
+									"                \"self\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
+									"                },",
+									"                \"jurisdiction\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
+									"                },",
+									"                \"groups\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
+									"                }",
+									"            },",
+									"            \"required\": [",
+									"                \"self\",",
+									"                \"groups\"",
+									"            ],",
+									"            \"additionalProperties\": false",
+									"        }",
+									"    },",
+									"    \"required\": [",
+									"        \"id\",",
+									"        \"name\",",
+									"        \"_links\"",
+									"    ],",
+									"    \"additionalProperties\": false",
+									"});",
+									"",
+									"pm.collectionVariables.set(\"Jurisdiction collection schema\", {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"        \"_embedded\": {",
+									"            \"type\": \"object\",",
+									"            \"properties\": {",
+									"                \"jurisdictions\": {",
+									"                    \"type\": \"array\",",
+									"                    \"items\": pm.collectionVariables.get(\"Jurisdiction item schema\"),",
+									"                    \"uniqueItems\": true",
+									"                }",
+									"            },",
+									"            \"required\": [ \"jurisdictions\" ],",
+									"            \"additionalProperties\": false",
+									"        },",
+									"        \"_links\": {",
+									"            \"type\": \"object\",",
+									"            \"properties\": {",
+									"                \"self\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
+									"                },",
+									"                \"profile\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
+									"                }",
+									"            },",
+									"            \"required\": [ \"self\", \"profile\" ],",
+									"            \"additionalProperties\": false",
+									"        },",
+									"    },",
+									"    \"required\": [ \"_embedded\", \"_links\" ],",
+									"    \"additionalProperties\": false",
+									"});"
+								]
+							}
+						}
+					]
 				}
 			]
 		},
@@ -6335,61 +7199,6 @@
 							"response": []
 						},
 						{
-							"name": "Create a second user",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 201 Created status\", () => {\r",
-											"    const response = pm.response;\r",
-											"    const jsonData = pm.response.json();\r",
-											"\r",
-											"    pm.expect(response.code).to.equal(201);\r",
-											"    pm.expect(response.status).to.equal(\"Created\");\r",
-											"\r",
-											"    pm.collectionVariables.set(\"Second created user\", jsonData._links.user.href);\r",
-											"    pm.collectionVariables.set(\"Second created user's timezone\", jsonData._links.timezone.href);\r",
-											"    pm.collectionVariables.set(\"Second created user's permissions\", jsonData._links.permissions.href);\r",
-											"    pm.collectionVariables.set(\"Second created user's position\", jsonData._links.position.href);\r",
-											"    pm.collectionVariables.set(\"Second created user's owned groups\", jsonData._links.ownedGroups.href);\r",
-											"    pm.collectionVariables.set(\"Second created user's groups\", jsonData._links.groups.href);\r",
-											"    pm.collectionVariables.set(\"Second created user's id\", jsonData.id);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{ \n    \"username\": \"{{Modified username}}\",\n    \"password\": \"{{Password}}\",\n    \"firstName\": \"{{First name}}\",\n    \"lastName\": \"{{Last name}}\",\n    \"email\": \"{{Email}}\",\n    \"status\": \"{{User status}}\",\n    \"passwordExpires\": \"{{Password expires}}\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{Users endpoint}}",
-									"host": [
-										"{{Users endpoint}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": "Create a group",
 							"event": [
 								{
@@ -6428,60 +7237,6 @@
 								"body": {
 									"mode": "raw",
 									"raw": "{ \n    \"name\": \"{{Group name}}\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{Groups endpoint}}",
-									"host": [
-										"{{Groups endpoint}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Create a second group",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 201 Created status\", () => {\r",
-											"    const response = pm.response;\r",
-											"    const jsonData = pm.response.json();\r",
-											"\r",
-											"    pm.expect(response.code).to.equal(201);\r",
-											"    pm.expect(response.status).to.equal(\"Created\");\r",
-											"\r",
-											"    pm.collectionVariables.set(\"Second created group\", jsonData._links.group.href);\r",
-											"    pm.collectionVariables.set(\"Second created group's owner\", jsonData._links.owner.href);\r",
-											"    pm.collectionVariables.set(\"Second created group's users\", jsonData._links.users.href);\r",
-											"    pm.collectionVariables.set(\"Second created group's permissions\", jsonData._links.permissions.href);\r",
-											"    pm.collectionVariables.set(\"Second created group's positions\", jsonData._links.positions.href);    \r",
-											"    pm.collectionVariables.set(\"Second created group's id\", jsonData.id);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{ \n    \"name\": \"{{Modified group name}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -6601,59 +7356,6 @@
 							"response": []
 						},
 						{
-							"name": "Create a second permission",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 201 Created status\", () => {\r",
-											"    const response = pm.response;\r",
-											"    const jsonData = pm.response.json();\r",
-											"\r",
-											"    pm.expect(response.code).to.equal(201);\r",
-											"    pm.expect(response.status).to.equal(\"Created\");\r",
-											"\r",
-											"    pm.collectionVariables.set(\"Second created permission\", jsonData._links.permission.href);\r",
-											"    pm.collectionVariables.set(\"Second created permission's type\", jsonData._links.type.href);\r",
-											"    pm.collectionVariables.set(\"Second created permission's users\", jsonData._links.users.href);\r",
-											"    pm.collectionVariables.set(\"Second created permission's groups\", jsonData._links.groups.href);\r",
-											"    pm.collectionVariables.set(\"Second created permission's id\", jsonData.name);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{ \n    \"name\": \"{{Incorrect permission id}}\",\n    \"description\": \"{{Permission description}}\",\n    \"displayOrder\": {{Display order}}\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{Permissions endpoint}}",
-									"host": [
-										"{{Permissions endpoint}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": "Create a timezone",
 							"event": [
 								{
@@ -6754,7 +7456,7 @@
 							"response": []
 						},
 						{
-							"name": "Create a second position",
+							"name": "Create a jurisdiction",
 							"event": [
 								{
 									"listen": "test",
@@ -6764,11 +7466,12 @@
 											"    const response = pm.response;\r",
 											"    const jsonData = pm.response.json();\r",
 											"\r",
-											"    pm.collectionVariables.set(\"Second created position\", jsonData._links.position.href);\r",
-											"    pm.collectionVariables.set(\"Second created position's child positions\", jsonData._links.childPositions.href);\r",
-											"    pm.collectionVariables.set(\"Second created position's parent position\", jsonData._links.parentPosition.href);\r",
-											"    pm.collectionVariables.set(\"Second created position's users\", jsonData._links.users.href);\r",
-											"    pm.collectionVariables.set(\"Second created position's groups\", jsonData._links.groups.href);\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created jurisdiction\", jsonData._links.jurisdiction.href);\r",
+											"    pm.collectionVariables.set(\"Created jurisdiction's groups\", jsonData._links.groups.href);\r",
+											"    pm.collectionVariables.set(\"Created jurisdiction's id\", jsonData.id);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -6787,7 +7490,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \n    \"name\": \"{{Modified position name}}\"\n}",
+									"raw": "{ \n    \"name\": \"{{Jurisdiction name}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -6795,59 +7498,9 @@
 									}
 								},
 								"url": {
-									"raw": "{{Positions endpoint}}",
+									"raw": "{{Jurisdictions endpoint}}",
 									"host": [
-										"{{Positions endpoint}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Create a third position",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 201 Created status\", () => {\r",
-											"    const response = pm.response;\r",
-											"    const jsonData = pm.response.json();\r",
-											"\r",
-											"    pm.collectionVariables.set(\"Third created position\", jsonData._links.position.href);\r",
-											"    pm.collectionVariables.set(\"Third created position's child positions\", jsonData._links.childPositions.href);\r",
-											"    pm.collectionVariables.set(\"Third created position's parent position\", jsonData._links.parentPosition.href);\r",
-											"    pm.collectionVariables.set(\"Third created position's users\", jsonData._links.users.href);\r",
-											"    pm.collectionVariables.set(\"Third created position's groups\", jsonData._links.groups.href);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{ \n    \"name\": \"{{Alternate position name}}\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{Positions endpoint}}",
-									"host": [
-										"{{Positions endpoint}}"
+										"{{Jurisdictions endpoint}}"
 									]
 								}
 							},
@@ -10610,6 +11263,253 @@
 					]
 				},
 				{
+					"name": "Jurisdiction",
+					"item": [
+						{
+							"name": "Name is unique",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 500 Internal Server Error\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(500);\r",
+											"    pm.expect(response.status).to.equal(\"Internal Server Error\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Problem JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/problem+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(500);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: db violation\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains the expected failure\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const failures = jsonData.failures;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < failures.length; i++) {\r",
+											"        if (failures[i].message == \"duplicate value for a record with unique key\") {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Jurisdiction name}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Jurisdictions endpoint}}",
+									"host": [
+										"{{Jurisdictions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Name length cannot be >64",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 400 Bad Request\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(400);\r",
+											"    pm.expect(response.status).to.equal(\"Bad Request\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Problem JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/problem+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(400);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains the expected failure\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const failures = jsonData.failures;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < failures.length; i++) {\r",
+											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"            pm.expect(failures[i].constraint).to.equal(\"name\");\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created jurisdiction}}",
+									"host": [
+										"{{Created jurisdiction}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Name cannot be null",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 400 Bad Request\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(400);\r",
+											"    pm.expect(response.status).to.equal(\"Bad Request\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Problem JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/problem+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(400);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains the expected failure\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const failures = jsonData.failures;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < failures.length; i++) {\r",
+											"        if (failures[i].message == \"must not be null\") {\r",
+											"            pm.expect(failures[i].constraint).to.equal(\"name\");\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": null\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created jurisdiction}}",
+									"host": [
+										"{{Created jurisdiction}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Teardown",
 					"item": [
 						{
@@ -10643,36 +11543,6 @@
 							"response": []
 						},
 						{
-							"name": "Delete second user",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content status\", () => {\r",
-											"    const response = pm.response;\r",
-											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{Second created user}}",
-									"host": [
-										"{{Second created user}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": "Delete group",
 							"event": [
 								{
@@ -10697,36 +11567,6 @@
 									"raw": "{{Created group}}",
 									"host": [
 										"{{Created group}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete second group",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content status\", () => {\r",
-											"    const response = pm.response;\r",
-											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{Second created group}}",
-									"host": [
-										"{{Second created group}}"
 									]
 								}
 							},
@@ -10793,36 +11633,6 @@
 							"response": []
 						},
 						{
-							"name": "Delete second permission",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content status\", () => {\r",
-											"    const response = pm.response;\r",
-											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{Second created permission}}",
-									"host": [
-										"{{Second created permission}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": "Delete timezone",
 							"event": [
 								{
@@ -10883,7 +11693,7 @@
 							"response": []
 						},
 						{
-							"name": "Delete second position",
+							"name": "Delete jurisdiction",
 							"event": [
 								{
 									"listen": "test",
@@ -10904,39 +11714,9 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{Second created position}}",
+									"raw": "{{Created jurisdiction}}",
 									"host": [
-										"{{Second created position}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete third position",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content status\", () => {\r",
-											"    const response = pm.response;\r",
-											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{Third created position}}",
-									"host": [
-										"{{Third created position}}"
+										"{{Created jurisdiction}}"
 									]
 								}
 							},
@@ -11101,6 +11881,7 @@
 											"    pm.collectionVariables.set(\"Created group's users\", jsonData._links.users.href);\r",
 											"    pm.collectionVariables.set(\"Created group's permissions\", jsonData._links.permissions.href);\r",
 											"    pm.collectionVariables.set(\"Created group's positions\", jsonData._links.positions.href);\r",
+											"    pm.collectionVariables.set(\"Created group's jurisdictions\", jsonData._links.jurisdictions.href);\r",
 											"    pm.collectionVariables.set(\"Created group's id\", jsonData.id);\r",
 											"});"
 										],
@@ -11154,7 +11935,8 @@
 											"    pm.collectionVariables.set(\"Second created group's owner\", jsonData._links.owner.href);\r",
 											"    pm.collectionVariables.set(\"Second created group's users\", jsonData._links.users.href);\r",
 											"    pm.collectionVariables.set(\"Second created group's permissions\", jsonData._links.permissions.href);\r",
-											"    pm.collectionVariables.set(\"Second created group's positions\", jsonData._links.positions.href);    \r",
+											"    pm.collectionVariables.set(\"Second created group's positions\", jsonData._links.positions.href);\r",
+											"    pm.collectionVariables.set(\"Second created group's jurisdictions\", jsonData._links.jurisdictions.href);\r",
 											"    pm.collectionVariables.set(\"Second created group's id\", jsonData.id);\r",
 											"});"
 										],
@@ -11541,6 +12323,108 @@
 									"raw": "{{Positions endpoint}}",
 									"host": [
 										"{{Positions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a jurisdiction",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created jurisdiction\", jsonData._links.jurisdiction.href);\r",
+											"    pm.collectionVariables.set(\"Created jurisdiction's groups\", jsonData._links.groups.href);\r",
+											"    pm.collectionVariables.set(\"Created jurisdiction's id\", jsonData.id);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Jurisdiction name}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Jurisdictions endpoint}}",
+									"host": [
+										"{{Jurisdictions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a second jurisdiction",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Second created jurisdiction\", jsonData._links.jurisdiction.href);\r",
+											"    pm.collectionVariables.set(\"Second created jurisdiction's groups\", jsonData._links.groups.href);\r",
+											"    pm.collectionVariables.set(\"Second created jurisdiction's id\", jsonData.id);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Modified jurisdiction name}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Jurisdictions endpoint}}",
+									"host": [
+										"{{Jurisdictions endpoint}}"
 									]
 								}
 							},
@@ -15906,6 +16790,625 @@
 					]
 				},
 				{
+					"name": "Many groups can have many jurisdictions",
+					"item": [
+						{
+							"name": "Assign both jurisdictions to first group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{Created jurisdiction}}\r\n{{Second created jurisdiction}}",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created group's jurisdictions}}",
+									"host": [
+										"{{Created group's jurisdictions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign both jurisdictions to second group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{Created jurisdiction}}\r\n{{Second created jurisdiction}}",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Second created group's jurisdictions}}",
+									"host": [
+										"{{Second created group's jurisdictions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve first group's jurisdictions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains created jurisdiction\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const jurisdictions = jsonData._embedded.jurisdictions;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < jurisdictions.length; i++) {\r",
+											"        if (jurisdictions[i]._links.jurisdiction.href == pm.collectionVariables.get(\"Created jurisdiction\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains second created jurisdiction\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const jurisdictions = jsonData._embedded.jurisdictions;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < jurisdictions.length; i++) {\r",
+											"        if (jurisdictions[i]._links.jurisdiction.href == pm.collectionVariables.get(\"Second created jurisdiction\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created group's jurisdictions}}",
+									"host": [
+										"{{Created group's jurisdictions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve second group's jurisdictions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains created jurisdiction\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const jurisdictions = jsonData._embedded.jurisdictions;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < jurisdictions.length; i++) {\r",
+											"        if (jurisdictions[i]._links.jurisdiction.href == pm.collectionVariables.get(\"Created jurisdiction\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains second created jurisdiction\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const jurisdictions = jsonData._embedded.jurisdictions;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < jurisdictions.length; i++) {\r",
+											"        if (jurisdictions[i]._links.jurisdiction.href == pm.collectionVariables.get(\"Second created jurisdiction\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Second created group's jurisdictions}}",
+									"host": [
+										"{{Second created group's jurisdictions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign first jurisdiction to first group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{Created jurisdiction}}",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created group's jurisdictions}}",
+									"host": [
+										"{{Created group's jurisdictions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve first group's jurisdictions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains created jurisdiction\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const jurisdictions = jsonData._embedded.jurisdictions;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < jurisdictions.length; i++) {\r",
+											"        if (jurisdictions[i]._links.jurisdiction.href == pm.collectionVariables.get(\"Created jurisdiction\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain second created jurisdiction\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const jurisdictions = jsonData._embedded.jurisdictions;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < jurisdictions.length; i++) {\r",
+											"        if (jurisdictions[i]._links.jurisdiction.href == pm.collectionVariables.get(\"Second created jurisdiction\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created group's jurisdictions}}",
+									"host": [
+										"{{Created group's jurisdictions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deassign first jurisdiction from first group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"url": {
+									"raw": "{{Created group's jurisdictions}}/{{Created jurisdiction's id}}",
+									"host": [
+										"{{Created group's jurisdictions}}"
+									],
+									"path": [
+										"{{Created jurisdiction's id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deassign first jurisdiction from second group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"url": {
+									"raw": "{{Second created group's jurisdictions}}/{{Created jurisdiction's id}}",
+									"host": [
+										"{{Second created group's jurisdictions}}"
+									],
+									"path": [
+										"{{Created jurisdiction's id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deassign second jurisdiction from second group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"url": {
+									"raw": "{{Second created group's jurisdictions}}/{{Second created jurisdiction's id}}",
+									"host": [
+										"{{Second created group's jurisdictions}}"
+									],
+									"path": [
+										"{{Second created jurisdiction's id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve first group's jurisdictions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain created jurisdiction\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const jurisdictions = jsonData._embedded.jurisdictions;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < jurisdictions.length; i++) {\r",
+											"        if (jurisdictions[i]._links.jurisdiction.href == pm.collectionVariables.get(\"Created jurisdiction\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain second created jurisdiction\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const jurisdictions = jsonData._embedded.jurisdictions;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < jurisdictions.length; i++) {\r",
+											"        if (jurisdictions[i]._links.jurisdiction.href == pm.collectionVariables.get(\"Second created jurisdiction\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created group's jurisdictions}}",
+									"host": [
+										"{{Created group's jurisdictions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve second group's jurisdictions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain created jurisdiction\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const jurisdictions = jsonData._embedded.jurisdictions;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < jurisdictions.length; i++) {\r",
+											"        if (jurisdictions[i]._links.jurisdiction.href == pm.collectionVariables.get(\"Created jurisdiction\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain second created jurisdiction\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const jurisdictions = jsonData._embedded.jurisdictions;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < jurisdictions.length; i++) {\r",
+											"        if (jurisdictions[i]._links.jurisdiction.href == pm.collectionVariables.get(\"Second created jurisdiction\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Second created group's jurisdictions}}",
+									"host": [
+										"{{Second created group's jurisdictions}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
 					"name": "Many permissions can be assigned to many users",
 					"item": [
 						{
@@ -19754,6 +21257,559 @@
 					]
 				},
 				{
+					"name": "Many jurisdictions can be assigned to many groups",
+					"item": [
+						{
+							"name": "Assign both jurisdictions to first group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{Created jurisdiction}}\r\n{{Second created jurisdiction}}",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created group's jurisdictions}}",
+									"host": [
+										"{{Created group's jurisdictions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign both jurisdictions to second group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{Created jurisdiction}}\r\n{{Second created jurisdiction}}",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Second created group's jurisdictions}}",
+									"host": [
+										"{{Second created group's jurisdictions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve first jurisdiction's groups",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains created group\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const groups = jsonData._embedded.groups;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < groups.length; i++) {\r",
+											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Created group\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains second created group\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const groups = jsonData._embedded.groups;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < groups.length; i++) {\r",
+											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Second created group\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created jurisdiction's groups}}",
+									"host": [
+										"{{Created jurisdiction's groups}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve second jurisdiction's groups",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains created group\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const groups = jsonData._embedded.groups;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < groups.length; i++) {\r",
+											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Created group\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains second created group\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const groups = jsonData._embedded.groups;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < groups.length; i++) {\r",
+											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Second created group\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Second created jurisdiction's groups}}",
+									"host": [
+										"{{Second created jurisdiction's groups}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deassign first jurisdiction from first group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"url": {
+									"raw": "{{Created group's jurisdictions}}/{{Created jurisdiction's id}}",
+									"host": [
+										"{{Created group's jurisdictions}}"
+									],
+									"path": [
+										"{{Created jurisdiction's id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deassign first jurisdiction from second group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"url": {
+									"raw": "{{Second created group's jurisdictions}}/{{Created jurisdiction's id}}",
+									"host": [
+										"{{Second created group's jurisdictions}}"
+									],
+									"path": [
+										"{{Created jurisdiction's id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deassign second jurisdiction from first group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"url": {
+									"raw": "{{Created group's jurisdictions}}/{{Second created jurisdiction's id}}",
+									"host": [
+										"{{Created group's jurisdictions}}"
+									],
+									"path": [
+										"{{Second created jurisdiction's id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deassign second jurisdiction from second group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"url": {
+									"raw": "{{Second created group's jurisdictions}}/{{Second created jurisdiction's id}}",
+									"host": [
+										"{{Second created group's jurisdictions}}"
+									],
+									"path": [
+										"{{Second created jurisdiction's id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve first jurisdiction's groups",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain created group\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const groups = jsonData._embedded.groups;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < groups.length; i++) {\r",
+											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Created group\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain second created group\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const groups = jsonData._embedded.groups;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < groups.length; i++) {\r",
+											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Second created group\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created jurisdiction's groups}}",
+									"host": [
+										"{{Created jurisdiction's groups}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve second jurisdiction's groups",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain created group\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const groups = jsonData._embedded.groups;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < groups.length; i++) {\r",
+											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Created group\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain second created group\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const groups = jsonData._embedded.groups;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < groups.length; i++) {\r",
+											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Second created group\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Second created jurisdiction's groups}}",
+									"host": [
+										"{{Second created jurisdiction's groups}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
 					"name": "Teardown",
 					"item": [
 						{
@@ -20147,6 +22203,66 @@
 									"raw": "{{Third created position}}",
 									"host": [
 										"{{Third created position}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete jurisdiction",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created jurisdiction}}",
+									"host": [
+										"{{Created jurisdiction}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete second jurisdiction",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Second created jurisdiction}}",
+									"host": [
+										"{{Second created jurisdiction}}"
 									]
 								}
 							},
@@ -21004,6 +23120,14 @@
 					"                    \"required\": [ \"href\" ],",
 					"                    \"additionalProperties\": false",
 					"                },",
+					"                \"jurisdictions\": {",
+					"                    \"type\": \"object\",",
+					"                    \"properties\": {",
+					"                        \"href\": { \"type\": \"string\" }",
+					"                    },",
+					"                    \"required\": [ \"href\" ],",
+					"                    \"additionalProperties\": false",
+					"                },                ",
 					"                \"profile\": {",
 					"                    \"type\": \"object\",",
 					"                    \"properties\": {",
@@ -21020,6 +23144,7 @@
 					"                \"users\",",
 					"                \"groups\",",
 					"                \"timezones\",",
+					"                \"jurisdictions\",",
 					"                \"profile\"",
 					"            ],",
 					"            \"additionalProperties\": false",
@@ -21071,543 +23196,748 @@
 	],
 	"variable": [
 		{
+			"id": "95cd45e9-2bf7-46ff-a7e7-7f474cadb87e",
 			"key": "Health endpoint",
 			"value": "{{Backoffice User Manager URL}}/actuator/health"
 		},
 		{
+			"id": "652041e8-9499-4819-aef5-e5e87710a139",
 			"key": "Home endpoint",
 			"value": "{{Backoffice User Manager URL}}/api/v1"
 		},
 		{
+			"id": "c58b8c2c-9aa8-4f05-a85f-df974fe80c5b",
 			"key": "Authentication user",
 			"value": "Administrator"
 		},
 		{
+			"id": "e68f4261-2321-4406-b643-22b9fdd04278",
 			"key": "Authentication password",
 			"value": "1ncharge"
 		},
 		{
+			"id": "935c7e6e-9a38-4734-9284-c086913b0ecb",
 			"key": "Username",
 			"value": "ktsagkournis"
 		},
 		{
+			"id": "e953a094-cf5a-40d8-8e18-310db5af81a5",
 			"key": "Modified username",
 			"value": "kstefanis"
 		},
 		{
+			"id": "bd597657-6c1f-464f-adef-09a6b72a0037",
 			"key": "Password",
 			"value": "T3t3nt3k"
 		},
 		{
+			"id": "0c868894-4c35-4504-8bc1-b6f9de557846",
 			"key": "First name",
 			"value": "Kostas"
 		},
 		{
+			"id": "ea9d3628-df1c-4a1d-84f7-9a5896dc3b26",
 			"key": "Last name",
 			"value": "Tsagkournis"
 		},
 		{
+			"id": "86eee5db-1765-4461-b165-b61e6dd1ac24",
 			"key": "Modified last name",
 			"value": "Stefanis"
 		},
 		{
+			"id": "21cf70ae-937c-448a-90f4-2b6cb654b07e",
 			"key": "Email",
 			"value": "ktsagkou@yahoo.gr"
 		},
 		{
+			"id": "170c271f-649f-43f8-9878-f94fadc001a9",
 			"key": "User status",
 			"value": "A"
 		},
 		{
+			"id": "6d0df3e1-90f7-41fd-bfb4-3c13a0440c2e",
 			"key": "Password expires",
 			"value": "Y"
 		},
 		{
+			"id": "2c12d5aa-6b92-43bb-82c4-b84d8b0209ba",
 			"key": "Incorrect user id",
 			"value": "9999999"
 		},
 		{
+			"id": "c011533b-e544-4607-882e-29a699e6c49b",
 			"key": "Permission type name",
 			"value": "GDPR"
 		},
 		{
+			"id": "b80d93c0-ae00-472b-bd42-55e0af5d8045",
 			"key": "Permission type description",
 			"value": "GDPR permission type"
 		},
 		{
+			"id": "80fd9a58-1540-4813-b72a-ec291ccaebe4",
 			"key": "Modified permission type description",
 			"value": "GDPR permission type value"
 		},
 		{
+			"id": "6225b6f1-3dbe-47de-bd2a-9abb190e3eae",
 			"key": "Default permission type name",
 			"value": "GEN"
 		},
 		{
+			"id": "c0445395-ba46-4021-9235-789ba3420878",
 			"key": "Default permission type description",
 			"value": "Default permission type"
 		},
 		{
+			"id": "a77e81ec-4cb5-41ff-8f38-3b5b8652a7b1",
 			"key": "Display order",
 			"value": "0"
 		},
 		{
+			"id": "133ed69c-6852-4607-9280-25f89a95c6c5",
 			"key": "Incorrect permission type id",
 			"value": "DFLT"
 		},
 		{
+			"id": "a21a0d41-2d50-45bc-88b3-b33822ba01ee",
 			"key": "Permission name",
 			"value": "CanViewSensitiveData"
 		},
 		{
+			"id": "059029a3-a677-44d4-a446-6d38c77077e0",
 			"key": "Permission description",
 			"value": "Can view sensitive data"
 		},
 		{
+			"id": "478710ac-1fea-4233-a8d6-5f02f60aa9de",
 			"key": "Modified permission description",
 			"value": "Can access sensitive data"
 		},
 		{
+			"id": "c683b8a9-3f45-42bb-b8d1-18cdf9a40427",
 			"key": "Incorrect permission id",
 			"value": "CanAccessSensitiveData"
 		},
 		{
+			"id": "a705af7d-619a-442a-b58d-a3bd82cc3f10",
 			"key": "Timezone name",
 			"value": "Europe/Bucharest"
 		},
 		{
+			"id": "f0205371-bd43-4f19-bc61-db24cc47de8c",
 			"key": "Modified timezone name",
 			"value": "Europe/Cluj"
 		},
 		{
+			"id": "05d80082-a49d-4abd-85bb-bd2229345acf",
 			"key": "Timezone status",
 			"value": "A"
 		},
 		{
+			"id": "0ac5f245-ab15-4d4e-951d-8baa0438b09e",
 			"key": "Display",
 			"value": "Y"
 		},
 		{
+			"id": "d5ef1b73-3d3d-477a-84ca-e87934adb0db",
 			"key": "Incorrect timezone id",
 			"value": "9999999"
 		},
 		{
+			"id": "04e78a85-225c-41e0-b513-32bf171e1802",
 			"key": "Position name",
 			"value": "Software Engineer"
 		},
 		{
+			"id": "ebdbe593-7d71-45aa-8be0-194cf66af02a",
 			"key": "Modified position name",
 			"value": "Systems Engineer"
 		},
 		{
+			"id": "2e6a2c48-1a77-4ec0-9ccf-2bda16dec721",
 			"key": "Alternate position name",
 			"value": "QA Analyst"
 		},
 		{
+			"id": "be03b88f-8364-4f8d-9319-7e5c50060146",
 			"key": "Incorrect position id",
 			"value": "9999999"
 		},
 		{
+			"id": "0ad00cb4-099e-4d14-b8f7-c94d7bbb3622",
 			"key": "Group name",
 			"value": "Administrators"
 		},
 		{
+			"id": "89b6ead3-52c7-427b-8834-49d68abdc6d7",
 			"key": "Modified group name",
 			"value": "HR"
 		},
 		{
+			"id": "a911cfc6-0a99-4b81-9b8c-2daabd92a999",
 			"key": "Incorrect group id",
 			"value": "9999999"
 		},
 		{
+			"id": "beb2f3d7-e35d-4fc4-9fb8-87085e0a3952",
+			"key": "Jurisdiction name",
+			"value": "GREECE"
+		},
+		{
+			"id": "38fd796b-5038-4fe1-89ed-a2ba4aabb2ab",
+			"key": "Modified jurisdiction name",
+			"value": "AUSTRALIA"
+		},
+		{
+			"id": "35d49019-d7d3-4635-ba9c-bb52781bc44d",
+			"key": "Incorrect jurisdiction id",
+			"value": "9999999"
+		},
+		{
+			"id": "85a9dc15-0892-40e8-ac34-68d6faf2a9c3",
 			"key": "Permission types endpoint",
 			"value": ""
 		},
 		{
+			"id": "bc5706c7-06e5-4ee8-a532-d48338d787ce",
 			"key": "Permissions endpoint",
 			"value": ""
 		},
 		{
+			"id": "558a5cde-f7f1-4487-a4ea-f41327c97f3c",
 			"key": "Positions endpoint",
 			"value": ""
 		},
 		{
+			"id": "4d15da27-42a7-49d7-916b-9041b9c7d919",
 			"key": "Profile endpoint",
 			"value": ""
 		},
 		{
+			"id": "ec04363b-5fc1-45e4-9e44-5db0b25cf477",
 			"key": "Timezones endpoint",
 			"value": ""
 		},
 		{
+			"id": "700643bf-90ca-496e-ab53-0d1ab8a41209",
 			"key": "Users endpoint",
 			"value": ""
 		},
 		{
+			"id": "c0b455ef-7d44-4ae3-abf6-604e02aa8e57",
 			"key": "Created user",
 			"value": ""
 		},
 		{
+			"id": "e21c6433-b2ea-4cb9-be7c-db48c777154d",
 			"key": "Created user's id",
 			"value": ""
 		},
 		{
+			"id": "a64dcdcb-2ca5-406b-b904-91c71b22dda3",
 			"key": "Created user's permissions",
 			"value": ""
 		},
 		{
+			"id": "1ecb09f7-976e-4ed6-95ab-43ad3890cace",
 			"key": "Created user's position",
 			"value": ""
 		},
 		{
+			"id": "974c9431-9c58-4514-89ce-1521141873d7",
 			"key": "Created user's timezone",
 			"value": ""
 		},
 		{
+			"id": "e8b38af2-02e6-48f4-9ae1-29fc7d4325b4",
 			"key": "Second created user",
 			"value": ""
 		},
 		{
+			"id": "4984cd0d-d401-49d0-9731-5d1b57d8473d",
 			"key": "Created permission type",
 			"value": ""
 		},
 		{
+			"id": "9d1b4abf-653a-4a6f-840d-c131d5f8d6df",
 			"key": "Created permission type's permissions",
 			"value": ""
 		},
 		{
+			"id": "bb94bc3a-e6b4-430f-af1d-748f13d9e81c",
 			"key": "Second created permission type",
 			"value": ""
 		},
 		{
+			"id": "a5c5eae9-c6a6-4d9c-a12c-365b7509e000",
 			"key": "Created permission",
 			"value": ""
 		},
 		{
+			"id": "d4b6f3f1-bfec-4717-b175-fec8c90f9386",
 			"key": "Created permission's type",
 			"value": ""
 		},
 		{
+			"id": "18d69243-c920-4eef-909b-17a272ddd90d",
 			"key": "Created permission's users",
 			"value": ""
 		},
 		{
+			"id": "e47b43b1-f049-48e7-8d28-2499347eb948",
 			"key": "Second created permission",
 			"value": ""
 		},
 		{
+			"id": "1857d41f-27f3-49ec-84d5-4a198cebead5",
 			"key": "Created timezone",
 			"value": ""
 		},
 		{
+			"id": "327a3228-c6a7-4abc-8caf-bbce01daf8e3",
 			"key": "Created timezone's users",
 			"value": ""
 		},
 		{
+			"id": "f5b7f4d2-a0f8-417d-a94b-5bf7da7b1342",
 			"key": "Second created timezone",
 			"value": ""
 		},
 		{
+			"id": "927a2cd3-4361-4321-88ba-ee28cec5fb35",
 			"key": "Created position",
 			"value": ""
 		},
 		{
+			"id": "75aafcf7-6224-4efa-b31c-4c981ca468e7",
 			"key": "Created position's child positions",
 			"value": ""
 		},
 		{
+			"id": "3b8c50f0-abf0-44ce-bb07-0f33396e2aec",
 			"key": "Created position's parent position",
 			"value": ""
 		},
 		{
+			"id": "bd95158d-c8a3-405b-a9ec-9f7f3286941c",
 			"key": "Created position's users",
 			"value": ""
 		},
 		{
+			"id": "0f42ef00-1d6d-4292-bfaa-17da3f33ec8c",
 			"key": "Second created position",
 			"value": ""
 		},
 		{
+			"id": "de2ba07c-16b4-4092-92f3-c48b70bf1972",
 			"key": "User schema",
 			"value": ""
 		},
 		{
+			"id": "3a088101-4995-45cb-ba50-661ae705f91d",
 			"key": "User collection schema",
 			"value": ""
 		},
 		{
+			"id": "31009a05-c862-47cd-a323-bc90ede102f3",
 			"key": "User item schema",
 			"value": ""
 		},
 		{
+			"id": "d2bd9224-13a1-42f3-b387-8c9561c4d273",
 			"key": "User search schema",
 			"value": ""
 		},
 		{
+			"id": "30ecf4d2-791a-48b0-90ce-9ec8306cc617",
 			"key": "User search root schema",
 			"value": ""
 		},
 		{
+			"id": "dcbc06bc-6bfe-41f6-a21e-b51f4c9ee920",
 			"key": "User search term schema",
 			"value": ""
 		},
 		{
+			"id": "b66d41a2-dbf3-4eba-940e-9221184a642d",
 			"key": "Permission type collection schema",
 			"value": ""
 		},
 		{
+			"id": "51965b57-6c1b-402f-8cb0-ec9398d9d864",
 			"key": "Permission type item schema",
 			"value": ""
 		},
 		{
+			"id": "1e9694c0-b080-43ac-bdc8-ed5b250960af",
 			"key": "Permission collection schema",
 			"value": ""
 		},
 		{
+			"id": "67b630c4-e0b8-4db6-b033-a71be9e5c3e4",
 			"key": "Permission item schema",
 			"value": ""
 		},
 		{
+			"id": "4d47581a-bf0f-454e-b306-2739623d2c93",
 			"key": "Timezone collection schema",
 			"value": ""
 		},
 		{
+			"id": "9bd0834a-236c-4a45-bb84-d0c4d52a3087",
 			"key": "Timezone item schema",
 			"value": ""
 		},
 		{
+			"id": "edfd2bf7-42ab-4996-a1b0-8905f5698d79",
 			"key": "Position collection schema",
 			"value": ""
 		},
 		{
+			"id": "5984d25f-36d6-4c13-9c2f-8b69c8de3298",
 			"key": "Position item schema",
 			"value": ""
 		},
 		{
+			"id": "70e5d8d1-5dad-465a-973e-17e5c9b109ac",
 			"key": "Actuator health schema",
 			"value": ""
 		},
 		{
+			"id": "f4236cfd-5042-4f7b-81b7-8ea89cadfb0a",
 			"key": "Entry point schema",
 			"value": ""
 		},
 		{
+			"id": "d1d73e31-928f-4e70-967b-b503bd6fd2e8",
 			"key": "Groups endpoint",
 			"value": ""
 		},
 		{
+			"id": "d8bfc3d3-b60f-42ba-a518-73bfc9846768",
 			"key": "Group collection schema",
 			"value": ""
 		},
 		{
+			"id": "b80db673-b71a-41a3-894f-f6d33250903d",
 			"key": "Group item schema",
 			"value": ""
 		},
 		{
+			"id": "fdf188e2-bcc5-4326-8c4b-f4569ca1ff6c",
 			"key": "Created group",
 			"value": ""
 		},
 		{
+			"id": "8025d2d9-6fd2-432b-b109-582b04db19c5",
 			"key": "Created group's id",
 			"value": ""
 		},
 		{
+			"id": "2c3477ae-940d-4721-8a72-2dfa46c89e96",
 			"key": "Created group's owner",
 			"value": ""
 		},
 		{
+			"id": "454f8fbb-749b-40c3-be70-83e45b43d3b3",
 			"key": "Second created group",
 			"value": ""
 		},
 		{
+			"id": "e2772c98-a115-4dd3-9359-0db149857f95",
 			"key": "Created group's permissions",
 			"value": ""
 		},
 		{
+			"id": "70099619-cf51-4763-970d-4973183405fa",
 			"key": "Created group's positions",
 			"value": ""
 		},
 		{
+			"id": "5e8c3da4-f2f2-4102-8c75-be06f482ec41",
 			"key": "Created group's users",
 			"value": ""
 		},
 		{
+			"id": "20f24827-6caa-46aa-af99-c130289f99bd",
 			"key": "Created user's groups",
 			"value": ""
 		},
 		{
+			"id": "201708be-8012-4bb9-bdad-2ed10370313e",
 			"key": "Created user's ownedGroups",
 			"value": ""
 		},
 		{
+			"id": "fe1e05cb-1145-4af1-bffd-56d8a8ca140c",
 			"key": "Created user's owned groups",
 			"value": ""
 		},
 		{
+			"id": "581b41f3-326d-4c9f-8151-5c7adcd08451",
 			"key": "Created position's groups",
 			"value": ""
 		},
 		{
+			"id": "deb9c9d5-f72f-46b5-abb9-a2f6eb30999d",
 			"key": "Created permission's groups",
 			"value": ""
 		},
 		{
+			"id": "4baf6aca-cec5-4d95-8c10-056df91d8b19",
 			"key": "Second created group's id",
 			"value": ""
 		},
 		{
+			"id": "ac855554-983a-405b-90ac-7aac99bbed3e",
 			"key": "Second created permission's type",
 			"value": ""
 		},
 		{
+			"id": "c7973a48-4c0d-441c-8605-215d7b098f3d",
 			"key": "Second created permission's users",
 			"value": ""
 		},
 		{
+			"id": "9de3c950-a15f-4b66-9e1a-8c4b251b97d2",
 			"key": "Second created permission's groups",
 			"value": ""
 		},
 		{
+			"id": "9f9b4e31-ba1c-4270-b454-f5da257e0c3a",
 			"key": "Second created group's owner",
 			"value": ""
 		},
 		{
+			"id": "2bc412a8-ff91-42c2-a041-ab592030221f",
 			"key": "Second created user's timezone",
 			"value": ""
 		},
 		{
+			"id": "7cb9c288-ec7f-4f78-a279-ec57dd8c12da",
 			"key": "Second created user's permissions",
 			"value": ""
 		},
 		{
+			"id": "67e7adf4-b88b-40e1-b4a1-06f670ebcc72",
 			"key": "Second created user's position",
 			"value": ""
 		},
 		{
+			"id": "6ed650f6-696f-440f-a938-8559758ad9c3",
 			"key": "Second created user's owned groups",
 			"value": ""
 		},
 		{
+			"id": "8a8b2646-b9bd-4662-800f-f3b952e98380",
 			"key": "Second created user's groups",
 			"value": ""
 		},
 		{
+			"id": "9ea2edf2-a70f-4959-a46f-bd88728ba04e",
 			"key": "Second created user's id",
 			"value": ""
 		},
 		{
+			"id": "868f2537-9312-489f-8862-e6095024fda9",
 			"key": "Created permission's id",
 			"value": ""
 		},
 		{
+			"id": "ed4821ec-124b-4ca5-be0d-4f76d5f469a8",
 			"key": "Second created permission's id",
 			"value": ""
 		},
 		{
+			"id": "5b582f44-3652-415d-80ef-015c6643855c",
 			"key": "Second created group's users",
 			"value": ""
 		},
 		{
+			"id": "dca56bd4-1b12-4e4f-8b9d-8cbf90461819",
 			"key": "Second created group's permissions",
 			"value": ""
 		},
 		{
+			"id": "06c5f296-f597-4b4b-b733-39ed743ea21c",
 			"key": "Second created position's child positions",
 			"value": ""
 		},
 		{
+			"id": "eb5d538f-ca26-4a8b-a24e-df8ef7cde7c2",
 			"key": "Second created position's parent position",
 			"value": ""
 		},
 		{
+			"id": "06300642-3cc7-4c76-87b3-27c190183a61",
 			"key": "Second created position's users",
 			"value": ""
 		},
 		{
+			"id": "f51c808b-0207-47c1-a987-921c4757ab69",
 			"key": "Second created position's groups",
 			"value": ""
 		},
 		{
+			"id": "fd6012b5-b981-47c9-9995-3f8655e25e79",
 			"key": "Third created position",
 			"value": ""
 		},
 		{
+			"id": "c4ac0a0e-2ea1-4673-bde7-1d870725020d",
 			"key": "Third created position's child positions",
 			"value": ""
 		},
 		{
+			"id": "c7008a36-71f7-4330-911c-4c3aafe7d04d",
 			"key": "Third created position's parent position",
 			"value": ""
 		},
 		{
+			"id": "8325d928-07aa-477f-982d-bc6dec732d55",
 			"key": "Third created position's users",
 			"value": ""
 		},
 		{
+			"id": "137c2a0a-f877-44a3-838b-9c3e46efe37f",
 			"key": "Third created position's groups",
 			"value": ""
 		},
 		{
+			"id": "d7af4769-0f80-497a-8aee-00db4d86810a",
 			"key": "Second created group's positions",
 			"value": ""
 		},
 		{
+			"id": "98babd82-d00c-4292-bef5-04fd3cafffec",
 			"key": "Problem schema",
 			"value": ""
 		},
 		{
+			"id": "f8ef115f-63fa-44c6-9433-2c2df1d04dab",
 			"key": "Problem: primary id required",
 			"value": "Primary identifier required"
 		},
 		{
+			"id": "b4c601a1-9435-4fab-a107-f778aeb66e21",
 			"key": "Problem: primary id change",
 			"value": "Primary identifier change attempt"
 		},
 		{
+			"id": "1836b9ad-23f3-4aa2-9f6a-c30e58bd8955",
 			"key": "Problem: app violation",
 			"value": "Application level constraint violation"
 		},
 		{
+			"id": "1811897c-9de3-4341-be0b-dbf81709ec5a",
 			"key": "Problem: db violation",
 			"value": "Database level constraint violation"
 		},
 		{
+			"id": "02f33e04-93c0-4959-88b8-99171d9ddbb8",
 			"key": "Problem: enum violation",
 			"value": "Enumeration constraint violation"
 		},
 		{
+			"id": "7d9be19e-7375-4dec-9ee9-bfc423061991",
 			"key": "Problem: data type conversion",
 			"value": "Data type conversion failure"
 		},
 		{
+			"id": "fa12eed2-db63-4e53-9be3-5b2a6be9407b",
 			"key": "Problem: missing input",
 			"value": "Missing input"
 		},
 		{
+			"id": "2cda75c1-f01a-4ebf-a776-98aecaa597ea",
 			"key": "Problem: malformed input",
 			"value": "Malformed input"
 		},
 		{
+			"id": "f64f84b6-b2a4-4038-9c0a-fddbe8fcd741",
 			"key": "Problem: immutable id change",
 			"value": "Immutable identifier change attempt"
 		},
 		{
+			"id": "3af9e23a-23fe-47aa-a68f-cce4cad59de1",
 			"key": "Problem: not found",
 			"value": "Not Found"
 		},
 		{
+			"id": "f0dff639-46d0-46a7-8643-0468ba96931f",
 			"key": "Problem: unauthorized",
 			"value": "Unauthorized"
 		},
 		{
+			"id": "2d08aa20-3814-4713-b462-8de768c923da",
 			"key": "Problem: forbidden",
 			"value": "Forbidden"
 		},
 		{
+			"id": "4dfc4363-99a8-4fa4-a116-64c874b655b4",
 			"key": "Permission search root schema",
 			"value": ""
 		},
 		{
+			"id": "32f403af-42d1-4fde-9481-695e0aa69ed1",
 			"key": "Permission search term schema",
+			"value": ""
+		},
+		{
+			"id": "6321d1eb-b0cb-4f95-954c-40786f2bf57f",
+			"key": "Jurisdictions endpoint",
+			"value": ""
+		},
+		{
+			"id": "1887393c-f716-4e1d-b720-74f840584ed5",
+			"key": "Jurisdiction item schema",
+			"value": ""
+		},
+		{
+			"id": "920b8bdc-5cda-4d5d-beaf-6ed1debeed0b",
+			"key": "Jurisdiction collection schema",
+			"value": ""
+		},
+		{
+			"id": "1290e70b-73d0-40b2-be6e-b92560ffb6ac",
+			"key": "Created jurisdiction",
+			"value": ""
+		},
+		{
+			"id": "53f0889a-95c4-4a84-992a-46964fcc0bdb",
+			"key": "Created jurisdiction's groups",
+			"value": ""
+		},
+		{
+			"id": "9cd72ec9-e394-4b3c-8dce-7c792752acc7",
+			"key": "Created jurisdiction's id",
+			"value": ""
+		},
+		{
+			"id": "d5a543cc-dcdf-41fd-98b4-36c8752d7218",
+			"key": "Second created jurisdiction",
+			"value": ""
+		},
+		{
+			"id": "f64966bf-03a1-4e54-9b88-7b080563307b",
+			"key": "Created group's jurisdictions",
+			"value": ""
+		},
+		{
+			"id": "31c601f1-f572-4a57-be8d-a0ee2d67f705",
+			"key": "Second created group's jurisdictions",
+			"value": ""
+		},
+		{
+			"id": "e2c5918b-50ac-46ce-ba8b-bb7e4aa97f8d",
+			"key": "Second created jurisdiction's groups",
+			"value": ""
+		},
+		{
+			"id": "c36e32cb-e7ad-4f00-8c5a-6ee54b4b631b",
+			"key": "Second created jurisdiction's id",
 			"value": ""
 		}
 	]

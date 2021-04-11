@@ -62,4 +62,12 @@ public class BackofficeGroup {
   )
   @Getter @Setter private Set<Permission> permissions;
 
+  @ManyToMany(fetch = LAZY)
+  @JoinTable(
+      name = "tadmingroupjurisdiction",
+      joinColumns = @JoinColumn(name = "group_id"),
+      inverseJoinColumns = @JoinColumn(name = "jur_id")
+  )
+  @Getter @Setter private Set<Jurisdiction> jurisdictions;
+
 }
