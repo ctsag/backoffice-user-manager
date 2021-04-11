@@ -11,5 +11,8 @@ public class ApplicationProperties {
 
   @Getter @Setter private String basePath = "/";
   @Getter @Setter private String httpStatusRefUrl = "https://httpstatuses.com";
+  @Getter @Setter private boolean authDisabled = false;
+  @Getter @Setter private String readPermission = "ReadAccess";
+  @Getter @Setter private String writePermission = "WriteAccess";
 
 }
