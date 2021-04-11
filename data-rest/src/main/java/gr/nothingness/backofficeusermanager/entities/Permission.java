@@ -1,11 +1,12 @@
 package gr.nothingness.backofficeusermanager.entities;
 
+import static javax.persistence.FetchType.LAZY;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -47,7 +48,7 @@ public class Permission {
   @JsonIgnore
   @Getter @Setter private Set<BackofficeGroup> groups;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = LAZY)
   @JoinColumn(name = "type")
   @Getter @Setter private PermissionType type;
 

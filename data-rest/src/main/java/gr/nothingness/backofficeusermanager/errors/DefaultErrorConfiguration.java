@@ -1,6 +1,6 @@
 package gr.nothingness.backofficeusermanager.errors;
 
-import gr.nothingness.backofficeusermanager.configuration.ApplicationConfiguration;
+import gr.nothingness.backofficeusermanager.configuration.ApplicationProperties;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
@@ -13,7 +13,7 @@ import org.springframework.web.context.request.WebRequest;
 public class DefaultErrorConfiguration extends DefaultErrorAttributes {
 
   @Autowired
-  private ApplicationConfiguration configuration;
+  private ApplicationProperties configuration;
 
   @Override
   public Map<String, Object> getErrorAttributes(WebRequest request, ErrorAttributeOptions options) {
