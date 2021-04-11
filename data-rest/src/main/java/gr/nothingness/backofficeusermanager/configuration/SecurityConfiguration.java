@@ -1,4 +1,4 @@
-package gr.nothingness.backofficeusermanager.security.configuration;
+package gr.nothingness.backofficeusermanager.configuration;
 
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
@@ -21,7 +21,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   private AuthenticationService authenticationService;
 
   @Autowired
-  private SecurityProperties properties;
+  private ApplicationProperties properties;
 
   @Override
   protected void configure(AuthenticationManagerBuilder auth) {
