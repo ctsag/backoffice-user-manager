@@ -11,7 +11,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -26,10 +25,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-@Table(
-    name = "tadminuser",
-    indexes = @Index(name = "iadminuser_x1", columnList = "timezone_id")
-)
+@Table(name = "tadminuser")
 @NoArgsConstructor
 public class AuthUser implements UserDetails {
 
