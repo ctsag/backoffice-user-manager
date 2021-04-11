@@ -1,10 +1,10 @@
 package gr.nothingness.backofficeusermanager.security.service;
 
-import gr.nothingness.backofficeusermanager.entities.BackofficeGroup;
-import gr.nothingness.backofficeusermanager.entities.Permission;
-import gr.nothingness.backofficeusermanager.repositories.BackofficeUserRepository;
-import gr.nothingness.backofficeusermanager.security.facilities.AuthenticatedUserDetails;
+import gr.nothingness.backofficeusermanager.security.entities.AuthGroup;
+import gr.nothingness.backofficeusermanager.security.entities.AuthPermission;
+import gr.nothingness.backofficeusermanager.security.entities.AuthUser;
 import gr.nothingness.backofficeusermanager.security.facilities.MixedDigestPasswordEncoder;
+import gr.nothingness.backofficeusermanager.security.repositories.AuthUserRepository;
 import java.util.ArrayList;
 import java.util.Collection;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthenticationService implements AuthenticationProvider {
 
-  private final BackofficeUserRepository userRepository;
+  private final AuthUserRepository userRepository;
 
   @Override
   public boolean supports(Class<?> authentication) {
@@ -39,9 +39,9 @@ public class AuthenticationService implements AuthenticationProvider {
     String username = authentication.getName();
     String password = authentication.getCredentials().toString();
 
-    AuthenticatedUserDetails user = userRepository
+    AuthUser user = userRepository
         .findByUsername(username)
-        .map(AuthenticatedUserDetails::new)
+        .map(AuthUser::new)
         .orElseThrow(() -> new UsernameNotFoundException("Wrong username"));
 
     performAuthenticationChecks(user, password);
@@ -55,7 +55,7 @@ public class AuthenticationService implements AuthenticationProvider {
     );
   }
 
-  private void performAuthenticationChecks(AuthenticatedUserDetails user, String password) {
+  private void performAuthenticationChecks(AuthUser user, String password) {
     MixedDigestPasswordEncoder passwordEncoder = new MixedDigestPasswordEncoder();
     passwordEncoder.setSalt(user.getPasswordSalt());
 
@@ -80,15 +80,15 @@ public class AuthenticationService implements AuthenticationProvider {
     }
   }
 
-  private Collection<GrantedAuthority> getGrantedAuthorities(AuthenticatedUserDetails user) {
+  private Collection<GrantedAuthority> getGrantedAuthorities(AuthUser user) {
     Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 
-    for (Permission permission: user.getPermissions()) {
+    for (AuthPermission permission: user.getPermissions()) {
       grantedAuthorities.add(new SimpleGrantedAuthority(permission.getName()));
     }
 
-    for (BackofficeGroup group: user.getGroups()) {
-      for (Permission permission: group.getPermissions()) {
+    for (AuthGroup group: user.getGroups()) {
+      for (AuthPermission permission: group.getPermissions()) {
         grantedAuthorities.add(new SimpleGrantedAuthority(permission.getName()));
       }
     }

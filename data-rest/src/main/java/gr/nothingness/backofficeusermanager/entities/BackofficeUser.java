@@ -1,6 +1,10 @@
 package gr.nothingness.backofficeusermanager.entities;
 
 import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
+import static javax.persistence.EnumType.STRING;
+import static javax.persistence.FetchType.LAZY;
+import static javax.persistence.GenerationType.IDENTITY;
+import static javax.persistence.TemporalType.TIMESTAMP;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -11,11 +15,8 @@ import java.util.Date;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
@@ -28,7 +29,6 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
@@ -85,7 +85,7 @@ public class BackofficeUser {
   }
 
   @Column(name = "user_id")
-  @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Id @GeneratedValue(strategy = IDENTITY)
   @Getter private Long id;
 
   @Column(name = "username", unique = true)
@@ -117,11 +117,11 @@ public class BackofficeUser {
   @Getter @Setter private String email;
 
   @Column(name = "status")
-  @NotNull @Enumerated(EnumType.STRING)
-  @Getter @Setter private BackofficeUser.Status status = Status.A;
+  @NotNull @Enumerated(STRING)
+  @Getter @Setter private Status status = Status.A;
 
   @Column(name = "acc_pwd_expires")
-  @NotNull @Enumerated(EnumType.STRING)
+  @NotNull @Enumerated(STRING)
   @Getter @Setter private YesNo passwordExpires = YesNo.Y;
 
   @Column(name = "agent_id")
@@ -144,7 +144,7 @@ public class BackofficeUser {
   @Getter @Setter private Character loggedIn = 'N';
 
   @Column(name = "login_time")
-  @JsonIgnore @Temporal(TemporalType.TIMESTAMP)
+  @JsonIgnore @Temporal(TIMESTAMP)
   @Getter @Setter private Date loginTime;
 
   @Column(name = "login_loc")
@@ -152,7 +152,7 @@ public class BackofficeUser {
   @Getter @Setter private String loginLocation;
 
   @Column(name = "last_pwd_change")
-  @JsonIgnore @Temporal(TemporalType.TIMESTAMP)
+  @JsonIgnore @Temporal(TIMESTAMP)
   @Getter @Setter private Date lastPasswordChange = new Date();
 
   @Column(name = "bad_pwd_count")
@@ -160,7 +160,7 @@ public class BackofficeUser {
   @Getter @Setter private Integer badPasswordCount = 0;
 
   @Column(name = "last_pwd_fail")
-  @JsonIgnore @Temporal(TemporalType.TIMESTAMP)
+  @JsonIgnore @Temporal(TIMESTAMP)
   @Getter @Setter private Date lastPasswordFail;
 
   @Column(name = "password_salt")
@@ -169,14 +169,14 @@ public class BackofficeUser {
   @Getter private String passwordSalt;
 
   @Column(name = "lost_login_status")
-  @JsonIgnore @NotNull @Enumerated(EnumType.STRING)
+  @JsonIgnore @NotNull @Enumerated(STRING)
   @Getter @Setter private LostLoginStatus lostLoginStatus = LostLoginStatus.A;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = LAZY)
   @JoinColumn(name = "timezone_id")
   @Getter @Setter private Timezone timezone;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = LAZY)
   @JoinColumn(name = "position_id")
   @Getter @Setter private Position position;
 
@@ -184,7 +184,7 @@ public class BackofficeUser {
   @JsonIgnore
   @Getter @Setter private Set<BackofficeGroup> ownedGroups;
 
-  @ManyToMany(fetch = FetchType.EAGER)
+  @ManyToMany(fetch = LAZY)
   @JoinTable(
       name = "tadminuserop",
       joinColumns = @JoinColumn(name = "user_id"),
@@ -192,43 +192,13 @@ public class BackofficeUser {
   )
   @Getter @Setter private Set<Permission> permissions;
 
-  @ManyToMany(fetch = FetchType.EAGER)
+  @ManyToMany(fetch = LAZY)
   @JoinTable(
       name = "tadminusergroup",
       joinColumns = @JoinColumn(name = "user_id"),
       inverseJoinColumns = @JoinColumn(name = "group_id")
   )
   @Getter @Setter private Set<BackofficeGroup> groups;
-
-  protected BackofficeUser(BackofficeUser user) {
-    this.id = user.getId();
-    this.username = user.getUsername();
-    this.password = user.getPassword();
-    this.currentPassword = user.currentPassword;
-    this.plainTextPassword = user.plainTextPassword;
-    this.firstName = user.getFirstName();
-    this.lastName = user.getLastName();
-    this.email = user.getEmail();
-    this.status = user.getStatus();
-    this.passwordExpires = user.getPasswordExpires();
-    this.agent = user.getAgent();
-    this.phoneSwitch = user.getPhoneSwitch();
-    this.overrideCode = user.getOverrideCode();
-    this.loginUid = user.getLoginUid();
-    this.loggedIn = user.getLoggedIn();
-    this.loginTime = user.getLoginTime();
-    this.loginLocation = user.getLoginLocation();
-    this.lastPasswordChange = user.getLastPasswordChange();
-    this.badPasswordCount = user.getBadPasswordCount();
-    this.lastPasswordFail = user.getLastPasswordFail();
-    this.passwordSalt = user.getPasswordSalt();
-    this.lostLoginStatus = user.getLostLoginStatus();
-    this.timezone = user.getTimezone();
-    this.position = user.getPosition();
-    this.ownedGroups = user.getOwnedGroups();
-    this.permissions = user.getPermissions();
-    this.groups = user.getGroups();
-  }
 
   @PostLoad
   private void storeCurrentPassword() {

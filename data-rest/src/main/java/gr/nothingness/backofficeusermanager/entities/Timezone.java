@@ -1,14 +1,15 @@
 package gr.nothingness.backofficeusermanager.entities;
 
+import static javax.persistence.EnumType.STRING;
+import static javax.persistence.GenerationType.IDENTITY;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.OneToMany;
@@ -56,7 +57,7 @@ public class Timezone {
   }
 
   @Column(name = "timezone_id")
-  @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Id @GeneratedValue(strategy = IDENTITY)
   @Getter private Long id;
 
   @Column(name = "name")
@@ -64,11 +65,11 @@ public class Timezone {
   @Getter @Setter private String name;
 
   @Column(name = "status")
-  @Enumerated(EnumType.STRING)
+  @Enumerated(STRING)
   @Getter @Setter private Status status = Status.A;
 
   @Column(name = "display")
-  @Enumerated(EnumType.STRING)
+  @Enumerated(STRING)
   @Getter @Setter private YesNo display = YesNo.N;
 
   @OneToMany(mappedBy = "timezone")

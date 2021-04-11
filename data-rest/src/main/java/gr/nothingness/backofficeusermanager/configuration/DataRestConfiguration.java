@@ -1,5 +1,7 @@
 package gr.nothingness.backofficeusermanager.configuration;
 
+import static org.springframework.data.rest.core.mapping.RepositoryDetectionStrategy.RepositoryDetectionStrategies.ANNOTATED;
+
 import gr.nothingness.backofficeusermanager.entities.BackofficeGroup;
 import gr.nothingness.backofficeusermanager.entities.BackofficeUser;
 import gr.nothingness.backofficeusermanager.entities.Permission;

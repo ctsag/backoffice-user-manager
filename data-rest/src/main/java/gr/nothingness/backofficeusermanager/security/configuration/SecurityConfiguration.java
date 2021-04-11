@@ -6,7 +6,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import gr.nothingness.backofficeusermanager.configuration.ApplicationConfiguration;
 import gr.nothingness.backofficeusermanager.errors.RFC7807Error;
 import gr.nothingness.backofficeusermanager.security.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   private AuthenticationService authenticationService;
 
   @Autowired
-  private ApplicationConfiguration configuration;
+  private SecurityProperties properties;
 
   @Override
   protected void configure(AuthenticationManagerBuilder auth) {
@@ -31,7 +30,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity httpSecurity) throws Exception {
-    if (configuration.isAuthDisabled()) {
+    if (properties.isAuthDisabled()) {
       httpSecurity
           .anonymous();
     } else {
@@ -42,9 +41,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
               .disable()
           .authorizeRequests()
               .mvcMatchers(GET, "/actuator/health").permitAll()
-              .mvcMatchers(GET, configuration.getBasePath()).permitAll()
-              .mvcMatchers(GET, "/**").hasAuthority(configuration.getReadPermission())
-              .anyRequest().hasAuthority(configuration.getWritePermission())
+              .mvcMatchers(GET, properties.getBasePath()).permitAll()
+              .mvcMatchers(GET, "/**").hasAuthority(properties.getReadPermission())
+              .anyRequest().hasAuthority(properties.getWritePermission())
           .and()
           .sessionManagement()
               .sessionCreationPolicy(STATELESS)
@@ -53,7 +52,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
               .authenticationEntryPoint((request, response, exception) -> {
                     RFC7807Error apiError = RFC7807Error
                         .withStatus(UNAUTHORIZED)
-                        .andType(configuration.getHttpStatusRefUrl() + "/" + UNAUTHORIZED.value())
+                        .andType(properties.getHttpStatusRefUrl() + "/" + UNAUTHORIZED.value())
                         .andTitle("Unauthorized")
                         .andDetail(exception.getMessage())
                         .andInstance(request.getRequestURI())
@@ -64,8 +63,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                     ObjectMapper mapper = new ObjectMapper();
                     mapper.writeValue(response.getOutputStream(), apiError.toMap());
-              }
-          );
+              });
     }
   }
 
