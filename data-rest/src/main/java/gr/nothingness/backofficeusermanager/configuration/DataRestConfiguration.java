@@ -1,9 +1,8 @@
 package gr.nothingness.backofficeusermanager.configuration;
 
-import static org.springframework.data.rest.core.mapping.RepositoryDetectionStrategy.RepositoryDetectionStrategies.ANNOTATED;
-
 import gr.nothingness.backofficeusermanager.entities.BackofficeGroup;
 import gr.nothingness.backofficeusermanager.entities.BackofficeUser;
+import gr.nothingness.backofficeusermanager.entities.FlagDefinition;
 import gr.nothingness.backofficeusermanager.entities.Jurisdiction;
 import gr.nothingness.backofficeusermanager.entities.Permission;
 import gr.nothingness.backofficeusermanager.entities.PermissionType;
@@ -26,7 +25,8 @@ public class DataRestConfiguration implements RepositoryRestConfigurer {
         BackofficeGroup.class,
         Permission.class,
         PermissionType.class,
-        Jurisdiction.class
+        Jurisdiction.class,
+        FlagDefinition.class
     );
 
     configuration

@@ -200,6 +200,9 @@ public class BackofficeUser {
   )
   @Getter @Setter private Set<BackofficeGroup> groups;
 
+  @OneToMany(mappedBy = "user")
+  @Getter @Setter private Set<FlagValue> flags;
+
   @PostLoad
   private void storeCurrentPassword() {
     currentPassword = password;
