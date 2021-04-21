@@ -62,6 +62,33 @@ public class RestExceptionHandler {
     return buildResponseEntity(apiError);
   }
 
+  @ExceptionHandler(org.hibernate.exception.GenericJDBCException.class)
+  protected ResponseEntity<Object> handleDatabaseConstraintViolation(
+      org.hibernate.exception.GenericJDBCException exception,
+      HttpServletRequest request
+  ) {
+    RFC7807Error apiError = RFC7807Error
+        .withStatus(INTERNAL_SERVER_ERROR)
+        .andTitle("Database integrity violation")
+        .andDetail(
+            "One or more of the provided values causes a database integrity violation. "
+                + "Usually this issue involves missing or null values being passed when "
+                + "a non null or non empty value is expected, or when the wrong data type "
+                + "is used, e.g. a string when a numeric value is expected."
+        )
+        .andInstance(request.getRequestURI())
+        .build();
+
+    Throwable sqlException = exception.getSQLException();
+    FailureDetail failureDetail = FailureDetail
+        .withMessage(sqlException.getMessage().replaceAll("on table \\((.+?)\\) ", ""))
+        .build();
+
+    apiError.addFailure(failureDetail);
+
+    return buildResponseEntity(apiError);
+  }
+
   @ExceptionHandler(javax.validation.ConstraintViolationException.class)
   protected ResponseEntity<Object> handleValidationConstraintFailure(
       javax.validation.ConstraintViolationException exception,

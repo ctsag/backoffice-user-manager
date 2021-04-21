@@ -92,6 +92,8 @@
 									"    pm.collectionVariables.set(\"Permission types endpoint\", jsonData._links.permissionTypes.href);    \r",
 									"    pm.collectionVariables.set(\"Timezones endpoint\", jsonData._links.timezones.href);\r",
 									"    pm.collectionVariables.set(\"Jurisdictions endpoint\", jsonData._links.jurisdictions.href);\r",
+									"    pm.collectionVariables.set(\"Flag definitions endpoint\", jsonData._links.flagDefinitions.href);\r",
+									"    pm.collectionVariables.set(\"Flags endpoint\", jsonData._links.flags.href);\r",
 									"    pm.collectionVariables.set(\"Profile endpoint\", jsonData._links.profile.href);\r",
 									"});"
 								],
@@ -187,6 +189,7 @@
 											"    pm.collectionVariables.set(\"Created user's position\", jsonData._links.position.href);\r",
 											"    pm.collectionVariables.set(\"Created user's owned groups\", jsonData._links.ownedGroups.href);\r",
 											"    pm.collectionVariables.set(\"Created user's groups\", jsonData._links.groups.href);\r",
+											"    pm.collectionVariables.set(\"Created user's flags\", jsonData._links.flags.href);\r",
 											"    pm.collectionVariables.set(\"Created user's id\", jsonData.id);\r",
 											"});"
 										],
@@ -272,6 +275,7 @@
 											"            pm.expect(users[i]._links.position.href).to.equal(pm.collectionVariables.get(\"Created user's position\"));\r",
 											"            pm.expect(users[i]._links.ownedGroups.href).to.equal(pm.collectionVariables.get(\"Created user's owned groups\"));\r",
 											"            pm.expect(users[i]._links.groups.href).to.equal(pm.collectionVariables.get(\"Created user's groups\"));\r",
+											"            pm.expect(users[i]._links.flags.href).to.equal(pm.collectionVariables.get(\"Created user's flags\"));\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -343,6 +347,7 @@
 											"    pm.expect(jsonData._links.position.href).to.equal(pm.collectionVariables.get(\"Created user's position\"));\r",
 											"    pm.expect(jsonData._links.ownedGroups.href).to.equal(pm.collectionVariables.get(\"Created user's owned groups\"));\r",
 											"    pm.expect(jsonData._links.groups.href).to.equal(pm.collectionVariables.get(\"Created user's groups\"));\r",
+											"    pm.expect(jsonData._links.flags.href).to.equal(pm.collectionVariables.get(\"Created user's flags\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -402,12 +407,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{Users endpoint}}/{{Incorrect user id}}",
+									"raw": "{{Users endpoint}}/{{Incorrect id}}",
 									"host": [
 										"{{Users endpoint}}"
 									],
 									"path": [
-										"{{Incorrect user id}}"
+										"{{Incorrect id}}"
 									]
 								}
 							},
@@ -459,7 +464,8 @@
 											"    pm.expect(jsonData._links.permissions.href).to.equal(pm.collectionVariables.get(\"Created user's permissions\"));\r",
 											"    pm.expect(jsonData._links.position.href).to.equal(pm.collectionVariables.get(\"Created user's position\"));\r",
 											"    pm.expect(jsonData._links.ownedGroups.href).to.equal(pm.collectionVariables.get(\"Created user's owned groups\"));\r",
-											"    pm.expect(jsonData._links.groups.href).to.equal(pm.collectionVariables.get(\"Created user's groups\"));    \r",
+											"    pm.expect(jsonData._links.groups.href).to.equal(pm.collectionVariables.get(\"Created user's groups\"));\r",
+											"    pm.expect(jsonData._links.flags.href).to.equal(pm.collectionVariables.get(\"Created user's flags\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -540,7 +546,8 @@
 											"    pm.expect(jsonData._links.permissions.href).to.equal(pm.collectionVariables.get(\"Created user's permissions\"));\r",
 											"    pm.expect(jsonData._links.position.href).to.equal(pm.collectionVariables.get(\"Created user's position\"));\r",
 											"    pm.expect(jsonData._links.ownedGroups.href).to.equal(pm.collectionVariables.get(\"Created user's owned groups\"));\r",
-											"    pm.expect(jsonData._links.groups.href).to.equal(pm.collectionVariables.get(\"Created user's groups\"));    \r",
+											"    pm.expect(jsonData._links.groups.href).to.equal(pm.collectionVariables.get(\"Created user's groups\"));\r",
+											"    pm.expect(jsonData._links.flags.href).to.equal(pm.collectionVariables.get(\"Created user's flags\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -604,7 +611,7 @@
 											"pm.test(\"Returns expected attribute values\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
 											"\r",
-											"    pm.expect(jsonData.username).to.equal(pm.collectionVariables.get(\"Incorrect user id\"));\r",
+											"    pm.expect(jsonData.username).to.equal(pm.collectionVariables.get(\"Incorrect id\"));\r",
 											"    pm.expect(jsonData.firstName).to.equal(pm.collectionVariables.get(\"First name\"));\r",
 											"    pm.expect(jsonData.lastName).to.equal(pm.collectionVariables.get(\"Modified last name\"));\r",
 											"    pm.expect(jsonData.email).to.equal(pm.collectionVariables.get(\"Email\"));\r",
@@ -641,12 +648,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{Users endpoint}}/{{Incorrect user id}}",
+									"raw": "{{Users endpoint}}/{{Incorrect id}}",
 									"host": [
 										"{{Users endpoint}}"
 									],
 									"path": [
-										"{{Incorrect user id}}"
+										"{{Incorrect id}}"
 									]
 								}
 							},
@@ -734,7 +741,8 @@
 											"    pm.expect(jsonData._links.timezone.href).to.equal(pm.collectionVariables.get(\"Created user's timezone\"));\r",
 											"    pm.expect(jsonData._links.position.href).to.equal(pm.collectionVariables.get(\"Created user's position\"));\r",
 											"    pm.expect(jsonData._links.ownedGroups.href).to.equal(pm.collectionVariables.get(\"Created user's owned groups\"));\r",
-											"    pm.expect(jsonData._links.groups.href).to.equal(pm.collectionVariables.get(\"Created user's groups\"));    \r",
+											"    pm.expect(jsonData._links.groups.href).to.equal(pm.collectionVariables.get(\"Created user's groups\"));\r",
+											"    pm.expect(jsonData._links.flags.href).to.equal(pm.collectionVariables.get(\"Created user's flags\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -826,12 +834,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{Users endpoint}}/{{Incorrect user id}}",
+									"raw": "{{Users endpoint}}/{{Incorrect id}}",
 									"host": [
 										"{{Users endpoint}}"
 									],
 									"path": [
-										"{{Incorrect user id}}"
+										"{{Incorrect id}}"
 									]
 								}
 							},
@@ -932,6 +940,7 @@
 											"            pm.expect(users[i]._links.position.href).to.equal(pm.collectionVariables.get(\"Created user's position\"));\r",
 											"            pm.expect(users[i]._links.ownedGroups.href).to.equal(pm.collectionVariables.get(\"Created user's owned groups\"));\r",
 											"            pm.expect(users[i]._links.groups.href).to.equal(pm.collectionVariables.get(\"Created user's groups\"));\r",
+											"            pm.expect(users[i]._links.flags.href).to.equal(pm.collectionVariables.get(\"Created user's flags\"));\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -1249,6 +1258,14 @@
 									"                    \"required\": [ \"href\" ],",
 									"                    \"additionalProperties\": false",
 									"                },",
+									"                \"flags\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
+									"                },",
 									"            },",
 									"            \"required\": [",
 									"                \"self\",",
@@ -1256,7 +1273,8 @@
 									"                \"timezone\",",
 									"                \"permissions\",",
 									"                \"groups\",",
-									"                \"position\"",
+									"                \"position\",",
+									"                \"flags\"",
 									"            ],",
 									"            \"additionalProperties\": false",
 									"        }",
@@ -1639,12 +1657,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{Groups endpoint}}/{{Incorrect group id}}",
+									"raw": "{{Groups endpoint}}/{{Incorrect id}}",
 									"host": [
 										"{{Groups endpoint}}"
 									],
 									"path": [
-										"{{Incorrect group id}}"
+										"{{Incorrect id}}"
 									]
 								}
 							},
@@ -1781,12 +1799,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{Groups endpoint}}/{{Incorrect group id}}",
+									"raw": "{{Groups endpoint}}/{{Incorrect id}}",
 									"host": [
 										"{{Groups endpoint}}"
 									],
 									"path": [
-										"{{Incorrect group id}}"
+										"{{Incorrect id}}"
 									]
 								}
 							},
@@ -1958,12 +1976,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{Groups endpoint}}/{{Incorrect group id}}",
+									"raw": "{{Groups endpoint}}/{{Incorrect id}}",
 									"host": [
 										"{{Groups endpoint}}"
 									],
 									"path": [
-										"{{Incorrect group id}}"
+										"{{Incorrect id}}"
 									]
 								}
 							},
@@ -2538,12 +2556,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{Permission types endpoint}}/{{Incorrect permission type id}}",
+									"raw": "{{Permission types endpoint}}/{{Incorrect id}}",
 									"host": [
 										"{{Permission types endpoint}}"
 									],
 									"path": [
-										"{{Incorrect permission type id}}"
+										"{{Incorrect id}}"
 									]
 								}
 							},
@@ -2718,7 +2736,7 @@
 											"pm.test(\"Returns expected attribute values\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
 											"\r",
-											"    pm.expect(jsonData.name).to.equal(pm.collectionVariables.get(\"Incorrect permission type id\"));\r",
+											"    pm.expect(jsonData.name).to.equal(pm.collectionVariables.get(\"Incorrect id\"));\r",
 											"    pm.expect(jsonData.description).to.equal(pm.collectionVariables.get(\"Modified permission type description\"));\r",
 											"    pm.expect(jsonData.displayOrder).to.equal(parseInt(pm.collectionVariables.get(\"Display order\")));\r",
 											"\r",
@@ -2749,12 +2767,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{Permission types endpoint}}/{{Incorrect permission type id}}",
+									"raw": "{{Permission types endpoint}}/{{Incorrect id}}",
 									"host": [
 										"{{Permission types endpoint}}"
 									],
 									"path": [
-										"{{Incorrect permission type id}}"
+										"{{Incorrect id}}"
 									]
 								}
 							},
@@ -2923,12 +2941,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{Permission types endpoint}}/{{Incorrect permission type id}}",
+									"raw": "{{Permission types endpoint}}/{{Incorrect id}}",
 									"host": [
 										"{{Permission types endpoint}}"
 									],
 									"path": [
-										"{{Incorrect permission type id}}"
+										"{{Incorrect id}}"
 									]
 								}
 							},
@@ -3475,12 +3493,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{Permissions endpoint}}/{{Incorrect permission id}}",
+									"raw": "{{Permissions endpoint}}/{{Incorrect id}}",
 									"host": [
 										"{{Permissions endpoint}}"
 									],
 									"path": [
-										"{{Incorrect permission id}}"
+										"{{Incorrect id}}"
 									]
 								}
 							},
@@ -3659,7 +3677,7 @@
 											"pm.test(\"Returns expected attribute values\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
 											"\r",
-											"    pm.expect(jsonData.name).to.equal(pm.collectionVariables.get(\"Incorrect permission id\"));\r",
+											"    pm.expect(jsonData.name).to.equal(pm.collectionVariables.get(\"Incorrect id\"));\r",
 											"    pm.expect(jsonData.description).to.equal(pm.collectionVariables.get(\"Modified permission description\"));\r",
 											"    pm.expect(jsonData.displayOrder).to.equal(parseInt(pm.collectionVariables.get(\"Display order\")));\r",
 											"\r",
@@ -3690,12 +3708,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{Permissions endpoint}}/{{Incorrect permission id}}",
+									"raw": "{{Permissions endpoint}}/{{Incorrect id}}",
 									"host": [
 										"{{Permissions endpoint}}"
 									],
 									"path": [
-										"{{Incorrect permission id}}"
+										"{{Incorrect id}}"
 									]
 								}
 							},
@@ -3866,12 +3884,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{Permissions endpoint}}/{{Incorrect permission id}}",
+									"raw": "{{Permissions endpoint}}/{{Incorrect id}}",
 									"host": [
 										"{{Permissions endpoint}}"
 									],
 									"path": [
-										"{{Incorrect permission id}}"
+										"{{Incorrect id}}"
 									]
 								}
 							},
@@ -4627,12 +4645,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{Timezones endpoint}}/{{Incorrect timezone id}}",
+									"raw": "{{Timezones endpoint}}/{{Incorrect id}}",
 									"host": [
 										"{{Timezones endpoint}}"
 									],
 									"path": [
-										"{{Incorrect timezone id}}"
+										"{{Incorrect id}}"
 									]
 								}
 							},
@@ -4838,12 +4856,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{Timezones endpoint}}/{{Incorrect timezone id}}",
+									"raw": "{{Timezones endpoint}}/{{Incorrect id}}",
 									"host": [
 										"{{Timezones endpoint}}"
 									],
 									"path": [
-										"{{Incorrect timezone id}}"
+										"{{Incorrect id}}"
 									]
 								}
 							},
@@ -5012,12 +5030,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{Timezones endpoint}}/{{Incorrect timezone id}}",
+									"raw": "{{Timezones endpoint}}/{{Incorrect id}}",
 									"host": [
 										"{{Timezones endpoint}}"
 									],
 									"path": [
-										"{{Incorrect timezone id}}"
+										"{{Incorrect id}}"
 									]
 								}
 							},
@@ -5561,12 +5579,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{Positions endpoint}}/{{Incorrect position id}}",
+									"raw": "{{Positions endpoint}}/{{Incorrect id}}",
 									"host": [
 										"{{Positions endpoint}}"
 									],
 									"path": [
-										"{{Incorrect position id}}"
+										"{{Incorrect id}}"
 									]
 								}
 							},
@@ -5772,12 +5790,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{Positions endpoint}}/{{Incorrect position id}}",
+									"raw": "{{Positions endpoint}}/{{Incorrect id}}",
 									"host": [
 										"{{Positions endpoint}}"
 									],
 									"path": [
-										"{{Incorrect position id}}"
+										"{{Incorrect id}}"
 									]
 								}
 							},
@@ -5947,12 +5965,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{Positions endpoint}}/{{Incorrect position id}}",
+									"raw": "{{Positions endpoint}}/{{Incorrect id}}",
 									"host": [
 										"{{Positions endpoint}}"
 									],
 									"path": [
-										"{{Incorrect position id}}"
+										"{{Incorrect id}}"
 									]
 								}
 							},
@@ -6511,12 +6529,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{Jurisdictions endpoint}}/{{Incorrect jurisdiction id}}",
+									"raw": "{{Jurisdictions endpoint}}/{{Incorrect id}}",
 									"host": [
 										"{{Jurisdictions endpoint}}"
 									],
 									"path": [
-										"{{Incorrect jurisdiction id}}"
+										"{{Incorrect id}}"
 									]
 								}
 							},
@@ -6649,12 +6667,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{Jurisdictions endpoint}}/{{Incorrect jurisdiction id}}",
+									"raw": "{{Jurisdictions endpoint}}/{{Incorrect id}}",
 									"host": [
 										"{{Jurisdictions endpoint}}"
 									],
 									"path": [
-										"{{Incorrect jurisdiction id}}"
+										"{{Incorrect id}}"
 									]
 								}
 							},
@@ -6822,12 +6840,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{Jurisdictions endpoint}}/{{Incorrect jurisdiction id}}",
+									"raw": "{{Jurisdictions endpoint}}/{{Incorrect id}}",
 									"host": [
 										"{{Jurisdictions endpoint}}"
 									],
 									"path": [
-										"{{Incorrect jurisdiction id}}"
+										"{{Incorrect id}}"
 									]
 								}
 							},
@@ -7101,6 +7119,1897 @@
 									"                }",
 									"            },",
 									"            \"required\": [ \"jurisdictions\" ],",
+									"            \"additionalProperties\": false",
+									"        },",
+									"        \"_links\": {",
+									"            \"type\": \"object\",",
+									"            \"properties\": {",
+									"                \"self\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
+									"                },",
+									"                \"profile\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
+									"                }",
+									"            },",
+									"            \"required\": [ \"self\", \"profile\" ],",
+									"            \"additionalProperties\": false",
+									"        },",
+									"    },",
+									"    \"required\": [ \"_embedded\", \"_links\" ],",
+									"    \"additionalProperties\": false",
+									"});"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Flag Definition",
+					"item": [
+						{
+							"name": "Create a flag definition",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Flag definition item schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected attribute values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.name).to.equal(pm.collectionVariables.get(\"Flag definition name\"));\r",
+											"    pm.expect(jsonData.description).to.equal(pm.collectionVariables.get(\"Flag definition description\"));\r",
+											"    pm.expect(jsonData.note).to.equal(pm.collectionVariables.get(\"Flag definition note\"));\r",
+											"    pm.expect(jsonData.defaultValue).to.equal(pm.collectionVariables.get(\"Flag definition default value\"));\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created flag definition\", jsonData._links.flagDefinition.href);\r",
+											"    pm.collectionVariables.set(\"Created flag definition's flags\", jsonData._links.flags.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Flag definition name}}\",\n    \"description\": \"{{Flag definition description}}\",\n    \"note\": \"{{Flag definition note}}\",\n    \"defaultValue\": \"{{Flag definition default value}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Flag definitions endpoint}}",
+									"host": [
+										"{{Flag definitions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List all flag definition",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Flag definition collection schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains the created flag definition\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const flagDefinitions = jsonData._embedded.flagDefinitions;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < flagDefinitions.length; i++) {\r",
+											"        if (flagDefinitions[i]._links.flagDefinition.href == pm.collectionVariables.get(\"Created flag definition\")) {\r",
+											"            pm.expect(flagDefinitions[i].name).to.equal(pm.collectionVariables.get(\"Flag definition name\"));\r",
+											"            pm.expect(flagDefinitions[i].description).to.equal(pm.collectionVariables.get(\"Flag definition description\"));\r",
+											"            pm.expect(flagDefinitions[i].note).to.equal(pm.collectionVariables.get(\"Flag definition note\"));\r",
+											"            pm.expect(flagDefinitions[i].defaultValue).to.equal(pm.collectionVariables.get(\"Flag definition default value\"));\r",
+											"            pm.expect(flagDefinitions[i]._links.self.href).to.equal(pm.collectionVariables.get(\"Created flag definition\"));\r",
+											"            pm.expect(flagDefinitions[i]._links.flagDefinition.href).to.equal(pm.collectionVariables.get(\"Created flag definition\"));\r",
+											"            pm.expect(flagDefinitions[i]._links.flags.href).to.equal(pm.collectionVariables.get(\"Created flag definition's flags\"));\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Flag definitions endpoint}}",
+									"host": [
+										"{{Flag definitions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve created flag definition",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Flag definition item schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected attribute values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.name).to.equal(pm.collectionVariables.get(\"Flag definition name\"));\r",
+											"    pm.expect(jsonData.definition).to.equal(pm.collectionVariables.get(\"Flag definition definition\"));\r",
+											"    pm.expect(jsonData.note).to.equal(pm.collectionVariables.get(\"Flag definition note\"));\r",
+											"    pm.expect(jsonData.defaultValue).to.equal(pm.collectionVariables.get(\"Flag definition default value\"));\r",
+											"\r",
+											"    pm.expect(jsonData._links.self.href).to.equal(pm.collectionVariables.get(\"Created flag definition\"));\r",
+											"    pm.expect(jsonData._links.flagDefinition.href).to.equal(pm.collectionVariables.get(\"Created flag definition\"));\r",
+											"    pm.expect(jsonData._links.flags.href).to.equal(pm.collectionVariables.get(\"Created flag definition's flags\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created flag definition}}",
+									"host": [
+										"{{Created flag definition}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve non existent flag definition",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 404 Not Found status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(404);\r",
+											"    pm.expect(response.status).to.equal(\"Not Found\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(404);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Flag definitions endpoint}}/{{Incorrect id}}",
+									"host": [
+										"{{Flag definitions endpoint}}"
+									],
+									"path": [
+										"{{Incorrect id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update flag definition via PUT with partial data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Flag definition item schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected attribute values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.name).to.equal(pm.collectionVariables.get(\"Flag definition name\"));\r",
+											"    pm.expect(jsonData.note).to.equal(pm.collectionVariables.get(\"Modified flag definition note\"));\r",
+											"    pm.expect(jsonData.description).to.be.null;\r",
+											"    pm.expect(jsonData.defaultValue).to.be.null;\r",
+											"\r",
+											"    pm.expect(jsonData._links.self.href).to.equal(pm.collectionVariables.get(\"Created flag definition\"));\r",
+											"    pm.expect(jsonData._links.flagDefinition.href).to.equal(pm.collectionVariables.get(\"Created flag definition\"));\r",
+											"    pm.expect(jsonData._links.flags.href).to.equal(pm.collectionVariables.get(\"Created flag definition's flags\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"note\": \"{{Modified flag definition note}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created flag definition}}",
+									"host": [
+										"{{Created flag definition}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update flag definition via PUT",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Flag definition item schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected attribute values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.name).to.equal(pm.collectionVariables.get(\"Flag definition name\"));\r",
+											"    pm.expect(jsonData.description).to.equal(pm.collectionVariables.get(\"Flag definition description\"));\r",
+											"    pm.expect(jsonData.note).to.equal(pm.collectionVariables.get(\"Modified flag definition note\"));\r",
+											"    pm.expect(jsonData.defaultValue).to.equal(pm.collectionVariables.get(\"Flag definition default value\"));\r",
+											"\r",
+											"    pm.expect(jsonData._links.self.href).to.equal(pm.collectionVariables.get(\"Created flag definition\"));\r",
+											"    pm.expect(jsonData._links.flagDefinition.href).to.equal(pm.collectionVariables.get(\"Created flag definition\"));\r",
+											"    pm.expect(jsonData._links.flags.href).to.equal(pm.collectionVariables.get(\"Created flag definition's flags\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"description\": \"{{Flag definition description}}\",\n    \"note\": \"{{Modified flag definition note}}\",\n    \"defaultValue\": \"{{Flag definition default value}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created flag definition}}",
+									"host": [
+										"{{Created flag definition}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update non existent flag definition via PUT",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Flag definition item schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected attribute values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.name).to.equal(pm.collectionVariables.get(\"Incorrect id\"));\r",
+											"    pm.expect(jsonData.description).to.equal(pm.collectionVariables.get(\"Flag definition description\"));\r",
+											"    pm.expect(jsonData.note).to.equal(pm.collectionVariables.get(\"Modified flag definition note\"));\r",
+											"    pm.expect(jsonData.defaultValue).to.equal(pm.collectionVariables.get(\"Flag definition default value\"));\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Second created flag definition\", jsonData._links.flagDefinition.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"description\": \"{{Flag definition description}}\",\n    \"note\": \"{{Modified flag definition note}}\",\n    \"defaultValue\": \"{{Flag definition default value}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Flag definitions endpoint}}/{{Incorrect id}}",
+									"host": [
+										"{{Flag definitions endpoint}}"
+									],
+									"path": [
+										"{{Incorrect id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete second created flag definition",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Second created flag definition}}",
+									"host": [
+										"{{Second created flag definition}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update flag definition via PATCH",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Flag definition item schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected attribute values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.name).to.equal(pm.collectionVariables.get(\"Flag definition name\"));\r",
+											"    pm.expect(jsonData.description).to.equal(pm.collectionVariables.get(\"Flag definition description\"));\r",
+											"    pm.expect(jsonData.note).to.equal(pm.collectionVariables.get(\"Flag definition note\"));\r",
+											"    pm.expect(jsonData.defaultValue).to.equal(pm.collectionVariables.get(\"Flag definition default value\"));\r",
+											"\r",
+											"    pm.expect(jsonData._links.self.href).to.equal(pm.collectionVariables.get(\"Created flag definition\"));\r",
+											"    pm.expect(jsonData._links.flagDefinition.href).to.equal(pm.collectionVariables.get(\"Created flag definition\"));\r",
+											"    pm.expect(jsonData._links.flags.href).to.equal(pm.collectionVariables.get(\"Created flag definition's flags\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"note\": \"{{Flag definition note}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created flag definition}}",
+									"host": [
+										"{{Created flag definition}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update non existent flag definition via PATCH",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 404 Not Found status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(404);\r",
+											"    pm.expect(response.status).to.equal(\"Not Found\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(404);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"note\": \"{{Modified flag definition note}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Flag definitions endpoint}}/{{Incorrect id}}",
+									"host": [
+										"{{Flag definitions endpoint}}"
+									],
+									"path": [
+										"{{Incorrect id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete created flag definition",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created flag definition}}",
+									"host": [
+										"{{Created flag definition}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete non existent flag definition",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 404 Not Found status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(404);\r",
+											"    pm.expect(response.status).to.equal(\"Not Found\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(404);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Second created flag definition}}",
+									"host": [
+										"{{Second created flag definition}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve deleted flag definition",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 404 Not Found status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(404);\r",
+											"    pm.expect(response.status).to.equal(\"Not Found\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(404);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created flag definition}}",
+									"host": [
+										"{{Created flag definition}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List all flag definitions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Flag definition collection schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain the created flag definition\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const flagDefinitions = jsonData._embedded.flagDefinitions;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < flagDefinitions.length; i++) {\r",
+											"        if (flagDefinitions[i]._links.self.href == pm.collectionVariables.get(\"Created flag definition\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Flag definitions endpoint}}",
+									"host": [
+										"{{Flag definitions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.collectionVariables.set(\"Flag definition item schema\", {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"        \"name\": { \"type\": \"string\" },",
+									"        \"description\": { \"type\": [ \"string\", \"null\" ] },",
+									"        \"note\": { \"type\": [ \"string\", \"null\" ] },",
+									"        \"defaultValue\": { \"type\": [ \"string\", \"null\" ] },",
+									"        \"_links\": {",
+									"            \"type\": \"object\",",
+									"            \"properties\": {",
+									"                \"self\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
+									"                },",
+									"                \"flagDefinition\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
+									"                },",
+									"                \"flags\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
+									"                }",
+									"            },",
+									"            \"required\": [",
+									"                \"self\",",
+									"                \"flagDefinition\",",
+									"                \"flags\"",
+									"            ],",
+									"            \"additionalProperties\": false",
+									"        }",
+									"    },",
+									"    \"required\": [",
+									"        \"name\",",
+									"        \"description\",",
+									"        \"note\",",
+									"        \"defaultValue\",",
+									"        \"_links\"",
+									"    ],",
+									"    \"additionalProperties\": false",
+									"});",
+									"",
+									"pm.collectionVariables.set(\"Flag definition collection schema\", {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"        \"_embedded\": {",
+									"            \"type\": \"object\",",
+									"            \"properties\": {",
+									"                \"flagDefinitions\": {",
+									"                    \"type\": \"array\",",
+									"                    \"items\": pm.collectionVariables.get(\"Flag definition item schema\"),",
+									"                    \"uniqueItems\": true",
+									"                }",
+									"            },",
+									"            \"required\": [ \"flagDefinitions\" ],",
+									"            \"additionalProperties\": false",
+									"        },",
+									"        \"_links\": {",
+									"            \"type\": \"object\",",
+									"            \"properties\": {",
+									"                \"self\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
+									"                },",
+									"                \"profile\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
+									"                }",
+									"            },",
+									"            \"required\": [ \"self\", \"profile\" ],",
+									"            \"additionalProperties\": false",
+									"        },",
+									"    },",
+									"    \"required\": [ \"_embedded\", \"_links\" ],",
+									"    \"additionalProperties\": false",
+									"});"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Flag",
+					"item": [
+						{
+							"name": "Create a user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected attribute values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created user\", jsonData._links.user.href);\r",
+											"    pm.collectionVariables.set(\"Created user's id\", jsonData.id);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"username\": \"{{Username}}\",\n    \"password\": \"{{Password}}\",\n    \"firstName\": \"{{First name}}\",\n    \"lastName\": \"{{Last name}}\",\n    \"email\": \"{{Email}}\",\n    \"status\": \"{{User status}}\",\n    \"passwordExpires\": \"{{Password expires}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Users endpoint}}",
+									"host": [
+										"{{Users endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a flag definition",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected attribute values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created flag definition\", jsonData._links.flagDefinition.href);\r",
+											"    pm.collectionVariables.set(\"Created flag definition's name\", jsonData.name);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Flag definition name}}\",\n    \"description\": \"{{Flag definition description}}\",\n    \"note\": \"{{Flag definition note}}\",\n    \"defaultValue\": \"{{Flag definition default value}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Flag definitions endpoint}}",
+									"host": [
+										"{{Flag definitions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a flag",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Flag item schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected attribute values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.value).to.equal(pm.collectionVariables.get(\"Flag value\"));\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created flag\", jsonData._links.flag.href);\r",
+											"    pm.collectionVariables.set(\"Created flag's definition\", jsonData._links.flagDefinition.href);\r",
+											"    pm.collectionVariables.set(\"Created flag's user\", jsonData._links.user.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"id\": {\n        \"userId\": \"{{Created user's id}}\",\n        \"flagName\": \"{{Created flag definition's name}}\"\n    },\n    \"value\": \"{{Flag value}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Flags endpoint}}",
+									"host": [
+										"{{Flags endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List all flags",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Flag collection schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains the created flag\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const flags = jsonData._embedded.flags;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < flags.length; i++) {\r",
+											"        if (flags[i]._links.flag.href == pm.collectionVariables.get(\"Created flag\")) {\r",
+											"            pm.expect(flags[i].value).to.equal(pm.collectionVariables.get(\"Flag value\"));\r",
+											"            pm.expect(flags[i]._links.self.href).to.equal(pm.collectionVariables.get(\"Created flag\"));\r",
+											"            pm.expect(flags[i]._links.flag.href).to.equal(pm.collectionVariables.get(\"Created flag\"));\r",
+											"            pm.expect(flags[i]._links.flagDefinition.href).to.equal(pm.collectionVariables.get(\"Created flag's definition\"));\r",
+											"            pm.expect(flags[i]._links.user.href).to.equal(pm.collectionVariables.get(\"Created flag's user\"));\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Flags endpoint}}",
+									"host": [
+										"{{Flags endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve created flag",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Flag item schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected attribute values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.value).to.equal(pm.collectionVariables.get(\"Flag value\"));\r",
+											"\r",
+											"    pm.expect(jsonData._links.self.href).to.equal(pm.collectionVariables.get(\"Created flag\"));\r",
+											"    pm.expect(jsonData._links.flag.href).to.equal(pm.collectionVariables.get(\"Created flag\"));\r",
+											"    pm.expect(jsonData._links.flagDefinition.href).to.equal(pm.collectionVariables.get(\"Created flag's definition\"));\r",
+											"    pm.expect(jsonData._links.user.href).to.equal(pm.collectionVariables.get(\"Created flag's user\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created flag}}",
+									"host": [
+										"{{Created flag}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve non existent flag",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 404 Not Found status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(404);\r",
+											"    pm.expect(response.status).to.equal(\"Not Found\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(404);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Flags endpoint}}/{{Incorrect id}}",
+									"host": [
+										"{{Flags endpoint}}"
+									],
+									"path": [
+										"{{Incorrect id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update flag via PUT",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Flag item schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected attribute values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.value).to.equal(pm.collectionVariables.get(\"Flag modified value\"));\r",
+											"\r",
+											"    pm.expect(jsonData._links.self.href).to.equal(pm.collectionVariables.get(\"Created flag\"));\r",
+											"    pm.expect(jsonData._links.flag.href).to.equal(pm.collectionVariables.get(\"Created flag\"));\r",
+											"    pm.expect(jsonData._links.flagDefinition.href).to.equal(pm.collectionVariables.get(\"Created flag's definition\"));\r",
+											"    pm.expect(jsonData._links.user.href).to.equal(pm.collectionVariables.get(\"Created flag's user\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"value\": \"{{Flag modified value}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created flag}}",
+									"host": [
+										"{{Created flag}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update non existent flag via PUT",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 404 Not Found\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(404);\r",
+											"    pm.expect(response.status).to.equal(\"Not Found\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(404);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"description\": \"{{Flag definition description}}\",\n    \"note\": \"{{Modified flag definition note}}\",\n    \"defaultValue\": \"{{Flag definition default value}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Flags endpoint}}/{{Incorrect flag id}}",
+									"host": [
+										"{{Flags endpoint}}"
+									],
+									"path": [
+										"{{Incorrect flag id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update flag via PATCH",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Flag item schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected attribute values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.value).to.equal(pm.collectionVariables.get(\"Flag value\"));\r",
+											"\r",
+											"    pm.expect(jsonData._links.self.href).to.equal(pm.collectionVariables.get(\"Created flag\"));\r",
+											"    pm.expect(jsonData._links.flag.href).to.equal(pm.collectionVariables.get(\"Created flag\"));\r",
+											"    pm.expect(jsonData._links.flagDefinition.href).to.equal(pm.collectionVariables.get(\"Created flag's definition\"));\r",
+											"    pm.expect(jsonData._links.user.href).to.equal(pm.collectionVariables.get(\"Created flag's user\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"value\": \"{{Flag value}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created flag}}",
+									"host": [
+										"{{Created flag}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update non existent flag via PATCH",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 404 Not Found status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(404);\r",
+											"    pm.expect(response.status).to.equal(\"Not Found\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(404);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"note\": \"{{Modified flag definition note}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Flag definitions endpoint}}/{{Incorrect flag id}}",
+									"host": [
+										"{{Flag definitions endpoint}}"
+									],
+									"path": [
+										"{{Incorrect flag id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete created flag",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created flag}}",
+									"host": [
+										"{{Created flag}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve deleted flag",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 404 Not Found status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(404);\r",
+											"    pm.expect(response.status).to.equal(\"Not Found\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(404);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created flag}}",
+									"host": [
+										"{{Created flag}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List all flags",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Flag collection schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain the created flag\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const flags = jsonData._embedded.flags;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < flags.length; i++) {\r",
+											"        if (flags[i]._links.self.href == pm.collectionVariables.get(\"Created flag\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Flags endpoint}}",
+									"host": [
+										"{{Flags endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete created flag definition",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created flag definition}}",
+									"host": [
+										"{{Created flag definition}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete created user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created user}}",
+									"host": [
+										"{{Created user}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.collectionVariables.set(\"Flag item schema\", {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"        \"value\": { \"type\": \"string\" },",
+									"        \"_links\": {",
+									"            \"type\": \"object\",",
+									"            \"properties\": {",
+									"                \"self\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
+									"                },",
+									"                \"flag\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
+									"                },",
+									"                \"flagDefinition\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
+									"                },",
+									"                \"user\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
+									"                }",
+									"            },",
+									"            \"required\": [",
+									"                \"self\",",
+									"                \"flag\",",
+									"                \"flagDefinition\",",
+									"                \"user\"",
+									"            ],",
+									"            \"additionalProperties\": false",
+									"        }",
+									"    },",
+									"    \"required\": [",
+									"        \"value\",",
+									"        \"_links\"",
+									"    ],",
+									"    \"additionalProperties\": false",
+									"});",
+									"",
+									"pm.collectionVariables.set(\"Flag collection schema\", {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"        \"_embedded\": {",
+									"            \"type\": \"object\",",
+									"            \"properties\": {",
+									"                \"flags\": {",
+									"                    \"type\": \"array\",",
+									"                    \"items\": pm.collectionVariables.get(\"Flag item schema\"),",
+									"                    \"uniqueItems\": true",
+									"                }",
+									"            },",
+									"            \"required\": [ \"flags\" ],",
 									"            \"additionalProperties\": false",
 									"        },",
 									"        \"_links\": {",
@@ -7501,6 +9410,124 @@
 									"raw": "{{Jurisdictions endpoint}}",
 									"host": [
 										"{{Jurisdictions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a flag definition",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created flag definition\", jsonData._links.flagDefinition.href);\r",
+											"    pm.collectionVariables.set(\"Created flag definition's flags\", jsonData._links.flags.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Flag definition name}}\",\n    \"description\": \"{{Flag definition description}}\",\n    \"note\": \"{{Flag definition note}}\",\n    \"defaultValue\": \"{{Flag definition default value}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Flag definitions endpoint}}",
+									"host": [
+										"{{Flag definitions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a flag",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Flag item schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected attribute values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.value).to.equal(pm.collectionVariables.get(\"Flag value\"));\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created flag\", jsonData._links.flag.href);\r",
+											"    pm.collectionVariables.set(\"Created flag's definition\", jsonData._links.flagDefinition.href);\r",
+											"    pm.collectionVariables.set(\"Created flag's user\", jsonData._links.user.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"id\": {\n        \"flagName\": \"{{Created flag definition's name}}\",\n        \"userId\": \"{{Created user's id}}\"\n    },\n    \"value\": \"{{Flag value}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Flags endpoint}}",
+									"host": [
+										"{{Flags endpoint}}"
 									]
 								}
 							},
@@ -11510,10 +13537,1068 @@
 					]
 				},
 				{
+					"name": "Flag Definition",
+					"item": [
+						{
+							"name": "Name length cannot be >32",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 400 Bad Request\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(400);\r",
+											"    pm.expect(response.status).to.equal(\"Bad Request\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Problem JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/problem+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(400);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains the expected failure\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const failures = jsonData.failures;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < failures.length; i++) {\r",
+											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"            pm.expect(failures[i].constraint).to.equal(\"name\");\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\n    \"description\": \"{{Flag definition description}}\",\n    \"note\": \"{{Flag definition note}}\",\n    \"defaultValue\": \"{{Flag definition default value}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Flag definitions endpoint}}",
+									"host": [
+										"{{Flag definitions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Name cannot be null",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 400 Bad Request\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(400);\r",
+											"    pm.expect(response.status).to.equal(\"Bad Request\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Problem JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/problem+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(400);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: primary id required\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains the expected failure\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const failures = jsonData.failures;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < failures.length; i++) {\r",
+											"        if (failures[i].message == \"no primary identifier provided\") {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": null,\n    \"description\": \"{{Flag definition description}}\",\n    \"note\": \"{{Flag definition note}}\",\n    \"defaultValue\": \"{{Flag definition default value}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Flag definitions endpoint}}",
+									"host": [
+										"{{Flag definitions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Name cannot be changed",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 409 Conflict\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(409);\r",
+											"    pm.expect(response.status).to.equal(\"Conflict\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Problem JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/problem+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(409);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: primary id change\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains the expected failure\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const failures = jsonData.failures;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < failures.length; i++) {\r",
+											"        if (failures[i].message.startsWith(\"altered from \")) {\r",
+											"            pm.expect(failures[i].constraint).to.equal(\"primary identifier\");\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"xxxxxx\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created flag definition}}",
+									"host": [
+										"{{Created flag definition}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Description length cannot be >255",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 400 Bad Request\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(400);\r",
+											"    pm.expect(response.status).to.equal(\"Bad Request\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Problem JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/problem+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(400);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains the expected failure\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const failures = jsonData.failures;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < failures.length; i++) {\r",
+											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"            pm.expect(failures[i].constraint).to.equal(\"description\");\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"description\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created flag definition}}",
+									"host": [
+										"{{Created flag definition}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Note length cannot be >255",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 400 Bad Request\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(400);\r",
+											"    pm.expect(response.status).to.equal(\"Bad Request\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Problem JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/problem+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(400);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains the expected failure\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const failures = jsonData.failures;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < failures.length; i++) {\r",
+											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"            pm.expect(failures[i].constraint).to.equal(\"note\");\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"note\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created flag definition}}",
+									"host": [
+										"{{Created flag definition}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Default value length cannot be >255",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 400 Bad Request\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(400);\r",
+											"    pm.expect(response.status).to.equal(\"Bad Request\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Problem JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/problem+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(400);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains the expected failure\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const failures = jsonData.failures;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < failures.length; i++) {\r",
+											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"            pm.expect(failures[i].constraint).to.equal(\"defaultValue\");\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"defaultValue\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created flag definition}}",
+									"host": [
+										"{{Created flag definition}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Flag",
+					"item": [
+						{
+							"name": "User id cannot be null",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 500 Internal Server Error\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(500);\r",
+											"    pm.expect(response.status).to.equal(\"Internal Server Error\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Problem JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/problem+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(500);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: db integrity\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains the expected failure\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const failures = jsonData.failures;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < failures.length; i++) {\r",
+											"        if (failures[i].message == \"Primary key has a field with a null key value.\") {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"id\": {\n        \"userId\": null,\n        \"flagName\": \"{{Created flag definition's name}}\"\n    },\n    \"value\": \"{{Flag value}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Flags endpoint}}",
+									"host": [
+										"{{Flags endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User id must match existing user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 500 Internal Server Error\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(500);\r",
+											"    pm.expect(response.status).to.equal(\"Internal Server Error\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Problem JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/problem+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(500);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: db violation\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains the expected failure\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const failures = jsonData.failures;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < failures.length; i++) {\r",
+											"        if (failures[i].message == \"no record found\") {\r",
+											"            pm.expect(failures[i]).to.have.property(\"constraint\");\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"id\": {\n        \"userId\": \"{{Incorrect id}}\",\n        \"flagName\": \"{{Create flag definition's name}}\"\n    },\n    \"value\": \"{{Flag value}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Flags endpoint}}",
+									"host": [
+										"{{Flags endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User id cannot be changed",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 500 Internal Server Error\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(500);\r",
+											"    pm.expect(response.status).to.equal(\"Internal Server Error\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Problem JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/problem+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(500);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: db unknown\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains the expected failure\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const failures = jsonData.failures;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < failures.length; i++) {\r",
+											"        if (failures[i].message == \"composite key does not match an existing record\") {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"id\": {\n        \"userId\": \"99999\",\n        \"flagName\": \"{{Created flag definition's name}}\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created flag}}",
+									"host": [
+										"{{Created flag}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Name cannot be changed",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 500 Internal Server Error\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(500);\r",
+											"    pm.expect(response.status).to.equal(\"Internal Server Error\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Problem JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/problem+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(500);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: db unknown\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains the expected failure\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const failures = jsonData.failures;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < failures.length; i++) {\r",
+											"        if (failures[i].message == \"composite key does not match an existing record\") {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"id\": {\n        \"userId\": {{Created user's id}},\n        \"flagName\": \"xxxxxxxxxxxx\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created flag}}",
+									"host": [
+										"{{Created flag}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Name cannot be null",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 500 Internal Server Error\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(500);\r",
+											"    pm.expect(response.status).to.equal(\"Internal Server Error\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Problem JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/problem+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(500);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: db integrity\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains the expected failure\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const failures = jsonData.failures;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < failures.length; i++) {\r",
+											"        if (failures[i].message == \"Primary key has a field with a null key value.\") {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"id\": {\n        \"userId\": \"{{Created user's id}}\",\n        \"flagName\": null\n    },\n    \"value\": \"{{Flag value}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Flags endpoint}}",
+									"host": [
+										"{{Flags endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Name must match existing flag definition",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 500 Internal Server Error\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(500);\r",
+											"    pm.expect(response.status).to.equal(\"Internal Server Error\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Problem JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/problem+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(500);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: db violation\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains the expected failure\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const failures = jsonData.failures;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < failures.length; i++) {\r",
+											"        if (failures[i].message == \"no record found\") {\r",
+											"            pm.expect(failures[i]).to.have.property(\"constraint\");\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"id\": {\n        \"userId\": \"{{Created user's id}}\",\n        \"flagName\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\n    },\n    \"value\": \"{{Flag value}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Flags endpoint}}",
+									"host": [
+										"{{Flags endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Value length cannot be >64",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 400 Bad Request\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(400);\r",
+											"    pm.expect(response.status).to.equal(\"Bad Request\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Problem JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/problem+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(400);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains the expected failure\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const failures = jsonData.failures;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < failures.length; i++) {\r",
+											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"            pm.expect(failures[i].constraint).to.equal(\"value\");\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"id\": {\n        \"flagName\": \"{{Created flag definition's name}}\",\n        \"userId\": \"{{Created user's id}}\"\n    },\n    \"value\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created flag}}",
+									"host": [
+										"{{Created flag}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Teardown",
 					"item": [
 						{
-							"name": "Delete user",
+							"name": "Delete flag",
 							"event": [
 								{
 									"listen": "test",
@@ -11524,6 +14609,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -11534,16 +14625,16 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{Created user}}",
+									"raw": "{{Created flag}}",
 									"host": [
-										"{{Created user}}"
+										"{{Created flag}}"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Delete group",
+							"name": "Delete flag definition",
 							"event": [
 								{
 									"listen": "test",
@@ -11564,16 +14655,16 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{Created group}}",
+									"raw": "{{Created flag definition}}",
 									"host": [
-										"{{Created group}}"
+										"{{Created flag definition}}"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Delete permission type",
+							"name": "Delete jurisdiction",
 							"event": [
 								{
 									"listen": "test",
@@ -11594,69 +14685,9 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{Created permission type}}",
+									"raw": "{{Created jurisdiction}}",
 									"host": [
-										"{{Created permission type}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete permission",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content status\", () => {\r",
-											"    const response = pm.response;\r",
-											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{Created permission}}",
-									"host": [
-										"{{Created permission}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete timezone",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content status\", () => {\r",
-											"    const response = pm.response;\r",
-											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{Created timezone}}",
-									"host": [
-										"{{Created timezone}}"
+										"{{Created jurisdiction}}"
 									]
 								}
 							},
@@ -11693,7 +14724,7 @@
 							"response": []
 						},
 						{
-							"name": "Delete jurisdiction",
+							"name": "Delete timezone",
 							"event": [
 								{
 									"listen": "test",
@@ -11714,9 +14745,129 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{Created jurisdiction}}",
+									"raw": "{{Created timezone}}",
 									"host": [
-										"{{Created jurisdiction}}"
+										"{{Created timezone}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete permission",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created permission}}",
+									"host": [
+										"{{Created permission}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete permission type",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created permission type}}",
+									"host": [
+										"{{Created permission type}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created group}}",
+									"host": [
+										"{{Created group}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created user}}",
+									"host": [
+										"{{Created user}}"
 									]
 								}
 							},
@@ -12112,7 +15263,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \n    \"name\": \"{{Incorrect permission id}}\",\n    \"description\": \"{{Permission description}}\",\n    \"displayOrder\": {{Display order}}\n}",
+									"raw": "{ \n    \"name\": \"{{Incorrect id}}\",\n    \"description\": \"{{Permission description}}\",\n    \"displayOrder\": {{Display order}}\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -12425,6 +15576,106 @@
 									"raw": "{{Jurisdictions endpoint}}",
 									"host": [
 										"{{Jurisdictions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a flag definition",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created flag definition\", jsonData._links.flagDefinition.href);\r",
+											"    pm.collectionVariables.set(\"Created flag definition's flags\", jsonData._links.flags.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Flag definition name}}\",\n    \"description\": \"{{Flag definition description}}\",\n    \"note\": \"{{Flag definition note}}\",\n    \"defaultValue\": \"{{Flag definition default value}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Flag definitions endpoint}}",
+									"host": [
+										"{{Flag definitions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a second flag definition",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Second created flag definition\", jsonData._links.flagDefinition.href);\r",
+											"    pm.collectionVariables.set(\"Second created flag definition's flags\", jsonData._links.flags.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Incorrect id}}\",\n    \"description\": \"{{Flag definition description}}\",\n    \"note\": \"{{Flag definition note}}\",\n    \"defaultValue\": \"{{Flag definition default value}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Flag definitions endpoint}}",
+									"host": [
+										"{{Flag definitions endpoint}}"
 									]
 								}
 							},
@@ -13891,12 +17142,12 @@
 									}
 								],
 								"url": {
-									"raw": "{{Second created user's permissions}}/{{Incorrect permission id}}",
+									"raw": "{{Second created user's permissions}}/{{Incorrect id}}",
 									"host": [
 										"{{Second created user's permissions}}"
 									],
 									"path": [
-										"{{Incorrect permission id}}"
+										"{{Incorrect id}}"
 									]
 								}
 							},
@@ -21813,7 +25064,7 @@
 					"name": "Teardown",
 					"item": [
 						{
-							"name": "Delete user",
+							"name": "Delete second flag definition",
 							"event": [
 								{
 									"listen": "test",
@@ -21824,12 +25075,6 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns an empty body\", () => {\r",
-											"    const response = pm.response.text();\r",
-											"\r",
-											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -21840,16 +25085,16 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{Created user}}",
+									"raw": "{{Second created flag definition}}",
 									"host": [
-										"{{Created user}}"
+										"{{Second created flag definition}}"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Delete second user",
+							"name": "Delete flag definition",
 							"event": [
 								{
 									"listen": "test",
@@ -21860,12 +25105,6 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns an empty body\", () => {\r",
-											"    const response = pm.response.text();\r",
-											"\r",
-											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -21876,16 +25115,16 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{Second created user}}",
+									"raw": "{{Created flag definition}}",
 									"host": [
-										"{{Second created user}}"
+										"{{Created flag definition}}"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Delete group",
+							"name": "Delete second jurisdiction",
 							"event": [
 								{
 									"listen": "test",
@@ -21896,12 +25135,6 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns an empty body\", () => {\r",
-											"    const response = pm.response.text();\r",
-											"\r",
-											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -21912,16 +25145,16 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{Created group}}",
+									"raw": "{{Second created jurisdiction}}",
 									"host": [
-										"{{Created group}}"
+										"{{Second created jurisdiction}}"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Delete second group",
+							"name": "Delete jurisdiction",
 							"event": [
 								{
 									"listen": "test",
@@ -21932,12 +25165,6 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns an empty body\", () => {\r",
-											"    const response = pm.response.text();\r",
-											"\r",
-											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -21948,225 +25175,9 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{Second created group}}",
+									"raw": "{{Created jurisdiction}}",
 									"host": [
-										"{{Second created group}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete permission type",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content status\", () => {\r",
-											"    const response = pm.response;\r",
-											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns an empty body\", () => {\r",
-											"    const response = pm.response.text();\r",
-											"\r",
-											"    pm.expect(response.length).to.equal(0);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{Created permission type}}",
-									"host": [
-										"{{Created permission type}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete permission",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content status\", () => {\r",
-											"    const response = pm.response;\r",
-											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns an empty body\", () => {\r",
-											"    const response = pm.response.text();\r",
-											"\r",
-											"    pm.expect(response.length).to.equal(0);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{Created permission}}",
-									"host": [
-										"{{Created permission}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete second permission",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content status\", () => {\r",
-											"    const response = pm.response;\r",
-											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns an empty body\", () => {\r",
-											"    const response = pm.response.text();\r",
-											"\r",
-											"    pm.expect(response.length).to.equal(0);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{Second created permission}}",
-									"host": [
-										"{{Second created permission}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete timezone",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content status\", () => {\r",
-											"    const response = pm.response;\r",
-											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns an empty body\", () => {\r",
-											"    const response = pm.response.text();\r",
-											"\r",
-											"    pm.expect(response.length).to.equal(0);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{Created timezone}}",
-									"host": [
-										"{{Created timezone}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete position",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content status\", () => {\r",
-											"    const response = pm.response;\r",
-											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns an empty body\", () => {\r",
-											"    const response = pm.response.text();\r",
-											"\r",
-											"    pm.expect(response.length).to.equal(0);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{Created position}}",
-									"host": [
-										"{{Created position}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete second position",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content status\", () => {\r",
-											"    const response = pm.response;\r",
-											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns an empty body\", () => {\r",
-											"    const response = pm.response.text();\r",
-											"\r",
-											"    pm.expect(response.length).to.equal(0);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{Second created position}}",
-									"host": [
-										"{{Second created position}}"
+										"{{Created jurisdiction}}"
 									]
 								}
 							},
@@ -22209,7 +25220,7 @@
 							"response": []
 						},
 						{
-							"name": "Delete jurisdiction",
+							"name": "Delete second position",
 							"event": [
 								{
 									"listen": "test",
@@ -22220,6 +25231,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -22230,16 +25247,16 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{Created jurisdiction}}",
+									"raw": "{{Second created position}}",
 									"host": [
-										"{{Created jurisdiction}}"
+										"{{Second created position}}"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Delete second jurisdiction",
+							"name": "Delete position",
 							"event": [
 								{
 									"listen": "test",
@@ -22250,6 +25267,12 @@
 											"\r",
 											"    pm.expect(response.code).to.equal(204);\r",
 											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -22260,9 +25283,297 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{Second created jurisdiction}}",
+									"raw": "{{Created position}}",
 									"host": [
-										"{{Second created jurisdiction}}"
+										"{{Created position}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete timezone",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created timezone}}",
+									"host": [
+										"{{Created timezone}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete second permission",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Second created permission}}",
+									"host": [
+										"{{Second created permission}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete permission",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created permission}}",
+									"host": [
+										"{{Created permission}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete permission type",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created permission type}}",
+									"host": [
+										"{{Created permission type}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete second group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Second created group}}",
+									"host": [
+										"{{Second created group}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created group}}",
+									"host": [
+										"{{Created group}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete second user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Second created user}}",
+									"host": [
+										"{{Second created user}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created user}}",
+									"host": [
+										"{{Created user}}"
 									]
 								}
 							},
@@ -22496,12 +25807,12 @@
 									}
 								],
 								"url": {
-									"raw": "{{Users endpoint}}/{{Incorrect user id}}",
+									"raw": "{{Users endpoint}}/{{Incorrect id}}",
 									"host": [
 										"{{Users endpoint}}"
 									],
 									"path": [
-										"{{Incorrect user id}}"
+										"{{Incorrect id}}"
 									]
 								}
 							},
@@ -23019,6 +26330,74 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Invalid composite key format",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 404 Not Found\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(404);\r",
+											"    pm.expect(response.status).to.equal(\"Not Found\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is JSON\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Problem schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Problem JSON contains expected values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.status).to.equal(404);\r",
+											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"description\": \"{{Flag definition description}}\",\n    \"note\": \"{{Modified flag definition note}}\",\n    \"defaultValue\": \"{{Flag definition default value}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Flags endpoint}}/{{Incorrect id}}",
+									"host": [
+										"{{Flags endpoint}}"
+									],
+									"path": [
+										"{{Incorrect id}}"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				}
@@ -23127,7 +26506,23 @@
 					"                    },",
 					"                    \"required\": [ \"href\" ],",
 					"                    \"additionalProperties\": false",
-					"                },                ",
+					"                },",
+					"                \"flags\": {",
+					"                    \"type\": \"object\",",
+					"                    \"properties\": {",
+					"                        \"href\": { \"type\": \"string\" }",
+					"                    },",
+					"                    \"required\": [ \"href\" ],",
+					"                    \"additionalProperties\": false",
+					"                },",
+					"                \"flagDefinitions\": {",
+					"                    \"type\": \"object\",",
+					"                    \"properties\": {",
+					"                        \"href\": { \"type\": \"string\" }",
+					"                    },",
+					"                    \"required\": [ \"href\" ],",
+					"                    \"additionalProperties\": false",
+					"                },",
 					"                \"profile\": {",
 					"                    \"type\": \"object\",",
 					"                    \"properties\": {",
@@ -23145,6 +26540,8 @@
 					"                \"groups\",",
 					"                \"timezones\",",
 					"                \"jurisdictions\",",
+					"                \"flags\",",
+					"                \"flagDefinitions\",",
 					"                \"profile\"",
 					"            ],",
 					"            \"additionalProperties\": false",
@@ -23196,748 +26593,863 @@
 	],
 	"variable": [
 		{
-			"id": "95cd45e9-2bf7-46ff-a7e7-7f474cadb87e",
+			"id": "945508ca-1880-465d-8e90-0b09e13c1a86",
 			"key": "Health endpoint",
 			"value": "{{Backoffice User Manager URL}}/actuator/health"
 		},
 		{
-			"id": "652041e8-9499-4819-aef5-e5e87710a139",
+			"id": "ee7cf52e-d7c3-4e0b-b10b-648f4ce4be80",
 			"key": "Home endpoint",
 			"value": "{{Backoffice User Manager URL}}/api/v1"
 		},
 		{
-			"id": "c58b8c2c-9aa8-4f05-a85f-df974fe80c5b",
+			"id": "8f5f68d6-38e6-46ff-8805-825dbc6393bc",
 			"key": "Authentication user",
 			"value": "Administrator"
 		},
 		{
-			"id": "e68f4261-2321-4406-b643-22b9fdd04278",
+			"id": "a273bc0e-ed5b-4046-ab6f-c03c42aa2953",
 			"key": "Authentication password",
 			"value": "1ncharge"
 		},
 		{
-			"id": "935c7e6e-9a38-4734-9284-c086913b0ecb",
+			"id": "afe33496-9ca6-4028-b8d3-f5760d0d9290",
+			"key": "Incorrect id",
+			"value": "9999999"
+		},
+		{
+			"id": "b5040b2a-97a9-4585-8bb2-c0ae719d3131",
 			"key": "Username",
 			"value": "ktsagkournis"
 		},
 		{
-			"id": "e953a094-cf5a-40d8-8e18-310db5af81a5",
+			"id": "740af35b-bf26-4d71-9f9e-204b000fadc8",
 			"key": "Modified username",
 			"value": "kstefanis"
 		},
 		{
-			"id": "bd597657-6c1f-464f-adef-09a6b72a0037",
+			"id": "bac25703-e948-4fd8-acb0-fbff06fb4e80",
 			"key": "Password",
 			"value": "T3t3nt3k"
 		},
 		{
-			"id": "0c868894-4c35-4504-8bc1-b6f9de557846",
+			"id": "af6f1806-795f-46b3-8be4-97a0804b0fa1",
 			"key": "First name",
 			"value": "Kostas"
 		},
 		{
-			"id": "ea9d3628-df1c-4a1d-84f7-9a5896dc3b26",
+			"id": "7059a101-b894-4c36-ab31-137454bfcccd",
 			"key": "Last name",
 			"value": "Tsagkournis"
 		},
 		{
-			"id": "86eee5db-1765-4461-b165-b61e6dd1ac24",
+			"id": "5eba4b8f-57af-45a5-8280-0597f97a416a",
 			"key": "Modified last name",
 			"value": "Stefanis"
 		},
 		{
-			"id": "21cf70ae-937c-448a-90f4-2b6cb654b07e",
+			"id": "3934f66b-deb3-42b7-8ce2-68bb339fa523",
 			"key": "Email",
 			"value": "ktsagkou@yahoo.gr"
 		},
 		{
-			"id": "170c271f-649f-43f8-9878-f94fadc001a9",
+			"id": "1d929a20-aced-4256-862e-cebbc242f6b9",
 			"key": "User status",
 			"value": "A"
 		},
 		{
-			"id": "6d0df3e1-90f7-41fd-bfb4-3c13a0440c2e",
+			"id": "b9579230-ff18-4cc1-b547-c20bff9e77c9",
 			"key": "Password expires",
 			"value": "Y"
 		},
 		{
-			"id": "2c12d5aa-6b92-43bb-82c4-b84d8b0209ba",
-			"key": "Incorrect user id",
-			"value": "9999999"
-		},
-		{
-			"id": "c011533b-e544-4607-882e-29a699e6c49b",
+			"id": "0ec72a22-f83e-4675-8588-98f32456e056",
 			"key": "Permission type name",
 			"value": "GDPR"
 		},
 		{
-			"id": "b80d93c0-ae00-472b-bd42-55e0af5d8045",
+			"id": "0c208668-78c6-4c98-bd7a-2e4233cbf859",
 			"key": "Permission type description",
 			"value": "GDPR permission type"
 		},
 		{
-			"id": "80fd9a58-1540-4813-b72a-ec291ccaebe4",
+			"id": "c8734969-a5ee-49ef-997f-5c0d24f58497",
 			"key": "Modified permission type description",
 			"value": "GDPR permission type value"
 		},
 		{
-			"id": "6225b6f1-3dbe-47de-bd2a-9abb190e3eae",
+			"id": "fc152539-58c6-4546-a6f1-1ee61b750c33",
 			"key": "Default permission type name",
 			"value": "GEN"
 		},
 		{
-			"id": "c0445395-ba46-4021-9235-789ba3420878",
+			"id": "94352309-ccb0-408a-b3c5-5d4b31cb817c",
 			"key": "Default permission type description",
 			"value": "Default permission type"
 		},
 		{
-			"id": "a77e81ec-4cb5-41ff-8f38-3b5b8652a7b1",
+			"id": "697bb8f6-b0df-4cf7-8e21-0488d0e9a1ed",
 			"key": "Display order",
 			"value": "0"
 		},
 		{
-			"id": "133ed69c-6852-4607-9280-25f89a95c6c5",
+			"id": "246b7e88-5264-4364-ae54-0a9894279d11",
 			"key": "Incorrect permission type id",
 			"value": "DFLT"
 		},
 		{
-			"id": "a21a0d41-2d50-45bc-88b3-b33822ba01ee",
+			"id": "e4f65e2f-17ab-494c-b710-ace6e1fac3a7",
 			"key": "Permission name",
 			"value": "CanViewSensitiveData"
 		},
 		{
-			"id": "059029a3-a677-44d4-a446-6d38c77077e0",
+			"id": "ca1058ee-121c-490d-b834-97497afe84da",
 			"key": "Permission description",
 			"value": "Can view sensitive data"
 		},
 		{
-			"id": "478710ac-1fea-4233-a8d6-5f02f60aa9de",
+			"id": "907d53f2-ef6e-4afc-8505-74e122fbd7fc",
 			"key": "Modified permission description",
 			"value": "Can access sensitive data"
 		},
 		{
-			"id": "c683b8a9-3f45-42bb-b8d1-18cdf9a40427",
+			"id": "c87f20c2-ef96-4064-ad28-0d6a9f1a34fc",
 			"key": "Incorrect permission id",
 			"value": "CanAccessSensitiveData"
 		},
 		{
-			"id": "a705af7d-619a-442a-b58d-a3bd82cc3f10",
+			"id": "d5c46b1f-0224-4b24-866d-e69fcb2f4e12",
 			"key": "Timezone name",
 			"value": "Europe/Bucharest"
 		},
 		{
-			"id": "f0205371-bd43-4f19-bc61-db24cc47de8c",
+			"id": "e92e3ad6-6fbe-4c46-b597-6a79d0fa5790",
 			"key": "Modified timezone name",
 			"value": "Europe/Cluj"
 		},
 		{
-			"id": "05d80082-a49d-4abd-85bb-bd2229345acf",
+			"id": "c8c77e22-e1da-4698-928e-e5123182a2b4",
 			"key": "Timezone status",
 			"value": "A"
 		},
 		{
-			"id": "0ac5f245-ab15-4d4e-951d-8baa0438b09e",
+			"id": "4f2e7290-9199-4eb7-abd8-c575bb663437",
 			"key": "Display",
 			"value": "Y"
 		},
 		{
-			"id": "d5ef1b73-3d3d-477a-84ca-e87934adb0db",
-			"key": "Incorrect timezone id",
-			"value": "9999999"
-		},
-		{
-			"id": "04e78a85-225c-41e0-b513-32bf171e1802",
+			"id": "fd71ac4f-9d3e-4a42-a5fb-f6581907063b",
 			"key": "Position name",
 			"value": "Software Engineer"
 		},
 		{
-			"id": "ebdbe593-7d71-45aa-8be0-194cf66af02a",
+			"id": "e3bee8e6-e3fc-485f-9861-5184ee121c58",
 			"key": "Modified position name",
 			"value": "Systems Engineer"
 		},
 		{
-			"id": "2e6a2c48-1a77-4ec0-9ccf-2bda16dec721",
+			"id": "552c731a-d1fc-4b3c-abd8-dee951019b1b",
 			"key": "Alternate position name",
 			"value": "QA Analyst"
 		},
 		{
-			"id": "be03b88f-8364-4f8d-9319-7e5c50060146",
-			"key": "Incorrect position id",
-			"value": "9999999"
-		},
-		{
-			"id": "0ad00cb4-099e-4d14-b8f7-c94d7bbb3622",
+			"id": "875e0d81-3c0e-4aa2-94d9-7044a39d1a28",
 			"key": "Group name",
 			"value": "Administrators"
 		},
 		{
-			"id": "89b6ead3-52c7-427b-8834-49d68abdc6d7",
+			"id": "6a7b2d81-82fa-4dc6-912b-c4281eaa7f1e",
 			"key": "Modified group name",
 			"value": "HR"
 		},
 		{
-			"id": "a911cfc6-0a99-4b81-9b8c-2daabd92a999",
-			"key": "Incorrect group id",
-			"value": "9999999"
-		},
-		{
-			"id": "beb2f3d7-e35d-4fc4-9fb8-87085e0a3952",
+			"id": "0118c44f-f46e-4b24-85a4-fffd73ef59eb",
 			"key": "Jurisdiction name",
 			"value": "GREECE"
 		},
 		{
-			"id": "38fd796b-5038-4fe1-89ed-a2ba4aabb2ab",
+			"id": "454c197b-1216-439d-877c-ce8e3a2bcd62",
 			"key": "Modified jurisdiction name",
 			"value": "AUSTRALIA"
 		},
 		{
-			"id": "35d49019-d7d3-4635-ba9c-bb52781bc44d",
-			"key": "Incorrect jurisdiction id",
-			"value": "9999999"
+			"id": "96a02565-96b9-4330-9fa1-a1d8cf842aee",
+			"key": "Flag value name",
+			"value": "IS_AUTOMATED"
 		},
 		{
-			"id": "85a9dc15-0892-40e8-ac34-68d6faf2a9c3",
+			"id": "bee064e8-40fc-4445-8e56-4b45ccc91f5c",
+			"key": "Flag value",
+			"value": "0"
+		},
+		{
+			"id": "0a851354-5885-44b9-80a5-4e15fef2f1d5",
+			"key": "Flag modified value",
+			"value": "1"
+		},
+		{
+			"id": "c4753c57-10da-458f-8826-fa9fae7e9482",
+			"key": "Incorrect flag id",
+			"value": "999999_FLAG"
+		},
+		{
+			"id": "a4141900-dc13-4bb8-86c4-919604e36d0e",
+			"key": "Flag definition name",
+			"value": "LANGUAGE"
+		},
+		{
+			"id": "eadbb3ab-949d-465e-8933-a6d416e38b54",
+			"key": "Flag definition description",
+			"value": "The user's language"
+		},
+		{
+			"id": "f709dadb-7be4-4416-bcb4-104756a5482c",
+			"key": "Flag definition note",
+			"value": "Only affects specific components"
+		},
+		{
+			"id": "018e8551-c1f8-469f-b369-ddbb54809791",
+			"key": "Flag definition default value",
+			"value": "English"
+		},
+		{
+			"id": "a8a827e4-0cf0-4a5d-9a83-1e03fe1e0337",
+			"key": "Modified flag definition note",
+			"value": "Only affects some components"
+		},
+		{
+			"id": "a2810494-a75a-4f78-8758-49df5186e77e",
 			"key": "Permission types endpoint",
 			"value": ""
 		},
 		{
-			"id": "bc5706c7-06e5-4ee8-a532-d48338d787ce",
+			"id": "69b947d4-689d-43ac-891e-7f2b14913b4c",
 			"key": "Permissions endpoint",
 			"value": ""
 		},
 		{
-			"id": "558a5cde-f7f1-4487-a4ea-f41327c97f3c",
+			"id": "eb7e2f3c-55bc-4d85-a5bc-00e19d7adcbf",
 			"key": "Positions endpoint",
 			"value": ""
 		},
 		{
-			"id": "4d15da27-42a7-49d7-916b-9041b9c7d919",
+			"id": "9b4d79ae-1a2f-4eb1-b95c-2eb6b779aefc",
 			"key": "Profile endpoint",
 			"value": ""
 		},
 		{
-			"id": "ec04363b-5fc1-45e4-9e44-5db0b25cf477",
+			"id": "edb5fb48-5a91-4ac6-a335-66484ce34842",
 			"key": "Timezones endpoint",
 			"value": ""
 		},
 		{
-			"id": "700643bf-90ca-496e-ab53-0d1ab8a41209",
+			"id": "5c2b156f-29d3-435d-81a3-30ff5c2d078a",
 			"key": "Users endpoint",
 			"value": ""
 		},
 		{
-			"id": "c0b455ef-7d44-4ae3-abf6-604e02aa8e57",
+			"id": "c443770d-496b-4272-b4ca-e57be043bd52",
 			"key": "Created user",
 			"value": ""
 		},
 		{
-			"id": "e21c6433-b2ea-4cb9-be7c-db48c777154d",
+			"id": "5ad66eab-7623-4dae-99f7-40478d782438",
 			"key": "Created user's id",
 			"value": ""
 		},
 		{
-			"id": "a64dcdcb-2ca5-406b-b904-91c71b22dda3",
+			"id": "617d59d6-00b8-42ef-80ae-5ada8c574561",
 			"key": "Created user's permissions",
 			"value": ""
 		},
 		{
-			"id": "1ecb09f7-976e-4ed6-95ab-43ad3890cace",
+			"id": "debe6982-d6d2-4bd6-b03d-80981e914f95",
 			"key": "Created user's position",
 			"value": ""
 		},
 		{
-			"id": "974c9431-9c58-4514-89ce-1521141873d7",
+			"id": "87d516e3-3729-45bb-a231-95dea3f93fc8",
 			"key": "Created user's timezone",
 			"value": ""
 		},
 		{
-			"id": "e8b38af2-02e6-48f4-9ae1-29fc7d4325b4",
+			"id": "89bf88b9-d245-46e0-8a55-dd461bcc749b",
 			"key": "Second created user",
 			"value": ""
 		},
 		{
-			"id": "4984cd0d-d401-49d0-9731-5d1b57d8473d",
+			"id": "d5862006-d7eb-4426-a98d-c14f62c4e3da",
 			"key": "Created permission type",
 			"value": ""
 		},
 		{
-			"id": "9d1b4abf-653a-4a6f-840d-c131d5f8d6df",
+			"id": "62b97a65-cf4b-4481-8458-08daf3178e1f",
 			"key": "Created permission type's permissions",
 			"value": ""
 		},
 		{
-			"id": "bb94bc3a-e6b4-430f-af1d-748f13d9e81c",
+			"id": "b3520ed1-3c9c-455b-96c6-ad20b4882fb4",
 			"key": "Second created permission type",
 			"value": ""
 		},
 		{
-			"id": "a5c5eae9-c6a6-4d9c-a12c-365b7509e000",
+			"id": "440dd297-1709-44f2-b261-77b41d308795",
 			"key": "Created permission",
 			"value": ""
 		},
 		{
-			"id": "d4b6f3f1-bfec-4717-b175-fec8c90f9386",
+			"id": "b6ece066-0cd8-4248-a4ed-71043dd38edd",
 			"key": "Created permission's type",
 			"value": ""
 		},
 		{
-			"id": "18d69243-c920-4eef-909b-17a272ddd90d",
+			"id": "1e549c07-aaa4-4067-bf4f-fe6ebb445a88",
 			"key": "Created permission's users",
 			"value": ""
 		},
 		{
-			"id": "e47b43b1-f049-48e7-8d28-2499347eb948",
+			"id": "16272213-fa67-425a-8915-18cd0292f54c",
 			"key": "Second created permission",
 			"value": ""
 		},
 		{
-			"id": "1857d41f-27f3-49ec-84d5-4a198cebead5",
+			"id": "77cf5008-9040-4142-96c8-cce49f65a87c",
 			"key": "Created timezone",
 			"value": ""
 		},
 		{
-			"id": "327a3228-c6a7-4abc-8caf-bbce01daf8e3",
+			"id": "b0a0ffc6-3f17-46a8-980e-6b5ad4fecdfa",
 			"key": "Created timezone's users",
 			"value": ""
 		},
 		{
-			"id": "f5b7f4d2-a0f8-417d-a94b-5bf7da7b1342",
+			"id": "ab2d5857-a4f5-4963-968c-464820c848b8",
 			"key": "Second created timezone",
 			"value": ""
 		},
 		{
-			"id": "927a2cd3-4361-4321-88ba-ee28cec5fb35",
+			"id": "e7a7fae7-b494-4c41-9c47-a31c40f1fafc",
 			"key": "Created position",
 			"value": ""
 		},
 		{
-			"id": "75aafcf7-6224-4efa-b31c-4c981ca468e7",
+			"id": "874d738c-a82d-4370-9b6b-83a516e2fd8a",
 			"key": "Created position's child positions",
 			"value": ""
 		},
 		{
-			"id": "3b8c50f0-abf0-44ce-bb07-0f33396e2aec",
+			"id": "e07b08a2-aeaf-4e7d-bc0f-e634491ea762",
 			"key": "Created position's parent position",
 			"value": ""
 		},
 		{
-			"id": "bd95158d-c8a3-405b-a9ec-9f7f3286941c",
+			"id": "66074421-cd99-4aac-94a1-316dc6e616dd",
 			"key": "Created position's users",
 			"value": ""
 		},
 		{
-			"id": "0f42ef00-1d6d-4292-bfaa-17da3f33ec8c",
+			"id": "2eff5e9e-e2f3-40c8-bb92-9b01a7c4ac03",
 			"key": "Second created position",
 			"value": ""
 		},
 		{
-			"id": "de2ba07c-16b4-4092-92f3-c48b70bf1972",
+			"id": "c6c4e098-299a-45e2-9bb3-1c7313ac38d1",
 			"key": "User schema",
 			"value": ""
 		},
 		{
-			"id": "3a088101-4995-45cb-ba50-661ae705f91d",
+			"id": "67b3832e-9652-4ce2-b008-f4fecb8a1343",
 			"key": "User collection schema",
 			"value": ""
 		},
 		{
-			"id": "31009a05-c862-47cd-a323-bc90ede102f3",
+			"id": "07e9b418-a006-4fd6-84aa-8ff96169c49d",
 			"key": "User item schema",
 			"value": ""
 		},
 		{
-			"id": "d2bd9224-13a1-42f3-b387-8c9561c4d273",
+			"id": "ef5e6c36-fb52-47e8-8cbb-1e09ebb26920",
 			"key": "User search schema",
 			"value": ""
 		},
 		{
-			"id": "30ecf4d2-791a-48b0-90ce-9ec8306cc617",
+			"id": "1f095c54-f728-4c25-82db-5c9a5fea7a48",
 			"key": "User search root schema",
 			"value": ""
 		},
 		{
-			"id": "dcbc06bc-6bfe-41f6-a21e-b51f4c9ee920",
+			"id": "8b33b2f6-a199-4f34-a9d8-d0a5695c1559",
 			"key": "User search term schema",
 			"value": ""
 		},
 		{
-			"id": "b66d41a2-dbf3-4eba-940e-9221184a642d",
+			"id": "2e7ca8eb-2bc4-4b7a-bda4-397f7e28c20e",
 			"key": "Permission type collection schema",
 			"value": ""
 		},
 		{
-			"id": "51965b57-6c1b-402f-8cb0-ec9398d9d864",
+			"id": "ad9cf955-322e-48f3-9bff-682c7b9fbabe",
 			"key": "Permission type item schema",
 			"value": ""
 		},
 		{
-			"id": "1e9694c0-b080-43ac-bdc8-ed5b250960af",
+			"id": "7cf6dc54-8b64-481c-949f-284b877e8bfb",
 			"key": "Permission collection schema",
 			"value": ""
 		},
 		{
-			"id": "67b630c4-e0b8-4db6-b033-a71be9e5c3e4",
+			"id": "f5c30d33-ea07-4ca5-aca6-598c455fba4b",
 			"key": "Permission item schema",
 			"value": ""
 		},
 		{
-			"id": "4d47581a-bf0f-454e-b306-2739623d2c93",
+			"id": "394d858d-5955-4ef3-b108-cff890068741",
 			"key": "Timezone collection schema",
 			"value": ""
 		},
 		{
-			"id": "9bd0834a-236c-4a45-bb84-d0c4d52a3087",
+			"id": "85e26f6a-e239-4b63-b368-a854b98f4a1d",
 			"key": "Timezone item schema",
 			"value": ""
 		},
 		{
-			"id": "edfd2bf7-42ab-4996-a1b0-8905f5698d79",
+			"id": "b7aeee4c-28e1-498d-863a-7066ff4bbd15",
 			"key": "Position collection schema",
 			"value": ""
 		},
 		{
-			"id": "5984d25f-36d6-4c13-9c2f-8b69c8de3298",
+			"id": "dbc8be22-fb4f-4278-802f-ae2e999d6432",
 			"key": "Position item schema",
 			"value": ""
 		},
 		{
-			"id": "70e5d8d1-5dad-465a-973e-17e5c9b109ac",
+			"id": "5bcfeaa1-916d-41ce-abb5-1884a0d432ac",
 			"key": "Actuator health schema",
 			"value": ""
 		},
 		{
-			"id": "f4236cfd-5042-4f7b-81b7-8ea89cadfb0a",
+			"id": "1f346b3b-2b94-4cb8-9597-503fc30702b6",
 			"key": "Entry point schema",
 			"value": ""
 		},
 		{
-			"id": "d1d73e31-928f-4e70-967b-b503bd6fd2e8",
+			"id": "c62efeb8-58f3-4324-b3d6-e5918d519e29",
 			"key": "Groups endpoint",
 			"value": ""
 		},
 		{
-			"id": "d8bfc3d3-b60f-42ba-a518-73bfc9846768",
+			"id": "2ade802b-7cb5-4d1c-8097-069d5c5b2627",
 			"key": "Group collection schema",
 			"value": ""
 		},
 		{
-			"id": "b80db673-b71a-41a3-894f-f6d33250903d",
+			"id": "414b15b8-2de4-40e2-bc0b-cde020039c84",
 			"key": "Group item schema",
 			"value": ""
 		},
 		{
-			"id": "fdf188e2-bcc5-4326-8c4b-f4569ca1ff6c",
+			"id": "d75288d2-65df-43b0-93ab-f08855c6f75f",
 			"key": "Created group",
 			"value": ""
 		},
 		{
-			"id": "8025d2d9-6fd2-432b-b109-582b04db19c5",
+			"id": "8c6d8729-db6d-4d56-b198-960feff26a1f",
 			"key": "Created group's id",
 			"value": ""
 		},
 		{
-			"id": "2c3477ae-940d-4721-8a72-2dfa46c89e96",
+			"id": "162092d4-45a3-4036-bb7b-7c71d76dc507",
 			"key": "Created group's owner",
 			"value": ""
 		},
 		{
-			"id": "454f8fbb-749b-40c3-be70-83e45b43d3b3",
+			"id": "47277bef-8185-412c-9d01-b8602c1f6028",
 			"key": "Second created group",
 			"value": ""
 		},
 		{
-			"id": "e2772c98-a115-4dd3-9359-0db149857f95",
+			"id": "3cca889c-de77-4df5-a02f-08699787fc67",
 			"key": "Created group's permissions",
 			"value": ""
 		},
 		{
-			"id": "70099619-cf51-4763-970d-4973183405fa",
+			"id": "e04b51e4-39b9-4d52-b578-10b4012a4220",
 			"key": "Created group's positions",
 			"value": ""
 		},
 		{
-			"id": "5e8c3da4-f2f2-4102-8c75-be06f482ec41",
+			"id": "651f5158-6c59-42c9-9fd5-7820026b3190",
 			"key": "Created group's users",
 			"value": ""
 		},
 		{
-			"id": "20f24827-6caa-46aa-af99-c130289f99bd",
+			"id": "55d21400-1131-4cc5-a979-5b4cbe2e41da",
 			"key": "Created user's groups",
 			"value": ""
 		},
 		{
-			"id": "201708be-8012-4bb9-bdad-2ed10370313e",
+			"id": "bed6dba8-6945-4183-b4a7-dcef125a78d5",
 			"key": "Created user's ownedGroups",
 			"value": ""
 		},
 		{
-			"id": "fe1e05cb-1145-4af1-bffd-56d8a8ca140c",
+			"id": "f5ced981-253e-414b-b4e7-cb2950b96b1b",
 			"key": "Created user's owned groups",
 			"value": ""
 		},
 		{
-			"id": "581b41f3-326d-4c9f-8151-5c7adcd08451",
+			"id": "0fd6bf6c-0666-4d9b-b5ff-7de5f4f99152",
 			"key": "Created position's groups",
 			"value": ""
 		},
 		{
-			"id": "deb9c9d5-f72f-46b5-abb9-a2f6eb30999d",
+			"id": "d5bca1dc-f535-4c5f-8233-3c5ac678061c",
 			"key": "Created permission's groups",
 			"value": ""
 		},
 		{
-			"id": "4baf6aca-cec5-4d95-8c10-056df91d8b19",
+			"id": "5b973c14-9413-40c5-815c-017beaf8bad9",
 			"key": "Second created group's id",
 			"value": ""
 		},
 		{
-			"id": "ac855554-983a-405b-90ac-7aac99bbed3e",
+			"id": "a99c0a53-252f-4da9-a23c-c823be427560",
 			"key": "Second created permission's type",
 			"value": ""
 		},
 		{
-			"id": "c7973a48-4c0d-441c-8605-215d7b098f3d",
+			"id": "74757ed1-350b-4a42-97bc-c2ab8798dc69",
 			"key": "Second created permission's users",
 			"value": ""
 		},
 		{
-			"id": "9de3c950-a15f-4b66-9e1a-8c4b251b97d2",
+			"id": "e03b233c-007b-416f-8d03-b75a5aecff88",
 			"key": "Second created permission's groups",
 			"value": ""
 		},
 		{
-			"id": "9f9b4e31-ba1c-4270-b454-f5da257e0c3a",
+			"id": "060df049-6816-456f-ab16-b4d9bacfa6b7",
 			"key": "Second created group's owner",
 			"value": ""
 		},
 		{
-			"id": "2bc412a8-ff91-42c2-a041-ab592030221f",
+			"id": "a7189f3d-2a7d-4fa6-99a1-055a869606cf",
 			"key": "Second created user's timezone",
 			"value": ""
 		},
 		{
-			"id": "7cb9c288-ec7f-4f78-a279-ec57dd8c12da",
+			"id": "bc7f5e19-e945-4f0c-89c4-65479f07d2a2",
 			"key": "Second created user's permissions",
 			"value": ""
 		},
 		{
-			"id": "67e7adf4-b88b-40e1-b4a1-06f670ebcc72",
+			"id": "897c4f8b-adf1-4802-a390-2bc14951270d",
 			"key": "Second created user's position",
 			"value": ""
 		},
 		{
-			"id": "6ed650f6-696f-440f-a938-8559758ad9c3",
+			"id": "1de25201-8688-45ba-9eee-91c501f05696",
 			"key": "Second created user's owned groups",
 			"value": ""
 		},
 		{
-			"id": "8a8b2646-b9bd-4662-800f-f3b952e98380",
+			"id": "c289c282-18a5-4a87-b592-8b3e67670c3b",
 			"key": "Second created user's groups",
 			"value": ""
 		},
 		{
-			"id": "9ea2edf2-a70f-4959-a46f-bd88728ba04e",
+			"id": "a674cf10-2be1-4f33-893f-3a993a1d29a4",
 			"key": "Second created user's id",
 			"value": ""
 		},
 		{
-			"id": "868f2537-9312-489f-8862-e6095024fda9",
+			"id": "9a258eb2-3b35-4ae4-8b94-90ed098e6c68",
 			"key": "Created permission's id",
 			"value": ""
 		},
 		{
-			"id": "ed4821ec-124b-4ca5-be0d-4f76d5f469a8",
+			"id": "0f45606f-a717-4332-af04-2120969c9b12",
 			"key": "Second created permission's id",
 			"value": ""
 		},
 		{
-			"id": "5b582f44-3652-415d-80ef-015c6643855c",
+			"id": "4da2a63d-bfff-408a-91cb-93ae3ade3b1f",
 			"key": "Second created group's users",
 			"value": ""
 		},
 		{
-			"id": "dca56bd4-1b12-4e4f-8b9d-8cbf90461819",
+			"id": "d0bd9d19-cc7d-4726-8425-8354817d8d40",
 			"key": "Second created group's permissions",
 			"value": ""
 		},
 		{
-			"id": "06c5f296-f597-4b4b-b733-39ed743ea21c",
+			"id": "91aa8b22-0a72-40df-93d6-edd24b9d8a5e",
 			"key": "Second created position's child positions",
 			"value": ""
 		},
 		{
-			"id": "eb5d538f-ca26-4a8b-a24e-df8ef7cde7c2",
+			"id": "65d1af3e-3203-4f83-9100-9ad500a42900",
 			"key": "Second created position's parent position",
 			"value": ""
 		},
 		{
-			"id": "06300642-3cc7-4c76-87b3-27c190183a61",
+			"id": "58b39d2d-5bd0-40a9-bb42-3d5aea7cf5ba",
 			"key": "Second created position's users",
 			"value": ""
 		},
 		{
-			"id": "f51c808b-0207-47c1-a987-921c4757ab69",
+			"id": "2ba8d8d2-466c-4662-a891-269e053af318",
 			"key": "Second created position's groups",
 			"value": ""
 		},
 		{
-			"id": "fd6012b5-b981-47c9-9995-3f8655e25e79",
+			"id": "61c35cc3-3b22-4729-a692-2ef73a9622bd",
 			"key": "Third created position",
 			"value": ""
 		},
 		{
-			"id": "c4ac0a0e-2ea1-4673-bde7-1d870725020d",
+			"id": "1d698499-e4bc-4c8b-bd78-30cd7c4c2459",
 			"key": "Third created position's child positions",
 			"value": ""
 		},
 		{
-			"id": "c7008a36-71f7-4330-911c-4c3aafe7d04d",
+			"id": "f2de1c22-1af8-4cbd-8e1c-3d8f9927a64f",
 			"key": "Third created position's parent position",
 			"value": ""
 		},
 		{
-			"id": "8325d928-07aa-477f-982d-bc6dec732d55",
+			"id": "83e2c04e-b1b2-4fbd-bcdf-e1a618b067e0",
 			"key": "Third created position's users",
 			"value": ""
 		},
 		{
-			"id": "137c2a0a-f877-44a3-838b-9c3e46efe37f",
+			"id": "785dad13-ffc9-470e-b45b-46055077c43a",
 			"key": "Third created position's groups",
 			"value": ""
 		},
 		{
-			"id": "d7af4769-0f80-497a-8aee-00db4d86810a",
+			"id": "208a5e83-68c4-4075-8a05-f3ed07725f71",
 			"key": "Second created group's positions",
 			"value": ""
 		},
 		{
-			"id": "98babd82-d00c-4292-bef5-04fd3cafffec",
+			"id": "999725ee-c2a3-49ec-903a-6edf85f8d5a0",
 			"key": "Problem schema",
 			"value": ""
 		},
 		{
-			"id": "f8ef115f-63fa-44c6-9433-2c2df1d04dab",
+			"id": "dd0d875e-5127-4d46-93c4-07c169cf5c64",
 			"key": "Problem: primary id required",
 			"value": "Primary identifier required"
 		},
 		{
-			"id": "b4c601a1-9435-4fab-a107-f778aeb66e21",
+			"id": "077d6d1b-5a6c-4160-bf1a-a3f5b5b04801",
 			"key": "Problem: primary id change",
 			"value": "Primary identifier change attempt"
 		},
 		{
-			"id": "1836b9ad-23f3-4aa2-9f6a-c30e58bd8955",
+			"id": "78bc5d9c-da61-4e40-9f70-07b4e435a1d0",
 			"key": "Problem: app violation",
 			"value": "Application level constraint violation"
 		},
 		{
-			"id": "1811897c-9de3-4341-be0b-dbf81709ec5a",
+			"id": "0199ac2f-f7ad-4d7e-8bed-1dbc03d43a64",
 			"key": "Problem: db violation",
 			"value": "Database level constraint violation"
 		},
 		{
-			"id": "02f33e04-93c0-4959-88b8-99171d9ddbb8",
+			"id": "122f1573-b2d4-4776-8415-420f1bd3d6b5",
 			"key": "Problem: enum violation",
 			"value": "Enumeration constraint violation"
 		},
 		{
-			"id": "7d9be19e-7375-4dec-9ee9-bfc423061991",
+			"id": "04646fe2-4cce-4b13-9e66-101499b93e91",
 			"key": "Problem: data type conversion",
 			"value": "Data type conversion failure"
 		},
 		{
-			"id": "fa12eed2-db63-4e53-9be3-5b2a6be9407b",
+			"id": "36b3ce2b-bcad-4160-92e8-ba46bb3fa70b",
 			"key": "Problem: missing input",
 			"value": "Missing input"
 		},
 		{
-			"id": "2cda75c1-f01a-4ebf-a776-98aecaa597ea",
+			"id": "8372702f-3036-45c3-adb8-19feeff07c65",
 			"key": "Problem: malformed input",
 			"value": "Malformed input"
 		},
 		{
-			"id": "f64f84b6-b2a4-4038-9c0a-fddbe8fcd741",
+			"id": "c1aeb220-3509-4197-9a29-4fbd09456d3a",
 			"key": "Problem: immutable id change",
 			"value": "Immutable identifier change attempt"
 		},
 		{
-			"id": "3af9e23a-23fe-47aa-a68f-cce4cad59de1",
+			"id": "c35b04dc-23d8-4aa8-a826-c9037e0907a5",
 			"key": "Problem: not found",
 			"value": "Not Found"
 		},
 		{
-			"id": "f0dff639-46d0-46a7-8643-0468ba96931f",
+			"id": "7a802dac-6881-4670-9e42-fb44ab48b604",
 			"key": "Problem: unauthorized",
 			"value": "Unauthorized"
 		},
 		{
-			"id": "2d08aa20-3814-4713-b462-8de768c923da",
+			"id": "e628ae10-d4e5-48c7-9fdf-9716c3bb4a1b",
 			"key": "Problem: forbidden",
 			"value": "Forbidden"
 		},
 		{
-			"id": "4dfc4363-99a8-4fa4-a116-64c874b655b4",
+			"id": "9fd43de7-5e8a-4d33-b8ab-90b92f00a877",
+			"key": "Problem: db integrity",
+			"value": "Database integrity violation"
+		},
+		{
+			"id": "c69579e1-d4c5-40a9-85c1-2546b254a4f0",
+			"key": "Problem: db unknown",
+			"value": "Unknown database level violation"
+		},
+		{
+			"id": "9174ec42-1d02-4ef3-8f57-ef771c6e8976",
 			"key": "Permission search root schema",
 			"value": ""
 		},
 		{
-			"id": "32f403af-42d1-4fde-9481-695e0aa69ed1",
+			"id": "0e144867-a59a-478a-b341-e992813c5bfd",
 			"key": "Permission search term schema",
 			"value": ""
 		},
 		{
-			"id": "6321d1eb-b0cb-4f95-954c-40786f2bf57f",
+			"id": "1d282662-4a39-4894-a94c-6fb72b033d10",
 			"key": "Jurisdictions endpoint",
 			"value": ""
 		},
 		{
-			"id": "1887393c-f716-4e1d-b720-74f840584ed5",
+			"id": "597898a5-235e-4d5f-a4fd-9228246bb69d",
 			"key": "Jurisdiction item schema",
 			"value": ""
 		},
 		{
-			"id": "920b8bdc-5cda-4d5d-beaf-6ed1debeed0b",
+			"id": "32310389-2924-4a6d-b8fc-70a7c12a3f4b",
 			"key": "Jurisdiction collection schema",
 			"value": ""
 		},
 		{
-			"id": "1290e70b-73d0-40b2-be6e-b92560ffb6ac",
+			"id": "86c87b5d-ee42-4c1f-9be9-543f6eb3a4db",
 			"key": "Created jurisdiction",
 			"value": ""
 		},
 		{
-			"id": "53f0889a-95c4-4a84-992a-46964fcc0bdb",
+			"id": "dbdf1374-28cb-4977-b25b-3cfa1832d7fe",
 			"key": "Created jurisdiction's groups",
 			"value": ""
 		},
 		{
-			"id": "9cd72ec9-e394-4b3c-8dce-7c792752acc7",
+			"id": "8a8a6a6e-1bc5-4ba6-8e6f-e2349ac1ece3",
 			"key": "Created jurisdiction's id",
 			"value": ""
 		},
 		{
-			"id": "d5a543cc-dcdf-41fd-98b4-36c8752d7218",
+			"id": "d0af0ac4-efbc-44ac-9306-311e82f3f628",
 			"key": "Second created jurisdiction",
 			"value": ""
 		},
 		{
-			"id": "f64966bf-03a1-4e54-9b88-7b080563307b",
+			"id": "93d10c6f-2909-48c0-b502-8061d9df701e",
 			"key": "Created group's jurisdictions",
 			"value": ""
 		},
 		{
-			"id": "31c601f1-f572-4a57-be8d-a0ee2d67f705",
+			"id": "550d9742-20d9-442d-bb49-4315cc4600ac",
 			"key": "Second created group's jurisdictions",
 			"value": ""
 		},
 		{
-			"id": "e2c5918b-50ac-46ce-ba8b-bb7e4aa97f8d",
+			"id": "1369c3f0-0c46-4f40-8109-cf77925ef204",
 			"key": "Second created jurisdiction's groups",
 			"value": ""
 		},
 		{
-			"id": "c36e32cb-e7ad-4f00-8c5a-6ee54b4b631b",
+			"id": "3c6921f7-5e5b-45f2-b034-4a4ae85b6136",
 			"key": "Second created jurisdiction's id",
+			"value": ""
+		},
+		{
+			"id": "e3c19d66-02d5-4462-9364-01599ad2c6b7",
+			"key": "Flag values endpoint",
+			"value": ""
+		},
+		{
+			"id": "937d8dea-a870-4ce9-9dbc-69366f740fbd",
+			"key": "Flag definitions endpoint",
+			"value": ""
+		},
+		{
+			"id": "1ed33e69-c30d-4815-ab64-ddc5d3c5cfee",
+			"key": "Flag definition item schema",
+			"value": ""
+		},
+		{
+			"id": "2f9e16cc-c545-43fc-9a07-85b86bbf1cdf",
+			"key": "Flag definition collection schema",
+			"value": ""
+		},
+		{
+			"id": "e7949fb8-95a6-4942-935c-18e5adc9fbb2",
+			"key": "Created flag definition",
+			"value": ""
+		},
+		{
+			"id": "f06d2ad1-7321-44c0-870f-49048b682563",
+			"key": "Created flag definition's flags",
+			"value": ""
+		},
+		{
+			"id": "5a624fa6-af44-4918-b0a0-12300760406d",
+			"key": "Created flag definition's id",
+			"value": ""
+		},
+		{
+			"id": "2429adb4-3c48-4e0e-988d-f5153ab4e322",
+			"key": "Second created flag definition",
+			"value": ""
+		},
+		{
+			"id": "7ddf6e28-c8f7-4026-b857-6f2b7b55fde6",
+			"key": "Second created flag definition's flags",
+			"value": ""
+		},
+		{
+			"id": "6ec046b5-21e7-4143-84dd-e28ce2945d0a",
+			"key": "Flags endpoint",
+			"value": ""
+		},
+		{
+			"id": "a772686d-1031-45dc-badc-2ae50bd7ce73",
+			"key": "Created flag definition's name",
+			"value": ""
+		},
+		{
+			"id": "d7583b31-e95d-4927-a1c9-db96d0b0d57b",
+			"key": "Flag item schema",
+			"value": ""
+		},
+		{
+			"id": "9ed22580-09bf-4df7-abcd-ece50b6185b1",
+			"key": "Flag collection schema",
+			"value": ""
+		},
+		{
+			"id": "3d18e485-e7e0-4c2a-9715-4d3bbff05ba0",
+			"key": "Created flag",
+			"value": ""
+		},
+		{
+			"id": "3e95f05e-44ee-4402-ad1c-fda98b50a8fa",
+			"key": "Created flag's definition",
+			"value": ""
+		},
+		{
+			"id": "e14683b8-9ecf-4e6e-bb22-f0c4f979cbd8",
+			"key": "Created flag's user",
 			"value": ""
 		}
 	]
