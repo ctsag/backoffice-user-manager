@@ -21,6 +21,7 @@ The areas all implementations must cover are :
 | **Integration testing**      | REST Assured                | Spring Test              | ???              | ???               | ???               | ???            | ???            | ???            |
 | **BDD automation**           | Cucumber                    | FitNesse                 | ???              | ???               | ???               | ???            | ???            | ???            |
 | **Database migrations**      | Liquibase (manual)          | Liquibase (automatic)    | Flyway           | Liquibase (Maven) | ???               | ???            | ???            | ???            |
+| **Secret management**        | None                        | Jasypt                   | ???              | ???               | ???               | ???            | ???            | ???            |
 | **Monitoring**               | Actuator                    | Micrometer               | ???              | ???               | ???               | ???            | ???            | ???            |
 | **Build tool**               | Maven                       | Maven                    | Gradle           | ???               | ???               | ???            | ???            | ???            |
 | **Build automation**         | GitHub Actions              | GitHub Actions           | Jenkins          | Travis CI         | Circle CI         | GoCD           | ???            | ???            |
