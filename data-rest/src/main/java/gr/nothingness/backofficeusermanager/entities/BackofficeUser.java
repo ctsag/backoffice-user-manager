@@ -26,6 +26,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
+import javax.persistence.PreRemove;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -217,6 +218,11 @@ public class BackofficeUser {
       password = passwordEncoder.encode(password);
       passwordSalt = passwordEncoder.getSalt();
     }
+  }
+
+  @PreRemove
+  private void removeOwnedGroups() {
+    ownedGroups.forEach(group -> group.setOwner(null));
   }
 
 }
