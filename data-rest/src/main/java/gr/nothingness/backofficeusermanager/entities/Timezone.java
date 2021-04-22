@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.OneToMany;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -75,5 +76,10 @@ public class Timezone {
   @OneToMany(mappedBy = "timezone")
   @JsonIgnore
   @Getter @Setter private Set<BackofficeUser> users;
+
+  @PreRemove
+  private void disassociateUsers() {
+    users.forEach(user -> user.setTimezone(null));
+  }
 
 }

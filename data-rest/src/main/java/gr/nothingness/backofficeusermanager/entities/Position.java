@@ -15,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -54,5 +55,10 @@ public class Position {
       inverseJoinColumns = @JoinColumn(name = "group_id")
   )
   @Getter @Setter private Set<BackofficeGroup> groups;
+
+  @PreRemove
+  private void disassociateUsers() {
+    users.forEach(user -> user.setPosition(null));
+  }
 
 }
