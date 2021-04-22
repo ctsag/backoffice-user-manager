@@ -1,0 +1,90 @@
+<?xml version="1.1" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="tadminuserop-foreign-keys" author="ctsag">
+        <sqlFile path="migrations/1.0.11/tadminuserop-foreign-keys.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.11/rollback_tadminuserop-foreign-keys.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminuserop_aud-create" author="ctsag">
+        <sqlFile path="migrations/1.0.11/tadminuserop_aud-create.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.11/rollback_tadminuserop_aud-create.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminuserop_aud-index-aud_order" author="ctsag">
+        <sqlFile path="migrations/1.0.11/tadminuserop_aud-index-aud_order.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.11/rollback_tadminuserop_aud-index-aud_order.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminuserop_aud-index-user_id-aud_order" author="ctsag">
+        <sqlFile path="migrations/1.0.11/tadminuserop_aud-index-user_id-aud_order.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.11/rollback_tadminuserop_aud-index-user_id-aud_order.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminuserop_aud-primary-key" author="ctsag">
+        <sqlFile path="migrations/1.0.11/tadminuserop_aud-primary-key.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.11/rollback_tadminuserop_aud-primary-key.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="paudadminuserop-create" author="ctsag">
+        <sqlFile path="migrations/1.0.11/paudadminuserop-create.sql" endDelimiter="--END"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.11/rollback_paudadminuserop-create.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminuserop_aud-trigger-insert" author="ctsag">
+        <sqlFile path="migrations/1.0.11/tadminuserop_aud-trigger-insert.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.11/rollback_tadminuserop_aud-trigger-insert.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminuserop_aud-trigger-update" author="ctsag">
+        <sqlFile path="migrations/1.0.11/tadminuserop_aud-trigger-update.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.11/rollback_tadminuserop_aud-trigger-update.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminuserop_aud-trigger-delete" author="ctsag">
+        <sqlFile path="migrations/1.0.11/tadminuserop_aud-trigger-delete.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.11/rollback_tadminuserop_aud-trigger-delete.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminusergroup-rename-foreign-key-user_id" author="ctsag">
+        <sqlFile path="migrations/1.0.11/tadminusergroup-rename-foreign-key-user_id.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.11/rollback_tadminusergroup-rename-foreign-key-user_id.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminusergroup-rename-foreign-key-action" author="ctsag">
+        <sqlFile path="migrations/1.0.11/tadminusergroup-rename-foreign-key-action.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.11/rollback_tadminusergroup-rename-foreign-key-action.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tag-1.0.11" author="ctsag">
+        <tagDatabase tag="1.0.11"/>
+    </changeSet>
+
+</databaseChangeLog>
