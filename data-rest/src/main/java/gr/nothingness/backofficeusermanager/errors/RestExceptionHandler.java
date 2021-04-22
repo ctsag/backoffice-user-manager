@@ -46,11 +46,17 @@ public class RestExceptionHandler {
         .andInstance(request.getRequestURI())
         .build();
 
-    Throwable sqlException = exception.getSQLException().getCause();
+    Throwable sqlException = exception.getSQLException();
+
+    if (sqlException.getCause() != null) {
+      sqlException = sqlException.getCause();
+    }
+
     FailureDetail failureDetail = FailureDetail
         .withMessage(
             sqlException
                 .getMessage()
+                .replaceFirst("constraint \\((.+?)\\) ", "constraint ")
                 .replaceFirst("ISAM error: {2}", "")
                 .replaceAll(".$", "")
         )
