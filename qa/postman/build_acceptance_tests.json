@@ -14923,6 +14923,7 @@
 											"    pm.collectionVariables.set(\"Created user's position\", jsonData._links.position.href);\r",
 											"    pm.collectionVariables.set(\"Created user's owned groups\", jsonData._links.ownedGroups.href);\r",
 											"    pm.collectionVariables.set(\"Created user's groups\", jsonData._links.groups.href);\r",
+											"    pm.collectionVariables.set(\"Created user's flags\", jsonData._links.flags.href);\r",
 											"    pm.collectionVariables.set(\"Created user's id\", jsonData.id);\r",
 											"});"
 										],
@@ -14978,6 +14979,7 @@
 											"    pm.collectionVariables.set(\"Second created user's position\", jsonData._links.position.href);\r",
 											"    pm.collectionVariables.set(\"Second created user's owned groups\", jsonData._links.ownedGroups.href);\r",
 											"    pm.collectionVariables.set(\"Second created user's groups\", jsonData._links.groups.href);\r",
+											"    pm.collectionVariables.set(\"Second created user's flags\", jsonData._links.flags.href);\r",
 											"    pm.collectionVariables.set(\"Second created user's id\", jsonData.id);\r",
 											"});"
 										],
@@ -17887,6 +17889,719 @@
 									"raw": "{{Second created user's groups}}",
 									"host": [
 										"{{Second created user's groups}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Many users can have many flag definitions",
+					"item": [
+						{
+							"name": "Assign first flag definition to first user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Flag item schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected attribute values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.value).to.equal(pm.collectionVariables.get(\"Flag value\"));\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created flag\", jsonData._links.flag.href);\r",
+											"    pm.collectionVariables.set(\"Created flag's value\", jsonData._links.flag.value);\r",
+											"    pm.collectionVariables.set(\"Created flag's definition\", jsonData._links.flagDefinition.href);\r",
+											"    pm.collectionVariables.set(\"Created flag's user\", jsonData._links.user.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"id\": {\n        \"flagName\": \"{{Created flag definition's name}}\",\n        \"userId\": \"{{Created user's id}}\"\n    },\n    \"value\": \"{{Flag value}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Flags endpoint}}",
+									"host": [
+										"{{Flags endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign second flag definition to first user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Flag item schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected attribute values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.value).to.equal(pm.collectionVariables.get(\"Flag value\"));\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Second created flag\", jsonData._links.flag.href);\r",
+											"    pm.collectionVariables.set(\"Second created flag's value\", jsonData._links.flag.value);\r",
+											"    pm.collectionVariables.set(\"Second created flag's definition\", jsonData._links.flagDefinition.href);\r",
+											"    pm.collectionVariables.set(\"Second created flag's user\", jsonData._links.user.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"id\": {\n        \"flagName\": \"{{Incorrect id}}\",\n        \"userId\": \"{{Created user's id}}\"\n    },\n    \"value\": \"{{Flag value}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Flags endpoint}}",
+									"host": [
+										"{{Flags endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign first flag definition to second user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Flag item schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected attribute values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.value).to.equal(pm.collectionVariables.get(\"Flag value\"));\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Third created flag\", jsonData._links.flag.href);\r",
+											"    pm.collectionVariables.set(\"Third created flag's value\", jsonData._links.flag.value);\r",
+											"    pm.collectionVariables.set(\"Third created flag's definition\", jsonData._links.flagDefinition.href);\r",
+											"    pm.collectionVariables.set(\"Third created flag's user\", jsonData._links.user.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"id\": {\n        \"flagName\": \"{{Created flag definition's name}}\",\n        \"userId\": \"{{Second created user's id}}\"\n    },\n    \"value\": \"{{Flag value}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Flags endpoint}}",
+									"host": [
+										"{{Flags endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign second flag definition to second user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Flag item schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected attribute values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.value).to.equal(pm.collectionVariables.get(\"Flag value\"));\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Fourth created flag\", jsonData._links.flag.href);\r",
+											"    pm.collectionVariables.set(\"Fourth created flag's value\", jsonData._links.flag.value);\r",
+											"    pm.collectionVariables.set(\"Fourth created flag's definition\", jsonData._links.flagDefinition.href);\r",
+											"    pm.collectionVariables.set(\"Fourth created flag's user\", jsonData._links.user.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"id\": {\n        \"flagName\": \"{{Incorrect id}}\",\n        \"userId\": \"{{Second created user's id}}\"\n    },\n    \"value\": \"{{Flag value}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Flags endpoint}}",
+									"host": [
+										"{{Flags endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve first user's flags",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains created flag\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const flags = jsonData._embedded.flags;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < flags.length; i++) {\r",
+											"        if (flags[i]._links.flag.href == pm.collectionVariables.get(\"Created flag\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains second created flag\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const flags = jsonData._embedded.flags;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < flags.length; i++) {\r",
+											"        if (flags[i]._links.flag.href == pm.collectionVariables.get(\"Second created flag\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created user's flags}}",
+									"host": [
+										"{{Created user's flags}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve second user's flags",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains third created flag\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const flags = jsonData._embedded.flags;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < flags.length; i++) {\r",
+											"        if (flags[i]._links.flag.href == pm.collectionVariables.get(\"Third created flag\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains fourth created flag\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const flags = jsonData._embedded.flags;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < flags.length; i++) {\r",
+											"        if (flags[i]._links.flag.href == pm.collectionVariables.get(\"Fourth created flag\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Second created user's flags}}",
+									"host": [
+										"{{Second created user's flags}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deassign first flag definition from first user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"url": {
+									"raw": "{{Created flag}}",
+									"host": [
+										"{{Created flag}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deassign second flag definition from first user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"url": {
+									"raw": "{{Second created flag}}",
+									"host": [
+										"{{Second created flag}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deassign first flag definition from second user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"url": {
+									"raw": "{{Third created flag}}",
+									"host": [
+										"{{Third created flag}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deassign second flag definition from second user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"url": {
+									"raw": "{{Fourth created flag}}",
+									"host": [
+										"{{Fourth created flag}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve first user's flags",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain created flag\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const flags = jsonData._embedded.flags;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < flags.length; i++) {\r",
+											"        if (flags[i]._links.flag.href == pm.collectionVariables.get(\"Created flag\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contains second created flag\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const flags = jsonData._embedded.flags;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < flags.length; i++) {\r",
+											"        if (flags[i]._links.flag.href == pm.collectionVariables.get(\"Second created flag\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created user's flags}}",
+									"host": [
+										"{{Created user's flags}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve second user's flags",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain third created flag\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const flags = jsonData._embedded.flags;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < flags.length; i++) {\r",
+											"        if (flags[i]._links.flag.href == pm.collectionVariables.get(\"Third created flag\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain fourth created flag\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const flags = jsonData._embedded.flags;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < flags.length; i++) {\r",
+											"        if (flags[i]._links.flag.href == pm.collectionVariables.get(\"Fourth created flag\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Second created user's flags}}",
+									"host": [
+										"{{Second created user's flags}}"
 									]
 								}
 							},
@@ -25061,6 +25776,719 @@
 					]
 				},
 				{
+					"name": "Many flag definitions can be assigned to many users",
+					"item": [
+						{
+							"name": "Assign first flag definition to first user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Flag item schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected attribute values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.value).to.equal(pm.collectionVariables.get(\"Flag value\"));\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created flag\", jsonData._links.flag.href);\r",
+											"    pm.collectionVariables.set(\"Created flag's value\", jsonData._links.flag.value);\r",
+											"    pm.collectionVariables.set(\"Created flag's definition\", jsonData._links.flagDefinition.href);\r",
+											"    pm.collectionVariables.set(\"Created flag's user\", jsonData._links.user.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"id\": {\n        \"flagName\": \"{{Created flag definition's name}}\",\n        \"userId\": \"{{Created user's id}}\"\n    },\n    \"value\": \"{{Flag value}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Flags endpoint}}",
+									"host": [
+										"{{Flags endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign first flag definition to second user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Flag item schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected attribute values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.value).to.equal(pm.collectionVariables.get(\"Flag value\"));\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Second created flag\", jsonData._links.flag.href);\r",
+											"    pm.collectionVariables.set(\"Second created flag's value\", jsonData._links.flag.value);\r",
+											"    pm.collectionVariables.set(\"Second created flag's definition\", jsonData._links.flagDefinition.href);\r",
+											"    pm.collectionVariables.set(\"Second created flag's user\", jsonData._links.user.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"id\": {\n        \"flagName\": \"{{Created flag definition's name}}\",\n        \"userId\": \"{{Second created user's id}}\"\n    },\n    \"value\": \"{{Flag value}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Flags endpoint}}",
+									"host": [
+										"{{Flags endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign second flag definition to first user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Flag item schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected attribute values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.value).to.equal(pm.collectionVariables.get(\"Flag value\"));\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Third created flag\", jsonData._links.flag.href);\r",
+											"    pm.collectionVariables.set(\"Third created flag's value\", jsonData._links.flag.value);\r",
+											"    pm.collectionVariables.set(\"Third created flag's definition\", jsonData._links.flagDefinition.href);\r",
+											"    pm.collectionVariables.set(\"Third created flag's user\", jsonData._links.user.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"id\": {\n        \"flagName\": \"{{Incorrect id}}\",\n        \"userId\": \"{{Created user's id}}\"\n    },\n    \"value\": \"{{Flag value}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Flags endpoint}}",
+									"host": [
+										"{{Flags endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign second flag definition to second user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Flag item schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected attribute values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.value).to.equal(pm.collectionVariables.get(\"Flag value\"));\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Fourth created flag\", jsonData._links.flag.href);\r",
+											"    pm.collectionVariables.set(\"Fourth created flag's value\", jsonData._links.flag.value);\r",
+											"    pm.collectionVariables.set(\"Fourth created flag's definition\", jsonData._links.flagDefinition.href);\r",
+											"    pm.collectionVariables.set(\"Fourth created flag's user\", jsonData._links.user.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"id\": {\n        \"flagName\": \"{{Incorrect id}}\",\n        \"userId\": \"{{Second created user's id}}\"\n    },\n    \"value\": \"{{Flag value}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Flags endpoint}}",
+									"host": [
+										"{{Flags endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve first flag definition's flags",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains created flag\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const flags = jsonData._embedded.flags;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < flags.length; i++) {\r",
+											"        if (flags[i]._links.flag.href == pm.collectionVariables.get(\"Created flag\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains second created flag\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const flags = jsonData._embedded.flags;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < flags.length; i++) {        \r",
+											"        if (flags[i]._links.flag.href == pm.collectionVariables.get(\"Second created flag\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created flag definition's flags}}",
+									"host": [
+										"{{Created flag definition's flags}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve second flag definition's flags",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains third created flag\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const flags = jsonData._embedded.flags;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < flags.length; i++) {\r",
+											"        if (flags[i]._links.flag.href == pm.collectionVariables.get(\"Third created flag\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains fourth created flag\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const flags = jsonData._embedded.flags;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < flags.length; i++) {\r",
+											"        if (flags[i]._links.flag.href == pm.collectionVariables.get(\"Fourth created flag\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Second created flag definition's flags}}",
+									"host": [
+										"{{Second created flag definition's flags}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deassign first flag definition from first user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"url": {
+									"raw": "{{Created flag}}",
+									"host": [
+										"{{Created flag}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deassign first flag definition from second user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"url": {
+									"raw": "{{Second created flag}}",
+									"host": [
+										"{{Second created flag}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deassign second flag definition from first user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"url": {
+									"raw": "{{Third created flag}}",
+									"host": [
+										"{{Third created flag}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deassign second flag definition from second user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"url": {
+									"raw": "{{Fourth created flag}}",
+									"host": [
+										"{{Fourth created flag}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve first flag definition's flags",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain created flag\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const flags = jsonData._embedded.flags;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < flags.length; i++) {\r",
+											"        if (flags[i]._links.flag.href == pm.collectionVariables.get(\"Created flag\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contains second created flag\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const flags = jsonData._embedded.flags;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < flags.length; i++) {\r",
+											"        if (flags[i]._links.flag.href == pm.collectionVariables.get(\"Second created flag\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created flag definition's flags}}",
+									"host": [
+										"{{Created flag definition's flags}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve second flag definition's flags",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain third created flag\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const flags = jsonData._embedded.flags;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < flags.length; i++) {\r",
+											"        if (flags[i]._links.flag.href == pm.collectionVariables.get(\"Third created flag\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain fourth created flag\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const flags = jsonData._embedded.flags;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < flags.length; i++) {\r",
+											"        if (flags[i]._links.flag.href == pm.collectionVariables.get(\"Fourth created flag\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Second created flag definition's flags}}",
+									"host": [
+										"{{Second created flag definition's flags}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
 					"name": "Teardown",
 					"item": [
 						{
@@ -26593,863 +28021,751 @@
 	],
 	"variable": [
 		{
-			"id": "945508ca-1880-465d-8e90-0b09e13c1a86",
 			"key": "Health endpoint",
 			"value": "{{Backoffice User Manager URL}}/actuator/health"
 		},
 		{
-			"id": "ee7cf52e-d7c3-4e0b-b10b-648f4ce4be80",
 			"key": "Home endpoint",
 			"value": "{{Backoffice User Manager URL}}/api/v1"
 		},
 		{
-			"id": "8f5f68d6-38e6-46ff-8805-825dbc6393bc",
 			"key": "Authentication user",
 			"value": "Administrator"
 		},
 		{
-			"id": "a273bc0e-ed5b-4046-ab6f-c03c42aa2953",
 			"key": "Authentication password",
 			"value": "1ncharge"
 		},
 		{
-			"id": "afe33496-9ca6-4028-b8d3-f5760d0d9290",
 			"key": "Incorrect id",
 			"value": "9999999"
 		},
 		{
-			"id": "b5040b2a-97a9-4585-8bb2-c0ae719d3131",
 			"key": "Username",
 			"value": "ktsagkournis"
 		},
 		{
-			"id": "740af35b-bf26-4d71-9f9e-204b000fadc8",
 			"key": "Modified username",
 			"value": "kstefanis"
 		},
 		{
-			"id": "bac25703-e948-4fd8-acb0-fbff06fb4e80",
 			"key": "Password",
 			"value": "T3t3nt3k"
 		},
 		{
-			"id": "af6f1806-795f-46b3-8be4-97a0804b0fa1",
 			"key": "First name",
 			"value": "Kostas"
 		},
 		{
-			"id": "7059a101-b894-4c36-ab31-137454bfcccd",
 			"key": "Last name",
 			"value": "Tsagkournis"
 		},
 		{
-			"id": "5eba4b8f-57af-45a5-8280-0597f97a416a",
 			"key": "Modified last name",
 			"value": "Stefanis"
 		},
 		{
-			"id": "3934f66b-deb3-42b7-8ce2-68bb339fa523",
 			"key": "Email",
 			"value": "ktsagkou@yahoo.gr"
 		},
 		{
-			"id": "1d929a20-aced-4256-862e-cebbc242f6b9",
 			"key": "User status",
 			"value": "A"
 		},
 		{
-			"id": "b9579230-ff18-4cc1-b547-c20bff9e77c9",
 			"key": "Password expires",
 			"value": "Y"
 		},
 		{
-			"id": "0ec72a22-f83e-4675-8588-98f32456e056",
 			"key": "Permission type name",
 			"value": "GDPR"
 		},
 		{
-			"id": "0c208668-78c6-4c98-bd7a-2e4233cbf859",
 			"key": "Permission type description",
 			"value": "GDPR permission type"
 		},
 		{
-			"id": "c8734969-a5ee-49ef-997f-5c0d24f58497",
 			"key": "Modified permission type description",
 			"value": "GDPR permission type value"
 		},
 		{
-			"id": "fc152539-58c6-4546-a6f1-1ee61b750c33",
 			"key": "Default permission type name",
 			"value": "GEN"
 		},
 		{
-			"id": "94352309-ccb0-408a-b3c5-5d4b31cb817c",
 			"key": "Default permission type description",
 			"value": "Default permission type"
 		},
 		{
-			"id": "697bb8f6-b0df-4cf7-8e21-0488d0e9a1ed",
 			"key": "Display order",
 			"value": "0"
 		},
 		{
-			"id": "246b7e88-5264-4364-ae54-0a9894279d11",
 			"key": "Incorrect permission type id",
 			"value": "DFLT"
 		},
 		{
-			"id": "e4f65e2f-17ab-494c-b710-ace6e1fac3a7",
 			"key": "Permission name",
 			"value": "CanViewSensitiveData"
 		},
 		{
-			"id": "ca1058ee-121c-490d-b834-97497afe84da",
 			"key": "Permission description",
 			"value": "Can view sensitive data"
 		},
 		{
-			"id": "907d53f2-ef6e-4afc-8505-74e122fbd7fc",
 			"key": "Modified permission description",
 			"value": "Can access sensitive data"
 		},
 		{
-			"id": "c87f20c2-ef96-4064-ad28-0d6a9f1a34fc",
 			"key": "Incorrect permission id",
 			"value": "CanAccessSensitiveData"
 		},
 		{
-			"id": "d5c46b1f-0224-4b24-866d-e69fcb2f4e12",
 			"key": "Timezone name",
 			"value": "Europe/Bucharest"
 		},
 		{
-			"id": "e92e3ad6-6fbe-4c46-b597-6a79d0fa5790",
 			"key": "Modified timezone name",
 			"value": "Europe/Cluj"
 		},
 		{
-			"id": "c8c77e22-e1da-4698-928e-e5123182a2b4",
 			"key": "Timezone status",
 			"value": "A"
 		},
 		{
-			"id": "4f2e7290-9199-4eb7-abd8-c575bb663437",
 			"key": "Display",
 			"value": "Y"
 		},
 		{
-			"id": "fd71ac4f-9d3e-4a42-a5fb-f6581907063b",
 			"key": "Position name",
 			"value": "Software Engineer"
 		},
 		{
-			"id": "e3bee8e6-e3fc-485f-9861-5184ee121c58",
 			"key": "Modified position name",
 			"value": "Systems Engineer"
 		},
 		{
-			"id": "552c731a-d1fc-4b3c-abd8-dee951019b1b",
 			"key": "Alternate position name",
 			"value": "QA Analyst"
 		},
 		{
-			"id": "875e0d81-3c0e-4aa2-94d9-7044a39d1a28",
 			"key": "Group name",
 			"value": "Administrators"
 		},
 		{
-			"id": "6a7b2d81-82fa-4dc6-912b-c4281eaa7f1e",
 			"key": "Modified group name",
 			"value": "HR"
 		},
 		{
-			"id": "0118c44f-f46e-4b24-85a4-fffd73ef59eb",
 			"key": "Jurisdiction name",
 			"value": "GREECE"
 		},
 		{
-			"id": "454c197b-1216-439d-877c-ce8e3a2bcd62",
 			"key": "Modified jurisdiction name",
 			"value": "AUSTRALIA"
 		},
 		{
-			"id": "96a02565-96b9-4330-9fa1-a1d8cf842aee",
 			"key": "Flag value name",
 			"value": "IS_AUTOMATED"
 		},
 		{
-			"id": "bee064e8-40fc-4445-8e56-4b45ccc91f5c",
 			"key": "Flag value",
 			"value": "0"
 		},
 		{
-			"id": "0a851354-5885-44b9-80a5-4e15fef2f1d5",
 			"key": "Flag modified value",
 			"value": "1"
 		},
 		{
-			"id": "c4753c57-10da-458f-8826-fa9fae7e9482",
 			"key": "Incorrect flag id",
 			"value": "999999_FLAG"
 		},
 		{
-			"id": "a4141900-dc13-4bb8-86c4-919604e36d0e",
 			"key": "Flag definition name",
 			"value": "LANGUAGE"
 		},
 		{
-			"id": "eadbb3ab-949d-465e-8933-a6d416e38b54",
 			"key": "Flag definition description",
 			"value": "The user's language"
 		},
 		{
-			"id": "f709dadb-7be4-4416-bcb4-104756a5482c",
 			"key": "Flag definition note",
 			"value": "Only affects specific components"
 		},
 		{
-			"id": "018e8551-c1f8-469f-b369-ddbb54809791",
 			"key": "Flag definition default value",
 			"value": "English"
 		},
 		{
-			"id": "a8a827e4-0cf0-4a5d-9a83-1e03fe1e0337",
 			"key": "Modified flag definition note",
 			"value": "Only affects some components"
 		},
 		{
-			"id": "a2810494-a75a-4f78-8758-49df5186e77e",
 			"key": "Permission types endpoint",
 			"value": ""
 		},
 		{
-			"id": "69b947d4-689d-43ac-891e-7f2b14913b4c",
 			"key": "Permissions endpoint",
 			"value": ""
 		},
 		{
-			"id": "eb7e2f3c-55bc-4d85-a5bc-00e19d7adcbf",
 			"key": "Positions endpoint",
 			"value": ""
 		},
 		{
-			"id": "9b4d79ae-1a2f-4eb1-b95c-2eb6b779aefc",
 			"key": "Profile endpoint",
 			"value": ""
 		},
 		{
-			"id": "edb5fb48-5a91-4ac6-a335-66484ce34842",
 			"key": "Timezones endpoint",
 			"value": ""
 		},
 		{
-			"id": "5c2b156f-29d3-435d-81a3-30ff5c2d078a",
 			"key": "Users endpoint",
 			"value": ""
 		},
 		{
-			"id": "c443770d-496b-4272-b4ca-e57be043bd52",
 			"key": "Created user",
 			"value": ""
 		},
 		{
-			"id": "5ad66eab-7623-4dae-99f7-40478d782438",
 			"key": "Created user's id",
 			"value": ""
 		},
 		{
-			"id": "617d59d6-00b8-42ef-80ae-5ada8c574561",
 			"key": "Created user's permissions",
 			"value": ""
 		},
 		{
-			"id": "debe6982-d6d2-4bd6-b03d-80981e914f95",
 			"key": "Created user's position",
 			"value": ""
 		},
 		{
-			"id": "87d516e3-3729-45bb-a231-95dea3f93fc8",
 			"key": "Created user's timezone",
 			"value": ""
 		},
 		{
-			"id": "89bf88b9-d245-46e0-8a55-dd461bcc749b",
 			"key": "Second created user",
 			"value": ""
 		},
 		{
-			"id": "d5862006-d7eb-4426-a98d-c14f62c4e3da",
 			"key": "Created permission type",
 			"value": ""
 		},
 		{
-			"id": "62b97a65-cf4b-4481-8458-08daf3178e1f",
 			"key": "Created permission type's permissions",
 			"value": ""
 		},
 		{
-			"id": "b3520ed1-3c9c-455b-96c6-ad20b4882fb4",
 			"key": "Second created permission type",
 			"value": ""
 		},
 		{
-			"id": "440dd297-1709-44f2-b261-77b41d308795",
 			"key": "Created permission",
 			"value": ""
 		},
 		{
-			"id": "b6ece066-0cd8-4248-a4ed-71043dd38edd",
 			"key": "Created permission's type",
 			"value": ""
 		},
 		{
-			"id": "1e549c07-aaa4-4067-bf4f-fe6ebb445a88",
 			"key": "Created permission's users",
 			"value": ""
 		},
 		{
-			"id": "16272213-fa67-425a-8915-18cd0292f54c",
 			"key": "Second created permission",
 			"value": ""
 		},
 		{
-			"id": "77cf5008-9040-4142-96c8-cce49f65a87c",
 			"key": "Created timezone",
 			"value": ""
 		},
 		{
-			"id": "b0a0ffc6-3f17-46a8-980e-6b5ad4fecdfa",
 			"key": "Created timezone's users",
 			"value": ""
 		},
 		{
-			"id": "ab2d5857-a4f5-4963-968c-464820c848b8",
 			"key": "Second created timezone",
 			"value": ""
 		},
 		{
-			"id": "e7a7fae7-b494-4c41-9c47-a31c40f1fafc",
 			"key": "Created position",
 			"value": ""
 		},
 		{
-			"id": "874d738c-a82d-4370-9b6b-83a516e2fd8a",
 			"key": "Created position's child positions",
 			"value": ""
 		},
 		{
-			"id": "e07b08a2-aeaf-4e7d-bc0f-e634491ea762",
 			"key": "Created position's parent position",
 			"value": ""
 		},
 		{
-			"id": "66074421-cd99-4aac-94a1-316dc6e616dd",
 			"key": "Created position's users",
 			"value": ""
 		},
 		{
-			"id": "2eff5e9e-e2f3-40c8-bb92-9b01a7c4ac03",
 			"key": "Second created position",
 			"value": ""
 		},
 		{
-			"id": "c6c4e098-299a-45e2-9bb3-1c7313ac38d1",
 			"key": "User schema",
 			"value": ""
 		},
 		{
-			"id": "67b3832e-9652-4ce2-b008-f4fecb8a1343",
 			"key": "User collection schema",
 			"value": ""
 		},
 		{
-			"id": "07e9b418-a006-4fd6-84aa-8ff96169c49d",
 			"key": "User item schema",
 			"value": ""
 		},
 		{
-			"id": "ef5e6c36-fb52-47e8-8cbb-1e09ebb26920",
 			"key": "User search schema",
 			"value": ""
 		},
 		{
-			"id": "1f095c54-f728-4c25-82db-5c9a5fea7a48",
 			"key": "User search root schema",
 			"value": ""
 		},
 		{
-			"id": "8b33b2f6-a199-4f34-a9d8-d0a5695c1559",
 			"key": "User search term schema",
 			"value": ""
 		},
 		{
-			"id": "2e7ca8eb-2bc4-4b7a-bda4-397f7e28c20e",
 			"key": "Permission type collection schema",
 			"value": ""
 		},
 		{
-			"id": "ad9cf955-322e-48f3-9bff-682c7b9fbabe",
 			"key": "Permission type item schema",
 			"value": ""
 		},
 		{
-			"id": "7cf6dc54-8b64-481c-949f-284b877e8bfb",
 			"key": "Permission collection schema",
 			"value": ""
 		},
 		{
-			"id": "f5c30d33-ea07-4ca5-aca6-598c455fba4b",
 			"key": "Permission item schema",
 			"value": ""
 		},
 		{
-			"id": "394d858d-5955-4ef3-b108-cff890068741",
 			"key": "Timezone collection schema",
 			"value": ""
 		},
 		{
-			"id": "85e26f6a-e239-4b63-b368-a854b98f4a1d",
 			"key": "Timezone item schema",
 			"value": ""
 		},
 		{
-			"id": "b7aeee4c-28e1-498d-863a-7066ff4bbd15",
 			"key": "Position collection schema",
 			"value": ""
 		},
 		{
-			"id": "dbc8be22-fb4f-4278-802f-ae2e999d6432",
 			"key": "Position item schema",
 			"value": ""
 		},
 		{
-			"id": "5bcfeaa1-916d-41ce-abb5-1884a0d432ac",
 			"key": "Actuator health schema",
 			"value": ""
 		},
 		{
-			"id": "1f346b3b-2b94-4cb8-9597-503fc30702b6",
 			"key": "Entry point schema",
 			"value": ""
 		},
 		{
-			"id": "c62efeb8-58f3-4324-b3d6-e5918d519e29",
 			"key": "Groups endpoint",
 			"value": ""
 		},
 		{
-			"id": "2ade802b-7cb5-4d1c-8097-069d5c5b2627",
 			"key": "Group collection schema",
 			"value": ""
 		},
 		{
-			"id": "414b15b8-2de4-40e2-bc0b-cde020039c84",
 			"key": "Group item schema",
 			"value": ""
 		},
 		{
-			"id": "d75288d2-65df-43b0-93ab-f08855c6f75f",
 			"key": "Created group",
 			"value": ""
 		},
 		{
-			"id": "8c6d8729-db6d-4d56-b198-960feff26a1f",
 			"key": "Created group's id",
 			"value": ""
 		},
 		{
-			"id": "162092d4-45a3-4036-bb7b-7c71d76dc507",
 			"key": "Created group's owner",
 			"value": ""
 		},
 		{
-			"id": "47277bef-8185-412c-9d01-b8602c1f6028",
 			"key": "Second created group",
 			"value": ""
 		},
 		{
-			"id": "3cca889c-de77-4df5-a02f-08699787fc67",
 			"key": "Created group's permissions",
 			"value": ""
 		},
 		{
-			"id": "e04b51e4-39b9-4d52-b578-10b4012a4220",
 			"key": "Created group's positions",
 			"value": ""
 		},
 		{
-			"id": "651f5158-6c59-42c9-9fd5-7820026b3190",
 			"key": "Created group's users",
 			"value": ""
 		},
 		{
-			"id": "55d21400-1131-4cc5-a979-5b4cbe2e41da",
 			"key": "Created user's groups",
 			"value": ""
 		},
 		{
-			"id": "bed6dba8-6945-4183-b4a7-dcef125a78d5",
 			"key": "Created user's ownedGroups",
 			"value": ""
 		},
 		{
-			"id": "f5ced981-253e-414b-b4e7-cb2950b96b1b",
 			"key": "Created user's owned groups",
 			"value": ""
 		},
 		{
-			"id": "0fd6bf6c-0666-4d9b-b5ff-7de5f4f99152",
 			"key": "Created position's groups",
 			"value": ""
 		},
 		{
-			"id": "d5bca1dc-f535-4c5f-8233-3c5ac678061c",
 			"key": "Created permission's groups",
 			"value": ""
 		},
 		{
-			"id": "5b973c14-9413-40c5-815c-017beaf8bad9",
 			"key": "Second created group's id",
 			"value": ""
 		},
 		{
-			"id": "a99c0a53-252f-4da9-a23c-c823be427560",
 			"key": "Second created permission's type",
 			"value": ""
 		},
 		{
-			"id": "74757ed1-350b-4a42-97bc-c2ab8798dc69",
 			"key": "Second created permission's users",
 			"value": ""
 		},
 		{
-			"id": "e03b233c-007b-416f-8d03-b75a5aecff88",
 			"key": "Second created permission's groups",
 			"value": ""
 		},
 		{
-			"id": "060df049-6816-456f-ab16-b4d9bacfa6b7",
 			"key": "Second created group's owner",
 			"value": ""
 		},
 		{
-			"id": "a7189f3d-2a7d-4fa6-99a1-055a869606cf",
 			"key": "Second created user's timezone",
 			"value": ""
 		},
 		{
-			"id": "bc7f5e19-e945-4f0c-89c4-65479f07d2a2",
 			"key": "Second created user's permissions",
 			"value": ""
 		},
 		{
-			"id": "897c4f8b-adf1-4802-a390-2bc14951270d",
 			"key": "Second created user's position",
 			"value": ""
 		},
 		{
-			"id": "1de25201-8688-45ba-9eee-91c501f05696",
 			"key": "Second created user's owned groups",
 			"value": ""
 		},
 		{
-			"id": "c289c282-18a5-4a87-b592-8b3e67670c3b",
 			"key": "Second created user's groups",
 			"value": ""
 		},
 		{
-			"id": "a674cf10-2be1-4f33-893f-3a993a1d29a4",
 			"key": "Second created user's id",
 			"value": ""
 		},
 		{
-			"id": "9a258eb2-3b35-4ae4-8b94-90ed098e6c68",
 			"key": "Created permission's id",
 			"value": ""
 		},
 		{
-			"id": "0f45606f-a717-4332-af04-2120969c9b12",
 			"key": "Second created permission's id",
 			"value": ""
 		},
 		{
-			"id": "4da2a63d-bfff-408a-91cb-93ae3ade3b1f",
 			"key": "Second created group's users",
 			"value": ""
 		},
 		{
-			"id": "d0bd9d19-cc7d-4726-8425-8354817d8d40",
 			"key": "Second created group's permissions",
 			"value": ""
 		},
 		{
-			"id": "91aa8b22-0a72-40df-93d6-edd24b9d8a5e",
 			"key": "Second created position's child positions",
 			"value": ""
 		},
 		{
-			"id": "65d1af3e-3203-4f83-9100-9ad500a42900",
 			"key": "Second created position's parent position",
 			"value": ""
 		},
 		{
-			"id": "58b39d2d-5bd0-40a9-bb42-3d5aea7cf5ba",
 			"key": "Second created position's users",
 			"value": ""
 		},
 		{
-			"id": "2ba8d8d2-466c-4662-a891-269e053af318",
 			"key": "Second created position's groups",
 			"value": ""
 		},
 		{
-			"id": "61c35cc3-3b22-4729-a692-2ef73a9622bd",
 			"key": "Third created position",
 			"value": ""
 		},
 		{
-			"id": "1d698499-e4bc-4c8b-bd78-30cd7c4c2459",
 			"key": "Third created position's child positions",
 			"value": ""
 		},
 		{
-			"id": "f2de1c22-1af8-4cbd-8e1c-3d8f9927a64f",
 			"key": "Third created position's parent position",
 			"value": ""
 		},
 		{
-			"id": "83e2c04e-b1b2-4fbd-bcdf-e1a618b067e0",
 			"key": "Third created position's users",
 			"value": ""
 		},
 		{
-			"id": "785dad13-ffc9-470e-b45b-46055077c43a",
 			"key": "Third created position's groups",
 			"value": ""
 		},
 		{
-			"id": "208a5e83-68c4-4075-8a05-f3ed07725f71",
 			"key": "Second created group's positions",
 			"value": ""
 		},
 		{
-			"id": "999725ee-c2a3-49ec-903a-6edf85f8d5a0",
 			"key": "Problem schema",
 			"value": ""
 		},
 		{
-			"id": "dd0d875e-5127-4d46-93c4-07c169cf5c64",
 			"key": "Problem: primary id required",
 			"value": "Primary identifier required"
 		},
 		{
-			"id": "077d6d1b-5a6c-4160-bf1a-a3f5b5b04801",
 			"key": "Problem: primary id change",
 			"value": "Primary identifier change attempt"
 		},
 		{
-			"id": "78bc5d9c-da61-4e40-9f70-07b4e435a1d0",
 			"key": "Problem: app violation",
 			"value": "Application level constraint violation"
 		},
 		{
-			"id": "0199ac2f-f7ad-4d7e-8bed-1dbc03d43a64",
 			"key": "Problem: db violation",
 			"value": "Database level constraint violation"
 		},
 		{
-			"id": "122f1573-b2d4-4776-8415-420f1bd3d6b5",
 			"key": "Problem: enum violation",
 			"value": "Enumeration constraint violation"
 		},
 		{
-			"id": "04646fe2-4cce-4b13-9e66-101499b93e91",
 			"key": "Problem: data type conversion",
 			"value": "Data type conversion failure"
 		},
 		{
-			"id": "36b3ce2b-bcad-4160-92e8-ba46bb3fa70b",
 			"key": "Problem: missing input",
 			"value": "Missing input"
 		},
 		{
-			"id": "8372702f-3036-45c3-adb8-19feeff07c65",
 			"key": "Problem: malformed input",
 			"value": "Malformed input"
 		},
 		{
-			"id": "c1aeb220-3509-4197-9a29-4fbd09456d3a",
 			"key": "Problem: immutable id change",
 			"value": "Immutable identifier change attempt"
 		},
 		{
-			"id": "c35b04dc-23d8-4aa8-a826-c9037e0907a5",
 			"key": "Problem: not found",
 			"value": "Not Found"
 		},
 		{
-			"id": "7a802dac-6881-4670-9e42-fb44ab48b604",
 			"key": "Problem: unauthorized",
 			"value": "Unauthorized"
 		},
 		{
-			"id": "e628ae10-d4e5-48c7-9fdf-9716c3bb4a1b",
 			"key": "Problem: forbidden",
 			"value": "Forbidden"
 		},
 		{
-			"id": "9fd43de7-5e8a-4d33-b8ab-90b92f00a877",
 			"key": "Problem: db integrity",
 			"value": "Database integrity violation"
 		},
 		{
-			"id": "c69579e1-d4c5-40a9-85c1-2546b254a4f0",
 			"key": "Problem: db unknown",
 			"value": "Unknown database level violation"
 		},
 		{
-			"id": "9174ec42-1d02-4ef3-8f57-ef771c6e8976",
 			"key": "Permission search root schema",
 			"value": ""
 		},
 		{
-			"id": "0e144867-a59a-478a-b341-e992813c5bfd",
 			"key": "Permission search term schema",
 			"value": ""
 		},
 		{
-			"id": "1d282662-4a39-4894-a94c-6fb72b033d10",
 			"key": "Jurisdictions endpoint",
 			"value": ""
 		},
 		{
-			"id": "597898a5-235e-4d5f-a4fd-9228246bb69d",
 			"key": "Jurisdiction item schema",
 			"value": ""
 		},
 		{
-			"id": "32310389-2924-4a6d-b8fc-70a7c12a3f4b",
 			"key": "Jurisdiction collection schema",
 			"value": ""
 		},
 		{
-			"id": "86c87b5d-ee42-4c1f-9be9-543f6eb3a4db",
 			"key": "Created jurisdiction",
 			"value": ""
 		},
 		{
-			"id": "dbdf1374-28cb-4977-b25b-3cfa1832d7fe",
 			"key": "Created jurisdiction's groups",
 			"value": ""
 		},
 		{
-			"id": "8a8a6a6e-1bc5-4ba6-8e6f-e2349ac1ece3",
 			"key": "Created jurisdiction's id",
 			"value": ""
 		},
 		{
-			"id": "d0af0ac4-efbc-44ac-9306-311e82f3f628",
 			"key": "Second created jurisdiction",
 			"value": ""
 		},
 		{
-			"id": "93d10c6f-2909-48c0-b502-8061d9df701e",
 			"key": "Created group's jurisdictions",
 			"value": ""
 		},
 		{
-			"id": "550d9742-20d9-442d-bb49-4315cc4600ac",
 			"key": "Second created group's jurisdictions",
 			"value": ""
 		},
 		{
-			"id": "1369c3f0-0c46-4f40-8109-cf77925ef204",
 			"key": "Second created jurisdiction's groups",
 			"value": ""
 		},
 		{
-			"id": "3c6921f7-5e5b-45f2-b034-4a4ae85b6136",
 			"key": "Second created jurisdiction's id",
 			"value": ""
 		},
 		{
-			"id": "e3c19d66-02d5-4462-9364-01599ad2c6b7",
 			"key": "Flag values endpoint",
 			"value": ""
 		},
 		{
-			"id": "937d8dea-a870-4ce9-9dbc-69366f740fbd",
 			"key": "Flag definitions endpoint",
 			"value": ""
 		},
 		{
-			"id": "1ed33e69-c30d-4815-ab64-ddc5d3c5cfee",
 			"key": "Flag definition item schema",
 			"value": ""
 		},
 		{
-			"id": "2f9e16cc-c545-43fc-9a07-85b86bbf1cdf",
 			"key": "Flag definition collection schema",
 			"value": ""
 		},
 		{
-			"id": "e7949fb8-95a6-4942-935c-18e5adc9fbb2",
 			"key": "Created flag definition",
 			"value": ""
 		},
 		{
-			"id": "f06d2ad1-7321-44c0-870f-49048b682563",
 			"key": "Created flag definition's flags",
 			"value": ""
 		},
 		{
-			"id": "5a624fa6-af44-4918-b0a0-12300760406d",
 			"key": "Created flag definition's id",
 			"value": ""
 		},
 		{
-			"id": "2429adb4-3c48-4e0e-988d-f5153ab4e322",
 			"key": "Second created flag definition",
 			"value": ""
 		},
 		{
-			"id": "7ddf6e28-c8f7-4026-b857-6f2b7b55fde6",
 			"key": "Second created flag definition's flags",
 			"value": ""
 		},
 		{
-			"id": "6ec046b5-21e7-4143-84dd-e28ce2945d0a",
 			"key": "Flags endpoint",
 			"value": ""
 		},
 		{
-			"id": "a772686d-1031-45dc-badc-2ae50bd7ce73",
 			"key": "Created flag definition's name",
 			"value": ""
 		},
 		{
-			"id": "d7583b31-e95d-4927-a1c9-db96d0b0d57b",
 			"key": "Flag item schema",
 			"value": ""
 		},
 		{
-			"id": "9ed22580-09bf-4df7-abcd-ece50b6185b1",
 			"key": "Flag collection schema",
 			"value": ""
 		},
 		{
-			"id": "3d18e485-e7e0-4c2a-9715-4d3bbff05ba0",
 			"key": "Created flag",
 			"value": ""
 		},
 		{
-			"id": "3e95f05e-44ee-4402-ad1c-fda98b50a8fa",
 			"key": "Created flag's definition",
 			"value": ""
 		},
 		{
-			"id": "e14683b8-9ecf-4e6e-bb22-f0c4f979cbd8",
 			"key": "Created flag's user",
+			"value": ""
+		},
+		{
+			"key": "Created user's flags",
+			"value": ""
+		},
+		{
+			"key": "Second created user's flags",
+			"value": ""
+		},
+		{
+			"key": "Created flag's value",
+			"value": ""
+		},
+		{
+			"key": "Second created flag",
+			"value": ""
+		},
+		{
+			"key": "Second created flag's value",
+			"value": ""
+		},
+		{
+			"key": "Second created flag's definition",
+			"value": ""
+		},
+		{
+			"key": "Second created flag's user",
+			"value": ""
+		},
+		{
+			"key": "Third created flag",
+			"value": ""
+		},
+		{
+			"key": "Third created flag's value",
+			"value": ""
+		},
+		{
+			"key": "Third created flag's definition",
+			"value": ""
+		},
+		{
+			"key": "Third created flag's user",
+			"value": ""
+		},
+		{
+			"key": "Fourth created flag",
+			"value": ""
+		},
+		{
+			"key": "Fourth created flag's value",
+			"value": ""
+		},
+		{
+			"key": "Fourth created flag's definition",
+			"value": ""
+		},
+		{
+			"key": "Fourth created flag's user",
 			"value": ""
 		}
 	]
