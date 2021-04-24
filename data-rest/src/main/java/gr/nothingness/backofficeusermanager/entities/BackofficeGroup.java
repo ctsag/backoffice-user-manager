@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
@@ -69,5 +70,19 @@ public class BackofficeGroup {
       inverseJoinColumns = @JoinColumn(name = "jur_id")
   )
   @Getter @Setter private Set<Jurisdiction> jurisdictions;
+
+  @PreRemove
+  private void disassociate() {
+    positions.forEach(position -> position.removeGroup(this));
+    users.forEach(user -> user.removeGroup(this));
+  }
+
+  public void removeJurisdiction(Jurisdiction jurisdiction) {
+    jurisdictions.remove(jurisdiction);
+  }
+
+  public void removePermission(Permission permission) {
+    permissions.remove(permission);
+  }
 
 }

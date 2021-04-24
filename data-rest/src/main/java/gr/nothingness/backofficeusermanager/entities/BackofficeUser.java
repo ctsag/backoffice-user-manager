@@ -1,6 +1,7 @@
 package gr.nothingness.backofficeusermanager.entities;
 
 import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
+import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -26,6 +27,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
+import javax.persistence.PreRemove;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -200,7 +202,7 @@ public class BackofficeUser {
   )
   @Getter @Setter private Set<BackofficeGroup> groups;
 
-  @OneToMany(mappedBy = "user")
+  @OneToMany(mappedBy = "user", cascade = ALL)
   @Getter @Setter private Set<FlagValue> flags;
 
   @PostLoad
@@ -217,6 +219,19 @@ public class BackofficeUser {
       password = passwordEncoder.encode(password);
       passwordSalt = passwordEncoder.getSalt();
     }
+  }
+
+  @PreRemove
+  private void disassociate() {
+    ownedGroups.forEach(group -> group.setOwner(null));
+  }
+
+  public void removeGroup(BackofficeGroup group) {
+    groups.remove(group);
+  }
+
+  public void removePermission(Permission permission) {
+    permissions.remove(permission);
   }
 
 }

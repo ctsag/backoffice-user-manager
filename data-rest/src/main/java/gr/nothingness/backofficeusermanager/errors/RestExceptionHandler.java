@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class RestExceptionHandler {
 
   @ExceptionHandler(org.springframework.data.rest.webmvc.ResourceNotFoundException.class)
-  protected ResponseEntity<Object> handeNotFoundFailure(
+  protected ResponseEntity<Object> handleNotFoundFailure(
       org.springframework.data.rest.webmvc.ResourceNotFoundException exception,
       HttpServletRequest request
   ) {
@@ -39,18 +39,24 @@ public class RestExceptionHandler {
         .withStatus(INTERNAL_SERVER_ERROR)
         .andTitle("Database level constraint violation")
         .andDetail(
-            "One or more of the provided values violates a database level contraint. "
-                + "These contraints usually concern uniqueness, referential integrity "
+            "One or more of the provided values violates a database level constraint. "
+                + "These constraints usually concern uniqueness, referential integrity "
                 + "or limiting acceptable values"
         )
         .andInstance(request.getRequestURI())
         .build();
 
-    Throwable sqlException = exception.getSQLException().getCause();
+    Throwable sqlException = exception.getSQLException();
+
+    if (sqlException.getCause() != null) {
+      sqlException = sqlException.getCause();
+    }
+
     FailureDetail failureDetail = FailureDetail
         .withMessage(
             sqlException
                 .getMessage()
+                .replaceFirst("constraint \\((.+?)\\) ", "constraint ")
                 .replaceFirst("ISAM error: {2}", "")
                 .replaceAll(".$", "")
         )

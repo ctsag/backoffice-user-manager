@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -34,5 +35,10 @@ public class Jurisdiction {
   @ManyToMany(mappedBy = "jurisdictions")
   @JsonIgnore
   @Getter @Setter private Set<BackofficeGroup> groups;
+
+  @PreRemove
+  private void disassociate() {
+    groups.forEach(group -> group.removeJurisdiction(this));
+  }
 
 }

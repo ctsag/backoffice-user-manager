@@ -1,5 +1,7 @@
 package gr.nothingness.backofficeusermanager.entities;
 
+import static javax.persistence.CascadeType.ALL;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Set;
@@ -35,7 +37,7 @@ public class FlagDefinition implements Serializable {
   @Size(max = 64)
   @Getter @Setter private String defaultValue;
 
-  @OneToMany(mappedBy = "flagDefinition")
+  @OneToMany(mappedBy = "flagDefinition", cascade = ALL)
   @Getter @Setter private Set<FlagValue> flags;
 
 }

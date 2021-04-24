@@ -21482,7 +21482,7 @@
 							"response": []
 						},
 						{
-							"name": "Retrieve first user's permissions",
+							"name": "Retrieve first permission's users",
 							"event": [
 								{
 									"listen": "test",
@@ -21495,13 +21495,13 @@
 											"    pm.expect(response.status).to.equal(\"OK\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Contains created permission\", () => {\r",
+											"pm.test(\"Contains created user\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const permissions = jsonData._embedded.permissions;\r",
+											"    const users = jsonData._embedded.users;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < permissions.length; i++) {\r",
-											"        if (permissions[i]._links.permission.href == pm.collectionVariables.get(\"Created permission\")) {\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Created user\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -21510,13 +21510,13 @@
 											"    pm.expect(found).to.be.true;\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Contains second created permission\", () => {\r",
+											"pm.test(\"Contains second created user\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const permissions = jsonData._embedded.permissions;\r",
+											"    const users = jsonData._embedded.users;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < permissions.length; i++) {\r",
-											"        if (permissions[i]._links.permission.href == pm.collectionVariables.get(\"Second created permission\")) {\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Second created user\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -21533,16 +21533,16 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{Created user's permissions}}",
+									"raw": "{{Created permission's users}}",
 									"host": [
-										"{{Created user's permissions}}"
+										"{{Created permission's users}}"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Retrieve second user's permissions",
+							"name": "Retrieve second permission's users",
 							"event": [
 								{
 									"listen": "test",
@@ -21555,13 +21555,13 @@
 											"    pm.expect(response.status).to.equal(\"OK\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Contains created permission\", () => {\r",
+											"pm.test(\"Contains created user\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const permissions = jsonData._embedded.permissions;\r",
+											"    const users = jsonData._embedded.users;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < permissions.length; i++) {\r",
-											"        if (permissions[i]._links.permission.href == pm.collectionVariables.get(\"Created permission\")) {\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Created user\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -21570,13 +21570,13 @@
 											"    pm.expect(found).to.be.true;\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Contains second created permission\", () => {\r",
+											"pm.test(\"Contains second created user\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const permissions = jsonData._embedded.permissions;\r",
+											"    const users = jsonData._embedded.users;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < permissions.length; i++) {\r",
-											"        if (permissions[i]._links.permission.href == pm.collectionVariables.get(\"Second created permission\")) {\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Second created user\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -21593,16 +21593,16 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{Second created user's permissions}}",
+									"raw": "{{Second created permission's users}}",
 									"host": [
-										"{{Second created user's permissions}}"
+										"{{Second created permission's users}}"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Assign first permission to first user",
+							"name": "Assign second permission to first user",
 							"event": [
 								{
 									"listen": "test",
@@ -21637,7 +21637,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{{Created permission}}",
+									"raw": "{{Second created permission}}",
 									"options": {
 										"raw": {
 											"language": "text"
@@ -21654,7 +21654,7 @@
 							"response": []
 						},
 						{
-							"name": "Retrieve first user's permissions",
+							"name": "Retrieve first permission's users",
 							"event": [
 								{
 									"listen": "test",
@@ -21667,34 +21667,34 @@
 											"    pm.expect(response.status).to.equal(\"OK\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Contains created permission\", () => {\r",
+											"pm.test(\"Does not contain created user\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const permissions = jsonData._embedded.permissions;\r",
+											"    const users = jsonData._embedded.users;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < permissions.length; i++) {\r",
-											"        if (permissions[i]._links.permission.href == pm.collectionVariables.get(\"Created permission\")) {\r",
-											"            found = true;\r",
-											"            break;\r",
-											"        }\r",
-											"    }\r",
-											"\r",
-											"    pm.expect(found).to.be.true;\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Does not contain second created permission\", () => {\r",
-											"    const jsonData = pm.response.json();\r",
-											"    const permissions = jsonData._embedded.permissions;\r",
-											"    var found = false;\r",
-											"\r",
-											"    for (var i = 0; i < permissions.length; i++) {\r",
-											"        if (permissions[i]._links.permission.href == pm.collectionVariables.get(\"Second created permission\")) {\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Created user\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
 											"    }\r",
 											"\r",
 											"    pm.expect(found).to.be.false;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains second created user\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const users = jsonData._embedded.users;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Second created user\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -21705,16 +21705,16 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{Created user's permissions}}",
+									"raw": "{{Created permission's users}}",
 									"host": [
-										"{{Created user's permissions}}"
+										"{{Created permission's users}}"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Deassign first permission from first user",
+							"name": "Deassign second permission from first user",
 							"event": [
 								{
 									"listen": "test",
@@ -21748,12 +21748,12 @@
 									}
 								],
 								"url": {
-									"raw": "{{Created user's permissions}}/{{Created permission's id}}",
+									"raw": "{{Created user's permissions}}/{{Second created permission's id}}",
 									"host": [
 										"{{Created user's permissions}}"
 									],
 									"path": [
-										"{{Created permission's id}}"
+										"{{Second created permission's id}}"
 									]
 								}
 							},
@@ -21852,7 +21852,7 @@
 							"response": []
 						},
 						{
-							"name": "Retrieve first user's permissions",
+							"name": "Retrieve first permission's users",
 							"event": [
 								{
 									"listen": "test",
@@ -21865,13 +21865,13 @@
 											"    pm.expect(response.status).to.equal(\"OK\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Does not contain created permission\", () => {\r",
+											"pm.test(\"Does not contain created user\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const permissions = jsonData._embedded.permissions;\r",
+											"    const users = jsonData._embedded.users;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < permissions.length; i++) {\r",
-											"        if (permissions[i]._links.permission.href == pm.collectionVariables.get(\"Created permission\")) {\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Created user\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -21880,13 +21880,13 @@
 											"    pm.expect(found).to.be.false;\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Does not contain second created permission\", () => {\r",
+											"pm.test(\"Does not contain second created user\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const permissions = jsonData._embedded.permissions;\r",
+											"    const users = jsonData._embedded.users;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < permissions.length; i++) {\r",
-											"        if (permissions[i]._links.permission.href == pm.collectionVariables.get(\"Second created permission\")) {\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Second created user\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -21903,16 +21903,16 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{Created user's permissions}}",
+									"raw": "{{Created permission's users}}",
 									"host": [
-										"{{Created user's permissions}}"
+										"{{Created permission's users}}"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Retrieve second user's permissions",
+							"name": "Retrieve second permission's users",
 							"event": [
 								{
 									"listen": "test",
@@ -21925,13 +21925,13 @@
 											"    pm.expect(response.status).to.equal(\"OK\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Does not contain created permission\", () => {\r",
+											"pm.test(\"Does not contain created user\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const permissions = jsonData._embedded.permissions;\r",
+											"    const users = jsonData._embedded.users;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < permissions.length; i++) {\r",
-											"        if (permissions[i]._links.permission.href == pm.collectionVariables.get(\"Created permission\")) {\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Created user\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -21940,13 +21940,13 @@
 											"    pm.expect(found).to.be.false;\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Does not contain second created permission\", () => {\r",
+											"pm.test(\"Does not contain second created user\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const permissions = jsonData._embedded.permissions;\r",
+											"    const users = jsonData._embedded.users;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < permissions.length; i++) {\r",
-											"        if (permissions[i]._links.permission.href == pm.collectionVariables.get(\"Second created permission\")) {\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Second created user\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -21963,9 +21963,9 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{Second created user's permissions}}",
+									"raw": "{{Second created permission's users}}",
 									"host": [
-										"{{Second created user's permissions}}"
+										"{{Second created permission's users}}"
 									]
 								}
 							},
@@ -26989,6 +26989,5534 @@
 											"    const response = pm.response.text();\r",
 											"\r",
 											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created user}}",
+									"host": [
+										"{{Created user}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Deletions",
+			"item": [
+				{
+					"name": "On user deletion, disassociate owned groups",
+					"item": [
+						{
+							"name": "Create a user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created user\", jsonData._links.user.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"username\": \"{{Username}}\",\n    \"password\": \"{{Password}}\",\n    \"firstName\": \"{{First name}}\",\n    \"lastName\": \"{{Last name}}\",\n    \"email\": \"{{Email}}\",\n    \"status\": \"{{User status}}\",\n    \"passwordExpires\": \"{{Password expires}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Users endpoint}}",
+									"host": [
+										"{{Users endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created group\", jsonData._links.group.href);\r",
+											"    pm.collectionVariables.set(\"Created group's owner\", jsonData._links.owner.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Group name}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Groups endpoint}}",
+									"host": [
+										"{{Groups endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign user as the owner of group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n    \"owner\": \"{{Created user}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created group}}",
+									"host": [
+										"{{Created group}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve group's owning user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Is created user\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData._links.user.href).to.equal(pm.collectionVariables.get(\"Created user\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created group's owner}}",
+									"host": [
+										"{{Created group's owner}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created user}}",
+									"host": [
+										"{{Created user}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created group}}",
+									"host": [
+										"{{Created group}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve group's owning user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 404 Not Found\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(404);\r",
+											"    pm.expect(response.status).to.equal(\"Not Found\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created group's owner}}",
+									"host": [
+										"{{Created group's owner}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created group}}",
+									"host": [
+										"{{Created group}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "On user deletion, disassociate groups",
+					"item": [
+						{
+							"name": "Create a user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created user\", jsonData._links.user.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"username\": \"{{Username}}\",\n    \"password\": \"{{Password}}\",\n    \"firstName\": \"{{First name}}\",\n    \"lastName\": \"{{Last name}}\",\n    \"email\": \"{{Email}}\",\n    \"status\": \"{{User status}}\",\n    \"passwordExpires\": \"{{Password expires}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Users endpoint}}",
+									"host": [
+										"{{Users endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created group\", jsonData._links.group.href);\r",
+											"    pm.collectionVariables.set(\"Created group's users\", jsonData._links.users.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Group name}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Groups endpoint}}",
+									"host": [
+										"{{Groups endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign group to user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{Created group}}",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created user's groups}}",
+									"host": [
+										"{{Created user's groups}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve group's users",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains created user\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const users = jsonData._embedded.users;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Created user\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created group's users}}",
+									"host": [
+										"{{Created group's users}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created user}}",
+									"host": [
+										"{{Created user}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created group}}",
+									"host": [
+										"{{Created group}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve group's users",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain created user\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const users = jsonData._embedded.users;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Created user\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created group's users}}",
+									"host": [
+										"{{Created group's users}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created group}}",
+									"host": [
+										"{{Created group}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "On user deletion, delete flags",
+					"item": [
+						{
+							"name": "Create a user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created user\", jsonData._links.user.href);\r",
+											"    pm.collectionVariables.set(\"Created user's id\", jsonData.id);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"username\": \"{{Username}}\",\n    \"password\": \"{{Password}}\",\n    \"firstName\": \"{{First name}}\",\n    \"lastName\": \"{{Last name}}\",\n    \"email\": \"{{Email}}\",\n    \"status\": \"{{User status}}\",\n    \"passwordExpires\": \"{{Password expires}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Users endpoint}}",
+									"host": [
+										"{{Users endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a flag definition",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created flag definition\", jsonData._links.flagDefinition.href);\r",
+											"    pm.collectionVariables.set(\"Created flag definition's flags\", jsonData._links.flags.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Flag definition name}}\",\n    \"description\": \"{{Flag definition description}}\",\n    \"note\": \"{{Flag definition note}}\",\n    \"defaultValue\": \"{{Flag definition default value}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Flag definitions endpoint}}",
+									"host": [
+										"{{Flag definitions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign flag definition to user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created flag\", jsonData._links.flag.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"id\": {\n        \"flagName\": \"{{Created flag definition's name}}\",\n        \"userId\": \"{{Created user's id}}\"\n    },\n    \"value\": \"{{Flag value}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Flags endpoint}}",
+									"host": [
+										"{{Flags endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve flag definition's flags",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains created flag\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const flags = jsonData._embedded.flags;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < flags.length; i++) {\r",
+											"        if (flags[i]._links.flag.href == pm.collectionVariables.get(\"Created flag\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created flag definition's flags}}",
+									"host": [
+										"{{Created flag definition's flags}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created user}}",
+									"host": [
+										"{{Created user}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve flag",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 404 Not Found\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(404);\r",
+											"    pm.expect(response.status).to.equal(\"Not Found\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created flag}}",
+									"host": [
+										"{{Created flag}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve flag definition",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created flag definition}}",
+									"host": [
+										"{{Created flag definition}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve flag definition's flags",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain created flag\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const flags = jsonData._embedded.flags;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < flags.length; i++) {\r",
+											"        if (flags[i]._links.flag.href == pm.collectionVariables.get(\"Created flag\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created flag definition's flags}}",
+									"host": [
+										"{{Created flag definition's flags}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete flag definition",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created flag definition}}",
+									"host": [
+										"{{Created flag definition}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "On user deletion, disassociate permissions",
+					"item": [
+						{
+							"name": "Create a user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created user\", jsonData._links.user.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"username\": \"{{Username}}\",\n    \"password\": \"{{Password}}\",\n    \"firstName\": \"{{First name}}\",\n    \"lastName\": \"{{Last name}}\",\n    \"email\": \"{{Email}}\",\n    \"status\": \"{{User status}}\",\n    \"passwordExpires\": \"{{Password expires}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Users endpoint}}",
+									"host": [
+										"{{Users endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a permission",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created permission\", jsonData._links.permission.href);\r",
+											"    pm.collectionVariables.set(\"Created permission's users\", jsonData._links.users.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Permission name}}\",\n    \"description\": \"{{Permission description}}\",\n    \"displayOrder\": {{Display order}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Permissions endpoint}}",
+									"host": [
+										"{{Permissions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign permission to user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{Created permission}}",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created user's permissions}}",
+									"host": [
+										"{{Created user's permissions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve permission's users",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains created user\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const users = jsonData._embedded.users;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Created user\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created permission's users}}",
+									"host": [
+										"{{Created permission's users}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created user}}",
+									"host": [
+										"{{Created user}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve permission",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created permission}}",
+									"host": [
+										"{{Created permission}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve permission's users",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contains created user\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const users = jsonData._embedded.users;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Created user\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created permission's users}}",
+									"host": [
+										"{{Created permission's users}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete permission",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created permission}}",
+									"host": [
+										"{{Created permission}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "On flag definition deletion, delete flags",
+					"item": [
+						{
+							"name": "Create a flag definition",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created flag definition\", jsonData._links.flagDefinition.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Flag definition name}}\",\n    \"description\": \"{{Flag definition description}}\",\n    \"note\": \"{{Flag definition note}}\",\n    \"defaultValue\": \"{{Flag definition default value}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Flag definitions endpoint}}",
+									"host": [
+										"{{Flag definitions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created user\", jsonData._links.user.href);\r",
+											"    pm.collectionVariables.set(\"Created user's flags\", jsonData._links.flags.href);\r",
+											"    pm.collectionVariables.set(\"Created user's id\", jsonData.id);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"username\": \"{{Username}}\",\n    \"password\": \"{{Password}}\",\n    \"firstName\": \"{{First name}}\",\n    \"lastName\": \"{{Last name}}\",\n    \"email\": \"{{Email}}\",\n    \"status\": \"{{User status}}\",\n    \"passwordExpires\": \"{{Password expires}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Users endpoint}}",
+									"host": [
+										"{{Users endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign flag definition to user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created flag\", jsonData._links.flag.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"id\": {\n        \"flagName\": \"{{Created flag definition's name}}\",\n        \"userId\": \"{{Created user's id}}\"\n    },\n    \"value\": \"{{Flag value}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Flags endpoint}}",
+									"host": [
+										"{{Flags endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve user's flags",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains created flag\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const flags = jsonData._embedded.flags;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < flags.length; i++) {\r",
+											"        if (flags[i]._links.flag.href == pm.collectionVariables.get(\"Created flag\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created user's flags}}",
+									"host": [
+										"{{Created user's flags}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete flag definition",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created flag definition}}",
+									"host": [
+										"{{Created flag definition}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve flag",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 404 Not Found\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(404);\r",
+											"    pm.expect(response.status).to.equal(\"Not Found\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created flag}}",
+									"host": [
+										"{{Created flag}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created user}}",
+									"host": [
+										"{{Created user}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve user's flags",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain created flag\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const flags = jsonData._embedded.flags;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < flags.length; i++) {\r",
+											"        if (flags[i]._links.flag.href == pm.collectionVariables.get(\"Created flag\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created user's flags}}",
+									"host": [
+										"{{Created user's flags}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created user}}",
+									"host": [
+										"{{Created user}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "On permission type deletion, disassociate permissions",
+					"item": [
+						{
+							"name": "Create a permission type",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created permission type\", jsonData._links.permissionType.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Permission type name}}\",\n    \"description\": \"{{Permission type description}}\",\n    \"displayOrder\": {{Display order}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Permission types endpoint}}",
+									"host": [
+										"{{Permission types endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a permission",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created permission\", jsonData._links.permission.href);\r",
+											"    pm.collectionVariables.set(\"Created permission's type\", jsonData._links.type.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Permission name}}\",\n    \"description\": \"{{Permission description}}\",\n    \"displayOrder\": {{Display order}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Permissions endpoint}}",
+									"host": [
+										"{{Permissions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign permission type to permission",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n    \"type\": \"{{Created permission type}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created permission}}",
+									"host": [
+										"{{Created permission}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve permission's type",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Is created permission type\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData._links.permissionType.href).to.equal(pm.collectionVariables.get(\"Created permission type\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created permission's type}}",
+									"host": [
+										"{{Created permission's type}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete permission type",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created permission type}}",
+									"host": [
+										"{{Created permission type}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve permission's type",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Is default permission type\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.name).to.equal(pm.collectionVariables.get(\"Default permission type name\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created permission's type}}",
+									"host": [
+										"{{Created permission's type}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete permission",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created permission}}",
+									"host": [
+										"{{Created permission}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "On position deletion, disassociate child positions",
+					"item": [
+						{
+							"name": "Create a parent position",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created position\", jsonData._links.position.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Position name}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Positions endpoint}}",
+									"host": [
+										"{{Positions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a child position",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Second created position\", jsonData._links.position.href);\r",
+											"    pm.collectionVariables.set(\"Second created position's parent position\", jsonData._links.parentPosition.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Modified position name}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Positions endpoint}}",
+									"host": [
+										"{{Positions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign parent position to child position",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n    \"parentPosition\": \"{{Created position}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Second created position}}",
+									"host": [
+										"{{Second created position}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve child position's parent position",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Is created position\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData._links.position.href).to.equal(pm.collectionVariables.get(\"Created position\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Second created position's parent position}}",
+									"host": [
+										"{{Second created position's parent position}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete parent position",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created position}}",
+									"host": [
+										"{{Created position}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve child position",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Second created position}}",
+									"host": [
+										"{{Second created position}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve child position's parent position",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 404 Not Found\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(404);\r",
+											"    pm.expect(response.status).to.equal(\"Not Found\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Second created position's parent position}}",
+									"host": [
+										"{{Second created position's parent position}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete child position",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Second created position}}",
+									"host": [
+										"{{Second created position}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "On position deletion, disassociate users",
+					"item": [
+						{
+							"name": "Create a position",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created position\", jsonData._links.position.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Position name}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Positions endpoint}}",
+									"host": [
+										"{{Positions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created user\", jsonData._links.user.href);\r",
+											"    pm.collectionVariables.set(\"Created user's position\", jsonData._links.position.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"username\": \"{{Username}}\",\n    \"password\": \"{{Password}}\",\n    \"firstName\": \"{{First name}}\",\n    \"lastName\": \"{{Last name}}\",\n    \"email\": \"{{Email}}\",\n    \"status\": \"{{User status}}\",\n    \"passwordExpires\": \"{{Password expires}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Users endpoint}}",
+									"host": [
+										"{{Users endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign position to user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n    \"position\": \"{{Created position}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created user}}",
+									"host": [
+										"{{Created user}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve user's position",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Is created position\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData._links.position.href).to.equal(pm.collectionVariables.get(\"Created position\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created user's position}}",
+									"host": [
+										"{{Created user's position}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete position",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created position}}",
+									"host": [
+										"{{Created position}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created user}}",
+									"host": [
+										"{{Created user}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve user's position",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 404 Not Found\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(404);\r",
+											"    pm.expect(response.status).to.equal(\"Not Found\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created user's position}}",
+									"host": [
+										"{{Created user's position}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created user}}",
+									"host": [
+										"{{Created user}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "On position deletion, disassociate groups",
+					"item": [
+						{
+							"name": "Create a position",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created position\", jsonData._links.position.href);\r",
+											"    pm.collectionVariables.set(\"Created position's groups\", jsonData._links.groups.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Position name}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Positions endpoint}}",
+									"host": [
+										"{{Positions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created group\", jsonData._links.group.href);\r",
+											"    pm.collectionVariables.set(\"Created group's positions\", jsonData._links.positions.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Group name}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Groups endpoint}}",
+									"host": [
+										"{{Groups endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign position to group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{Created group}}",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created position's groups}}",
+									"host": [
+										"{{Created position's groups}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve group's positions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains created position\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const positions = jsonData._embedded.positions;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < positions.length; i++) {\r",
+											"        if (positions[i]._links.position.href == pm.collectionVariables.get(\"Created position\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created group's positions}}",
+									"host": [
+										"{{Created group's positions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete position",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created position}}",
+									"host": [
+										"{{Created position}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created group}}",
+									"host": [
+										"{{Created group}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve group's positions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain created position\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const positions = jsonData._embedded.positions;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < positions.length; i++) {\r",
+											"        if (positions[i]._links.position.href == pm.collectionVariables.get(\"Created position\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created group's positions}}",
+									"host": [
+										"{{Created group's positions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created group}}",
+									"host": [
+										"{{Created group}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "On timezone deletion, disassociate users",
+					"item": [
+						{
+							"name": "Create a timezone",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created timezone\", jsonData._links.timezone.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Timezone name}}\",\n    \"status\": \"{{Timezone status}}\",\n    \"display\": \"{{Display}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Timezones endpoint}}",
+									"host": [
+										"{{Timezones endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created user\", jsonData._links.user.href);\r",
+											"    pm.collectionVariables.set(\"Created user's timezone\", jsonData._links.timezone.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"username\": \"{{Username}}\",\n    \"password\": \"{{Password}}\",\n    \"firstName\": \"{{First name}}\",\n    \"lastName\": \"{{Last name}}\",\n    \"email\": \"{{Email}}\",\n    \"status\": \"{{User status}}\",\n    \"passwordExpires\": \"{{Password expires}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Users endpoint}}",
+									"host": [
+										"{{Users endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign timezone to user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n    \"timezone\": \"{{Created timezone}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created user}}",
+									"host": [
+										"{{Created user}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve user's timezone",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Is created timezone\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData._links.timezone.href).to.equal(pm.collectionVariables.get(\"Created timezone\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created user's timezone}}",
+									"host": [
+										"{{Created user's timezone}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete timezone",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created timezone}}",
+									"host": [
+										"{{Created timezone}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created user}}",
+									"host": [
+										"{{Created user}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve user's timezone",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 404 Not Found\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(404);\r",
+											"    pm.expect(response.status).to.equal(\"Not Found\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created user's timezone}}",
+									"host": [
+										"{{Created user's timezone}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created user}}",
+									"host": [
+										"{{Created user}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "On group deletion, disassociate positions",
+					"item": [
+						{
+							"name": "Create a group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created group\", jsonData._links.group.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Group name}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Groups endpoint}}",
+									"host": [
+										"{{Groups endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a position",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created position\", jsonData._links.position.href);\r",
+											"    pm.collectionVariables.set(\"Created position's groups\", jsonData._links.groups.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Position name}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Positions endpoint}}",
+									"host": [
+										"{{Positions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign group to position",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{Created group}}",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created position's groups}}",
+									"host": [
+										"{{Created position's groups}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve position's groups",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains created group\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const groups = jsonData._embedded.groups;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < groups.length; i++) {\r",
+											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Created group\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created position's groups}}",
+									"host": [
+										"{{Created position's groups}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created group}}",
+									"host": [
+										"{{Created group}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve position",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created position}}",
+									"host": [
+										"{{Created position}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve position's groups",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain created group\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const groups = jsonData._embedded.groups;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < groups.length; i++) {\r",
+											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Created group\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created position's groups}}",
+									"host": [
+										"{{Created position's groups}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete position",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created position}}",
+									"host": [
+										"{{Created position}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "On group deletion, disassociate permissions",
+					"item": [
+						{
+							"name": "Create a group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created group\", jsonData._links.group.href);\r",
+											"    pm.collectionVariables.set(\"Created group's permissions\", jsonData._links.permissions.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Group name}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Groups endpoint}}",
+									"host": [
+										"{{Groups endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a permission",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created permission\", jsonData._links.permission.href);\r",
+											"    pm.collectionVariables.set(\"Created permission's groups\", jsonData._links.groups.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Permission name}}\",\n    \"description\": \"{{Permission description}}\",\n    \"displayOrder\": {{Display order}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Permissions endpoint}}",
+									"host": [
+										"{{Permissions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign permission to group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{Created permission}}",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created group's permissions}}",
+									"host": [
+										"{{Created group's permissions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve permission's groups",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains created group\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const groups = jsonData._embedded.groups;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < groups.length; i++) {\r",
+											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Created group\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created permission's groups}}",
+									"host": [
+										"{{Created permission's groups}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created group}}",
+									"host": [
+										"{{Created group}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve permission",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created permission}}",
+									"host": [
+										"{{Created permission}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve permission's groups",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain created group\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const groups = jsonData._embedded.groups;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < groups.length; i++) {\r",
+											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Created group\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created permission's groups}}",
+									"host": [
+										"{{Created permission's groups}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete permission",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created permission}}",
+									"host": [
+										"{{Created permission}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "On group deletion, disassociate users",
+					"item": [
+						{
+							"name": "Create a group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created group\", jsonData._links.group.href);\r",
+											"    pm.collectionVariables.set(\"Created group's users\", jsonData._links.users.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Group name}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Groups endpoint}}",
+									"host": [
+										"{{Groups endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created user\", jsonData._links.user.href);\r",
+											"    pm.collectionVariables.set(\"Created user's groups\", jsonData._links.groups.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"username\": \"{{Username}}\",\n    \"password\": \"{{Password}}\",\n    \"firstName\": \"{{First name}}\",\n    \"lastName\": \"{{Last name}}\",\n    \"email\": \"{{Email}}\",\n    \"status\": \"{{User status}}\",\n    \"passwordExpires\": \"{{Password expires}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Users endpoint}}",
+									"host": [
+										"{{Users endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign group to user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{Created group}}",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created user's groups}}",
+									"host": [
+										"{{Created user's groups}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve user's groups",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains created group\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const groups = jsonData._embedded.groups;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < groups.length; i++) {\r",
+											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Created group\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created user's groups}}",
+									"host": [
+										"{{Created user's groups}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created group}}",
+									"host": [
+										"{{Created group}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created user}}",
+									"host": [
+										"{{Created user}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve user's groups",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain created group\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const groups = jsonData._embedded.groups;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < groups.length; i++) {\r",
+											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Created group\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created user's groups}}",
+									"host": [
+										"{{Created user's groups}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created user}}",
+									"host": [
+										"{{Created user}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "On group deletion, disassociate jurisdictions",
+					"item": [
+						{
+							"name": "Create a group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created group\", jsonData._links.group.href);\r",
+											"    pm.collectionVariables.set(\"Created group's jurisdictions\", jsonData._links.jurisdictions.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Group name}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Groups endpoint}}",
+									"host": [
+										"{{Groups endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a jurisdiction",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created jurisdiction\", jsonData._links.jurisdiction.href);\r",
+											"    pm.collectionVariables.set(\"Created jurisdiction's groups\", jsonData._links.groups.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Jurisdiction name}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Jurisdictions endpoint}}",
+									"host": [
+										"{{Jurisdictions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign jurisdiction to group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{Created jurisdiction}}",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created group's jurisdictions}}",
+									"host": [
+										"{{Created group's jurisdictions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve jurisdiction's groups",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains created group\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const groups = jsonData._embedded.groups;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < groups.length; i++) {\r",
+											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Created group\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created jurisdiction's groups}}",
+									"host": [
+										"{{Created jurisdiction's groups}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created group}}",
+									"host": [
+										"{{Created group}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve jurisdiction",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created jurisdiction}}",
+									"host": [
+										"{{Created jurisdiction}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve jurisdiction's groups",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain created group\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const groups = jsonData._embedded.groups;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < groups.length; i++) {\r",
+											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Created group\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created jurisdiction's groups}}",
+									"host": [
+										"{{Created jurisdiction's groups}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete jurisdiction",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created jurisdiction}}",
+									"host": [
+										"{{Created jurisdiction}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "On jurisdiction deletion, disassociate groups",
+					"item": [
+						{
+							"name": "Create a jurisdiction",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created jurisdiction\", jsonData._links.jurisdiction.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Jurisdiction name}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Jurisdictions endpoint}}",
+									"host": [
+										"{{Jurisdictions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created group\", jsonData._links.group.href);\r",
+											"    pm.collectionVariables.set(\"Created group's jurisdictions\", jsonData._links.jurisdictions.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Group name}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Groups endpoint}}",
+									"host": [
+										"{{Groups endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign jurisdiction to group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{Created jurisdiction}}",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created group's jurisdictions}}",
+									"host": [
+										"{{Created group's jurisdictions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve group's jurisdictions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains created jurisdiction\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const jurisdictions = jsonData._embedded.jurisdictions;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < jurisdictions.length; i++) {\r",
+											"        if (jurisdictions[i]._links.jurisdiction.href == pm.collectionVariables.get(\"Created jurisdiction\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created group's jurisdictions}}",
+									"host": [
+										"{{Created group's jurisdictions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete jurisdiction",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created jurisdiction}}",
+									"host": [
+										"{{Created jurisdiction}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created group}}",
+									"host": [
+										"{{Created group}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve group's jurisdictions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain created jurisdiction\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const jurisdictions = jsonData._embedded.jurisdictions;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < jurisdictions.length; i++) {\r",
+											"        if (jurisdictions[i]._links.jurisdiction.href == pm.collectionVariables.get(\"Created jurisdiction\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created group's jurisdictions}}",
+									"host": [
+										"{{Created group's jurisdictions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created group}}",
+									"host": [
+										"{{Created group}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "On permission deletion, disassociate groups",
+					"item": [
+						{
+							"name": "Create a permission",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created permission\", jsonData._links.permission.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Permission name}}\",\n    \"description\": \"{{Permission description}}\",\n    \"displayOrder\": {{Display order}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Permissions endpoint}}",
+									"host": [
+										"{{Permissions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created group\", jsonData._links.group.href);\r",
+											"    pm.collectionVariables.set(\"Created group's permissions\", jsonData._links.permissions.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Group name}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Groups endpoint}}",
+									"host": [
+										"{{Groups endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign permission to group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{Created permission}}",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created group's permissions}}",
+									"host": [
+										"{{Created group's permissions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve group's permissions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains created permission\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const permissions = jsonData._embedded.permissions;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < permissions.length; i++) {\r",
+											"        if (permissions[i]._links.permission.href == pm.collectionVariables.get(\"Created permission\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created group's permissions}}",
+									"host": [
+										"{{Created group's permissions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete permission",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created permission}}",
+									"host": [
+										"{{Created permission}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created group}}",
+									"host": [
+										"{{Created group}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve group's permissions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain created permission\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const permissions = jsonData._embedded.permissions;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < permissions.length; i++) {\r",
+											"        if (permissions[i]._links.permission.href == pm.collectionVariables.get(\"Created permission\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created group's permissions}}",
+									"host": [
+										"{{Created group's permissions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created group}}",
+									"host": [
+										"{{Created group}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "On permission deletion, disassociate users",
+					"item": [
+						{
+							"name": "Create a permission",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created permission\", jsonData._links.permission.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Permission name}}\",\n    \"description\": \"{{Permission description}}\",\n    \"displayOrder\": {{Display order}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Permissions endpoint}}",
+									"host": [
+										"{{Permissions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created user\", jsonData._links.user.href);\r",
+											"    pm.collectionVariables.set(\"Created user's permissions\", jsonData._links.permissions.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"username\": \"{{Username}}\",\n    \"password\": \"{{Password}}\",\n    \"firstName\": \"{{First name}}\",\n    \"lastName\": \"{{Last name}}\",\n    \"email\": \"{{Email}}\",\n    \"status\": \"{{User status}}\",\n    \"passwordExpires\": \"{{Password expires}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Users endpoint}}",
+									"host": [
+										"{{Users endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign permission to user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{Created permission}}",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created user's permissions}}",
+									"host": [
+										"{{Created user's permissions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve user's permissions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains created permission\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const permissions = jsonData._embedded.permissions;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < permissions.length; i++) {\r",
+											"        if (permissions[i]._links.permission.href == pm.collectionVariables.get(\"Created permission\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created user's permissions}}",
+									"host": [
+										"{{Created user's permissions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete permission",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created permission}}",
+									"host": [
+										"{{Created permission}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created user}}",
+									"host": [
+										"{{Created user}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve user's permissions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Does not contain created permission\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const permissions = jsonData._embedded.permissions;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < permissions.length; i++) {\r",
+											"        if (permissions[i]._links.permission.href == pm.collectionVariables.get(\"Created permission\")) {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.false;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created user's permissions}}",
+									"host": [
+										"{{Created user's permissions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
 											"});"
 										],
 										"type": "text/javascript"
