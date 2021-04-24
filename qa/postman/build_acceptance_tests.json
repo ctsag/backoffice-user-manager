@@ -19625,7 +19625,7 @@
 							"response": []
 						},
 						{
-							"name": "Retrieve first user's groups",
+							"name": "Retrieve first group's users",
 							"event": [
 								{
 									"listen": "test",
@@ -19638,13 +19638,13 @@
 											"    pm.expect(response.status).to.equal(\"OK\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Contains created group\", () => {\r",
+											"pm.test(\"Contains created user\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const groups = jsonData._embedded.groups;\r",
+											"    const users = jsonData._embedded.users;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < groups.length; i++) {\r",
-											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Created group\")) {\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Created user\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -19653,13 +19653,13 @@
 											"    pm.expect(found).to.be.true;\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Contains second created group\", () => {\r",
+											"pm.test(\"Contains second created user\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const groups = jsonData._embedded.groups;\r",
+											"    const users = jsonData._embedded.users;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < groups.length; i++) {\r",
-											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Second created group\")) {\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Second created user\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -19676,16 +19676,16 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{Created user's groups}}",
+									"raw": "{{Created group's users}}",
 									"host": [
-										"{{Created user's groups}}"
+										"{{Created group's users}}"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Retrieve second user's groups",
+							"name": "Retrieve second group's users",
 							"event": [
 								{
 									"listen": "test",
@@ -19698,13 +19698,13 @@
 											"    pm.expect(response.status).to.equal(\"OK\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Contains created group\", () => {\r",
+											"pm.test(\"Contains created user\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const groups = jsonData._embedded.groups;\r",
+											"    const users = jsonData._embedded.users;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < groups.length; i++) {\r",
-											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Created group\")) {\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Created user\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -19713,13 +19713,13 @@
 											"    pm.expect(found).to.be.true;\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Contains second created group\", () => {\r",
+											"pm.test(\"Contains second created user\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const groups = jsonData._embedded.groups;\r",
+											"    const users = jsonData._embedded.users;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < groups.length; i++) {\r",
-											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Second created group\")) {\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Second created user\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -19736,16 +19736,16 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{Second created user's groups}}",
+									"raw": "{{Second created group's users}}",
 									"host": [
-										"{{Second created user's groups}}"
+										"{{Second created group's users}}"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Assign first group to first user",
+							"name": "Assign second group to first user",
 							"event": [
 								{
 									"listen": "test",
@@ -19780,7 +19780,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{{Created group}}",
+									"raw": "{{Second created group}}",
 									"options": {
 										"raw": {
 											"language": "text"
@@ -19797,7 +19797,7 @@
 							"response": []
 						},
 						{
-							"name": "Retrieve first user's groups",
+							"name": "Retrieve first group's users",
 							"event": [
 								{
 									"listen": "test",
@@ -19810,13 +19810,13 @@
 											"    pm.expect(response.status).to.equal(\"OK\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Contains created group\", () => {\r",
+											"pm.test(\"Contains second created user\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const groups = jsonData._embedded.groups;\r",
+											"    const users = jsonData._embedded.users;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < groups.length; i++) {\r",
-											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Created group\")) {\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Second created user\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -19825,13 +19825,13 @@
 											"    pm.expect(found).to.be.true;\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Does not contain second created group\", () => {\r",
+											"pm.test(\"Does not contain created user\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const groups = jsonData._embedded.groups;\r",
+											"    const users = jsonData._embedded.users;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < groups.length; i++) {\r",
-											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Second created group\")) {\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Created user\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -19848,16 +19848,16 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{Created user's groups}}",
+									"raw": "{{Created group's users}}",
 									"host": [
-										"{{Created user's groups}}"
+										"{{Created group's users}}"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Deassign first group from first user",
+							"name": "Deassign second group from first user",
 							"event": [
 								{
 									"listen": "test",
@@ -19891,12 +19891,12 @@
 									}
 								],
 								"url": {
-									"raw": "{{Created user's groups}}/{{Created group's id}}",
+									"raw": "{{Created user's groups}}/{{Second created group's id}}",
 									"host": [
 										"{{Created user's groups}}"
 									],
 									"path": [
-										"{{Created group's id}}"
+										"{{Second created group's id}}"
 									]
 								}
 							},
@@ -19949,7 +19949,7 @@
 							"response": []
 						},
 						{
-							"name": "Deassign second user from second group",
+							"name": "Deassign second group from second user",
 							"event": [
 								{
 									"listen": "test",
@@ -20008,13 +20008,13 @@
 											"    pm.expect(response.status).to.equal(\"OK\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Does not contain created group\", () => {\r",
+											"pm.test(\"Does not contain created user\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const groups = jsonData._embedded.groups;\r",
+											"    const users = jsonData._embedded.users;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < groups.length; i++) {\r",
-											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Created group\")) {\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Created user\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -20023,13 +20023,13 @@
 											"    pm.expect(found).to.be.false;\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Does not contain second created group\", () => {\r",
+											"pm.test(\"Does not contain second created user\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const groups = jsonData._embedded.groups;\r",
+											"    const users = jsonData._embedded.users;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < groups.length; i++) {\r",
-											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Second created group\")) {\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Second created user\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -20046,9 +20046,9 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{Created user's groups}}",
+									"raw": "{{Created group's users}}",
 									"host": [
-										"{{Created user's groups}}"
+										"{{Created group's users}}"
 									]
 								}
 							},
@@ -20068,13 +20068,13 @@
 											"    pm.expect(response.status).to.equal(\"OK\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Does not contain created group\", () => {\r",
+											"pm.test(\"Does not contain created user\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const groups = jsonData._embedded.groups;\r",
+											"    const users = jsonData._embedded.users;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < groups.length; i++) {\r",
-											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Created group\")) {\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Created user\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -20083,13 +20083,13 @@
 											"    pm.expect(found).to.be.false;\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Does not contain second created group\", () => {\r",
+											"pm.test(\"Does not contain second created user\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const groups = jsonData._embedded.groups;\r",
+											"    const users = jsonData._embedded.users;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < groups.length; i++) {\r",
-											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Second created group\")) {\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Second created user\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -20106,9 +20106,9 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{Second created user's groups}}",
+									"raw": "{{Second created group's users}}",
 									"host": [
-										"{{Second created user's groups}}"
+										"{{Second created group's users}}"
 									]
 								}
 							},
