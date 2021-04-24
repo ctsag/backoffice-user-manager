@@ -78,7 +78,7 @@ public class Timezone {
   @Getter @Setter private Set<BackofficeUser> users;
 
   @PreRemove
-  private void disassociateUsers() {
+  private void disassociate() {
     users.forEach(user -> user.setTimezone(null));
   }
 

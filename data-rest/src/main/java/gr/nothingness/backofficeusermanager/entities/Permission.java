@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
+import javax.persistence.PreRemove;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -57,6 +58,12 @@ public class Permission {
     if (type == null) {
       type = createDefaultPermissionType();
     }
+  }
+
+  @PreRemove
+  private void disassociate() {
+    users.forEach(user -> user.removePermission(this));
+    groups.forEach(group -> group.removePermission(this));
   }
 
   private PermissionType createDefaultPermissionType() {

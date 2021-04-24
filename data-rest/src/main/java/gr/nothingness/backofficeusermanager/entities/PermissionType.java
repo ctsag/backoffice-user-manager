@@ -40,7 +40,7 @@ public class PermissionType {
   @Getter @Setter private Set<Permission> permissions;
 
   @PreRemove
-  private void disassociatePermissions() {
+  private void disassociate() {
     PermissionType permissionType = new PermissionType();
 
     permissionType.setName(DEFAULT_TYPE_NAME);

@@ -222,8 +222,16 @@ public class BackofficeUser {
   }
 
   @PreRemove
-  private void disassociateOwnedGroups() {
+  private void disassociate() {
     ownedGroups.forEach(group -> group.setOwner(null));
+  }
+
+  public void removeGroup(BackofficeGroup group) {
+    groups.remove(group);
+  }
+
+  public void removePermission(Permission permission) {
+    permissions.remove(permission);
   }
 
 }

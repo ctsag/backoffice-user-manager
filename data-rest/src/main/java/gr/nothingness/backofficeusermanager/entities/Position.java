@@ -57,8 +57,13 @@ public class Position {
   @Getter @Setter private Set<BackofficeGroup> groups;
 
   @PreRemove
-  private void disassociateUsers() {
+  private void disassociate() {
     users.forEach(user -> user.setPosition(null));
+    childPositions.forEach(position -> position.setParentPosition(null));
+  }
+
+  public void removeGroup(BackofficeGroup group) {
+    groups.remove(group);
   }
 
 }
