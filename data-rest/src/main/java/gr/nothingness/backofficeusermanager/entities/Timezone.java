@@ -24,14 +24,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(
-    name = "ttimezone",
-    indexes = {
-        @Index(name = "itimezone_x1", columnList = "timezone_id", unique = true),
-        @Index(name = "itimezone_x2", columnList = "name", unique = true)
-    },
-    uniqueConstraints = @UniqueConstraint(name = "ctimezone_u1", columnNames = "name")
-)
+@Table(name = "ttimezone")
 @NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Timezone {

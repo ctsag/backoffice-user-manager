@@ -43,10 +43,7 @@ import lombok.Setter;
 import org.hibernate.annotations.NaturalId;
 
 @Entity
-@Table(
-    name = "tadminuser",
-    indexes = @Index(name = "iadminuser_x1", columnList = "timezone_id")
-)
+@Table(name = "tadminuser")
 @NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @ValidPassword
