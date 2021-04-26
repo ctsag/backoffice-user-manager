@@ -10592,7 +10592,7 @@
 							"response": []
 						},
 						{
-							"name": "Last name length cannot be >80",
+							"name": "Last name length cannot be >60",
 							"event": [
 								{
 									"listen": "test",
@@ -10656,7 +10656,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \n    \"lastName\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\n}",
+									"raw": "{ \n    \"lastName\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -15265,7 +15265,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \n    \"name\": \"{{Incorrect id}}\",\n    \"description\": \"{{Permission description}}\",\n    \"displayOrder\": {{Display order}}\n}",
+									"raw": "{ \n    \"name\": \"{{Incorrect id}}\",\n    \"description\": \"{{Modified permission description}}\",\n    \"displayOrder\": {{Display order}}\n}",
 									"options": {
 										"raw": {
 											"language": "json"

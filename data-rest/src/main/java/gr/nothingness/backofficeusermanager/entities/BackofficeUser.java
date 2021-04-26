@@ -111,7 +111,7 @@ public class BackofficeUser {
   @Getter @Setter private String firstName;
 
   @Column(name = "lname")
-  @Size(max = 80)
+  @Size(max = 60)
   @Getter @Setter private String lastName;
 
   @Column(name = "email")
