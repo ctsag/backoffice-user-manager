@@ -1,0 +1,90 @@
+<?xml version="1.1" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="tadmingroup-rename-foreign-key" author="ctsag">
+        <sqlFile path="migrations/1.0.12/tadmingroup-rename-foreign-key.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.12/rollback_tadmingroup-rename-foreign-key.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadmingroupop-rename-foreign-key-group_id" author="ctsag">
+        <sqlFile path="migrations/1.0.12/tadmingroupop-rename-foreign-key-group_id.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.12/rollback_tadmingroupop-rename-foreign-key-group_id.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadmingroupop-rename-foreign-key-action" author="ctsag">
+        <sqlFile path="migrations/1.0.12/tadmingroupop-rename-foreign-key-action.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.12/rollback_tadmingroupop-rename-foreign-key-action.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminposngroup-rename-foreign-key-position_id" author="ctsag">
+        <sqlFile path="migrations/1.0.12/tadminposngroup-rename-foreign-key-position_id.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.12/rollback_tadminposngroup-rename-foreign-key-position_id.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminposngroup-rename-foreign-key-group_id" author="ctsag">
+        <sqlFile path="migrations/1.0.12/tadminposngroup-rename-foreign-key-group_id.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.12/rollback_tadminposngroup-rename-foreign-key-group_id.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminuser-rename-foreign-key-position_id" author="ctsag">
+        <sqlFile path="migrations/1.0.12/tadminuser-rename-foreign-key-position_id.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.12/rollback_tadminuser-rename-foreign-key-position_id.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminuser-rename-foreign-key-timezone_id" author="ctsag">
+        <sqlFile path="migrations/1.0.12/tadminuser-rename-foreign-key-timezone_id.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.12/rollback_tadminuser-rename-foreign-key-timezone_id.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminop-unique-constraint" author="ctsag">
+        <sqlFile path="migrations/1.0.12/tadminop-unique-constraint.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.12/rollback_tadminop-unique-constraint.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminoptype-rename-constraint" author="ctsag">
+        <sqlFile path="migrations/1.0.12/tadminoptype-rename-constraint.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.12/rollback_tadminoptype-rename-constraint.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tadminuser-modify-columns" author="ctsag">
+        <sqlFile path="migrations/1.0.12/tadminuser-modify-columns.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.12/rollback_tadminuser-modify-columns.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tjurisdiction_aud-modify-trigger-update" author="ctsag">
+        <sqlFile path="migrations/1.0.12/tjurisdiction_aud-modify-trigger-update.sql"/>
+        <rollback>
+            <sqlFile path="migrations/1.0.12/tjurisdiction_aud-modify-trigger-update.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="tag-1.0.12" author="ctsag">
+        <tagDatabase tag="1.0.12"/>
+    </changeSet>
+
+</databaseChangeLog>

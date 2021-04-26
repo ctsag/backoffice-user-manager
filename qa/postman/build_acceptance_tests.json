@@ -9577,7 +9577,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message == \"duplicate value for a record with unique key\") {\r",
+											"        if (failures[i].message == pm.collectionVariables.get(\"Failure: db violation - unique\")) {\r",
 											"            pm.expect(failures[i]).to.have.property(\"constraint\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -9658,7 +9658,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: app violation - size\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"username\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -9739,7 +9739,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: app violation - size\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"username\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -9820,7 +9820,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message == \"must not be null\") {\r",
+											"        if (failures[i].message == pm.collectionVariables.get(\"Failure: app violation - null\")) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"username\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -9901,7 +9901,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"altered from \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: immutable id change\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"immutable identifier\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -9982,7 +9982,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"altered from \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: immutable id change\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"immutable identifier\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -10063,7 +10063,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: app violation - size\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"password\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -10144,7 +10144,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: app violation - size\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"password\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -10225,7 +10225,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message == \"must not be 'password'\") {\r",
+											"        if (failures[i].message == pm.collectionVariables.get(\"Failure: app violation - password\")) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"password\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -10306,7 +10306,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"must contain \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: app violation - contains\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"password\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -10387,7 +10387,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message == \"must not be the same as the username\") {\r",
+											"        if (failures[i].message == pm.collectionVariables.get(\"Failure: app violation - same\")) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"password\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -10468,7 +10468,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message == \"must not be null\") {\r",
+											"        if (failures[i].message == pm.collectionVariables.get(\"Failure: app violation - null\")) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"password\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -10549,7 +10549,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: app violation - size\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"firstName\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -10592,7 +10592,7 @@
 							"response": []
 						},
 						{
-							"name": "Last name length cannot be >80",
+							"name": "Last name length cannot be >60",
 							"event": [
 								{
 									"listen": "test",
@@ -10630,7 +10630,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: app violation - size\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"lastName\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -10656,7 +10656,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \n    \"lastName\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\n}",
+									"raw": "{ \n    \"lastName\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -10711,7 +10711,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message == \"must be a well-formed email address\") {\r",
+											"        if (failures[i].message == pm.collectionVariables.get(\"Failure: app violation - email\")) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"email\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -10792,7 +10792,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: app violation - size\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"email\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -10873,7 +10873,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message == \"must not be null\") {\r",
+											"        if (failures[i].message == pm.collectionVariables.get(\"Failure: app violation - null\")) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"status\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -10954,7 +10954,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"not one of the values accepted: [\")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: enum violation\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"status\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -11035,7 +11035,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message == \"must not be null\") {\r",
+											"        if (failures[i].message == pm.collectionVariables.get(\"Failure: app violation - null\")) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"passwordExpires\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -11116,7 +11116,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"not one of the values accepted: [\")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: enum violation\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"passwordExpires\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -11197,7 +11197,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: app violation - size\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"agent\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -11278,7 +11278,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: app violation - size\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"overrideCode\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -11364,7 +11364,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message == \"duplicate value for a record with unique key\") {\r",
+											"        if (failures[i].message == pm.collectionVariables.get(\"Failure: db violation - unique\")) {\r",
 											"            pm.expect(failures[i]).to.have.property(\"constraint\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -11445,7 +11445,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: app violation - size\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"name\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -11526,7 +11526,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: app violation - size\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"name\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -11607,7 +11607,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message == \"must not be null\") {\r",
+											"        if (failures[i].message == pm.collectionVariables.get(\"Failure: app violation - null\")) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"name\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -11693,7 +11693,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: app violation - size\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"name\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -11774,7 +11774,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: app violation - size\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"name\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -11855,7 +11855,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message == \"no primary identifier provided\") {\r",
+											"        if (failures[i].message == pm.collectionVariables.get(\"Failure: primary id required\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -11935,7 +11935,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"altered from \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: primary id change\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"primary identifier\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -12016,7 +12016,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: app violation - size\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"description\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -12097,7 +12097,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: app violation - size\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"description\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -12178,7 +12178,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message == \"must not be null\") {\r",
+											"        if (failures[i].message == pm.collectionVariables.get(\"Failure: app violation - null\")) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"description\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -12264,7 +12264,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: app violation - size\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"name\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -12345,7 +12345,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: app violation - size\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"name\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -12426,7 +12426,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message == \"no primary identifier provided\") {\r",
+											"        if (failures[i].message == pm.collectionVariables.get(\"Failure: primary id required\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -12506,7 +12506,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"altered from \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: primary id change\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"primary identifier\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -12587,7 +12587,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: app violation - size\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"description\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -12668,7 +12668,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: app violation - size\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"description\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -12749,7 +12749,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message == \"must not be null\") {\r",
+											"        if (failures[i].message == pm.collectionVariables.get(\"Failure: app violation - null\")) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"description\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -12835,7 +12835,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: app violation - size\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"name\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -12916,7 +12916,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message == \"must not be null\") {\r",
+											"        if (failures[i].message == pm.collectionVariables.get(\"Failure: app violation - null\")) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"name\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -12997,7 +12997,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"not one of the values accepted: [\")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: enum violation\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"status\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -13078,7 +13078,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"not one of the values accepted: [\")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: enum violation\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"status\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -13164,7 +13164,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: app violation - size\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"name\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -13245,7 +13245,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message == \"must not be null\") {\r",
+											"        if (failures[i].message == pm.collectionVariables.get(\"Failure: app violation - null\")) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"name\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -13331,7 +13331,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message == \"duplicate value for a record with unique key\") {\r",
+											"        if (failures[i].message == pm.collectionVariables.get(\"Failure: db violation - unique\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -13411,7 +13411,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: app violation - size\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"name\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -13492,7 +13492,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message == \"must not be null\") {\r",
+											"        if (failures[i].message == pm.collectionVariables.get(\"Failure: app violation - null\")) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"name\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -13578,7 +13578,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: app violation - size\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"name\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -13659,7 +13659,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message == \"no primary identifier provided\") {\r",
+											"        if (failures[i].message == pm.collectionVariables.get(\"Failure: primary id required\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -13739,7 +13739,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"altered from \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: primary id change\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"primary identifier\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -13820,7 +13820,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: app violation - size\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"description\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -13901,7 +13901,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: app violation - size\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"note\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -13982,7 +13982,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: app violation - size\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"defaultValue\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -14068,7 +14068,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message == \"Primary key has a field with a null key value.\") {\r",
+											"        if (failures[i].message == pm.collectionVariables.get(\"Failure: db integrity - primary\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -14148,7 +14148,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message == \"no record found\") {\r",
+											"        if (failures[i].message == pm.collectionVariables.get(\"Failure: db violation - no record\")) {\r",
 											"            pm.expect(failures[i]).to.have.property(\"constraint\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -14229,7 +14229,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message == \"composite key does not match an existing record\") {\r",
+											"        if (failures[i].message == pm.collectionVariables.get(\"Failure: db unknown - composite\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -14309,7 +14309,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message == \"composite key does not match an existing record\") {\r",
+											"        if (failures[i].message == pm.collectionVariables.get(\"Failure: db unknown - composite\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -14389,7 +14389,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message == \"Primary key has a field with a null key value.\") {\r",
+											"        if (failures[i].message == pm.collectionVariables.get(\"Failure: db integrity - primary\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -14469,7 +14469,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message == \"no record found\") {\r",
+											"        if (failures[i].message == pm.collectionVariables.get(\"Failure: db violation - no record\")) {\r",
 											"            pm.expect(failures[i]).to.have.property(\"constraint\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -14550,7 +14550,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"size must be \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: app violation - size\"))) {\r",
 											"            pm.expect(failures[i].constraint).to.equal(\"value\");\r",
 											"            found = true;\r",
 											"            break;\r",
@@ -15265,7 +15265,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \n    \"name\": \"{{Incorrect id}}\",\n    \"description\": \"{{Permission description}}\",\n    \"displayOrder\": {{Display order}}\n}",
+									"raw": "{ \n    \"name\": \"{{Incorrect id}}\",\n    \"description\": \"{{Modified permission description}}\",\n    \"displayOrder\": {{Display order}}\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -19625,7 +19625,7 @@
 							"response": []
 						},
 						{
-							"name": "Retrieve first user's groups",
+							"name": "Retrieve first group's users",
 							"event": [
 								{
 									"listen": "test",
@@ -19638,13 +19638,13 @@
 											"    pm.expect(response.status).to.equal(\"OK\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Contains created group\", () => {\r",
+											"pm.test(\"Contains created user\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const groups = jsonData._embedded.groups;\r",
+											"    const users = jsonData._embedded.users;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < groups.length; i++) {\r",
-											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Created group\")) {\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Created user\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -19653,13 +19653,13 @@
 											"    pm.expect(found).to.be.true;\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Contains second created group\", () => {\r",
+											"pm.test(\"Contains second created user\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const groups = jsonData._embedded.groups;\r",
+											"    const users = jsonData._embedded.users;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < groups.length; i++) {\r",
-											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Second created group\")) {\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Second created user\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -19676,16 +19676,16 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{Created user's groups}}",
+									"raw": "{{Created group's users}}",
 									"host": [
-										"{{Created user's groups}}"
+										"{{Created group's users}}"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Retrieve second user's groups",
+							"name": "Retrieve second group's users",
 							"event": [
 								{
 									"listen": "test",
@@ -19698,13 +19698,13 @@
 											"    pm.expect(response.status).to.equal(\"OK\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Contains created group\", () => {\r",
+											"pm.test(\"Contains created user\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const groups = jsonData._embedded.groups;\r",
+											"    const users = jsonData._embedded.users;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < groups.length; i++) {\r",
-											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Created group\")) {\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Created user\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -19713,13 +19713,13 @@
 											"    pm.expect(found).to.be.true;\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Contains second created group\", () => {\r",
+											"pm.test(\"Contains second created user\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const groups = jsonData._embedded.groups;\r",
+											"    const users = jsonData._embedded.users;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < groups.length; i++) {\r",
-											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Second created group\")) {\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Second created user\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -19736,16 +19736,16 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{Second created user's groups}}",
+									"raw": "{{Second created group's users}}",
 									"host": [
-										"{{Second created user's groups}}"
+										"{{Second created group's users}}"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Assign first group to first user",
+							"name": "Assign second group to first user",
 							"event": [
 								{
 									"listen": "test",
@@ -19780,7 +19780,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{{Created group}}",
+									"raw": "{{Second created group}}",
 									"options": {
 										"raw": {
 											"language": "text"
@@ -19797,7 +19797,7 @@
 							"response": []
 						},
 						{
-							"name": "Retrieve first user's groups",
+							"name": "Retrieve first group's users",
 							"event": [
 								{
 									"listen": "test",
@@ -19810,13 +19810,13 @@
 											"    pm.expect(response.status).to.equal(\"OK\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Contains created group\", () => {\r",
+											"pm.test(\"Contains second created user\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const groups = jsonData._embedded.groups;\r",
+											"    const users = jsonData._embedded.users;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < groups.length; i++) {\r",
-											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Created group\")) {\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Second created user\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -19825,13 +19825,13 @@
 											"    pm.expect(found).to.be.true;\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Does not contain second created group\", () => {\r",
+											"pm.test(\"Does not contain created user\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const groups = jsonData._embedded.groups;\r",
+											"    const users = jsonData._embedded.users;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < groups.length; i++) {\r",
-											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Second created group\")) {\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Created user\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -19848,16 +19848,16 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{Created user's groups}}",
+									"raw": "{{Created group's users}}",
 									"host": [
-										"{{Created user's groups}}"
+										"{{Created group's users}}"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Deassign first group from first user",
+							"name": "Deassign second group from first user",
 							"event": [
 								{
 									"listen": "test",
@@ -19891,12 +19891,12 @@
 									}
 								],
 								"url": {
-									"raw": "{{Created user's groups}}/{{Created group's id}}",
+									"raw": "{{Created user's groups}}/{{Second created group's id}}",
 									"host": [
 										"{{Created user's groups}}"
 									],
 									"path": [
-										"{{Created group's id}}"
+										"{{Second created group's id}}"
 									]
 								}
 							},
@@ -19949,7 +19949,7 @@
 							"response": []
 						},
 						{
-							"name": "Deassign second user from second group",
+							"name": "Deassign second group from second user",
 							"event": [
 								{
 									"listen": "test",
@@ -20008,13 +20008,13 @@
 											"    pm.expect(response.status).to.equal(\"OK\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Does not contain created group\", () => {\r",
+											"pm.test(\"Does not contain created user\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const groups = jsonData._embedded.groups;\r",
+											"    const users = jsonData._embedded.users;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < groups.length; i++) {\r",
-											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Created group\")) {\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Created user\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -20023,13 +20023,13 @@
 											"    pm.expect(found).to.be.false;\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Does not contain second created group\", () => {\r",
+											"pm.test(\"Does not contain second created user\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const groups = jsonData._embedded.groups;\r",
+											"    const users = jsonData._embedded.users;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < groups.length; i++) {\r",
-											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Second created group\")) {\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Second created user\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -20046,9 +20046,9 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{Created user's groups}}",
+									"raw": "{{Created group's users}}",
 									"host": [
-										"{{Created user's groups}}"
+										"{{Created group's users}}"
 									]
 								}
 							},
@@ -20068,13 +20068,13 @@
 											"    pm.expect(response.status).to.equal(\"OK\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Does not contain created group\", () => {\r",
+											"pm.test(\"Does not contain created user\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const groups = jsonData._embedded.groups;\r",
+											"    const users = jsonData._embedded.users;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < groups.length; i++) {\r",
-											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Created group\")) {\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Created user\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -20083,13 +20083,13 @@
 											"    pm.expect(found).to.be.false;\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Does not contain second created group\", () => {\r",
+											"pm.test(\"Does not contain second created user\", () => {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    const groups = jsonData._embedded.groups;\r",
+											"    const users = jsonData._embedded.users;\r",
 											"    var found = false;\r",
 											"\r",
-											"    for (var i = 0; i < groups.length; i++) {\r",
-											"        if (groups[i]._links.group.href == pm.collectionVariables.get(\"Second created group\")) {\r",
+											"    for (var i = 0; i < users.length; i++) {\r",
+											"        if (users[i]._links.user.href == pm.collectionVariables.get(\"Second created user\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -20106,9 +20106,9 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{Second created user's groups}}",
+									"raw": "{{Second created group's users}}",
 									"host": [
-										"{{Second created user's groups}}"
+										"{{Second created group's users}}"
 									]
 								}
 							},
@@ -33101,7 +33101,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message.startsWith(\"input string: \")) {\r",
+											"        if (failures[i].message.startsWith(pm.collectionVariables.get(\"Failure: data type conversion\"))) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -33175,7 +33175,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message == \"missing input\") {\r",
+											"        if (failures[i].message == pm.collectionVariables.get(\"Failure: missing input\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -33246,7 +33246,7 @@
 											"    var found = false;\r",
 											"\r",
 											"    for (var i = 0; i < failures.length; i++) {\r",
-											"        if (failures[i].message == \"malformed JSON input\") {\r",
+											"        if (failures[i].message == pm.collectionVariables.get(\"Failure: malformed input\")) {\r",
 											"            found = true;\r",
 											"            break;\r",
 											"        }\r",
@@ -34069,36 +34069,96 @@
 			"value": "Primary identifier required"
 		},
 		{
+			"key": "Failure: primary id required",
+			"value": "no primary identifier provided"
+		},
+		{
 			"key": "Problem: primary id change",
 			"value": "Primary identifier change attempt"
+		},
+		{
+			"key": "Failure: primary id change",
+			"value": "altered from "
 		},
 		{
 			"key": "Problem: app violation",
 			"value": "Application level constraint violation"
 		},
 		{
+			"key": "Failure: app violation - size",
+			"value": "size must be "
+		},
+		{
+			"key": "Failure: app violation - null",
+			"value": "must not be null"
+		},
+		{
+			"key": "Failure: app violation - password",
+			"value": "must not be 'password'"
+		},
+		{
+			"key": "Failure: app violation - contains",
+			"value": "must contain "
+		},
+		{
+			"key": "Failure: app violation - same",
+			"value": "must not be the same as the username"
+		},
+		{
+			"key": "Failure: app violation - email",
+			"value": "must be a well-formed email address"
+		},
+		{
 			"key": "Problem: db violation",
 			"value": "Database level constraint violation"
+		},
+		{
+			"key": "Failure: db violation - unique",
+			"value": "duplicate value for a record with unique key"
+		},
+		{
+			"key": "Failure: db violation - no record",
+			"value": "no record found"
 		},
 		{
 			"key": "Problem: enum violation",
 			"value": "Enumeration constraint violation"
 		},
 		{
+			"key": "Failure: enum violation",
+			"value": "not one of the values accepted: ["
+		},
+		{
 			"key": "Problem: data type conversion",
 			"value": "Data type conversion failure"
+		},
+		{
+			"key": "Failure: data type conversion",
+			"value": "input string: "
 		},
 		{
 			"key": "Problem: missing input",
 			"value": "Missing input"
 		},
 		{
+			"key": "Failure: missing input",
+			"value": "missing input"
+		},
+		{
 			"key": "Problem: malformed input",
 			"value": "Malformed input"
 		},
 		{
+			"key": "Failure: malformed input",
+			"value": "malformed JSON input"
+		},
+		{
 			"key": "Problem: immutable id change",
 			"value": "Immutable identifier change attempt"
+		},
+		{
+			"key": "Failure: immutable id change",
+			"value": "altered from "
 		},
 		{
 			"key": "Problem: not found",
@@ -34117,8 +34177,16 @@
 			"value": "Database integrity violation"
 		},
 		{
+			"key": "Failure: db integrity - primary",
+			"value": "Primary key has a field with a null key value."
+		},
+		{
 			"key": "Problem: db unknown",
 			"value": "Unknown database level violation"
+		},
+		{
+			"key": "Failure: db unknown - composite",
+			"value": "composite key does not match an existing record"
 		},
 		{
 			"key": "Permission search root schema",
