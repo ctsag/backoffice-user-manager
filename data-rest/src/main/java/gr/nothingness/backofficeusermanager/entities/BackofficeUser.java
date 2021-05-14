@@ -19,7 +19,6 @@ import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -50,7 +49,7 @@ import org.hibernate.annotations.NaturalId;
 public class BackofficeUser {
 
   @RequiredArgsConstructor
-  protected enum Status {
+  private enum Status {
 
     A ("Active"),
     S ("Suspended"),
