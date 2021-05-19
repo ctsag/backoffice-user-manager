@@ -3,7 +3,7 @@ package gr.nothingness.backofficeusermanager.repositories;
 import gr.nothingness.backofficeusermanager.entities.BackofficeUser;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
 
@@ -12,7 +12,7 @@ import org.springframework.data.rest.core.annotation.RestResource;
     itemResourceRel = "user",
     path = "users"
 )
-public interface BackofficeUserRepository extends CrudRepository<BackofficeUser, Long> {
+public interface BackofficeUserRepository extends JpaRepository<BackofficeUser, Long> {
 
   @RestResource(path = "byFullName", rel = "byFullName")
   public List<BackofficeUser> findByFirstNameAndLastNameIgnoreCase(

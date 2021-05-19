@@ -19,7 +19,6 @@ import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -43,17 +42,14 @@ import lombok.Setter;
 import org.hibernate.annotations.NaturalId;
 
 @Entity
-@Table(
-    name = "tadminuser",
-    indexes = @Index(name = "iadminuser_x1", columnList = "timezone_id")
-)
+@Table(name = "tadminuser")
 @NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @ValidPassword
 public class BackofficeUser {
 
   @RequiredArgsConstructor
-  protected enum Status {
+  private enum Status {
 
     A ("Active"),
     S ("Suspended"),

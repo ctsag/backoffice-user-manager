@@ -1,7 +1,7 @@
 package gr.nothingness.backofficeusermanager.repositories;
 
 import gr.nothingness.backofficeusermanager.entities.FlagDefinition;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource(
@@ -9,6 +9,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
     itemResourceRel = "flagDefinition",
     path = "flagDefinitions"
 )
-public interface FlagDefinitionRepository extends CrudRepository<FlagDefinition, String> {
+public interface FlagDefinitionRepository extends JpaRepository<FlagDefinition, String> {
 
 }
