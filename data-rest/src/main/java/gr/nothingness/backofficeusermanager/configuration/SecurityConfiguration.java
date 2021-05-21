@@ -49,7 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .csrf()
             .disable()
         .authorizeRequests()
-            .mvcMatchers(GET, "/actuator/health").permitAll()
+            .mvcMatchers(GET, "/actuator/**").permitAll()
             .mvcMatchers(GET, properties.getBasePath()).permitAll()
             .mvcMatchers(GET, "/**").hasAuthority(properties.getReadPermission())
             .anyRequest().hasAuthority(properties.getWritePermission())
