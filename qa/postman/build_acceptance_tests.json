@@ -563,6 +563,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -974,6 +975,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1212,6 +1214,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1261,6 +1264,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1863,6 +1867,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -2166,6 +2171,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -2270,6 +2276,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -2319,6 +2326,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -2809,6 +2817,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -3178,6 +3187,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -3282,6 +3292,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -3331,6 +3342,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -3793,6 +3805,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -4168,6 +4181,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -4392,6 +4406,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -4441,6 +4456,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -4992,6 +5008,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -5361,6 +5378,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -5465,6 +5483,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -5514,6 +5533,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -5973,6 +5993,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -6343,6 +6364,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -6447,6 +6469,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -6496,6 +6519,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -6970,6 +6994,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -7265,6 +7290,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -7369,6 +7395,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -7418,6 +7445,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -7874,6 +7902,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -8247,6 +8276,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -8351,6 +8381,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -8400,6 +8431,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -8961,6 +8993,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -9082,6 +9115,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -9219,6 +9253,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -10120,6 +10155,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(500);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: db violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 500);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -10201,6 +10237,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -10282,6 +10319,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -10363,6 +10401,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -10444,6 +10483,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(409);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: immutable id change\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 409);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -10525,6 +10565,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(409);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: immutable id change\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 409);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -10606,6 +10647,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -10687,6 +10729,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -10768,6 +10811,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -10849,6 +10893,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -10930,6 +10975,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -11011,6 +11057,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -11092,6 +11139,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -11173,6 +11221,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -11254,6 +11303,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -11335,6 +11385,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -11416,6 +11467,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -11497,6 +11549,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: enum violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -11578,6 +11631,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -11659,6 +11713,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: enum violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -11740,6 +11795,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -11821,6 +11877,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -11907,6 +11964,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(500);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: db violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 500);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -11988,6 +12046,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -12069,6 +12128,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -12150,6 +12210,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -12236,6 +12297,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -12317,6 +12379,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -12398,6 +12461,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: primary id required\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -12478,6 +12542,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(409);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: primary id change\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 409);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -12559,6 +12624,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -12640,6 +12706,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -12721,6 +12788,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -12807,6 +12875,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -12888,6 +12957,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -12969,6 +13039,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: primary id required\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -13049,6 +13120,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(409);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: primary id change\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 409);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -13130,6 +13202,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -13211,6 +13284,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -13292,6 +13366,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -13378,6 +13453,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -13459,6 +13535,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -13540,6 +13617,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: enum violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -13621,6 +13699,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: enum violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -13707,6 +13786,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -13788,6 +13868,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -13874,6 +13955,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(500);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: db violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 500);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -13954,6 +14036,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -14035,6 +14118,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -14121,6 +14205,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -14202,6 +14287,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: primary id required\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -14282,6 +14368,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(409);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: primary id change\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 409);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -14363,6 +14450,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -14444,6 +14532,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -14525,6 +14614,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -14611,6 +14701,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(500);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: db integrity\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 500);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -14691,6 +14782,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(500);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: db violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 500);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -14772,6 +14864,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(500);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: db unknown\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 500);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -14852,6 +14945,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(500);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: db unknown\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 500);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -14932,6 +15026,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(500);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: db integrity\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 500);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -15012,6 +15107,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(500);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: db violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 500);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -15093,6 +15189,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: app violation\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -32491,6 +32588,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -32547,6 +32645,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -32606,6 +32705,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(401);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: unauthorized\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 401);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -32681,6 +32781,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(401);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: unauthorized\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 401);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -32752,6 +32853,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(401);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: unauthorized\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 401);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -32823,6 +32925,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(403);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: forbidden\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 403);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -32894,6 +32997,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: data type conversion\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -32968,6 +33072,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: missing input\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -33039,6 +33144,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(400);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: malformed input\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 400);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Contains the expected failure\", () => {\r",
@@ -33119,6 +33225,7 @@
 											"\r",
 											"    pm.expect(jsonData.status).to.equal(404);\r",
 											"    pm.expect(jsonData.title).to.equal(pm.collectionVariables.get(\"Problem: not found\"));\r",
+											"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get(\"HTTP status URL\") + \"/\" + 404);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -34050,6 +34157,10 @@
 		{
 			"key": "AllPages",
 			"value": "?size=1000"
+		},
+		{
+			"key": "HTTP status URL",
+			"value": "https://httpstatuses.com"
 		}
 	]
 }

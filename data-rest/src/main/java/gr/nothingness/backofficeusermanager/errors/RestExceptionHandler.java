@@ -5,14 +5,19 @@ import static org.springframework.http.HttpStatus.CONFLICT;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
+import gr.nothingness.backofficeusermanager.configuration.ApplicationProperties;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class RestExceptionHandler {
+
+  @Autowired
+  private ApplicationProperties configuration;
 
   @ExceptionHandler(org.springframework.web.servlet.NoHandlerFoundException.class)
   protected ResponseEntity<Object> handleNoHandlerFound(
@@ -21,6 +26,7 @@ public class RestExceptionHandler {
   ) {
     RFC7807Error apiError = RFC7807Error
         .withStatus(NOT_FOUND)
+        .andType(configuration.getHttpStatusRefUrl() + "/" + NOT_FOUND.value())
         .andTitle("Not Found")
         .andInstance(request.getRequestURI())
         .build();
@@ -35,6 +41,7 @@ public class RestExceptionHandler {
   ) {
     RFC7807Error apiError = RFC7807Error
         .withStatus(NOT_FOUND)
+        .andType(configuration.getHttpStatusRefUrl() + "/" + NOT_FOUND.value())
         .andTitle("Not Found")
         .andInstance(request.getRequestURI())
         .build();
@@ -49,6 +56,7 @@ public class RestExceptionHandler {
   ) {
     RFC7807Error apiError = RFC7807Error
         .withStatus(INTERNAL_SERVER_ERROR)
+        .andType(configuration.getHttpStatusRefUrl() + "/" + INTERNAL_SERVER_ERROR.value())
         .andTitle("Database level constraint violation")
         .andDetail(
             "One or more of the provided values violates a database level constraint. "
@@ -87,6 +95,7 @@ public class RestExceptionHandler {
   ) {
     RFC7807Error apiError = RFC7807Error
         .withStatus(INTERNAL_SERVER_ERROR)
+        .andType(configuration.getHttpStatusRefUrl() + "/" + INTERNAL_SERVER_ERROR.value())
         .andTitle("Database integrity violation")
         .andDetail(
             "One or more of the provided values causes a database integrity violation. "
@@ -114,6 +123,7 @@ public class RestExceptionHandler {
   ) {
     RFC7807Error apiError = RFC7807Error
         .withStatus(BAD_REQUEST)
+        .andType(configuration.getHttpStatusRefUrl() + "/" + BAD_REQUEST.value())
         .andTitle("Application level constraint violation")
         .andDetail(
             "One or more of the provided values violates validation rules. "
@@ -142,6 +152,7 @@ public class RestExceptionHandler {
   ) {
     RFC7807Error apiError = RFC7807Error
         .withStatus(BAD_REQUEST)
+        .andType(configuration.getHttpStatusRefUrl() + "/" + BAD_REQUEST.value())
         .andTitle("Enumeration constraint violation")
         .andDetail(
             "One or more of the provided values is not within the list of acceptable ones "
@@ -181,6 +192,7 @@ public class RestExceptionHandler {
     if (exception.getMessage().matches("^identifier of an instance of .*$")) {
       apiError = RFC7807Error
           .withStatus(CONFLICT)
+          .andType(configuration.getHttpStatusRefUrl() + "/" + CONFLICT.value())
           .andTitle("Primary identifier change attempt")
           .andDetail(
               "An attempt to change the primary identifier for an entity has been made. "
@@ -196,6 +208,7 @@ public class RestExceptionHandler {
     } else if (exception.getMessage().matches("^ids for this class must be manually assigned.*$")) {
       apiError = RFC7807Error
           .withStatus(BAD_REQUEST)
+          .andType(configuration.getHttpStatusRefUrl() + "/" + BAD_REQUEST.value())
           .andTitle("Primary identifier required")
           .andDetail(
               "Data entities require a primary identifier to be provided before it can be created"
@@ -209,6 +222,7 @@ public class RestExceptionHandler {
     } else if (exception.getMessage().matches("^An immutable natural identifier of entity.*$")) {
       apiError = RFC7807Error
           .withStatus(CONFLICT)
+          .andType(configuration.getHttpStatusRefUrl() + "/" + CONFLICT.value())
           .andTitle("Immutable identifier change attempt")
           .andDetail(
               "An attempt to change an immutable identifier for an entity has been made. "
@@ -224,6 +238,7 @@ public class RestExceptionHandler {
     } else {
       apiError = RFC7807Error
           .withStatus(INTERNAL_SERVER_ERROR)
+          .andType(configuration.getHttpStatusRefUrl() + "/" + INTERNAL_SERVER_ERROR.value())
           .andTitle("Unknown database level violation")
           .andDetail(
               "Something went wrong when trying to apply the requested change to the database"
@@ -248,6 +263,7 @@ public class RestExceptionHandler {
   ) {
     RFC7807Error apiError = RFC7807Error
         .withStatus(BAD_REQUEST)
+        .andType(configuration.getHttpStatusRefUrl() + "/" + BAD_REQUEST.value())
         .andTitle("Data type conversion failure")
         .andDetail("The request URL or body contains values that are of an invalid data type")
         .andInstance(request.getRequestURI())
@@ -277,6 +293,7 @@ public class RestExceptionHandler {
   ) {
     RFC7807Error apiError = RFC7807Error
         .withStatus(BAD_REQUEST)
+        .andType(configuration.getHttpStatusRefUrl() + "/" + BAD_REQUEST.value())
         .andTitle("Missing input")
         .andDetail(
             "The message received is missing some of the required input. This usually indicates "
@@ -301,6 +318,7 @@ public class RestExceptionHandler {
   ) {
     RFC7807Error apiError = RFC7807Error
         .withStatus(BAD_REQUEST)
+        .andType(configuration.getHttpStatusRefUrl() + "/" + BAD_REQUEST.value())
         .andTitle("Malformed input")
         .andDetail(
             "The message received contains input that is unable to be parsed. This usually "
