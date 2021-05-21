@@ -58,8 +58,12 @@ public class Position {
 
   @PreRemove
   private void disassociate() {
-    users.forEach(user -> user.setPosition(null));
-    childPositions.forEach(position -> position.setParentPosition(null));
+    users.forEach(BackofficeUser::removePosition);
+    childPositions.forEach(Position::removeParentPosition);
+  }
+
+  private void removeParentPosition() {
+    parentPosition = null;
   }
 
   public void removeGroup(BackofficeGroup group) {

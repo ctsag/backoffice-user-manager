@@ -77,6 +77,10 @@ public class BackofficeGroup {
     users.forEach(user -> user.removeGroup(this));
   }
 
+  public void removeOwner() {
+    owner = null;
+  }
+
   public void removeJurisdiction(Jurisdiction jurisdiction) {
     jurisdictions.remove(jurisdiction);
   }

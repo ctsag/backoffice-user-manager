@@ -219,7 +219,15 @@ public class BackofficeUser {
 
   @PreRemove
   private void disassociate() {
-    ownedGroups.forEach(group -> group.setOwner(null));
+    ownedGroups.forEach(BackofficeGroup::removeOwner);
+  }
+
+  public void removePosition() {
+    position = null;
+  }
+
+  public void removeTimezone() {
+    timezone = null;
   }
 
   public void removeGroup(BackofficeGroup group) {

@@ -70,7 +70,7 @@ public class Timezone {
 
   @PreRemove
   private void disassociate() {
-    users.forEach(user -> user.setTimezone(null));
+    users.forEach(BackofficeUser::removeTimezone);
   }
 
 }
