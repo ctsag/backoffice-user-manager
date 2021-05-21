@@ -2,6 +2,7 @@ package gr.nothingness.backofficeusermanager.errors;
 
 import gr.nothingness.backofficeusermanager.configuration.ApplicationProperties;
 import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.context.request.WebRequest;
 
 @Configuration
+@Slf4j
 public class DefaultErrorConfiguration extends DefaultErrorAttributes {
 
   @Autowired
@@ -26,6 +28,11 @@ public class DefaultErrorConfiguration extends DefaultErrorAttributes {
         .andDetail(originalAttributes.get("message").toString())
         .andInstance(originalAttributes.get("path").toString())
         .build();
+
+    log.info(
+        "Unhandled error was picked up by the default error configuration: {}",
+        originalAttributes.get("error").toString()
+    );
 
     return apiError.toMap();
   }
