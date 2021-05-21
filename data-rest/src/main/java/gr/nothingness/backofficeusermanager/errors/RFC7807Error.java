@@ -20,7 +20,7 @@ public class RFC7807Error {
   @Getter @JsonIgnore private final HttpStatus statusEnum;
   @Getter @JsonIgnore private MediaType contentType = APPLICATION_PROBLEM_JSON;
   @Getter private final Integer status;
-  @Getter private String title;
+  @Getter private String title = "Undefined error";
   @Getter private String detail;
   @Getter private String type;
   @Getter private String instance;

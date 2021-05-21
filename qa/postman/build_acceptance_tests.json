@@ -33222,8 +33222,7 @@
 					"    },",
 					"    \"required\": [",
 					"        \"status\",",
-					"        \"title\",",
-					"        \"instance\"",
+					"        \"title\"",
 					"    ],",
 					"    \"additionalProperties\": false",
 					"});"
