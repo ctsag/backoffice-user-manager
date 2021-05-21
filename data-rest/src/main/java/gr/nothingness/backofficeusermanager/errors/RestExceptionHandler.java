@@ -4,7 +4,6 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.CONFLICT;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
-import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
@@ -15,6 +14,20 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class RestExceptionHandler {
 
+  @ExceptionHandler(org.springframework.web.servlet.NoHandlerFoundException.class)
+  protected ResponseEntity<Object> handleNoHandlerFound(
+      org.springframework.web.servlet.NoHandlerFoundException exception,
+      HttpServletRequest request
+  ) {
+    RFC7807Error apiError = RFC7807Error
+        .withStatus(NOT_FOUND)
+        .andTitle("Not Found")
+        .andInstance(request.getRequestURI())
+        .build();
+
+    return buildResponseEntity(apiError);
+  }
+
   @ExceptionHandler(org.springframework.data.rest.webmvc.ResourceNotFoundException.class)
   protected ResponseEntity<Object> handleNotFoundFailure(
       org.springframework.data.rest.webmvc.ResourceNotFoundException exception,
@@ -24,7 +37,6 @@ public class RestExceptionHandler {
         .withStatus(NOT_FOUND)
         .andTitle("Not Found")
         .andInstance(request.getRequestURI())
-        .andContentType(APPLICATION_JSON)
         .build();
 
     return buildResponseEntity(apiError);
