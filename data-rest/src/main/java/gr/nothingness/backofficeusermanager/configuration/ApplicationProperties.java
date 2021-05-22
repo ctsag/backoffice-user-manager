@@ -12,8 +12,10 @@ public class ApplicationProperties {
 
   private String basePath = "/";
   private String httpStatusRefUrl = "https://httpstatuses.com";
-  private boolean authDisabled = false;
   private String readPermission = "ReadAccess";
   private String writePermission = "WriteAccess";
+  private boolean authDisabled = false;
+  private boolean csrfDisabled = true;
+  private boolean sessionStateless = true;
 
 }
