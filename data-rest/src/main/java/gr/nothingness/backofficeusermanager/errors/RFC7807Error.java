@@ -15,16 +15,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 @JsonInclude(Include.NON_EMPTY)
+@Getter
 public class RFC7807Error {
 
-  @Getter @JsonIgnore private final HttpStatus statusEnum;
-  @Getter @JsonIgnore private MediaType contentType = APPLICATION_PROBLEM_JSON;
-  @Getter private final Integer status;
-  @Getter private String title = "Undefined error";
-  @Getter private String detail;
-  @Getter private String type;
-  @Getter private String instance;
-  @Getter private final Set<FailureDetail> failures = new HashSet<>();
+  @JsonIgnore
+  private final HttpStatus statusEnum;
+
+  @JsonIgnore
+  private MediaType contentType = APPLICATION_PROBLEM_JSON;
+
+  private final Integer status;
+  private String title = "Undefined error";
+  private String detail;
+  private String type;
+  private String instance;
+  private final Set<FailureDetail> failures = new HashSet<>();
 
   private RFC7807Error(HttpStatus status) {
     this.status = status.value();

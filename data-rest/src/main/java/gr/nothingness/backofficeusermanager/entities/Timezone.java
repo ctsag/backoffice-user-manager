@@ -23,50 +23,50 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "ttimezone")
-@NoArgsConstructor
+@NoArgsConstructor @Getter @Setter
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Timezone {
 
-  @RequiredArgsConstructor
+  @RequiredArgsConstructor @Getter
   private enum Status {
 
     A ("Active"),
     S ("Suspended"),
     D ("Deleted");
 
-    @Getter private final String description;
+    private final String description;
 
   }
 
-  @RequiredArgsConstructor
+  @RequiredArgsConstructor @Getter
   private enum YesNo {
 
     Y ("Yes"),
     N ("No");
 
-    @Getter private final String description;
+    private final String description;
 
   }
 
   @Column(name = "timezone_id")
   @Id @GeneratedValue(strategy = IDENTITY)
-  @Getter private Long id;
+  private Long id;
 
   @Column(name = "name")
   @NotNull @Size(max = 80)
-  @Getter @Setter private String name;
+  private String name;
 
   @Column(name = "status")
   @Enumerated(STRING)
-  @Getter @Setter private Status status = Status.A;
+  private Status status = Status.A;
 
   @Column(name = "display")
   @Enumerated(STRING)
-  @Getter @Setter private YesNo display = YesNo.N;
+  private YesNo display = YesNo.N;
 
   @OneToMany(mappedBy = "timezone")
   @JsonIgnore
-  @Getter @Setter private Set<BackofficeUser> users;
+  private Set<BackofficeUser> users;
 
   @PreRemove
   private void disassociate() {

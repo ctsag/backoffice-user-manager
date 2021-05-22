@@ -17,7 +17,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "tadminoptype")
-@NoArgsConstructor
+@NoArgsConstructor @Getter @Setter
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class PermissionType {
 
@@ -26,18 +26,18 @@ public class PermissionType {
 
   @Column(name = "type")
   @Id @Size(min = 1, max = 8)
-  @Getter @Setter private String name;
+  private String name;
 
   @Column(name = "desc")
   @NotNull @Size(min = 1, max = 40)
-  @Getter @Setter private String description;
+  private String description;
 
   @Column(name = "disporder")
-  @Getter @Setter private Short displayOrder;
+  private Short displayOrder;
 
   @OneToMany(mappedBy = "type")
   @JsonIgnore
-  @Getter @Setter private Set<Permission> permissions;
+  private Set<Permission> permissions;
 
   @PreRemove
   private void disassociate() {

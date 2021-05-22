@@ -20,21 +20,21 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "tjurisdiction")
-@NoArgsConstructor
+@NoArgsConstructor @Getter @Setter
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Jurisdiction {
 
   @Column(name = "jur_id")
   @Id @GeneratedValue(strategy = IDENTITY)
-  @Getter private Long id;
+  private Long id;
 
   @Column(name = "jurisdiction")
   @NotNull @Size(max = 64)
-  @Getter @Setter private String name;
+  private String name;
 
   @ManyToMany(mappedBy = "jurisdictions")
   @JsonIgnore
-  @Getter @Setter private Set<BackofficeGroup> groups;
+  private Set<BackofficeGroup> groups;
 
   @PreRemove
   private void disassociate() {

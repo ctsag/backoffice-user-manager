@@ -10,13 +10,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-@RequiredArgsConstructor
+@RequiredArgsConstructor @Getter @Setter
 public class MixedDigestPasswordEncoder implements PasswordEncoder {
 
   private static final String SALT_ALGORITHM = "MD5";
   private static final String PASSWORD_ALGORITHM = "SHA1";
 
-  @Getter @Setter private String salt;
+  private String salt;
 
   @Override
   public String encode(CharSequence password) {

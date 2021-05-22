@@ -13,9 +13,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Embeddable
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
+@NoArgsConstructor @AllArgsConstructor @Getter @Setter @ToString
 public class FlagKey implements Serializable {
 
   @Column(name = "user_id")

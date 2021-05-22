@@ -12,17 +12,17 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "tadminop")
-@NoArgsConstructor
+@NoArgsConstructor @Getter @Setter
 public class AuthPermission {
 
   @Column(name = "action")
   @Id
-  @Getter @Setter private String name;
+  private String name;
 
   @ManyToMany(mappedBy = "permissions")
-  @Getter @Setter private Set<AuthUser> users;
+  private Set<AuthUser> users;
 
   @ManyToMany(mappedBy = "permissions")
-  @Getter @Setter private Set<AuthGroup> groups;
+  private Set<AuthGroup> groups;
 
 }

@@ -27,33 +27,33 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "tadmingroup")
-@NoArgsConstructor
+@NoArgsConstructor @Getter @Setter
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class BackofficeGroup {
 
   @Column(name = "group_id")
   @Id @GeneratedValue(strategy = IDENTITY)
-  @Getter private Long id;
+  private Long id;
 
   @Column(name = "group_name", unique = true)
   @NotNull @Size(min = 1, max = 64)
-  @Getter @Setter private String name;
+  private String name;
 
   @Column(name = "cr_date")
   @JsonIgnore @NotNull @Temporal(TIMESTAMP)
-  @Getter @Setter private Date creationDate = new Date();
+  private Date creationDate = new Date();
 
   @ManyToOne(fetch = LAZY)
   @JoinColumn(name = "group_owner")
-  @Getter @Setter private BackofficeUser owner;
+  private BackofficeUser owner;
 
   @ManyToMany(mappedBy = "groups")
   @JsonIgnore
-  @Getter @Setter private Set<Position> positions;
+  private Set<Position> positions;
 
   @ManyToMany(mappedBy = "groups")
   @JsonIgnore
-  @Getter @Setter private Set<BackofficeUser> users;
+  private Set<BackofficeUser> users;
 
   @ManyToMany(fetch = LAZY)
   @JoinTable(
@@ -61,7 +61,7 @@ public class BackofficeGroup {
       joinColumns = @JoinColumn(name = "group_id"),
       inverseJoinColumns = @JoinColumn(name = "action")
   )
-  @Getter @Setter private Set<Permission> permissions;
+  private Set<Permission> permissions;
 
   @ManyToMany(fetch = LAZY)
   @JoinTable(
@@ -69,7 +69,7 @@ public class BackofficeGroup {
       joinColumns = @JoinColumn(name = "group_id"),
       inverseJoinColumns = @JoinColumn(name = "jur_id")
   )
-  @Getter @Setter private Set<Jurisdiction> jurisdictions;
+  private Set<Jurisdiction> jurisdictions;
 
   @PreRemove
   private void disassociate() {

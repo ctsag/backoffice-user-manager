@@ -16,18 +16,18 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "tadmingroup")
-@NoArgsConstructor
+@NoArgsConstructor @Getter @Setter
 public class AuthGroup {
 
   @Column(name = "group_id")
   @Id
-  @Getter private Long id;
+  private Long id;
 
   @Column(name = "group_name", unique = true)
-  @Getter @Setter private String name;
+  private String name;
 
   @ManyToMany(mappedBy = "groups")
-  @Getter @Setter private Set<AuthUser> users;
+  private Set<AuthUser> users;
 
   @ManyToMany(fetch = EAGER)
   @JoinTable(
@@ -35,6 +35,6 @@ public class AuthGroup {
       joinColumns = @JoinColumn(name = "group_id"),
       inverseJoinColumns = @JoinColumn(name = "action")
   )
-  @Getter @Setter private Set<AuthPermission> permissions;
+  private Set<AuthPermission> permissions;
 
 }
