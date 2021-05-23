@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -26,10 +27,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "tadminuser")
-@NoArgsConstructor
+@NoArgsConstructor @Getter @Setter
 public class AuthUser implements UserDetails {
 
-  @RequiredArgsConstructor
+  @RequiredArgsConstructor @Getter
   private enum Status {
 
     A ("Active"),
@@ -38,27 +39,28 @@ public class AuthUser implements UserDetails {
     L ("Locked"),
     X ("Deleted");
 
-    @Getter private final String description;
+    private final String description;
 
   }
 
   @Column(name = "user_id")
   @Id
-  @Getter private Long id;
+  private Long id;
 
   @Column(name = "username", unique = true)
   @NaturalId
-  @Setter private String username;
+  private String username;
 
   @Column(name = "password")
-  @Setter private String password;
+  private String password;
 
   @Column(name = "status")
   @Enumerated(STRING)
-  @Getter @Setter private Status status = Status.A;
+  private Status status = Status.A;
 
   @Column(name = "password_salt")
-  @Getter private String passwordSalt;
+  @Setter(AccessLevel.NONE)
+  private String passwordSalt;
 
   @ManyToMany(fetch = EAGER)
   @JoinTable(
@@ -66,7 +68,7 @@ public class AuthUser implements UserDetails {
       joinColumns = @JoinColumn(name = "user_id"),
       inverseJoinColumns = @JoinColumn(name = "action")
   )
-  @Getter @Setter private Set<AuthPermission> permissions;
+  private Set<AuthPermission> permissions;
 
   @ManyToMany(fetch = EAGER)
   @JoinTable(
@@ -74,7 +76,7 @@ public class AuthUser implements UserDetails {
       joinColumns = @JoinColumn(name = "user_id"),
       inverseJoinColumns = @JoinColumn(name = "group_id")
   )
-  @Getter @Setter private Set<AuthGroup> groups;
+  private Set<AuthGroup> groups;
 
   public AuthUser(AuthUser user) {
     this.id = user.getId();

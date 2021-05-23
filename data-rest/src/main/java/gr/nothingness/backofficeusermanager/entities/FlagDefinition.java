@@ -17,27 +17,27 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "tadminuserflagdesc")
-@NoArgsConstructor
+@NoArgsConstructor @Getter @Setter
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class FlagDefinition implements Serializable {
 
   @Column(name = "flag_name")
   @Id @Size(max = 32)
-  @Getter @Setter private String name;
+  private String name;
 
   @Column(name = "description")
   @Size(max = 255)
-  @Getter @Setter private String description;
+  private String description;
 
   @Column(name = "note")
   @Size(max = 255)
-  @Getter @Setter private String note;
+  private String note;
 
   @Column(name = "default_val")
   @Size(max = 64)
-  @Getter @Setter private String defaultValue;
+  private String defaultValue;
 
   @OneToMany(mappedBy = "flagDefinition", cascade = ALL)
-  @Getter @Setter private Set<FlagValue> flags;
+  private Set<FlagValue> flags;
 
 }

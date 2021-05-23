@@ -8,11 +8,11 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @JsonInclude(Include.NON_EMPTY)
-@RequiredArgsConstructor(access = PRIVATE)
+@RequiredArgsConstructor(access = PRIVATE) @Getter
 public class FailureDetail {
 
-  @Getter private final String message;
-  @Getter private String constraint;
+  private final String message;
+  private String constraint;
 
   public static FailureDetailBuilder withMessage(String message) {
     return new FailureDetail(message).new FailureDetailBuilder();

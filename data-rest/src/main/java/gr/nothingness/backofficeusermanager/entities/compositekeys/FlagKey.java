@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,15 +13,15 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Embeddable
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
+@NoArgsConstructor @AllArgsConstructor @Getter @Setter @ToString
 public class FlagKey implements Serializable {
 
   @Column(name = "user_id")
+  @NotNull
   @Getter @Setter private Long userId;
 
   @Column(name = "flag_name")
+  @NotNull @Size(max = 64)
   @Getter @Setter private String flagName;
 
   @Override

@@ -49,6 +49,21 @@ public class RestExceptionHandler {
     return buildResponseEntity(apiError);
   }
 
+  @ExceptionHandler(java.lang.UnsupportedOperationException.class)
+  protected ResponseEntity<Object> handleNotFoundFailure(
+      java.lang.UnsupportedOperationException exception,
+      HttpServletRequest request
+  ) {
+    RFC7807Error apiError = RFC7807Error
+        .withStatus(BAD_REQUEST)
+        .andType(configuration.getHttpStatusRefUrl() + "/" + BAD_REQUEST.value())
+        .andTitle("Unsupported operation")
+        .andInstance(request.getRequestURI())
+        .build();
+
+    return buildResponseEntity(apiError);
+  }
+
   @ExceptionHandler(org.hibernate.exception.ConstraintViolationException.class)
   protected ResponseEntity<Object> handleDatabaseConstraintViolation(
       org.hibernate.exception.ConstraintViolationException exception,

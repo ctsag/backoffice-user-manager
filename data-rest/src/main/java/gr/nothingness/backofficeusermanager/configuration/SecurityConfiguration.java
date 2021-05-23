@@ -46,16 +46,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     httpSecurity
         .httpBasic()
         .and()
-        .csrf()
-            .disable()
         .authorizeRequests()
-            .mvcMatchers(GET, "/actuator/health").permitAll()
+            .mvcMatchers(GET, "/actuator/**").permitAll()
             .mvcMatchers(GET, properties.getBasePath()).permitAll()
             .mvcMatchers(GET, "/**").hasAuthority(properties.getReadPermission())
             .anyRequest().hasAuthority(properties.getWritePermission())
-        .and()
-        .sessionManagement()
-            .sessionCreationPolicy(STATELESS)
         .and()
         .exceptionHandling()
             .authenticationEntryPoint((request, response, exception) ->
@@ -64,6 +59,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .accessDeniedHandler((request, response, exception) ->
                 generateError(request, response, exception, FORBIDDEN)
             );
+
+    if (properties.isSessionStateless()) {
+      httpSecurity
+          .sessionManagement()
+              .sessionCreationPolicy(STATELESS)
+          .and()
+          .csrf()
+              .disable();
+    }
+
+    if (properties.isCsrfDisabled()) {
+      httpSecurity
+          .csrf()
+              .disable();
+    }
   }
 
   private void generateError(

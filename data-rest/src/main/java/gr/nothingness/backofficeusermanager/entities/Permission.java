@@ -23,7 +23,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "tadminop")
-@NoArgsConstructor
+@NoArgsConstructor @Getter @Setter
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Permission {
 
@@ -32,26 +32,26 @@ public class Permission {
 
   @Column(name = "action")
   @Id @Size(min = 1, max = 64)
-  @Getter @Setter private String name;
+  private String name;
 
   @Column(name = "desc")
   @NotNull @Size(min = 1, max = 80)
-  @Getter @Setter private String description;
+  private String description;
 
   @Column(name = "disporder")
-  @Getter @Setter private Short displayOrder;
+  private Short displayOrder;
 
   @ManyToMany(mappedBy = "permissions")
   @JsonIgnore
-  @Getter @Setter private Set<BackofficeUser> users;
+  private Set<BackofficeUser> users;
 
   @ManyToMany(mappedBy = "permissions")
   @JsonIgnore
-  @Getter @Setter private Set<BackofficeGroup> groups;
+  private Set<BackofficeGroup> groups;
 
   @ManyToOne(fetch = LAZY)
   @JoinColumn(name = "type")
-  @Getter @Setter private PermissionType type;
+  private PermissionType type;
 
   @PrePersist @PreUpdate
   public void prePersist() {

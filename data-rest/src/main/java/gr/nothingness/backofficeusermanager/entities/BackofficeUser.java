@@ -35,6 +35,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -43,12 +44,12 @@ import org.hibernate.annotations.NaturalId;
 
 @Entity
 @Table(name = "tadminuser")
-@NoArgsConstructor
+@NoArgsConstructor @Getter @Setter
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @ValidPassword
 public class BackofficeUser {
 
-  @RequiredArgsConstructor
+  @RequiredArgsConstructor @Getter
   private enum Status {
 
     A ("Active"),
@@ -57,130 +58,133 @@ public class BackofficeUser {
     L ("Locked"),
     X ("Deleted");
 
-    @Getter private final String description;
+    private final String description;
 
   }
 
-  @RequiredArgsConstructor
+  @RequiredArgsConstructor @Getter
   private enum LostLoginStatus {
 
     A ("Active"),
     S ("Suspended"),
     X ("Deleted");
 
-    @Getter private final String description;
+    private final String description;
 
   }
 
-  @RequiredArgsConstructor
+  @RequiredArgsConstructor @Getter
   private enum YesNo {
 
     Y ("Yes"),
     N ("No");
 
-    @Getter private final String description;
+    private final String description;
 
   }
 
   @Column(name = "user_id")
   @Id @GeneratedValue(strategy = IDENTITY)
-  @Getter private Long id;
+  private Long id;
 
   @Column(name = "username", unique = true)
   @NaturalId
   @NotNull @Size(min = 1, max = 32)
-  @Getter @Setter private String username;
+  private String username;
 
   @Column(name = "password")
   @JsonProperty(access = WRITE_ONLY)
-  @Getter @Setter private String password;
+  private String password;
 
   @Transient
+  @Getter(AccessLevel.NONE) @Setter(AccessLevel.NONE)
   private String currentPassword;
 
   @Transient
   @JsonProperty(access = WRITE_ONLY)
-  @Getter private String plainTextPassword;
+  @Setter(AccessLevel.NONE)
+  private String plainTextPassword;
 
   @Column(name = "fname")
   @Size(max = 60)
-  @Getter @Setter private String firstName;
+  private String firstName;
 
   @Column(name = "lname")
   @Size(max = 60)
-  @Getter @Setter private String lastName;
+  private String lastName;
 
   @Column(name = "email")
   @Size(max = 60) @Email
-  @Getter @Setter private String email;
+  private String email;
 
   @Column(name = "status")
   @NotNull @Enumerated(STRING)
-  @Getter @Setter private Status status = Status.A;
+  private Status status = Status.A;
 
   @Column(name = "acc_pwd_expires")
   @NotNull @Enumerated(STRING)
-  @Getter @Setter private YesNo passwordExpires = YesNo.Y;
+  private YesNo passwordExpires = YesNo.Y;
 
   @Column(name = "agent_id")
   @Size(max = 32)
-  @Getter @Setter private String agent;
+  private String agent;
 
   @Column(name = "phone_switch")
-  @Getter @Setter private Integer phoneSwitch;
+  private Integer phoneSwitch;
 
   @Column(name = "override_code")
   @Size(max = 2)
-  @Getter @Setter private String overrideCode;
+  private String overrideCode;
 
   @Column(name = "login_uid")
   @JsonIgnore @NotNull
-  @Getter @Setter private Integer loginUid = 0;
+  private Integer loginUid = 0;
 
   @Column(name = "logged_in")
   @JsonIgnore @NotNull
-  @Getter @Setter private Character loggedIn = 'N';
+  private Character loggedIn = 'N';
 
   @Column(name = "login_time")
   @JsonIgnore @Temporal(TIMESTAMP)
-  @Getter @Setter private Date loginTime;
+  private Date loginTime;
 
   @Column(name = "login_loc")
   @JsonIgnore @Size(max = 32)
-  @Getter @Setter private String loginLocation;
+  private String loginLocation;
 
   @Column(name = "last_pwd_change")
   @JsonIgnore @Temporal(TIMESTAMP)
-  @Getter @Setter private Date lastPasswordChange = new Date();
+  private Date lastPasswordChange = new Date();
 
   @Column(name = "bad_pwd_count")
   @JsonIgnore @NotNull @Min(0)
-  @Getter @Setter private Integer badPasswordCount = 0;
+  private Integer badPasswordCount = 0;
 
   @Column(name = "last_pwd_fail")
   @JsonIgnore @Temporal(TIMESTAMP)
-  @Getter @Setter private Date lastPasswordFail;
+  private Date lastPasswordFail;
 
   @Column(name = "password_salt")
   @JsonProperty(access = WRITE_ONLY)
   @Size(max = 40)
-  @Getter private String passwordSalt;
+  @Setter(AccessLevel.NONE)
+  private String passwordSalt;
 
   @Column(name = "lost_login_status")
   @JsonIgnore @NotNull @Enumerated(STRING)
-  @Getter @Setter private LostLoginStatus lostLoginStatus = LostLoginStatus.A;
+  private LostLoginStatus lostLoginStatus = LostLoginStatus.A;
 
   @ManyToOne(fetch = LAZY)
   @JoinColumn(name = "timezone_id")
-  @Getter @Setter private Timezone timezone;
+  private Timezone timezone;
 
   @ManyToOne(fetch = LAZY)
   @JoinColumn(name = "position_id")
-  @Getter @Setter private Position position;
+  private Position position;
 
   @OneToMany(mappedBy = "owner")
   @JsonIgnore
-  @Getter @Setter private Set<BackofficeGroup> ownedGroups;
+  private Set<BackofficeGroup> ownedGroups;
 
   @ManyToMany(fetch = LAZY)
   @JoinTable(
@@ -188,7 +192,7 @@ public class BackofficeUser {
       joinColumns = @JoinColumn(name = "user_id"),
       inverseJoinColumns = @JoinColumn(name = "action")
   )
-  @Getter @Setter private Set<Permission> permissions;
+  private Set<Permission> permissions;
 
   @ManyToMany(fetch = LAZY)
   @JoinTable(
@@ -196,10 +200,10 @@ public class BackofficeUser {
       joinColumns = @JoinColumn(name = "user_id"),
       inverseJoinColumns = @JoinColumn(name = "group_id")
   )
-  @Getter @Setter private Set<BackofficeGroup> groups;
+  private Set<BackofficeGroup> groups;
 
   @OneToMany(mappedBy = "user", cascade = ALL)
-  @Getter @Setter private Set<FlagValue> flags;
+  private Set<FlagValue> flags;
 
   @PostLoad
   private void storeCurrentPassword() {

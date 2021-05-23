@@ -16,23 +16,23 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "tadminuserflag")
-@NoArgsConstructor
+@NoArgsConstructor @Getter @Setter
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class FlagValue {
 
   @EmbeddedId
-  @Getter @Setter private FlagKey id;
+  private FlagKey id;
 
   @Column(name = "flag_value")
   @Size(max = 64)
-  @Getter @Setter private String value;
+  private String value;
 
   @ManyToOne
   @MapsId("user_id") @JoinColumn(name = "user_id")
-  @Getter @Setter private BackofficeUser user;
+  private BackofficeUser user;
 
   @ManyToOne
   @MapsId("flag_name") @JoinColumn(name = "flag_name")
-  @Getter @Setter private FlagDefinition flagDefinition;
+  private FlagDefinition flagDefinition;
 
 }
