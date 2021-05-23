@@ -32541,6 +32541,265 @@
 			"name": "Misc",
 			"item": [
 				{
+					"name": "Paging",
+					"item": [
+						{
+							"name": "Get first page",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains the first and second user\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const users = jsonData._embedded.users;\r",
+											"\r",
+											"    pm.expect(users.length).to.equal(2);\r",
+											"\r",
+											"    pm.collectionVariables.set(\"First user\", users[0]._links.self.href);\r",
+											"    pm.collectionVariables.set(\"Second user\", users[1]._links.self.href);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Paging data is correct\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const pagingData = jsonData.page;\r",
+											"\r",
+											"    pm.expect(pagingData.size).to.equal(2);\r",
+											"    pm.expect(pagingData.totalElements).to.equal(3);\r",
+											"    pm.expect(pagingData.totalPages).to.equal(2);\r",
+											"    pm.expect(pagingData.number).to.equal(1);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Users endpoint}}?page=1&size=2&sort=username",
+									"host": [
+										"{{Users endpoint}}"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "size",
+											"value": "2"
+										},
+										{
+											"key": "sort",
+											"value": "username"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get second page",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains the third user\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const users = jsonData._embedded.users;\r",
+											"\r",
+											"    pm.expect(users.length).to.equal(1);\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Third user\", users[0]._links.self.href);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Paging data is correct\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const pagingData = jsonData.page;\r",
+											"\r",
+											"    pm.expect(pagingData.size).to.equal(2);\r",
+											"    pm.expect(pagingData.totalElements).to.equal(3);\r",
+											"    pm.expect(pagingData.totalPages).to.equal(2);\r",
+											"    pm.expect(pagingData.number).to.equal(2);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Users endpoint}}?page=2&size=2&sort=username",
+									"host": [
+										"{{Users endpoint}}"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "2"
+										},
+										{
+											"key": "size",
+											"value": "2"
+										},
+										{
+											"key": "sort",
+											"value": "username"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get first page, reverse order",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains the third and second user\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const users = jsonData._embedded.users;\r",
+											"\r",
+											"    pm.expect(users.length).to.equal(2);\r",
+											"\r",
+											"    pm.expect(users[0]._links.self.href).to.equal(pm.collectionVariables.get(\"Third user\"));\r",
+											"    pm.expect(users[1]._links.self.href).to.equal(pm.collectionVariables.get(\"Second user\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Paging data is correct\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const pagingData = jsonData.page;\r",
+											"\r",
+											"    pm.expect(pagingData.size).to.equal(2);\r",
+											"    pm.expect(pagingData.totalElements).to.equal(3);\r",
+											"    pm.expect(pagingData.totalPages).to.equal(2);\r",
+											"    pm.expect(pagingData.number).to.equal(1);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Users endpoint}}?page=1&size=2&sort=username,desc",
+									"host": [
+										"{{Users endpoint}}"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "size",
+											"value": "2"
+										},
+										{
+											"key": "sort",
+											"value": "username,desc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get second page, reverse order",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains the third and second user\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const users = jsonData._embedded.users;\r",
+											"\r",
+											"    pm.expect(users.length).to.equal(1);\r",
+											"\r",
+											"    pm.expect(users[0]._links.self.href).to.equal(pm.collectionVariables.get(\"First user\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Paging data is correct\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const pagingData = jsonData.page;\r",
+											"\r",
+											"    pm.expect(pagingData.size).to.equal(2);\r",
+											"    pm.expect(pagingData.totalElements).to.equal(3);\r",
+											"    pm.expect(pagingData.totalPages).to.equal(2);\r",
+											"    pm.expect(pagingData.number).to.equal(2);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Users endpoint}}?page=2&size=2&sort=username,desc",
+									"host": [
+										"{{Users endpoint}}"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "2"
+										},
+										{
+											"key": "size",
+											"value": "2"
+										},
+										{
+											"key": "sort",
+											"value": "username,desc"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Authorized via group",
 					"item": [
 						{
@@ -34268,6 +34527,38 @@
 		},
 		{
 			"key": "Actuator schema",
+			"value": ""
+		},
+		{
+			"key": "Problem: unsupported",
+			"value": "Unsupported operation"
+		},
+		{
+			"key": "Administrator",
+			"value": "Administrator"
+		},
+		{
+			"key": "PrivilegedUser",
+			"value": "PrivilegedUser"
+		},
+		{
+			"key": "NonPrivilegedUser",
+			"value": "NonPrivilegedUser"
+		},
+		{
+			"key": "Default password",
+			"value": "1ncharge"
+		},
+		{
+			"key": "First user",
+			"value": ""
+		},
+		{
+			"key": "Second user",
+			"value": ""
+		},
+		{
+			"key": "Third user",
 			"value": ""
 		}
 	]
