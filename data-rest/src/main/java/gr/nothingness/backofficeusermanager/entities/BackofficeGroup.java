@@ -24,6 +24,7 @@ import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.NaturalId;
 
 @Entity
 @Table(name = "tadmingroup")
@@ -36,6 +37,7 @@ public class BackofficeGroup {
   private Long id;
 
   @Column(name = "group_name", unique = true)
+  @NaturalId(mutable = true)
   @NotNull @Size(min = 1, max = 64)
   private String name;
 

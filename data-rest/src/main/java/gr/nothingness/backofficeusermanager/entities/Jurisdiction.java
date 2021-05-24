@@ -17,6 +17,7 @@ import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.NaturalId;
 
 @Entity
 @Table(name = "tjurisdiction")
@@ -29,6 +30,7 @@ public class Jurisdiction {
   private Long id;
 
   @Column(name = "jurisdiction")
+  @NaturalId(mutable = true)
   @NotNull @Size(max = 64)
   private String name;
 
