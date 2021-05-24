@@ -449,21 +449,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "basic",
-									"basic": [
-										{
-											"key": "username",
-											"value": "PrivilegedUser",
-											"type": "string"
-										},
-										{
-											"key": "password",
-											"value": "1ncharge",
-											"type": "string"
-										}
-									]
-								},
 								"method": "POST",
 								"header": [
 									{
@@ -16437,11 +16422,11 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(200);\r",
-											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -16449,28 +16434,28 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
 										"name": "Content-Type",
 										"type": "text",
-										"value": "application/json"
+										"value": "text/uri-list"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \r\n    \"timezone\": \"{{Created timezone}}\"\r\n}",
+									"raw": "{{Created timezone}}",
 									"options": {
 										"raw": {
-											"language": "json"
+											"language": "text"
 										}
 									}
 								},
 								"url": {
-									"raw": "{{Created user}}",
+									"raw": "{{Created user's timezone}}",
 									"host": [
-										"{{Created user}}"
+										"{{Created user's timezone}}"
 									]
 								}
 							},
@@ -16483,11 +16468,11 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(200);\r",
-											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -16495,28 +16480,28 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
 										"name": "Content-Type",
 										"type": "text",
-										"value": "application/json"
+										"value": "text/uri-list"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \r\n    \"timezone\": \"{{Created timezone}}\"\r\n}",
+									"raw": "{{Created timezone}}",
 									"options": {
 										"raw": {
-											"language": "json"
+											"language": "text"
 										}
 									}
 								},
 								"url": {
-									"raw": "{{Second created user}}",
+									"raw": "{{Second created user's timezone}}",
 									"host": [
-										"{{Second created user}}"
+										"{{Second created user's timezone}}"
 									]
 								}
 							},
@@ -16760,11 +16745,11 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(200);\r",
-											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -16772,28 +16757,28 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
 										"name": "Content-Type",
 										"type": "text",
-										"value": "application/json"
+										"value": "text/uri-list"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \r\n    \"position\": \"{{Created position}}\"\r\n}",
+									"raw": "{{Created position}}",
 									"options": {
 										"raw": {
-											"language": "json"
+											"language": "text"
 										}
 									}
 								},
 								"url": {
-									"raw": "{{Created user}}",
+									"raw": "{{Created user's position}}",
 									"host": [
-										"{{Created user}}"
+										"{{Created user's position}}"
 									]
 								}
 							},
@@ -16806,11 +16791,11 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(200);\r",
-											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -16818,28 +16803,28 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
 										"name": "Content-Type",
 										"type": "text",
-										"value": "application/json"
+										"value": "text/uri-list"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \r\n    \"position\": \"{{Created position}}\"\r\n}",
+									"raw": "{{Created position}}",
 									"options": {
 										"raw": {
-											"language": "json"
+											"language": "text"
 										}
 									}
 								},
 								"url": {
-									"raw": "{{Second created user}}",
+									"raw": "{{Second created user's position}}",
 									"host": [
-										"{{Second created user}}"
+										"{{Second created user's position}}"
 									]
 								}
 							},
@@ -17083,11 +17068,11 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 200 OK\", () => {\r",
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(200);\r",
-											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -17095,28 +17080,28 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
 										"name": "Content-Type",
 										"type": "text",
-										"value": "application/json"
+										"value": "text/uri-list"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \r\n    \"owner\": \"{{Created user}}\"\r\n}",
+									"raw": "{{Created user}}",
 									"options": {
 										"raw": {
-											"language": "json"
+											"language": "text"
 										}
 									}
 								},
 								"url": {
-									"raw": "{{Created group}}",
+									"raw": "{{Created group's owner}}",
 									"host": [
-										"{{Created group}}"
+										"{{Created group's owner}}"
 									]
 								}
 							},
@@ -17129,11 +17114,11 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 200 OK\", () => {\r",
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(200);\r",
-											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -17141,28 +17126,28 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
 										"name": "Content-Type",
 										"type": "text",
-										"value": "application/json"
+										"value": "text/uri-list"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \r\n    \"owner\": \"{{Created user}}\"\r\n}",
+									"raw": "{{Created user}}",
 									"options": {
 										"raw": {
-											"language": "json"
+											"language": "text"
 										}
 									}
 								},
 								"url": {
-									"raw": "{{Second created group}}",
+									"raw": "{{Second created group's owner}}",
 									"host": [
-										"{{Second created group}}"
+										"{{Second created group's owner}}"
 									]
 								}
 							},
@@ -19177,11 +19162,11 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 200 OK\", () => {\r",
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(200);\r",
-											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -19189,28 +19174,28 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
 										"name": "Content-Type",
 										"type": "text",
-										"value": "application/json"
+										"value": "text/uri-list"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \r\n    \"owner\": \"{{Created user}}\"\r\n}",
+									"raw": "{{Created user}}",
 									"options": {
 										"raw": {
-											"language": "json"
+											"language": "text"
 										}
 									}
 								},
 								"url": {
-									"raw": "{{Created group}}",
+									"raw": "{{Created group's owner}}",
 									"host": [
-										"{{Created group}}"
+										"{{Created group's owner}}"
 									]
 								}
 							},
@@ -19223,11 +19208,11 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 200 OK\", () => {\r",
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(200);\r",
-											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -19235,28 +19220,28 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
 										"name": "Content-Type",
 										"type": "text",
-										"value": "application/json"
+										"value": "text/uri-list"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \r\n    \"owner\": \"{{Created user}}\"\r\n}",
+									"raw": "{{Created user}}",
 									"options": {
 										"raw": {
-											"language": "json"
+											"language": "text"
 										}
 									}
 								},
 								"url": {
-									"raw": "{{Second created group}}",
+									"raw": "{{Second created group's owner}}",
 									"host": [
-										"{{Second created group}}"
+										"{{Second created group's owner}}"
 									]
 								}
 							},
@@ -22903,11 +22888,11 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(200);\r",
-											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -22915,28 +22900,28 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
 										"name": "Content-Type",
 										"type": "text",
-										"value": "application/json"
+										"value": "text/uri-list"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \r\n    \"type\": \"{{Created permission type}}\"\r\n}",
+									"raw": "{{Created permission type}}",
 									"options": {
 										"raw": {
-											"language": "json"
+											"language": "text"
 										}
 									}
 								},
 								"url": {
-									"raw": "{{Created permission}}",
+									"raw": "{{Created permission's type}}",
 									"host": [
-										"{{Created permission}}"
+										"{{Created permission's type}}"
 									]
 								}
 							},
@@ -22949,11 +22934,11 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(200);\r",
-											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -22961,28 +22946,28 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
 										"name": "Content-Type",
 										"type": "text",
-										"value": "application/json"
+										"value": "text/uri-list"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \r\n    \"type\": \"{{Created permission type}}\"\r\n}",
+									"raw": "{{Created permission type}}",
 									"options": {
 										"raw": {
-											"language": "json"
+											"language": "text"
 										}
 									}
 								},
 								"url": {
-									"raw": "{{Second created permission}}",
+									"raw": "{{Second created permission's type}}",
 									"host": [
-										"{{Second created permission}}"
+										"{{Second created permission's type}}"
 									]
 								}
 							},
@@ -23238,11 +23223,11 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(200);\r",
-											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -23250,28 +23235,28 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
 										"name": "Content-Type",
 										"type": "text",
-										"value": "application/json"
+										"value": "text/uri-list"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \r\n    \"type\": \"{{Created permission type}}\"\r\n}",
+									"raw": "{{Created permission type}}",
 									"options": {
 										"raw": {
-											"language": "json"
+											"language": "text"
 										}
 									}
 								},
 								"url": {
-									"raw": "{{Created permission}}",
+									"raw": "{{Created permission's type}}",
 									"host": [
-										"{{Created permission}}"
+										"{{Created permission's type}}"
 									]
 								}
 							},
@@ -23284,11 +23269,11 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(200);\r",
-											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -23296,28 +23281,28 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
 										"name": "Content-Type",
 										"type": "text",
-										"value": "application/json"
+										"value": "text/uri-list"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \r\n    \"type\": \"{{Created permission type}}\"\r\n}",
+									"raw": "{{Created permission type}}",
 									"options": {
 										"raw": {
-											"language": "json"
+											"language": "text"
 										}
 									}
 								},
 								"url": {
-									"raw": "{{Second created permission}}",
+									"raw": "{{Second created permission's type}}",
 									"host": [
-										"{{Second created permission}}"
+										"{{Second created permission's type}}"
 									]
 								}
 							},
@@ -23549,11 +23534,11 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(200);\r",
-											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -23561,28 +23546,28 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
 										"name": "Content-Type",
 										"type": "text",
-										"value": "application/json"
+										"value": "text/uri-list"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \r\n    \"parentPosition\": \"{{Third created position}}\"\r\n}",
+									"raw": "{{Third created position}}",
 									"options": {
 										"raw": {
-											"language": "json"
+											"language": "text"
 										}
 									}
 								},
 								"url": {
-									"raw": "{{Created position}}",
+									"raw": "{{Created position's parent position}}",
 									"host": [
-										"{{Created position}}"
+										"{{Created position's parent position}}"
 									]
 								}
 							},
@@ -23595,11 +23580,11 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(200);\r",
-											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -23607,28 +23592,28 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
 										"name": "Content-Type",
 										"type": "text",
-										"value": "application/json"
+										"value": "text/uri-list"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \r\n    \"parentPosition\": \"{{Third created position}}\"\r\n}",
+									"raw": "{{Third created position}}",
 									"options": {
 										"raw": {
-											"language": "json"
+											"language": "text"
 										}
 									}
 								},
 								"url": {
-									"raw": "{{Second created position}}",
+									"raw": "{{Second created position's parent position}}",
 									"host": [
-										"{{Second created position}}"
+										"{{Second created position's parent position}}"
 									]
 								}
 							},
@@ -23872,11 +23857,11 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(200);\r",
-											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -23884,28 +23869,28 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
 										"name": "Content-Type",
 										"type": "text",
-										"value": "application/json"
+										"value": "text/uri-list"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \r\n    \"parentPosition\": \"{{Third created position}}\"\r\n}",
+									"raw": "{{Third created position}}",
 									"options": {
 										"raw": {
-											"language": "json"
+											"language": "text"
 										}
 									}
 								},
 								"url": {
-									"raw": "{{Created position}}",
+									"raw": "{{Created position's parent position}}",
 									"host": [
-										"{{Created position}}"
+										"{{Created position's parent position}}"
 									]
 								}
 							},
@@ -23918,11 +23903,11 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(200);\r",
-											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -23930,28 +23915,28 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
 										"name": "Content-Type",
 										"type": "text",
-										"value": "application/json"
+										"value": "text/uri-list"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \r\n    \"parentPosition\": \"{{Third created position}}\"\r\n}",
+									"raw": "{{Third created position}}",
 									"options": {
 										"raw": {
-											"language": "json"
+											"language": "text"
 										}
 									}
 								},
 								"url": {
-									"raw": "{{Second created position}}",
+									"raw": "{{Second created position's parent position}}",
 									"host": [
-										"{{Second created position}}"
+										"{{Second created position's parent position}}"
 									]
 								}
 							},
@@ -24183,11 +24168,11 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(200);\r",
-											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -24195,28 +24180,28 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
 										"name": "Content-Type",
 										"type": "text",
-										"value": "application/json"
+										"value": "text/uri-list"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \r\n    \"position\": \"{{Created position}}\"\r\n}",
+									"raw": "{{Created position}}",
 									"options": {
 										"raw": {
-											"language": "json"
+											"language": "text"
 										}
 									}
 								},
 								"url": {
-									"raw": "{{Created user}}",
+									"raw": "{{Created user's position}}",
 									"host": [
-										"{{Created user}}"
+										"{{Created user's position}}"
 									]
 								}
 							},
@@ -24229,11 +24214,11 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(200);\r",
-											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -24241,28 +24226,28 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
 										"name": "Content-Type",
 										"type": "text",
-										"value": "application/json"
+										"value": "text/uri-list"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \r\n    \"position\": \"{{Created position}}\"\r\n}",
+									"raw": "{{Created position}}",
 									"options": {
 										"raw": {
-											"language": "json"
+											"language": "text"
 										}
 									}
 								},
 								"url": {
-									"raw": "{{Second created user}}",
+									"raw": "{{Second created user's position}}",
 									"host": [
-										"{{Second created user}}"
+										"{{Second created user's position}}"
 									]
 								}
 							},
@@ -25117,11 +25102,11 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(200);\r",
-											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -25129,28 +25114,28 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
 										"name": "Content-Type",
 										"type": "text",
-										"value": "application/json"
+										"value": "text/uri-list"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \r\n    \"timezone\": \"{{Created timezone}}\"\r\n}",
+									"raw": "{{Created timezone}}",
 									"options": {
 										"raw": {
-											"language": "json"
+											"language": "text"
 										}
 									}
 								},
 								"url": {
-									"raw": "{{Created user}}",
+									"raw": "{{Created user's timezone}}",
 									"host": [
-										"{{Created user}}"
+										"{{Created user's timezone}}"
 									]
 								}
 							},
@@ -25163,11 +25148,11 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(200);\r",
-											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -25175,28 +25160,28 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
 										"name": "Content-Type",
 										"type": "text",
-										"value": "application/json"
+										"value": "text/uri-list"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \r\n    \"timezone\": \"{{Created timezone}}\"\r\n}",
+									"raw": "{{Created timezone}}",
 									"options": {
 										"raw": {
-											"language": "json"
+											"language": "text"
 										}
 									}
 								},
 								"url": {
-									"raw": "{{Second created user}}",
+									"raw": "{{Second created user's timezone}}",
 									"host": [
-										"{{Second created user}}"
+										"{{Second created user's timezone}}"
 									]
 								}
 							},
@@ -27121,11 +27106,11 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 200 OK\", () => {\r",
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(200);\r",
-											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -27133,28 +27118,28 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
 										"name": "Content-Type",
 										"type": "text",
-										"value": "application/json"
+										"value": "text/uri-list"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \r\n    \"owner\": \"{{Created user}}\"\r\n}",
+									"raw": "{{Created user}}",
 									"options": {
 										"raw": {
-											"language": "json"
+											"language": "text"
 										}
 									}
 								},
 								"url": {
-									"raw": "{{Created group}}",
+									"raw": "{{Created group's owner}}",
 									"host": [
-										"{{Created group}}"
+										"{{Created group's owner}}"
 									]
 								}
 							},
@@ -28815,11 +28800,11 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(200);\r",
-											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -28827,28 +28812,28 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
 										"name": "Content-Type",
 										"type": "text",
-										"value": "application/json"
+										"value": "text/uri-list"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \r\n    \"type\": \"{{Created permission type}}\"\r\n}",
+									"raw": "{{Created permission type}}",
 									"options": {
 										"raw": {
-											"language": "json"
+											"language": "text"
 										}
 									}
 								},
 								"url": {
-									"raw": "{{Created permission}}",
+									"raw": "{{Created permission's type}}",
 									"host": [
-										"{{Created permission}}"
+										"{{Created permission's type}}"
 									]
 								}
 							},
@@ -29091,11 +29076,11 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(200);\r",
-											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -29103,28 +29088,28 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
 										"name": "Content-Type",
 										"type": "text",
-										"value": "application/json"
+										"value": "text/uri-list"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \r\n    \"parentPosition\": \"{{Created position}}\"\r\n}",
+									"raw": "{{Created position}}",
 									"options": {
 										"raw": {
-											"language": "json"
+											"language": "text"
 										}
 									}
 								},
 								"url": {
-									"raw": "{{Second created position}}",
+									"raw": "{{Second created position's parent position}}",
 									"host": [
-										"{{Second created position}}"
+										"{{Second created position's parent position}}"
 									]
 								}
 							},
@@ -29394,11 +29379,11 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(200);\r",
-											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -29406,28 +29391,28 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
 										"name": "Content-Type",
 										"type": "text",
-										"value": "application/json"
+										"value": "text/uri-list"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \r\n    \"position\": \"{{Created position}}\"\r\n}",
+									"raw": "{{Created position}}",
 									"options": {
 										"raw": {
-											"language": "json"
+											"language": "text"
 										}
 									}
 								},
 								"url": {
-									"raw": "{{Created user}}",
+									"raw": "{{Created user's position}}",
 									"host": [
-										"{{Created user}}"
+										"{{Created user's position}}"
 									]
 								}
 							},
@@ -30028,11 +30013,11 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(200);\r",
-											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -30040,28 +30025,28 @@
 								}
 							],
 							"request": {
-								"method": "PATCH",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Content-Type",
 										"name": "Content-Type",
 										"type": "text",
-										"value": "application/json"
+										"value": "text/uri-list"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \r\n    \"timezone\": \"{{Created timezone}}\"\r\n}",
+									"raw": "{{Created timezone}}",
 									"options": {
 										"raw": {
-											"language": "json"
+											"language": "text"
 										}
 									}
 								},
 								"url": {
-									"raw": "{{Created user}}",
+									"raw": "{{Created user's timezone}}",
 									"host": [
-										"{{Created user}}"
+										"{{Created user's timezone}}"
 									]
 								}
 							},
@@ -32828,13 +32813,13 @@
 									"type": "basic",
 									"basic": [
 										{
-											"key": "username",
-											"value": "PrivilegedUser",
+											"key": "password",
+											"value": "{{Default password}}",
 											"type": "string"
 										},
 										{
-											"key": "password",
-											"value": "1ncharge",
+											"key": "username",
+											"value": "{{Privileged user}}",
 											"type": "string"
 										}
 									]
@@ -32889,13 +32874,13 @@
 									"type": "basic",
 									"basic": [
 										{
-											"key": "username",
-											"value": "PrivilegedUser",
+											"key": "password",
+											"value": "{{Default password}}",
 											"type": "string"
 										},
 										{
-											"key": "password",
-											"value": "1ncharge",
+											"key": "username",
+											"value": "{{Privileged user}}",
 											"type": "string"
 										}
 									]
@@ -33153,12 +33138,12 @@
 									"basic": [
 										{
 											"key": "password",
-											"value": "invalid_password",
+											"value": "{{Default password}}",
 											"type": "string"
 										},
 										{
 											"key": "username",
-											"value": "invalid_user",
+											"value": "{{Non existent user}}",
 											"type": "string"
 										}
 									]
@@ -33225,12 +33210,12 @@
 									"basic": [
 										{
 											"key": "username",
-											"value": "Administrator",
+											"value": "{{Administrator}}",
 											"type": "string"
 										},
 										{
 											"key": "password",
-											"value": "invalid_password",
+											"value": "{{Wrong password}}",
 											"type": "string"
 										}
 									]
@@ -33297,12 +33282,12 @@
 									"basic": [
 										{
 											"key": "password",
-											"value": "1ncharge",
+											"value": "{{Default password}}",
 											"type": "string"
 										},
 										{
 											"key": "username",
-											"value": "NonPrivilegedUser",
+											"value": "{{Non privileged user}}",
 											"type": "string"
 										}
 									]
@@ -33632,12 +33617,12 @@
 		"basic": [
 			{
 				"key": "password",
-				"value": "1ncharge",
+				"value": "{{Default password}}",
 				"type": "string"
 			},
 			{
 				"key": "username",
-				"value": "Administrator",
+				"value": "{{Administrator}}",
 				"type": "string"
 			}
 		]
@@ -33708,14 +33693,6 @@
 		{
 			"key": "Home endpoint",
 			"value": "{{Backoffice User Manager URL}}/api/v1"
-		},
-		{
-			"key": "Authentication user",
-			"value": "Administrator"
-		},
-		{
-			"key": "Authentication password",
-			"value": "1ncharge"
 		},
 		{
 			"key": "Incorrect id",
@@ -34538,16 +34515,24 @@
 			"value": "Administrator"
 		},
 		{
-			"key": "PrivilegedUser",
+			"key": "Privileged user",
 			"value": "PrivilegedUser"
 		},
 		{
-			"key": "NonPrivilegedUser",
+			"key": "Non privileged user",
 			"value": "NonPrivilegedUser"
+		},
+		{
+			"key": "Non existent user",
+			"value": "invalid_user"
 		},
 		{
 			"key": "Default password",
 			"value": "1ncharge"
+		},
+		{
+			"key": "Wrong password",
+			"value": "invalid_password"
 		},
 		{
 			"key": "First user",
