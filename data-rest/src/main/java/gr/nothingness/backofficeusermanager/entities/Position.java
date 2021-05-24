@@ -22,6 +22,7 @@ import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.NaturalId;
 
 @Entity
 @Table(name = "tadminposition")
@@ -34,6 +35,7 @@ public class Position {
   private String id;
 
   @Column(name = "position_name")
+  @NaturalId(mutable = true)
   @NotNull @Size(max = 64)
   private String name;
 

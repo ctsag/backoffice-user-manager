@@ -20,6 +20,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.NaturalId;
 
 @Entity
 @Table(name = "ttimezone")
@@ -53,6 +54,7 @@ public class Timezone {
   private Long id;
 
   @Column(name = "name")
+  @NaturalId(mutable = true)
   @NotNull @Size(max = 80)
   private String name;
 
