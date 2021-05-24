@@ -449,21 +449,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "basic",
-									"basic": [
-										{
-											"key": "username",
-											"value": "PrivilegedUser",
-											"type": "string"
-										},
-										{
-											"key": "password",
-											"value": "1ncharge",
-											"type": "string"
-										}
-									]
-								},
 								"method": "POST",
 								"header": [
 									{
@@ -32828,13 +32813,13 @@
 									"type": "basic",
 									"basic": [
 										{
-											"key": "username",
-											"value": "PrivilegedUser",
+											"key": "password",
+											"value": "{{Default password}}",
 											"type": "string"
 										},
 										{
-											"key": "password",
-											"value": "1ncharge",
+											"key": "username",
+											"value": "{{Privileged user}}",
 											"type": "string"
 										}
 									]
@@ -32889,13 +32874,13 @@
 									"type": "basic",
 									"basic": [
 										{
-											"key": "username",
-											"value": "PrivilegedUser",
+											"key": "password",
+											"value": "{{Default password}}",
 											"type": "string"
 										},
 										{
-											"key": "password",
-											"value": "1ncharge",
+											"key": "username",
+											"value": "{{Privileged user}}",
 											"type": "string"
 										}
 									]
@@ -33153,12 +33138,12 @@
 									"basic": [
 										{
 											"key": "password",
-											"value": "invalid_password",
+											"value": "{{Default password}}",
 											"type": "string"
 										},
 										{
 											"key": "username",
-											"value": "invalid_user",
+											"value": "{{Non existent user}}",
 											"type": "string"
 										}
 									]
@@ -33225,12 +33210,12 @@
 									"basic": [
 										{
 											"key": "username",
-											"value": "Administrator",
+											"value": "{{Administrator}}",
 											"type": "string"
 										},
 										{
 											"key": "password",
-											"value": "invalid_password",
+											"value": "{{Wrong password}}",
 											"type": "string"
 										}
 									]
@@ -33297,12 +33282,12 @@
 									"basic": [
 										{
 											"key": "password",
-											"value": "1ncharge",
+											"value": "{{Default password}}",
 											"type": "string"
 										},
 										{
 											"key": "username",
-											"value": "NonPrivilegedUser",
+											"value": "{{Non privileged user}}",
 											"type": "string"
 										}
 									]
@@ -33632,12 +33617,12 @@
 		"basic": [
 			{
 				"key": "password",
-				"value": "1ncharge",
+				"value": "{{Default password}}",
 				"type": "string"
 			},
 			{
 				"key": "username",
-				"value": "Administrator",
+				"value": "{{Administrator}}",
 				"type": "string"
 			}
 		]
@@ -33708,14 +33693,6 @@
 		{
 			"key": "Home endpoint",
 			"value": "{{Backoffice User Manager URL}}/api/v1"
-		},
-		{
-			"key": "Authentication user",
-			"value": "Administrator"
-		},
-		{
-			"key": "Authentication password",
-			"value": "1ncharge"
 		},
 		{
 			"key": "Incorrect id",
@@ -34538,16 +34515,24 @@
 			"value": "Administrator"
 		},
 		{
-			"key": "PrivilegedUser",
+			"key": "Privileged user",
 			"value": "PrivilegedUser"
 		},
 		{
-			"key": "NonPrivilegedUser",
+			"key": "Non privileged user",
 			"value": "NonPrivilegedUser"
+		},
+		{
+			"key": "Non existent user",
+			"value": "invalid_user"
 		},
 		{
 			"key": "Default password",
 			"value": "1ncharge"
+		},
+		{
+			"key": "Wrong password",
+			"value": "invalid_password"
 		},
 		{
 			"key": "First user",
