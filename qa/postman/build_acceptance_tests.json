@@ -396,6 +396,42 @@
 					"name": "User",
 					"item": [
 						{
+							"name": "Collection resource is available",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "HEAD",
+								"header": [],
+								"url": {
+									"raw": "{{Users endpoint}}",
+									"host": [
+										"{{Users endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Create a user",
 							"event": [
 								{
@@ -477,6 +513,42 @@
 							"response": []
 						},
 						{
+							"name": "Item resource is available",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "HEAD",
+								"header": [],
+								"url": {
+									"raw": "{{Created user}}",
+									"host": [
+										"{{Created user}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "List all users",
 							"event": [
 								{
@@ -543,9 +615,9 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{Users endpoint}}{{AllPages}}",
+									"raw": "{{Users endpoint}}",
 									"host": [
-										"{{Users endpoint}}{{AllPages}}"
+										"{{Users endpoint}}"
 									]
 								}
 							},
@@ -1099,6 +1171,45 @@
 							"response": []
 						},
 						{
+							"name": "Search resource is available",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "HEAD",
+								"header": [],
+								"url": {
+									"raw": "{{Users endpoint}}/search",
+									"host": [
+										"{{Users endpoint}}"
+									],
+									"path": [
+										"search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "List all user search options",
 							"event": [
 								{
@@ -1138,6 +1249,46 @@
 									],
 									"path": [
 										"search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Query method resource is available",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "HEAD",
+								"header": [],
+								"url": {
+									"raw": "{{Users endpoint}}/search/byFullName",
+									"host": [
+										"{{Users endpoint}}"
+									],
+									"path": [
+										"search",
+										"byFullName"
 									]
 								}
 							},
@@ -1727,6 +1878,42 @@
 					"name": "Group",
 					"item": [
 						{
+							"name": "Collection resource is available",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "HEAD",
+								"header": [],
+								"url": {
+									"raw": "{{Groups endpoint}}",
+									"host": [
+										"{{Groups endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Create a group",
 							"event": [
 								{
@@ -1793,6 +1980,42 @@
 									"raw": "{{Groups endpoint}}",
 									"host": [
 										"{{Groups endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Item resource is available",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "HEAD",
+								"header": [],
+								"url": {
+									"raw": "{{Created group}}",
+									"host": [
+										"{{Created group}}"
 									]
 								}
 							},
@@ -2686,6 +2909,42 @@
 					"name": "Permission Type",
 					"item": [
 						{
+							"name": "Collection resource is available",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "HEAD",
+								"header": [],
+								"url": {
+									"raw": "{{Permission types endpoint}}",
+									"host": [
+										"{{Permission types endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Create a permission type",
 							"event": [
 								{
@@ -2749,6 +3008,42 @@
 									"raw": "{{Permission types endpoint}}",
 									"host": [
 										"{{Permission types endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Item resource is available",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "HEAD",
+								"header": [],
+								"url": {
+									"raw": "{{Created permission type}}",
+									"host": [
+										"{{Created permission type}}"
 									]
 								}
 							},
@@ -3668,6 +3963,42 @@
 					"name": "Permission",
 					"item": [
 						{
+							"name": "Collection resource is available",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "HEAD",
+								"header": [],
+								"url": {
+									"raw": "{{Permissions endpoint}}",
+									"host": [
+										"{{Permissions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Create a permission",
 							"event": [
 								{
@@ -3733,6 +4064,42 @@
 									"raw": "{{Permissions endpoint}}",
 									"host": [
 										"{{Permissions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Item resource is available",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "HEAD",
+								"header": [],
+								"url": {
+									"raw": "{{Created permission}}",
+									"host": [
+										"{{Created permission}}"
 									]
 								}
 							},
@@ -4877,6 +5244,42 @@
 					"name": "Timezone",
 					"item": [
 						{
+							"name": "Collection resource is available",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "HEAD",
+								"header": [],
+								"url": {
+									"raw": "{{Timezones endpoint}}",
+									"host": [
+										"{{Timezones endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Create a timezone",
 							"event": [
 								{
@@ -4940,6 +5343,42 @@
 									"raw": "{{Timezones endpoint}}",
 									"host": [
 										"{{Timezones endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Item resource is available",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "HEAD",
+								"header": [],
+								"url": {
+									"raw": "{{Created timezone}}",
+									"host": [
+										"{{Created timezone}}"
 									]
 								}
 							},
@@ -5859,6 +6298,42 @@
 					"name": "Position",
 					"item": [
 						{
+							"name": "Collection resource is available",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "HEAD",
+								"header": [],
+								"url": {
+									"raw": "{{Positions endpoint}}",
+									"host": [
+										"{{Positions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Create a position",
 							"event": [
 								{
@@ -5923,6 +6398,42 @@
 									"raw": "{{Positions endpoint}}",
 									"host": [
 										"{{Positions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Item resource is available",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "HEAD",
+								"header": [],
+								"url": {
+									"raw": "{{Created position}}",
+									"host": [
+										"{{Created position}}"
 									]
 								}
 							},
@@ -6868,6 +7379,42 @@
 					"name": "Jurisdiction",
 					"item": [
 						{
+							"name": "Collection resource is available",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "HEAD",
+								"header": [],
+								"url": {
+									"raw": "{{Jurisdictions endpoint}}",
+									"host": [
+										"{{Jurisdictions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Create a jurisdiction",
 							"event": [
 								{
@@ -6930,6 +7477,42 @@
 									"raw": "{{Jurisdictions endpoint}}",
 									"host": [
 										"{{Jurisdictions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Item resource is available",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "HEAD",
+								"header": [],
+								"url": {
+									"raw": "{{Created jurisdiction}}",
+									"host": [
+										"{{Created jurisdiction}}"
 									]
 								}
 							},
@@ -7768,6 +8351,42 @@
 					"name": "Flag Definition",
 					"item": [
 						{
+							"name": "Collection resource is available",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "HEAD",
+								"header": [],
+								"url": {
+									"raw": "{{Flag definitions endpoint}}",
+									"host": [
+										"{{Flag definitions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Create a flag definition",
 							"event": [
 								{
@@ -7832,6 +8451,42 @@
 									"raw": "{{Flag definitions endpoint}}",
 									"host": [
 										"{{Flag definitions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Item resource is available",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "HEAD",
+								"header": [],
+								"url": {
+									"raw": "{{Created flag definition}}",
+									"host": [
+										"{{Created flag definition}}"
 									]
 								}
 							},
@@ -8865,6 +9520,42 @@
 							"response": []
 						},
 						{
+							"name": "Collection resource is available",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "HEAD",
+								"header": [],
+								"url": {
+									"raw": "{{Flags endpoint}}",
+									"host": [
+										"{{Flags endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Create a flag",
 							"event": [
 								{
@@ -8927,6 +9618,42 @@
 									"raw": "{{Flags endpoint}}",
 									"host": [
 										"{{Flags endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Item resource is available",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "HEAD",
+								"header": [],
+								"url": {
+									"raw": "{{Created flag}}",
+									"host": [
+										"{{Created flag}}"
 									]
 								}
 							},
