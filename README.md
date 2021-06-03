@@ -8,25 +8,25 @@ The areas all implementations must cover are :
 |------------------------------|-----------------------------|--------------------------|----------------- |-------------------|-------------------|----------------|----------------|----------------|
 | **Database**                 | Informix                    | PostgreSQL               | MySQL            | H2                | Informix          | PostgreSQL     | MongoDB        | Redis          |
 | **Data access**              | Data REST                   | Data JPA                 | JDBC Template    | Raw JDBC          | MyBatis           | Hibernate      | Data Mongo     | Data Redis     |
-| **API**                      | REST/Hypermedia (automatic) | REST/Hypermedia (manual) | REST/JSON        | REST/XML          | GraphQL           | HTML/Thymeleaf | ???            | ???            |
+| **API**                      | REST/Hypermedia (automatic) | REST/Hypermedia (manual) | REST/JSON        | SOAP/XML          | GraphQL           | HTML/Thymeleaf | HTML/Vaadin    | gRPC           |
 | **API documentation**        | Springfox/Swagger           | Springdoc                | Spring REST Docs | ???               | ???               | ???            | ???            | ???            |
 | **Authentication**           | Spring Security             | Spring Security          | Apache Shiro     | ???               | ???               | ???            | ???            | ???            |
 | **Unit testing**             | JUnit 5                     | JUnit 5                  | TestNG           | ???               | ???               | ???            | ???            | ???            |
 | **Mutation testing**         | PIT                         | PIT                      | PIT              | PIT               | PIT               | PIT            | PIT            | PIT            |
-| **Assertions library**       | JUnit/Hamcrest              | AssertJ                  | ???              | ???               | ???               | ???            | ???            | ???            |
+| **Assertions library**       | JUnit                       | AssertJ                  | TestNG           | Hamcrest          | Truth             | Valid4j        | ???            | ???            |
 | **Coverage reports**         | JaCoCo                      | Cobertura                | OpenClover       | ???               | ???               | ???            | ???            | ???            |
 | **Static code analysis**     | SonarQube                   | Checkstyle               | PMD              | FindBugs          | ???               | ???            | ???            | ???            |
 | **Vulnerability checks**     | OWASP                       | OWASP                    | OWASP            | OWASP             | OWASP             | OWASP          | OWASP          | OWASP          |
 | **Build acceptance testing** | Postman/Newman              | Postman/Newman           | Postman/Newman   | Postman/Newman    | Postman/Newman    | Postman/Newman | Postman/Newman | Postman/Newman |
-| **Integration testing**      | REST Assured                | Spring Test              | ???              | ???               | ???               | ???            | ???            | ???            |
-| **BDD automation**           | Cucumber                    | FitNesse                 | ???              | ???               | ???               | ???            | ???            | ???            |
+| **Integration testing**      | REST Assured                | Spring Test              | Wiremock         | ???               | ???               | ???            | ???            | ???            |
+| **BDD automation**           | Cucumber                    | FitNesse                 | JBehave          | Concordion        | ???               | ???            | ???            | ???            |
 | **Database migrations**      | Liquibase (manual)          | Liquibase (automatic)    | Flyway           | Liquibase (Maven) | Spring Boot       | Hibernate      | ???            | ???            |
 | **Secret management**        | None                        | Jasypt                   | ???              | ???               | ???               | ???            | ???            | ???            |
 | **Monitoring**               | Actuator                    | Micrometer               | ???              | ???               | ???               | ???            | ???            | ???            |
-| **Build tool**               | Maven                       | Maven                    | Gradle           | ???               | ???               | ???            | ???            | ???            |
+| **Build tool**               | Maven                       | Maven                    | Gradle           | Gradle            | Maven             | Gradle         | Maven          | Gradle         |
 | **Build automation**         | GitHub Actions              | GitHub Actions           | Jenkins          | Travis CI         | Circle CI         | GoCD           | ???            | ???            |
 | **Packaging**                | JAR executable              | JAR executable           | Docker           | Heroku            | Spring Native     | Heroku         | Tomcat WAR     | ???            |
-| **IDE**                      | IntelliJ IDEA               | IntelliJ IDEA            | STS              | Eclipse           | NetBeans          | ???            | ???            | ???            |
+| **IDE**                      | IntelliJ IDEA               | IntelliJ IDEA            | STS              | Eclipse           | NetBeans          | VS Code        | Atom           | Sublime        |
 
 # Candidates
 
@@ -38,6 +38,10 @@ Other technologies we want to incorporate :
 * RabbitMQ
 * Micronaut
 * Java 14
+* datasource-assert
+* dbunit
+* Mockito
+* EasyMock
 
 # Common practices
 
