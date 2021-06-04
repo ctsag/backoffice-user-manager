@@ -17753,7 +17753,7 @@
 							"response": []
 						},
 						{
-							"name": "Assign both permissions to second user",
+							"name": "Assign first permission to second user",
 							"event": [
 								{
 									"listen": "test",
@@ -17771,7 +17771,7 @@
 								}
 							],
 							"request": {
-								"method": "PUT",
+								"method": "POST",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -17782,7 +17782,53 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{{Created permission}}\r\n{{Second created permission}}",
+									"raw": "{{Created permission}}",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Second created user's permissions}}",
+									"host": [
+										"{{Second created user's permissions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign second permission to second user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{Second created permission}}",
 									"options": {
 										"raw": {
 											"language": "text"
@@ -17919,7 +17965,7 @@
 							"response": []
 						},
 						{
-							"name": "Assign first permissions to first group",
+							"name": "Assign first permission to first user",
 							"event": [
 								{
 									"listen": "test",
@@ -18336,7 +18382,7 @@
 							"response": []
 						},
 						{
-							"name": "Assign both groups to second user",
+							"name": "Assign first group to second user",
 							"event": [
 								{
 									"listen": "test",
@@ -18354,7 +18400,7 @@
 								}
 							],
 							"request": {
-								"method": "PUT",
+								"method": "POST",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -18365,7 +18411,53 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{{Created group}}\r\n{{Second created group}}",
+									"raw": "{{Created group}}",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Second created user's groups}}",
+									"host": [
+										"{{Second created user's groups}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign second group to second user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{Second created group}}",
 									"options": {
 										"raw": {
 											"language": "text"
@@ -19877,7 +19969,7 @@
 								}
 							],
 							"request": {
-								"method": "PUT",
+								"method": "POST",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -20376,7 +20468,7 @@
 							"response": []
 						},
 						{
-							"name": "Assign both groups to second user",
+							"name": "Assign first group to second user",
 							"event": [
 								{
 									"listen": "test",
@@ -20394,7 +20486,7 @@
 								}
 							],
 							"request": {
-								"method": "PUT",
+								"method": "POST",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -20405,7 +20497,53 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{{Created group}}\r\n{{Second created group}}",
+									"raw": "{{Created group}}",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Second created user's groups}}",
+									"host": [
+										"{{Second created user's groups}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign second group to second user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{Second created group}}",
 									"options": {
 										"raw": {
 											"language": "text"
@@ -20959,7 +21097,7 @@
 							"response": []
 						},
 						{
-							"name": "Assign both permissions to second group",
+							"name": "Assign first permission to second group",
 							"event": [
 								{
 									"listen": "test",
@@ -20977,7 +21115,7 @@
 								}
 							],
 							"request": {
-								"method": "PUT",
+								"method": "POST",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -20988,7 +21126,53 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{{Created permission}}\r\n{{Second created permission}}",
+									"raw": "{{Created permission}}",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Second created group's permissions}}",
+									"host": [
+										"{{Second created group's permissions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign second permission to second group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{Second created permission}}",
 									"options": {
 										"raw": {
 											"language": "text"
@@ -21542,7 +21726,7 @@
 							"response": []
 						},
 						{
-							"name": "Assign both jurisdictions to second group",
+							"name": "Assign first jurisdiction to second group",
 							"event": [
 								{
 									"listen": "test",
@@ -21560,7 +21744,7 @@
 								}
 							],
 							"request": {
-								"method": "PUT",
+								"method": "POST",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -21571,7 +21755,53 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{{Created jurisdiction}}\r\n{{Second created jurisdiction}}",
+									"raw": "{{Created jurisdiction}}",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Second created group's jurisdictions}}",
+									"host": [
+										"{{Second created group's jurisdictions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign second jurisdiction to second group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{Second created jurisdiction}}",
 									"options": {
 										"raw": {
 											"language": "text"
@@ -22125,7 +22355,7 @@
 							"response": []
 						},
 						{
-							"name": "Assign both permissions to second user",
+							"name": "Assign first permission to second user",
 							"event": [
 								{
 									"listen": "test",
@@ -22143,7 +22373,7 @@
 								}
 							],
 							"request": {
-								"method": "PUT",
+								"method": "POST",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -22154,7 +22384,53 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{{Created permission}}\r\n{{Second created permission}}",
+									"raw": "{{Created permission}}",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Second created user's permissions}}",
+									"host": [
+										"{{Second created user's permissions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign second permission to second user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{Second created permission}}",
 									"options": {
 										"raw": {
 											"language": "text"
@@ -22708,7 +22984,7 @@
 							"response": []
 						},
 						{
-							"name": "Assign both permissions to second group",
+							"name": "Assign first permission to second group",
 							"event": [
 								{
 									"listen": "test",
@@ -22726,7 +23002,7 @@
 								}
 							],
 							"request": {
-								"method": "PUT",
+								"method": "POST",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -22737,7 +23013,53 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{{Created permission}}\r\n{{Second created permission}}",
+									"raw": "{{Created permission}}",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Second created group's permissions}}",
+									"host": [
+										"{{Second created group's permissions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign second permission to second group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{Second created permission}}",
 									"options": {
 										"raw": {
 											"language": "text"
@@ -24853,7 +25175,7 @@
 							"response": []
 						},
 						{
-							"name": "Assign both groups to second position",
+							"name": "Assign first group to second position",
 							"event": [
 								{
 									"listen": "test",
@@ -24871,7 +25193,7 @@
 								}
 							],
 							"request": {
-								"method": "PUT",
+								"method": "POST",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -24882,7 +25204,53 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{{Created group}}\r\n{{Second created group}}",
+									"raw": "{{Created group}}",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Second created position's groups}}",
+									"host": [
+										"{{Second created position's groups}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign second group to second position",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{Second created group}}",
 									"options": {
 										"raw": {
 											"language": "text"
@@ -25787,7 +26155,7 @@
 							"response": []
 						},
 						{
-							"name": "Assign both jurisdictions to second group",
+							"name": "Assign first jurisdiction to second group",
 							"event": [
 								{
 									"listen": "test",
@@ -25805,7 +26173,7 @@
 								}
 							],
 							"request": {
-								"method": "PUT",
+								"method": "POST",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -25816,7 +26184,53 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{{Created jurisdiction}}\r\n{{Second created jurisdiction}}",
+									"raw": "{{Created jurisdiction}}",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Second created group's jurisdictions}}",
+									"host": [
+										"{{Second created group's jurisdictions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign second jurisdiction to second group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{Second created jurisdiction}}",
 									"options": {
 										"raw": {
 											"language": "text"
