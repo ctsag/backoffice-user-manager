@@ -34,6 +34,10 @@ public class DataRestConfiguration implements RepositoryRestConfigurer {
         .forRepository(BackofficeUserRepository.class)
         .withIdMapping(BackofficeUser::getUsername)
         .withLookup(BackofficeUserRepository::findByUsername);
+
+    configuration
+        .getExposureConfiguration()
+        .disablePutForCreation();
   }
 
 }

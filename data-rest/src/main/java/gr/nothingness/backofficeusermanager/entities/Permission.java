@@ -54,7 +54,7 @@ public class Permission {
   private PermissionType type;
 
   @PrePersist @PreUpdate
-  public void prePersist() {
+  private void prePersist() {
     if (type == null) {
       type = createDefaultPermissionType();
     }
