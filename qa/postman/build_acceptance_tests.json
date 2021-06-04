@@ -913,39 +913,17 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"pm.test(\"Returns a 405 Method Not Allowed status\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(201);\r",
-											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"    pm.expect(response.code).to.equal(405);\r",
+											"    pm.expect(response.status).to.equal(\"Method Not Allowed\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Content type is Hypermedia\", () => {\r",
-											"    const response = pm.response;\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
 											"\r",
-											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns expected JSON schema\", () => {\r",
-											"    const schema = pm.collectionVariables.get(\"User item schema\");\r",
-											"\r",
-											"    pm.response.to.have.jsonSchema(schema);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns expected attribute values\", () => {\r",
-											"    const jsonData = pm.response.json();\r",
-											"\r",
-											"    pm.expect(jsonData.username).to.equal(pm.collectionVariables.get(\"Incorrect id\"));\r",
-											"    pm.expect(jsonData.firstName).to.equal(pm.collectionVariables.get(\"First name\"));\r",
-											"    pm.expect(jsonData.lastName).to.equal(pm.collectionVariables.get(\"Modified last name\"));\r",
-											"    pm.expect(jsonData.email).to.equal(pm.collectionVariables.get(\"Email\"));\r",
-											"    pm.expect(jsonData.status).to.equal(pm.collectionVariables.get(\"User status\"));\r",
-											"    pm.expect(jsonData.passwordExpires).to.equal(pm.collectionVariables.get(\"Password expires\"));\r",
-											"    pm.expect(jsonData.agent).to.be.null;\r",
-											"    pm.expect(jsonData.phoneSwitch).to.be.null;\r",
-											"    pm.expect(jsonData.overrideCode).to.be.null;\r",
-											"\r",
-											"    pm.collectionVariables.set(\"Second created user\", jsonData._links.user.href);\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -978,42 +956,6 @@
 									],
 									"path": [
 										"{{Incorrect id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete second created user",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content status\", () => {\r",
-											"    const response = pm.response;\r",
-											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns an empty body\", () => {\r",
-											"    const response = pm.response.text();\r",
-											"\r",
-											"    pm.expect(response.length).to.equal(0);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{Second created user}}",
-									"host": [
-										"{{Second created user}}"
 									]
 								}
 							},
@@ -1461,9 +1403,12 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{Second created user}}",
+									"raw": "{{Users endpoint}}/{{Incorrect id}}",
 									"host": [
-										"{{Second created user}}"
+										"{{Users endpoint}}"
+									],
+									"path": [
+										"{{Incorrect id}}"
 									]
 								}
 							},
@@ -2277,31 +2222,17 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"pm.test(\"Returns a 405 Method Not Allowed status\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(201);\r",
-											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"    pm.expect(response.code).to.equal(405);\r",
+											"    pm.expect(response.status).to.equal(\"Method Not Allowed\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Content type is Hypermedia\", () => {\r",
-											"    const response = pm.response;\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
 											"\r",
-											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns expected JSON schema\", () => {\r",
-											"    const schema = pm.collectionVariables.get(\"Group item schema\");\r",
-											"\r",
-											"    pm.response.to.have.jsonSchema(schema);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns expected attribute values\", () => {\r",
-											"    const jsonData = pm.response.json();\r",
-											"\r",
-											"    pm.expect(jsonData.name).to.equal(pm.collectionVariables.get(\"Group name\"));\r",
-											"\r",
-											"    pm.collectionVariables.set(\"Second created group\", jsonData._links.group.href);\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -2334,42 +2265,6 @@
 									],
 									"path": [
 										"{{Incorrect id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete second created group",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content status\", () => {\r",
-											"    const response = pm.response;\r",
-											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns an empty body\", () => {\r",
-											"    const response = pm.response.text();\r",
-											"\r",
-											"    pm.expect(response.length).to.equal(0);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{Second created group}}",
-									"host": [
-										"{{Second created group}}"
 									]
 								}
 							},
@@ -2595,9 +2490,12 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{Second created group}}",
+									"raw": "{{Groups endpoint}}/{{Incorrect id}}",
 									"host": [
-										"{{Second created group}}"
+										"{{Groups endpoint}}"
+									],
+									"path": [
+										"{{Incorrect id}}"
 									]
 								}
 							},
@@ -3366,33 +3264,17 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"pm.test(\"Returns a 405 Method Not Allowed status\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(201);\r",
-											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"    pm.expect(response.code).to.equal(405);\r",
+											"    pm.expect(response.status).to.equal(\"Method Not Allowed\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Content type is Hypermedia\", () => {\r",
-											"    const response = pm.response;\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
 											"\r",
-											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns expected JSON schema\", () => {\r",
-											"    const schema = pm.collectionVariables.get(\"Permission type item schema\");\r",
-											"\r",
-											"    pm.response.to.have.jsonSchema(schema);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns expected attribute values\", () => {\r",
-											"    const jsonData = pm.response.json();\r",
-											"\r",
-											"    pm.expect(jsonData.name).to.equal(pm.collectionVariables.get(\"Incorrect id\"));\r",
-											"    pm.expect(jsonData.description).to.equal(pm.collectionVariables.get(\"Modified permission type description\"));\r",
-											"    pm.expect(jsonData.displayOrder).to.equal(parseInt(pm.collectionVariables.get(\"Display order\")));\r",
-											"\r",
-											"    pm.collectionVariables.set(\"Second created permission type\", jsonData._links.permissionType.href);\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -3425,42 +3307,6 @@
 									],
 									"path": [
 										"{{Incorrect id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete second created permission type",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content status\", () => {\r",
-											"    const response = pm.response;\r",
-											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns an empty body\", () => {\r",
-											"    const response = pm.response.text();\r",
-											"\r",
-											"    pm.expect(response.length).to.equal(0);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{Second created permission type}}",
-									"host": [
-										"{{Second created permission type}}"
 									]
 								}
 							},
@@ -3683,9 +3529,12 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{Second created permission type}}",
+									"raw": "{{Permission types endpoint}}/{{Incorrect id}}",
 									"host": [
-										"{{Second created permission type}}"
+										"{{Permission types endpoint}}"
+									],
+									"path": [
+										"{{Incorrect id}}"
 									]
 								}
 							},
@@ -4430,33 +4279,17 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"pm.test(\"Returns a 405 Method Not Allowed status\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(201);\r",
-											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"    pm.expect(response.code).to.equal(405);\r",
+											"    pm.expect(response.status).to.equal(\"Method Not Allowed\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Content type is Hypermedia\", () => {\r",
-											"    const response = pm.response;\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
 											"\r",
-											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns expected JSON schema\", () => {\r",
-											"    const schema = pm.collectionVariables.get(\"Permission item schema\");\r",
-											"\r",
-											"    pm.response.to.have.jsonSchema(schema);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns expected attribute values\", () => {\r",
-											"    const jsonData = pm.response.json();\r",
-											"\r",
-											"    pm.expect(jsonData.name).to.equal(pm.collectionVariables.get(\"Incorrect id\"));\r",
-											"    pm.expect(jsonData.description).to.equal(pm.collectionVariables.get(\"Modified permission description\"));\r",
-											"    pm.expect(jsonData.displayOrder).to.equal(parseInt(pm.collectionVariables.get(\"Display order\")));\r",
-											"\r",
-											"    pm.collectionVariables.set(\"Second created permission\", jsonData._links.permission.href);\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -4489,42 +4322,6 @@
 									],
 									"path": [
 										"{{Incorrect id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete second created permission",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content status\", () => {\r",
-											"    const response = pm.response;\r",
-											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns an empty body\", () => {\r",
-											"    const response = pm.response.text();\r",
-											"\r",
-											"    pm.expect(response.length).to.equal(0);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{Second created permission}}",
-									"host": [
-										"{{Second created permission}}"
 									]
 								}
 							},
@@ -4869,9 +4666,12 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{Second created permission}}",
+									"raw": "{{Permissions endpoint}}/{{Incorrect id}}",
 									"host": [
-										"{{Second created permission}}"
+										"{{Permissions endpoint}}"
+									],
+									"path": [
+										"{{Incorrect id}}"
 									]
 								}
 							},
@@ -5701,33 +5501,17 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"pm.test(\"Returns a 405 Method Not Allowed status\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(201);\r",
-											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"    pm.expect(response.code).to.equal(405);\r",
+											"    pm.expect(response.status).to.equal(\"Method Not Allowed\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Content type is Hypermedia\", () => {\r",
-											"    const response = pm.response;\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
 											"\r",
-											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns expected JSON schema\", () => {\r",
-											"    const schema = pm.collectionVariables.get(\"Timezone item schema\");\r",
-											"\r",
-											"    pm.response.to.have.jsonSchema(schema);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns expected attribute values\", () => {\r",
-											"    const jsonData = pm.response.json();\r",
-											"\r",
-											"    pm.expect(jsonData.name).to.equal(pm.collectionVariables.get(\"Modified timezone name\"));\r",
-											"    pm.expect(jsonData.status).to.equal(pm.collectionVariables.get(\"Timezone status\"));\r",
-											"    pm.expect(jsonData.display).to.equal(pm.collectionVariables.get(\"Display\"));\r",
-											"\r",
-											"    pm.collectionVariables.set(\"Second created timezone\", jsonData._links.timezone.href);\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -5760,42 +5544,6 @@
 									],
 									"path": [
 										"{{Incorrect id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete second created timezone",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content status\", () => {\r",
-											"    const response = pm.response;\r",
-											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns an empty body\", () => {\r",
-											"    const response = pm.response.text();\r",
-											"\r",
-											"    pm.expect(response.length).to.equal(0);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{Second created timezone}}",
-									"host": [
-										"{{Second created timezone}}"
 									]
 								}
 							},
@@ -6018,9 +5766,12 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{Second created timezone}}",
+									"raw": "{{Timezones endpoint}}/{{Incorrect id}}",
 									"host": [
-										"{{Second created timezone}}"
+										"{{Timezones endpoint}}"
+									],
+									"path": [
+										"{{Incorrect id}}"
 									]
 								}
 							},
@@ -6760,31 +6511,17 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"pm.test(\"Returns a 405 Method Not Allowed status\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(201);\r",
-											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"    pm.expect(response.code).to.equal(405);\r",
+											"    pm.expect(response.status).to.equal(\"Method Not Allowed\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Content type is Hypermedia\", () => {\r",
-											"    const response = pm.response;\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
 											"\r",
-											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns expected JSON schema\", () => {\r",
-											"    const schema = pm.collectionVariables.get(\"Position item schema\");\r",
-											"\r",
-											"    pm.response.to.have.jsonSchema(schema);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns expected attribute values\", () => {\r",
-											"    const jsonData = pm.response.json();\r",
-											"\r",
-											"    pm.expect(jsonData.name).to.equal(pm.collectionVariables.get(\"Modified position name\"));\r",
-											"\r",
-											"    pm.collectionVariables.set(\"Second created position\", jsonData._links.position.href);\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -6817,42 +6554,6 @@
 									],
 									"path": [
 										"{{Incorrect id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete second created position",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content status\", () => {\r",
-											"    const response = pm.response;\r",
-											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns an empty body\", () => {\r",
-											"    const response = pm.response.text();\r",
-											"\r",
-											"    pm.expect(response.length).to.equal(0);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{Second created position}}",
-									"host": [
-										"{{Second created position}}"
 									]
 								}
 							},
@@ -7076,9 +6777,12 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{Second created position}}",
+									"raw": "{{Positions endpoint}}/{{Incorrect id}}",
 									"host": [
-										"{{Second created position}}"
+										"{{Positions endpoint}}"
+									],
+									"path": [
+										"{{Incorrect id}}"
 									]
 								}
 							},
@@ -7760,31 +7464,17 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"pm.test(\"Returns a 405 Method Not Allowed status\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(201);\r",
-											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"    pm.expect(response.code).to.equal(405);\r",
+											"    pm.expect(response.status).to.equal(\"Method Not Allowed\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Content type is Hypermedia\", () => {\r",
-											"    const response = pm.response;\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
 											"\r",
-											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns expected JSON schema\", () => {\r",
-											"    const schema = pm.collectionVariables.get(\"Jurisdiction item schema\");\r",
-											"\r",
-											"    pm.response.to.have.jsonSchema(schema);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns expected attribute values\", () => {\r",
-											"    const jsonData = pm.response.json();\r",
-											"\r",
-											"    pm.expect(jsonData.name).to.equal(pm.collectionVariables.get(\"Jurisdiction name\"));\r",
-											"\r",
-											"    pm.collectionVariables.set(\"Second created jurisdiction\", jsonData._links.jurisdiction.href);\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -7817,42 +7507,6 @@
 									],
 									"path": [
 										"{{Incorrect id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete second created jurisdiction",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content status\", () => {\r",
-											"    const response = pm.response;\r",
-											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns an empty body\", () => {\r",
-											"    const response = pm.response.text();\r",
-											"\r",
-											"    pm.expect(response.length).to.equal(0);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{Second created jurisdiction}}",
-									"host": [
-										"{{Second created jurisdiction}}"
 									]
 								}
 							},
@@ -8074,9 +7728,12 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{Second created jurisdiction}}",
+									"raw": "{{Jurisdictions endpoint}}/{{Incorrect id}}",
 									"host": [
-										"{{Second created jurisdiction}}"
+										"{{Jurisdictions endpoint}}"
+									],
+									"path": [
+										"{{Incorrect id}}"
 									]
 								}
 							},
@@ -8813,34 +8470,17 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"pm.test(\"Returns a 405 Method Not Allowed status\", () => {\r",
 											"    const response = pm.response;\r",
 											"\r",
-											"    pm.expect(response.code).to.equal(201);\r",
-											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"    pm.expect(response.code).to.equal(405);\r",
+											"    pm.expect(response.status).to.equal(\"Method Not Allowed\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Content type is Hypermedia\", () => {\r",
-											"    const response = pm.response;\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
 											"\r",
-											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns expected JSON schema\", () => {\r",
-											"    const schema = pm.collectionVariables.get(\"Flag definition item schema\");\r",
-											"\r",
-											"    pm.response.to.have.jsonSchema(schema);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns expected attribute values\", () => {\r",
-											"    const jsonData = pm.response.json();\r",
-											"\r",
-											"    pm.expect(jsonData.name).to.equal(pm.collectionVariables.get(\"Incorrect id\"));\r",
-											"    pm.expect(jsonData.description).to.equal(pm.collectionVariables.get(\"Flag definition description\"));\r",
-											"    pm.expect(jsonData.note).to.equal(pm.collectionVariables.get(\"Modified flag definition note\"));\r",
-											"    pm.expect(jsonData.defaultValue).to.equal(pm.collectionVariables.get(\"Flag definition default value\"));\r",
-											"\r",
-											"    pm.collectionVariables.set(\"Second created flag definition\", jsonData._links.flagDefinition.href);\r",
+											"    pm.expect(response.length).to.equal(0);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -8873,42 +8513,6 @@
 									],
 									"path": [
 										"{{Incorrect id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete second created flag definition",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Returns a 204 No Content status\", () => {\r",
-											"    const response = pm.response;\r",
-											"\r",
-											"    pm.expect(response.code).to.equal(204);\r",
-											"    pm.expect(response.status).to.equal(\"No Content\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Returns an empty body\", () => {\r",
-											"    const response = pm.response.text();\r",
-											"\r",
-											"    pm.expect(response.length).to.equal(0);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{Second created flag definition}}",
-									"host": [
-										"{{Second created flag definition}}"
 									]
 								}
 							},
@@ -9132,9 +8736,12 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{Second created flag definition}}",
+									"raw": "{{Flag definitions endpoint}}/{{Incorrect id}}",
 									"host": [
-										"{{Second created flag definition}}"
+										"{{Flag definitions endpoint}}"
+									],
+									"path": [
+										"{{Incorrect id}}"
 									]
 								}
 							},
