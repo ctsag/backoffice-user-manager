@@ -11,6 +11,7 @@ The areas all implementations must cover are :
 | **API**                      | REST/Hypermedia (automatic) | REST/Hypermedia (manual) | REST/JSON        | SOAP/XML          | GraphQL           | HTML/Thymeleaf | HTML/Vaadin    | gRPC           |
 | **API documentation**        | Springfox/Swagger           | Springdoc                | Spring REST Docs | ???               | ???               | ???            | ???            | ???            |
 | **Authentication**           | Spring Security             | Spring Security          | Apache Shiro     | ???               | ???               | ???            | ???            | ???            |
+| **HTTP logging**             | Zalando Logbook             | Zalando Logbook          | Logback Access   | Spring Boot #1    | Spring Boot #2    | Spring Boot #3 | Spring Boot #4 | Spring Boot #5 |
 | **Unit testing**             | JUnit 5                     | JUnit 5                  | TestNG           | ???               | ???               | ???            | ???            | ???            |
 | **Mutation testing**         | PIT                         | PIT                      | PIT              | PIT               | PIT               | PIT            | PIT            | PIT            |
 | **Assertions library**       | JUnit                       | AssertJ                  | TestNG           | Hamcrest          | Truth             | Valid4j        | ???            | ???            |
