@@ -22,6 +22,8 @@
     <informix.version>4.50.4.1</informix.version>
     <owasp.version>6.1.5</owasp.version>
     <logbook.version>2.9.0</logbook.version>
+    <datasource-proxy.version>1.7.1</datasource-proxy.version>
+    <spring-sleuth.version>3.0.3</spring-sleuth.version>
   </properties>
 
   <dependencies>
@@ -53,6 +55,18 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-sleuth</artifactId>
+      <version>${spring-sleuth.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.github.gavlyukovskiy</groupId>
+      <artifactId>datasource-proxy-spring-boot-starter</artifactId>
+      <version>${datasource-proxy.version}</version>
     </dependency>
 
     <dependency>
