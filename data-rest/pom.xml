@@ -22,7 +22,32 @@
     <informix.version>4.50.4.1</informix.version>
     <owasp.version>6.1.5</owasp.version>
     <logbook.version>2.9.0</logbook.version>
+    <datasource-proxy.version>1.7</datasource-proxy.version>
+    <spring-cloud.version>2021.0.0-SNAPSHOT</spring-cloud.version>
   </properties>
+
+  <repositories>
+    <repository>
+      <id>spring-snapshots</id>
+      <name>Spring Snapshots</name>
+      <url>https://repo.spring.io/snapshot</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>${spring-cloud.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <dependencies>
     <dependency>
@@ -56,6 +81,11 @@
     </dependency>
 
     <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-sleuth</artifactId>
+    </dependency>
+
+    <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <optional>true</optional>
@@ -72,6 +102,13 @@
       <groupId>org.zalando</groupId>
       <artifactId>logbook-spring-boot-starter</artifactId>
       <version>${logbook.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>net.ttddyy</groupId>
+      <artifactId>datasource-proxy</artifactId>
+      <version>${datasource-proxy.version}</version>
+      <scope>runtime</scope>
     </dependency>
 
     <dependency>
