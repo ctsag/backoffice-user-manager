@@ -22,7 +22,7 @@ The areas all implementations must cover are :
 | **Build acceptance testing** | Postman/Newman              | Postman/Newman           | Postman/Newman   | Postman/Newman    | Postman/Newman    | Postman/Newman          | Postman/Newman | Postman/Newman |
 | **Integration testing**      | REST Assured                | Spring Test              | Wiremock         | ???               | ???               | ???                     | ???            | ???            |
 | **BDD automation**           | Cucumber                    | FitNesse                 | JBehave          | Concordion        | ???               | ???                     | ???            | ???            |
-| **Database migrations**      | Liquibase (manual)          | Liquibase (automatic)    | Flyway           | Liquibase (Maven) | Spring Boot       | Hibernate               | ???            | ???            |
+| **Database migrations**      | Liquibase (manual)          | Liquibase (automatic)    | Flyway           | Liquibase (Maven) | Spring Boot       | Hibernate               | Mongobee       | ???            |
 | **Secret management**        | None                        | Jasypt                   | ???              | ???               | ???               | ???                     | ???            | ???            |
 | **Monitoring**               | Actuator                    | Micrometer               | ???              | ???               | ???               | ???                     | ???            | ???            |
 | **Build tool**               | Maven                       | Maven                    | Gradle           | Gradle            | Maven             | Gradle                  | Maven          | Gradle         |
