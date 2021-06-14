@@ -1,5 +1,6 @@
 package gr.nothingness.backofficeusermanager.configuration;
 
+import gr.nothingness.backofficeusermanager.audit.entities.BackofficeGroupPermissionAudit;
 import gr.nothingness.backofficeusermanager.model.entities.BackofficeGroup;
 import gr.nothingness.backofficeusermanager.audit.entities.BackofficeGroupAudit;
 import gr.nothingness.backofficeusermanager.model.entities.BackofficeUser;
@@ -28,7 +29,8 @@ public class DataRestConfiguration implements RepositoryRestConfigurer {
         PermissionType.class,
         Jurisdiction.class,
         FlagDefinition.class,
-        BackofficeGroupAudit.class
+        BackofficeGroupAudit.class,
+        BackofficeGroupPermissionAudit.class
     );
 
     configuration

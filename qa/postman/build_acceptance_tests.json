@@ -140,6 +140,7 @@
 									"    pm.collectionVariables.set(\"Flag definitions endpoint\", jsonData._links.flagDefinitions.href.split(\"{\")[0]);\r",
 									"    pm.collectionVariables.set(\"Flags endpoint\", jsonData._links.flags.href.split(\"{\")[0]);\r",
 									"    pm.collectionVariables.set(\"Group audits endpoint\", jsonData._links.groupAudits.href.split(\"{\")[0]);\r",
+									"    pm.collectionVariables.set(\"Group permission audits endpoint\", jsonData._links.groupPermissionAudits.href.split(\"{\")[0]);\r",
 									"    pm.collectionVariables.set(\"Profile endpoint\", jsonData._links.profile.href);\r",
 									"});"
 								],
@@ -373,6 +374,14 @@
 							"                    \"required\": [ \"href\" ],",
 							"                    \"additionalProperties\": false",
 							"                },",
+							"                \"groupPermissionAudits\": {",
+							"                    \"type\": \"object\",",
+							"                    \"properties\": {",
+							"                        \"href\": { \"type\": \"string\" }",
+							"                    },",
+							"                    \"required\": [ \"href\" ],",
+							"                    \"additionalProperties\": false",
+							"                },",
 							"                \"self\": {",
 							"                    \"type\": \"object\",",
 							"                    \"properties\": {",
@@ -393,6 +402,7 @@
 							"                \"flags\",",
 							"                \"flagDefinitions\",",
 							"                \"groupAudits\",",
+							"                \"groupPermissionAudits\",",
 							"                \"self\"",
 							"            ],",
 							"            \"additionalProperties\": false",
@@ -528,6 +538,18 @@
 							"                    ],",
 							"                    \"additionalProperties\": false",
 							"                },",
+							"                \"groupPermissionAudits\": {",
+							"                    \"type\": \"object\",",
+							"                    \"properties\": {",
+							"                        \"href\": { \"type\": \"string\" },",
+							"                        \"templated\": { \"type\" : \"boolean\" }",
+							"                    },",
+							"                    \"required\": [ ",
+							"                        \"href\",",
+							"                        \"templated\"",
+							"                    ],",
+							"                    \"additionalProperties\": false",
+							"                },",
 							"                \"profile\": {",
 							"                    \"type\": \"object\",",
 							"                    \"properties\": {",
@@ -548,6 +570,7 @@
 							"                \"flags\",",
 							"                \"flagDefinitions\",",
 							"                \"groupAudits\",",
+							"                \"groupPermissionAudits\",",
 							"                \"profile\"",
 							"            ],",
 							"            \"additionalProperties\": false",
@@ -10265,7 +10288,7 @@
 			]
 		},
 		{
-			"name": "Audit",
+			"name": "Audits",
 			"item": [
 				{
 					"name": "Group",
@@ -10321,7 +10344,6 @@
 											"    pm.expect(response.status).to.equal(\"Created\");\r",
 											"\r",
 											"    pm.collectionVariables.set(\"Created group\", jsonData._links.group.href);\r",
-											"    pm.collectionVariables.set(\"Created group's owner\", jsonData._links.owner.href);\r",
 											"    pm.collectionVariables.set(\"Created group's id\", jsonData.id);\r",
 											"});"
 										],
@@ -10578,7 +10600,7 @@
 							"response": []
 						},
 						{
-							"name": "List all user search options Copy",
+							"name": "List all audit search options",
 							"event": [
 								{
 									"listen": "test",
@@ -11054,7 +11076,7 @@
 							"response": []
 						},
 						{
-							"name": "Create a group audit",
+							"name": "Create an audit",
 							"event": [
 								{
 									"listen": "test",
@@ -11106,7 +11128,7 @@
 							"response": []
 						},
 						{
-							"name": "Update group audit via PUT",
+							"name": "Update audit via PUT",
 							"event": [
 								{
 									"listen": "test",
@@ -11141,7 +11163,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \n    \"username\": \"{{Username}}\",\n    \"password\": \"{{Password}}\",\n    \"firstName\": \"{{First name}}\",\n    \"lastName\": \"{{Last name}}\",\n    \"email\": \"{{Email}}\",\n    \"status\": \"{{User status}}\",\n    \"passwordExpires\": \"{{Password expires}}\"\n}",
+									"raw": "{ \n    \"groupId\": \"{{Created group's id}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -11158,7 +11180,7 @@
 							"response": []
 						},
 						{
-							"name": "Update user via PATCH",
+							"name": "Update audit via PATCH",
 							"event": [
 								{
 									"listen": "test",
@@ -11193,7 +11215,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \n    \"lastName\": \"{{Modified last name}}\"\n}",
+									"raw": "{ \n    \"groupId\": \"{{Created group's id}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -11210,7 +11232,7 @@
 							"response": []
 						},
 						{
-							"name": "Delete group audit",
+							"name": "Delete audit",
 							"event": [
 								{
 									"listen": "test",
@@ -11457,6 +11479,1198 @@
 									"                }",
 									"            },",
 									"            \"required\": [ \"groupAudits\" ],",
+									"            \"additionalProperties\": false",
+									"        },",
+									"        \"_links\": {",
+									"            \"type\": \"object\",",
+									"            \"properties\": {",
+									"                \"self\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
+									"                }",
+									"            },",
+									"            \"required\": [ \"self\" ],",
+									"            \"additionalProperties\": false",
+									"        }        ",
+									"    },",
+									"    \"required\": [",
+									"        \"_embedded\",",
+									"        \"_links\"",
+									"    ],",
+									"    \"additionalProperties\": false",
+									"});"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Group Permission",
+					"item": [
+						{
+							"name": "Collection resource is available",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "HEAD",
+								"header": [],
+								"url": {
+									"raw": "{{Group permission audits endpoint}}",
+									"host": [
+										"{{Group permission audits endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created group\", jsonData._links.group.href);\r",
+											"    pm.collectionVariables.set(\"Created group's id\", jsonData.id);\r",
+											"    pm.collectionVariables.set(\"Created group's permissions\", jsonData._links.permissions.href);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Group name}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Groups endpoint}}",
+									"host": [
+										"{{Groups endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a permission",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 201 Created status\", () => {\r",
+											"    const response = pm.response;\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(201);\r",
+											"    pm.expect(response.status).to.equal(\"Created\");\r",
+											"\r",
+											"    pm.collectionVariables.set(\"Created permission\", jsonData._links.permission.href);\r",
+											"    pm.collectionVariables.set(\"Created permission's id\", jsonData.name);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"name\": \"{{Permission name}}\",\n    \"description\": \"{{Permission description}}\",\n    \"displayOrder\": {{Display order}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Permissions endpoint}}",
+									"host": [
+										"{{Permissions endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign permission to group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{Created permission}}",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created group's permissions}}",
+									"host": [
+										"{{Created group's permissions}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deassign permission from group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "text/uri-list"
+									}
+								],
+								"url": {
+									"raw": "{{Created group's permissions}}/{{Created permission's id}}",
+									"host": [
+										"{{Created group's permissions}}"
+									],
+									"path": [
+										"{{Created permission's id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created group}}",
+									"host": [
+										"{{Created group}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete permission",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created permission}}",
+									"host": [
+										"{{Created permission}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List all audits",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Group permission audit collection schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains the created group permission's insertion audit'\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const groupPermissionAudits = jsonData._embedded.groupPermissionAudits;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < groupPermissionAudits.length; i++) {\r",
+											"        if (groupPermissionAudits[i].groupId == pm.collectionVariables.get(\"Created group's id\") && groupPermissionAudits[i].permissionName == pm.collectionVariables.get(\"Created permission's id\") && groupPermissionAudits[i].operation == \"I\") {\r",
+											"            pm.collectionVariables.set(\"Created group permission's insertion audit\", groupPermissionAudits[i]._links.self.href);\r",
+											"            pm.collectionVariables.set(\"Created group permission's insertion audit's id\", groupPermissionAudits[i].id);\r",
+											"\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains the created group permission's deletion audit'\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const groupPermissionAudits = jsonData._embedded.groupPermissionAudits;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < groupPermissionAudits.length; i++) {\r",
+											"        if (groupPermissionAudits[i].groupId == pm.collectionVariables.get(\"Created group's id\") && groupPermissionAudits[i].permissionName == pm.collectionVariables.get(\"Created permission's id\") && groupPermissionAudits[i].operation == \"D\") {\r",
+											"            pm.collectionVariables.set(\"Created group permission's deletion audit\", groupPermissionAudits[i]._links.self.href);\r",
+											"            pm.collectionVariables.set(\"Created group permission's deletion audit's id\", groupPermissionAudits[i].id);\r",
+											"\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Group permission audits endpoint}}{{AllPages}}",
+									"host": [
+										"{{Group permission audits endpoint}}{{AllPages}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Search resource is available",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "HEAD",
+								"header": [],
+								"url": {
+									"raw": "{{Group permission audits endpoint}}/search",
+									"host": [
+										"{{Group permission audits endpoint}}"
+									],
+									"path": [
+										"search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List all audit search options",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.eql(200);\r",
+											"    pm.expect(response.status).to.eql(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Group permission audit search root schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Group permission audits endpoint}}/search",
+									"host": [
+										"{{Group permission audits endpoint}}"
+									],
+									"path": [
+										"search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Query method resource is available",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "HEAD",
+								"header": [],
+								"url": {
+									"raw": "{{Group permission audits endpoint}}/search/byGroupId",
+									"host": [
+										"{{Group permission audits endpoint}}"
+									],
+									"path": [
+										"search",
+										"byGroupId"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve audits by group id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Group permission audit search term schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains the created group permission's insertion audit'\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const groupPermissionAudits = jsonData._embedded.groupPermissionAudits;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < groupPermissionAudits.length; i++) {\r",
+											"        if (groupPermissionAudits[i].groupId == pm.collectionVariables.get(\"Created group's id\") && groupPermissionAudits[i].permissionName == pm.collectionVariables.get(\"Created permission's id\") && groupPermissionAudits[i].operation == \"I\") {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains the created group permission's deletion audit'\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const groupPermissionAudits = jsonData._embedded.groupPermissionAudits;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < groupPermissionAudits.length; i++) {\r",
+											"        if (groupPermissionAudits[i].groupId == pm.collectionVariables.get(\"Created group's id\") && groupPermissionAudits[i].permissionName == pm.collectionVariables.get(\"Created permission's id\") && groupPermissionAudits[i].operation == \"D\") {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Group permission audits endpoint}}/search/byGroupId?groupId={{Created group's id}}",
+									"host": [
+										"{{Group permission audits endpoint}}"
+									],
+									"path": [
+										"search",
+										"byGroupId"
+									],
+									"query": [
+										{
+											"key": "groupId",
+											"value": "{{Created group's id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Item resource is available",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "HEAD",
+								"header": [],
+								"url": {
+									"raw": "{{Created group permission's insertion audit}}",
+									"host": [
+										"{{Created group permission's insertion audit}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve insertion audit",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Group permission audit item schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected attribute values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.id).to.equal(pm.collectionVariables.get(\"Created group permission's insertion audit's id\"));\r",
+											"    pm.expect(jsonData.groupId).to.equal(pm.collectionVariables.get(\"Created group's id\"));\r",
+											"    pm.expect(jsonData.permissionName).to.equal(pm.collectionVariables.get(\"Created permission's id\"));\r",
+											"    pm.expect(jsonData.operation).to.equal(\"I\");\r",
+											"\r",
+											"    pm.expect(jsonData._links.self.href).to.equal(pm.collectionVariables.get(\"Created group permission's insertion audit\"));    \r",
+											"    pm.expect(jsonData._links.groupPermissionAudit.href).to.equal(pm.collectionVariables.get(\"Created group permission's insertion audit\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created group permission's insertion audit}}",
+									"host": [
+										"{{Created group permission's insertion audit}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Item resource is available",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "HEAD",
+								"header": [],
+								"url": {
+									"raw": "{{Created group permission's deletion audit}}",
+									"host": [
+										"{{Created group permission's deletion audit}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve deletion audit",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Group permission audit item schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected attribute values\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    pm.expect(jsonData.id).to.equal(pm.collectionVariables.get(\"Created group permission's deletion audit's id\"));\r",
+											"    pm.expect(jsonData.groupId).to.equal(pm.collectionVariables.get(\"Created group's id\"));\r",
+											"    pm.expect(jsonData.permissionName).to.equal(pm.collectionVariables.get(\"Created permission's id\"));\r",
+											"    pm.expect(jsonData.operation).to.equal(\"D\");\r",
+											"\r",
+											"    pm.expect(jsonData._links.self.href).to.equal(pm.collectionVariables.get(\"Created group permission's deletion audit\"));    \r",
+											"    pm.expect(jsonData._links.groupPermissionAudit.href).to.equal(pm.collectionVariables.get(\"Created group permission's deletion audit\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Created group permission's deletion audit}}",
+									"host": [
+										"{{Created group permission's deletion audit}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create an audit",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 405 Method Not Allowed status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(405);\r",
+											"    pm.expect(response.status).to.equal(\"Method Not Allowed\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"groupId\": \"{{Created group's id}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Group permission audits endpoint}}",
+									"host": [
+										"{{Group permission audits endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update audit via PUT",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 405 Method Not Allowed status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(405);\r",
+											"    pm.expect(response.status).to.equal(\"Method Not Allowed\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"groupId\": \"{{Created group's id}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created group permission's insertion audit}}",
+									"host": [
+										"{{Created group permission's insertion audit}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update audit via PATCH",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 405 Method Not Allowed status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(405);\r",
+											"    pm.expect(response.status).to.equal(\"Method Not Allowed\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"groupId\": \"{{Created group's id}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Created group permission's insertion audit}}",
+									"host": [
+										"{{Created group permission's insertion audit}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete audit",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 405 Method Not Allowed status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(405);\r",
+											"    pm.expect(response.status).to.equal(\"Method Not Allowed\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Created group's insertion audit}}",
+									"host": [
+										"{{Created group's insertion audit}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.collectionVariables.set(\"Group permission audit item schema\", {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"        \"id\": { \"type\": \"integer\" },",
+									"        \"issuerId\": { \"type\": \"integer\" },",
+									"        \"auditDate\": { \"type\": [ \"string\", \"null\" ] },",
+									"        \"operation\": { \"type\": [ \"string\", \"null\" ] },",
+									"        \"groupId\": { \"type\": \"integer\" },",
+									"        \"permissionName\": { \"type\": \"string\" },",
+									"        \"_links\": {",
+									"            \"type\": \"object\",",
+									"            \"properties\": {",
+									"                \"self\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
+									"                },",
+									"                \"groupPermissionAudit\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
+									"                }",
+									"            },",
+									"            \"required\": [",
+									"                \"self\",",
+									"                \"groupPermissionAudit\"",
+									"            ],",
+									"            \"additionalProperties\": false",
+									"        }",
+									"    },",
+									"    \"required\": [",
+									"        \"id\",",
+									"        \"issuerId\",",
+									"        \"auditDate\",",
+									"        \"operation\",",
+									"        \"groupId\",",
+									"        \"permissionName\",",
+									"        \"_links\"",
+									"    ],",
+									"    \"additionalProperties\": false",
+									"});",
+									"",
+									"pm.collectionVariables.set(\"Group permission audit collection schema\", {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"        \"_embedded\": {",
+									"            \"type\": \"object\",",
+									"            \"properties\": {",
+									"                \"groupPermissionAudits\": {",
+									"                    \"type\": \"array\",",
+									"                    \"items\": pm.collectionVariables.get(\"Group permission audit item schema\"),",
+									"                    \"uniqueItems\": true",
+									"                }",
+									"            },",
+									"            \"required\": [ \"groupPermissionAudits\" ],",
+									"            \"additionalProperties\": false",
+									"        },",
+									"        \"_links\": {",
+									"            \"type\": \"object\",",
+									"            \"properties\": {",
+									"                \"self\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
+									"                },",
+									"                \"search\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
+									"                },",
+									"                \"first\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
+									"                },",
+									"                \"next\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
+									"                },",
+									"                \"last\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
+									"                },",
+									"                \"profile\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
+									"                }",
+									"            },",
+									"            \"required\": [",
+									"                \"self\",",
+									"                \"profile\"",
+									"            ],",
+									"            \"additionalProperties\": false",
+									"        },",
+									"        \"page\": {",
+									"            \"type\": \"object\",",
+									"            \"properties\": {",
+									"                \"size\": { \"type\": \"integer\" },",
+									"                \"totalElements\": { \"type\": \"integer\" },",
+									"                \"totalPages\": { \"type\": \"integer\" },",
+									"                \"number\": { \"type\": \"integer\" }",
+									"            },",
+									"            \"required\": [ ",
+									"                \"size\",",
+									"                \"totalElements\",",
+									"                \"totalPages\",",
+									"                \"number\"",
+									"            ],",
+									"            \"additionalProperties\": false",
+									"        }        ",
+									"    },",
+									"    \"required\": [",
+									"        \"_embedded\",",
+									"        \"_links\",",
+									"        \"page\"",
+									"    ],",
+									"    \"additionalProperties\": false",
+									"});",
+									"",
+									"pm.collectionVariables.set(\"Group permission audit search root schema\", {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"        \"_links\": {",
+									"            \"type\": \"object\",",
+									"            \"properties\": {",
+									"                \"byGroupId\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" },",
+									"                        \"templated\": { \"type\": \"boolean\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
+									"                },",
+									"                \"byPermissionName\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" },",
+									"                        \"templated\": { \"type\": \"boolean\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
+									"                },",
+									"                \"self\": {",
+									"                    \"type\": \"object\",",
+									"                    \"properties\": {",
+									"                        \"href\": { \"type\": \"string\" },",
+									"                        \"templated\": { \"type\": \"boolean\" }",
+									"                    },",
+									"                    \"required\": [ \"href\" ],",
+									"                    \"additionalProperties\": false",
+									"                }",
+									"            },",
+									"            \"required\": [",
+									"                \"byGroupId\",",
+									"                \"byPermissionName\",",
+									"                \"self\"",
+									"            ],",
+									"            \"additionalProperties\": false",
+									"        },",
+									"    },",
+									"    \"required\": [ \"_links\" ],",
+									"    \"additionalProperties\": false",
+									"});",
+									"",
+									"pm.collectionVariables.set(\"Group permission audit search term schema\", {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"        \"_embedded\": {",
+									"            \"type\": \"object\",",
+									"            \"properties\": {",
+									"                \"groupPermissionAudits\": {",
+									"                    \"type\": \"array\",",
+									"                    \"items\": pm.collectionVariables.get(\"Group permission audit item schema\"),",
+									"                    \"uniqueItems\": true",
+									"                }",
+									"            },",
+									"            \"required\": [ \"groupPermissionAudits\" ],",
 									"            \"additionalProperties\": false",
 									"        },",
 									"        \"_links\": {",
@@ -36973,6 +38187,42 @@
 		},
 		{
 			"key": "Created group's update audit's id",
+			"value": ""
+		},
+		{
+			"key": "Group permission audits endpoint",
+			"value": ""
+		},
+		{
+			"key": "Group permission audit item schema",
+			"value": ""
+		},
+		{
+			"key": "Group permission audit collection schema",
+			"value": ""
+		},
+		{
+			"key": "Group permission audit search root schema",
+			"value": ""
+		},
+		{
+			"key": "Group permission audit search term schema",
+			"value": ""
+		},
+		{
+			"key": "Created group permission's deletion audit",
+			"value": ""
+		},
+		{
+			"key": "Created group permission's deletion audit's id",
+			"value": ""
+		},
+		{
+			"key": "Created group permission's insertion audit",
+			"value": ""
+		},
+		{
+			"key": "Created group permission's insertion audit's id",
 			"value": ""
 		}
 	]
