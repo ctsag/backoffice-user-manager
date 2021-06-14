@@ -10,7 +10,7 @@ import org.springframework.data.rest.core.annotation.RestResource;
     itemResourceRel = "groupPermissionAudit",
     path = "groupPermissionAudits"
 )
-public interface BackofficeUserPermissionAuditRepository extends AuditRepository<BackofficeGroupPermissionAudit, Long> {
+public interface BackofficeUserPermissionAuditRepository extends AuditRepository<BackofficeGroupPermissionAudit> {
 
   @RestResource(path = "byGroupId", rel = "byGroupId")
   public List<BackofficeGroupPermissionAudit> findByGroupId(Long groupId);
