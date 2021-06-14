@@ -12079,6 +12079,128 @@
 							"response": []
 						},
 						{
+							"name": "Query method resource is available",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 204 No Content status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(204);\r",
+											"    pm.expect(response.status).to.equal(\"No Content\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns an empty body\", () => {\r",
+											"    const response = pm.response.text();\r",
+											"\r",
+											"    pm.expect(response.length).to.equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "HEAD",
+								"header": [],
+								"url": {
+									"raw": "{{Group permission audits endpoint}}/search/byPermissionName",
+									"host": [
+										"{{Group permission audits endpoint}}"
+									],
+									"path": [
+										"search",
+										"byPermissionName"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve audits by permission name",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returns a 200 OK status\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.code).to.equal(200);\r",
+											"    pm.expect(response.status).to.equal(\"OK\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content type is Hypermedia\", () => {\r",
+											"    const response = pm.response;\r",
+											"\r",
+											"    pm.expect(response.headers.get(\"Content-Type\")).to.equal(\"application/hal+json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Returns expected JSON schema\", () => {\r",
+											"    const schema = pm.collectionVariables.get(\"Group permission audit search term schema\");\r",
+											"\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains the created group permission's insertion audit'\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const groupPermissionAudits = jsonData._embedded.groupPermissionAudits;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < groupPermissionAudits.length; i++) {\r",
+											"        if (groupPermissionAudits[i].groupId == pm.collectionVariables.get(\"Created group's id\") && groupPermissionAudits[i].permissionName == pm.collectionVariables.get(\"Created permission's id\") && groupPermissionAudits[i].operation == \"I\") {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Contains the created group permission's deletion audit'\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const groupPermissionAudits = jsonData._embedded.groupPermissionAudits;\r",
+											"    var found = false;\r",
+											"\r",
+											"    for (var i = 0; i < groupPermissionAudits.length; i++) {\r",
+											"        if (groupPermissionAudits[i].groupId == pm.collectionVariables.get(\"Created group's id\") && groupPermissionAudits[i].permissionName == pm.collectionVariables.get(\"Created permission's id\") && groupPermissionAudits[i].operation == \"D\") {\r",
+											"            found = true;\r",
+											"            break;\r",
+											"        }\r",
+											"    }\r",
+											"\r",
+											"    pm.expect(found).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Group permission audits endpoint}}/search/byPermissionName?permissionName={{Created permission's id}}",
+									"host": [
+										"{{Group permission audits endpoint}}"
+									],
+									"path": [
+										"search",
+										"byPermissionName"
+									],
+									"query": [
+										{
+											"key": "permissionName",
+											"value": "{{Created permission's id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Item resource is available",
 							"event": [
 								{
