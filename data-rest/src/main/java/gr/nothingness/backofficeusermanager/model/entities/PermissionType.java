@@ -1,4 +1,4 @@
-package gr.nothingness.backofficeusermanager.entities;
+package gr.nothingness.backofficeusermanager.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

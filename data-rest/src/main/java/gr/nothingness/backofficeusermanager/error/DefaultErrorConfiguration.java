@@ -1,4 +1,4 @@
-package gr.nothingness.backofficeusermanager.errors;
+package gr.nothingness.backofficeusermanager.error;
 
 import gr.nothingness.backofficeusermanager.configuration.ApplicationProperties;
 import java.util.Map;

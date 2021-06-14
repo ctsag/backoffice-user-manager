@@ -7,7 +7,7 @@ import static org.springframework.http.MediaType.APPLICATION_PROBLEM_JSON_VALUE;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import gr.nothingness.backofficeusermanager.errors.RFC7807Error;
+import gr.nothingness.backofficeusermanager.error.RFC7807Error;
 import gr.nothingness.backofficeusermanager.security.service.AuthenticationService;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;

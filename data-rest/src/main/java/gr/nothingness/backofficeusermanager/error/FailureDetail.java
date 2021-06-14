@@ -1,4 +1,4 @@
-package gr.nothingness.backofficeusermanager.errors;
+package gr.nothingness.backofficeusermanager.error;
 
 import static lombok.AccessLevel.PRIVATE;
 

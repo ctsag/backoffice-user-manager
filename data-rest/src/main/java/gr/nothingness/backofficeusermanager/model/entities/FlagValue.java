@@ -1,7 +1,7 @@
-package gr.nothingness.backofficeusermanager.entities;
+package gr.nothingness.backofficeusermanager.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import gr.nothingness.backofficeusermanager.entities.compositekeys.FlagKey;
+import gr.nothingness.backofficeusermanager.model.entities.compositekeys.FlagKey;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;

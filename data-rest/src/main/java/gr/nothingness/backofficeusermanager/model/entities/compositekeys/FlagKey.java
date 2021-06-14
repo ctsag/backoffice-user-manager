@@ -1,4 +1,4 @@
-package gr.nothingness.backofficeusermanager.entities.compositekeys;
+package gr.nothingness.backofficeusermanager.model.entities.compositekeys;
 
 import java.io.Serializable;
 import java.util.Objects;

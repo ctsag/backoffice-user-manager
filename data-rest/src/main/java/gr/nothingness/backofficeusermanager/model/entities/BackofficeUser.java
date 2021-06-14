@@ -1,4 +1,4 @@
-package gr.nothingness.backofficeusermanager.entities;
+package gr.nothingness.backofficeusermanager.model.entities;
 
 import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
 import static javax.persistence.CascadeType.ALL;

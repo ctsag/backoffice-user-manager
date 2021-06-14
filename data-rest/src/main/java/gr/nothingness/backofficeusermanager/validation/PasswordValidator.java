@@ -1,6 +1,6 @@
 package gr.nothingness.backofficeusermanager.validation;
 
-import gr.nothingness.backofficeusermanager.entities.BackofficeUser;
+import gr.nothingness.backofficeusermanager.model.entities.BackofficeUser;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
