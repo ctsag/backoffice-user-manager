@@ -1,6 +1,6 @@
-package gr.nothingness.backofficeusermanager.repositories;
+package gr.nothingness.backofficeusermanager.model.repositories;
 
-import gr.nothingness.backofficeusermanager.entities.BackofficeGroup;
+import gr.nothingness.backofficeusermanager.model.entities.BackofficeGroup;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

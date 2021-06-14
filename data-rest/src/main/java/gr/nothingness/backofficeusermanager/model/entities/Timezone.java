@@ -1,4 +1,4 @@
-package gr.nothingness.backofficeusermanager.entities;
+package gr.nothingness.backofficeusermanager.model.entities;
 
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.IDENTITY;

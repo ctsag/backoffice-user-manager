@@ -1,7 +1,7 @@
-package gr.nothingness.backofficeusermanager.entities.compositekeys;
+package gr.nothingness.backofficeusermanager.model.entities.compositekeys;
 
-import gr.nothingness.backofficeusermanager.entities.FlagValue;
-import gr.nothingness.backofficeusermanager.repositories.FlagValueRepository;
+import gr.nothingness.backofficeusermanager.model.entities.FlagValue;
+import gr.nothingness.backofficeusermanager.model.repositories.FlagValueRepository;
 import java.io.Serializable;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
